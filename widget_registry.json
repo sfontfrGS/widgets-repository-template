@@ -190,5 +190,37 @@
       },
       "imageSrc": "widgets/react_widget/thumbnail.png"
     }
+  ],
+  "stylesheets": [
+    {
+      "rules": [
+        {
+          "field": "pageType",
+          "operator": "in",
+          "value": [
+            "global"
+          ]
+        }
+      ],
+      "name": "theme",
+      "description": "Shared design tokens and component styles",
+      "path": "./stylesheets/theme/style.css"
+    }
+  ],
+  "scripts": [
+    {
+      "rules": [
+        {
+          "field": "pageType",
+          "operator": "in",
+          "value": [
+            "global"
+          ]
+        }
+      ],
+      "name": "analytics",
+      "description": "Tracks widget impressions and interactions",
+      "path": "./scripts/analytics/script.js"
+    }
   ]
 }

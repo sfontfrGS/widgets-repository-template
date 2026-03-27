@@ -23,6 +23,12 @@ CONTENT_DEFAULT_METHOD="GET"
 CONTENT_DEFAULT_REQUIRES_AUTH="false"
 CONTENT_DEFAULT_CACHE_STRATEGY="no-cache"
 
+STYLESHEET_DEFAULT_CONTENT_FILE="style.css"
+STYLESHEET_DEFAULT_RULES='[{"field":"pageType","operator":"in","value":["global"]}]'
+
+SCRIPT_DEFAULT_CONTENT_FILE="script.js"
+SCRIPT_DEFAULT_RULES='[{"field":"pageType","operator":"in","value":["global"]}]'
+
 # -----------------------------------------------------------------------------
 
 RED='\033[0;31m'
@@ -31,6 +37,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 WIDGETS_DIR="widgets"
+STYLESHEETS_DIR="stylesheets"
+SCRIPTS_DIR="scripts"
 OUTPUT_FILE="widget_registry.json"
 CONNECTORS_OUTPUT_FILE="connectors_registry.json"
 
@@ -118,8 +126,10 @@ if [ "$VALIDATE_ONLY" = true ]; then
   if [ $bad -eq 1 ]; then
     exit 1
   fi
+  stylesheet_count=$(jq '.stylesheets // [] | length' "$OUTPUT_FILE")
+  script_count=$(jq '.scripts // [] | length' "$OUTPUT_FILE")
   success "Valid JSON in $OUTPUT_FILE"
-  success "Found $widget_count widgets in registry"
+  success "Found $widget_count widgets, $stylesheet_count stylesheets, and $script_count scripts in registry"
 
   # -------------------------------------------------------------------------
   # Validate connectors_registry.json (if it exists)
@@ -417,7 +427,152 @@ fi
 
 success "Successfully processed $widget_count widget(s)"
 
+# ---- Process stylesheets ----
+STYLESHEETS_JSON="[]"
+stylesheet_count=0
+
+if [ -d "$STYLESHEETS_DIR" ]; then
+  for stylesheet_dir in "$STYLESHEETS_DIR"/*; do
+    [ -d "$stylesheet_dir" ] || continue
+    stylesheet_name=$(basename "$stylesheet_dir")
+    stylesheet_config="$stylesheet_dir/stylesheet.json"
+
+    echo ""
+    echo "Processing stylesheet: $stylesheet_name"
+
+    if [ ! -f "$stylesheet_config" ]; then
+      error "  Missing stylesheet.json in $stylesheet_dir"
+      ((error_count++))
+      continue
+    fi
+
+    if ! jq empty "$stylesheet_config" 2>/dev/null; then
+      error "  Invalid JSON in $stylesheet_config"
+      ((error_count++))
+      continue
+    fi
+
+    ss_name=$(jq -r '.name // empty' "$stylesheet_config")
+    if [ -z "$ss_name" ]; then
+      error "  Missing required field: name"
+      ((error_count++))
+      continue
+    fi
+
+    ss_content_file=$(jq -r '.contentFile // empty' "$stylesheet_config")
+    if [ -n "$ss_content_file" ] && [ "$ss_content_file" != "null" ]; then
+      ss_file_name="$ss_content_file"
+    else
+      ss_file_name="$STYLESHEET_DEFAULT_CONTENT_FILE"
+    fi
+
+    if [ ! -f "$stylesheet_dir/$ss_file_name" ]; then
+      error "  Missing $ss_file_name in $stylesheet_dir"
+      ((error_count++))
+      continue
+    fi
+
+    ss_path="./${STYLESHEETS_DIR}/${stylesheet_name}/${ss_file_name}"
+
+    stylesheet=$(jq -n \
+      --argjson default_rules "$STYLESHEET_DEFAULT_RULES" \
+      --slurpfile ss "$stylesheet_config" \
+      --arg path "$ss_path" \
+      '{"rules": $default_rules} * $ss[0] * {"path": $path} | del(.contentFile)')
+
+    STYLESHEETS_JSON=$(echo "$STYLESHEETS_JSON" | jq --argjson ss "$stylesheet" '. + [$ss]')
+    success "  Processed: $ss_name"
+    ((stylesheet_count++))
+  done
+
+  if [ $error_count -gt 0 ]; then
+    error "Failed to process some stylesheet(s)"
+    exit 1
+  fi
+
+  if [ $stylesheet_count -gt 0 ]; then
+    echo ""
+    success "Successfully processed $stylesheet_count stylesheet(s)"
+  fi
+fi
+
+# ---- Process scripts ----
+SCRIPTS_JSON="[]"
+script_count=0
+
+if [ -d "$SCRIPTS_DIR" ]; then
+  for script_dir in "$SCRIPTS_DIR"/*; do
+    [ -d "$script_dir" ] || continue
+    script_name=$(basename "$script_dir")
+    script_config="$script_dir/script.json"
+
+    echo ""
+    echo "Processing script: $script_name"
+
+    if [ ! -f "$script_config" ]; then
+      error "  Missing script.json in $script_dir"
+      ((error_count++))
+      continue
+    fi
+
+    if ! jq empty "$script_config" 2>/dev/null; then
+      error "  Invalid JSON in $script_config"
+      ((error_count++))
+      continue
+    fi
+
+    sc_name=$(jq -r '.name // empty' "$script_config")
+    if [ -z "$sc_name" ]; then
+      error "  Missing required field: name"
+      ((error_count++))
+      continue
+    fi
+
+    sc_content_file=$(jq -r '.contentFile // empty' "$script_config")
+    if [ -n "$sc_content_file" ] && [ "$sc_content_file" != "null" ]; then
+      sc_file_name="$sc_content_file"
+    else
+      sc_file_name="$SCRIPT_DEFAULT_CONTENT_FILE"
+    fi
+
+    if [ ! -f "$script_dir/$sc_file_name" ]; then
+      error "  Missing $sc_file_name in $script_dir"
+      ((error_count++))
+      continue
+    fi
+
+    sc_path="./${SCRIPTS_DIR}/${script_name}/${sc_file_name}"
+
+    script=$(jq -n \
+      --argjson default_rules "$SCRIPT_DEFAULT_RULES" \
+      --slurpfile sc "$script_config" \
+      --arg path "$sc_path" \
+      '{"rules": $default_rules} * $sc[0] * {"path": $path} | del(.contentFile)')
+
+    SCRIPTS_JSON=$(echo "$SCRIPTS_JSON" | jq --argjson sc "$script" '. + [$sc]')
+    success "  Processed: $sc_name"
+    ((script_count++))
+  done
+
+  if [ $error_count -gt 0 ]; then
+    error "Failed to process some script(s)"
+    exit 1
+  fi
+
+  if [ $script_count -gt 0 ]; then
+    echo ""
+    success "Successfully processed $script_count script(s)"
+  fi
+fi
+
+# ---- Assemble widget registry ----
 REGISTRY_JSON=$(jq -n --argjson widgets "$WIDGETS_JSON" '{widgets: $widgets}')
+if [ $stylesheet_count -gt 0 ]; then
+  REGISTRY_JSON=$(echo "$REGISTRY_JSON" | jq --argjson stylesheets "$STYLESHEETS_JSON" '. + {stylesheets: $stylesheets}')
+fi
+if [ $script_count -gt 0 ]; then
+  REGISTRY_JSON=$(echo "$REGISTRY_JSON" | jq --argjson scripts "$SCRIPTS_JSON" '. + {scripts: $scripts}')
+fi
 
 # -----------------------------------------------------------------------------
 # Connector processing
