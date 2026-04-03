@@ -67,6 +67,8 @@ The `connectors.json` file contains a top-level `connectors` array. Each connect
 | `query_parameters` | array | No | Query parameters to append to the URL |
 | `authentication` | object | No | Authentication configuration |
 | `request_body` | string | No | Request body template (Jinja2 supported) |
+| `response_body` | string | No | Jinja2 template that transforms the upstream API response before returning it to the widget. If blank, the response is returned as-is. |
+| `response_content_type` | string | No | Content-Type override for the transformed response. If blank, the upstream Content-Type is preserved. |
 | `permalink` | string | No | URL-safe identifier. Auto-generated from `name` if omitted. |
 
 ### Headers
@@ -214,7 +216,7 @@ Signs a JWT assertion, exchanges it for an access token at the token endpoint, a
 
 ## Jinja2 Template Variables
 
-Connector fields that support Jinja2 templates (url, header values, query parameter values, request_body, authentication config values) have access to these variables:
+Connector fields that support Jinja2 templates (url, header values, query parameter values, request_body, authentication config values) have access to these variables. The `response_body` field has a different variable set — see [Response Transformation](#response-transformation).
 
 ### User Variables
 
@@ -330,6 +332,51 @@ Overridable query parameters can be set or changed at execution time:
     console.log("Result:", result);
   })();
 </script>
+```
+
+## Response Transformation
+
+The `response_body` field lets you reshape an upstream API response using a Jinja2 template before the widget receives it. This is useful for simplifying complex API payloads, extracting only the fields you need, or restructuring data so widget code stays clean.
+
+### Template Variables
+
+The response transformation template has access to:
+
+| Variable | Description |
+|----------|-------------|
+| `response.body` | The raw response body as a string |
+| `response.status_code` | The HTTP status code (integer) |
+| `response.headers` | Response headers (dict, lowercase keys) |
+| `user.*` | Current user variables (same as request templates) |
+| `tenant_id` | The current tenant identifier |
+
+**Note:** `get_secret()` is NOT available in response templates.
+
+### Example: Simplify REST Countries Response
+
+The REST Countries API returns deeply nested objects. A response transformation can flatten and filter the data so the widget receives a simple array:
+
+```json
+{
+  "response_body": "{% set countries = response.body | from_json | sort(attribute='population', reverse=true) %}[{% for country in countries[:5] %}{{ {'name': country.name.common, 'capital': country.capital[0], 'population': country.population, 'flag': country.flags.png, 'region': country.region} | tojson }}{% if not loop.last %}, {% endif %}{% endfor %}]",
+  "response_content_type": "application/json"
+}
+```
+
+This template:
+1. Parses the JSON response body
+2. Sorts countries by population (descending)
+3. Takes the top 5
+4. Returns a simplified JSON array with flattened fields (`name` instead of `name.common`, `capital` instead of `capital[0]`)
+
+The widget code can then use simple field access:
+```js
+// Before transformation: country.name.common, country.capital[0]
+// After transformation:  country.name, country.capital
+var countries = await sdk.connectors.execute({ permalink: "rest-countries", method: "GET" });
+countries.forEach(function (country) {
+  console.log(country.name, country.capital, country.population);
+});
 ```
 
 ## How the Build Script Processes Connectors

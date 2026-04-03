@@ -149,6 +149,8 @@
   <div class="card" id="country-1"><p class="card-description">Loading...</p></div>
   <div class="card" id="country-2"><p class="card-description">Loading...</p></div>
   <div class="card" id="country-3"><p class="card-description">Loading...</p></div>
+  <div class="card" id="country-4"><p class="card-description">Loading...</p></div>
+  <div class="card" id="country-5"><p class="card-description">Loading...</p></div>
   <div class="card" id="weather-wroclaw"><p class="card-description">Loading...</p></div>
 
 </div>
@@ -182,11 +184,9 @@
     }
 
     var countries = await sdk.connectors.execute({ permalink: "rest-countries", method: "GET" });
-    countries.sort(function (left, right) { return right.population - left.population; })
-      .slice(0, 3)
-      .forEach(function (country, index) {
-        fillCard("country-" + (index + 1), "🌍", country.name.common, "Capital: " + country.capital[0]);
-      });
+    countries.slice(0, 5).forEach(function (country, index) {
+      fillCard("country-" + (index + 1), "🌍", country.name, "Capital: " + country.capital + " | Pop: " + country.population.toLocaleString());
+    });
 
     var weather = await sdk.connectors.execute({
       permalink: "weather-forecast", method: "GET",
