@@ -83,7 +83,7 @@ export async function init(sdk: WidgetSDK) {
   section.appendChild(contentDiv);
   root.appendChild(section);
 
-  sdk.on("propsChanged", (props: WidgetProps) => {
+  const offPropsChanged = sdk.on("propsChanged", (props: WidgetProps) => {
     header.textContent = props.title ?? "";
   });
 
@@ -127,6 +127,7 @@ export async function init(sdk: WidgetSDK) {
 
   sdk.on("destroy", () => {
     cancelled = true;
+    offPropsChanged();
     styles.delete(style);
     style.remove();
     root.innerHTML = "";
