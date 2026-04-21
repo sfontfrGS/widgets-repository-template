@@ -28,7 +28,7 @@ The template ships with working sample widgets and assets. Keep them as referenc
    ```bash
    ./bin/build-registry.sh
    ```
-4. **Commit** the source files together with the regenerated `widget_registry.json` and `connectors_registry.json`.
+4. **Commit** the source files together with the regenerated `extensions_registry.json` and `connectors_registry.json`.
 5. **Connect the repo to the widget-service platform** following the official docs linked below; the platform picks up the registries on each push.
 
 ## Platform documentation
@@ -40,7 +40,7 @@ This repo covers the local build tooling. The widget-service platform itself —
 ## Repository layout
 
 - `bin/build-registry.sh` — builds the two registry files from the sources below
-- `widget_registry.json` — **generated** widget registry (do not hand-edit)
+- `extensions_registry.json` — **generated** extensions registry (widgets, scripts, stylesheets — do not hand-edit)
 - `connectors_registry.json` — **generated** connector registry (do not hand-edit)
 - `widgets/<name>/` — one directory per widget: `widget.json`, optional `connectors.json`, and an entry file (`dist/content.html` by convention)
 - `scripts/<name>/` — global script: `script.json` + `script.js`

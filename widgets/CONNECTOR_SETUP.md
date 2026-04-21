@@ -32,7 +32,7 @@ widgets/<widget_name>/
 ## Build commands
 
 ```bash
-./bin/build-registry.sh            # Regenerate connectors_registry.json (and widget_registry.json)
+./bin/build-registry.sh            # Regenerate connectors_registry.json (and extensions_registry.json)
 ./bin/build-registry.sh --dry-run  # Preview without writing
 ./bin/build-registry.sh --validate # Validate the already-generated registry files
 ```

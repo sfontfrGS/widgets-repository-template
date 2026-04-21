@@ -9,7 +9,7 @@
 
 ## What this repo does
 
-This is a starter template. Each widget lives in its own directory under `widgets/<widget_name>/` and declares itself in a `widget.json` file. The build script scans all widgets, validates the per-widget files, and emits a single `widget_registry.json` at the repo root that the widget-service platform consumes.
+This is a starter template. Each widget lives in its own directory under `widgets/<widget_name>/` and declares itself in a `widget.json` file. The build script scans all widgets, validates the per-widget files, and emits a single `extensions_registry.json` at the repo root that the widget-service platform consumes.
 
 ```
 widgets/<widget_name>/
@@ -30,7 +30,7 @@ widgets/<widget_name>/
 ## Build commands
 
 ```bash
-./bin/build-registry.sh            # Generate widget_registry.json + connectors_registry.json
+./bin/build-registry.sh            # Generate extensions_registry.json + connectors_registry.json
 ./bin/build-registry.sh --dry-run  # Preview without writing
 ./bin/build-registry.sh --validate # Validate the already-generated registry files
 ./bin/build-registry.sh --help
@@ -43,7 +43,7 @@ widgets/<widget_name>/
 3. Write `widgets/<name>/dist/content.html` — **fetch the online docs first** for current content rules (HTML fragment, Shadow DOM, SDK usage, CSP, asset handling).
 4. Optionally add `widgets/<name>/connectors.json` — see [CONNECTOR_SETUP.md](CONNECTOR_SETUP.md).
 5. `./bin/build-registry.sh` — validates and regenerates the root registries.
-6. Commit the source files **and** the regenerated `widget_registry.json` / `connectors_registry.json`.
+6. Commit the source files **and** the regenerated `extensions_registry.json` / `connectors_registry.json`.
 
 ## Local-only validation performed by `bin/build-registry.sh`
 
@@ -80,7 +80,7 @@ The online docs are the authoritative source for platform behavior; defer to the
 ### `jq: command not found`
 Install `jq` (see Prerequisites above).
 
-### Widget missing from `widget_registry.json`
+### Widget missing from `extensions_registry.json`
 1. `widget.json` exists and is valid JSON — check with `jq . widgets/<name>/widget.json`.
 2. The entry file exists at `source.path`/`source.entry`.
 3. Run `./bin/build-registry.sh --dry-run` for detailed error output.
