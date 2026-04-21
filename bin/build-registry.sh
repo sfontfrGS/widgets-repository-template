@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # build-registry.sh
-# Generates widget_registry.json from each widgets/<name>/widget.json, resolving
+# Generates extensions_registry.json from each widgets/<name>/widget.json, resolving
 # paths from widget-dir-relative to repository-root-relative. Each widget.json
 # must include either a "source" block (repo-hosted) or a "content" block
 # (external). The build script does NOT fill in defaults — the widget-service
@@ -28,7 +28,7 @@ NC='\033[0m'
 WIDGETS_DIR="widgets"
 STYLESHEETS_DIR="stylesheets"
 SCRIPTS_DIR="scripts"
-OUTPUT_FILE="widget_registry.json"
+OUTPUT_FILE="extensions_registry.json"
 CONNECTORS_OUTPUT_FILE="connectors_registry.json"
 
 DRY_RUN=false
@@ -49,7 +49,7 @@ while [[ $# -gt 0 ]]; do
       echo ""
       echo "Options:"
       echo "  --dry-run    Preview the output without writing to file"
-      echo "  --validate   Validate existing widget_registry.json and connectors_registry.json"
+      echo "  --validate   Validate existing extensions_registry.json and connectors_registry.json"
       echo "  --help       Show this help message"
       exit 0
       ;;

@@ -6,7 +6,7 @@ This is a **starter template**. A customer clones it, adds their own widgets/con
 
 The build script merges the per-widget source files into two root-level registry files the platform consumes:
 
-- `widget_registry.json` — widgets, scripts, stylesheets
+- `extensions_registry.json` — widgets, scripts, stylesheets
 - `connectors_registry.json` — connectors
 
 Both are generated. Do not hand-edit them.
@@ -37,7 +37,7 @@ Topics that are intentionally **not** covered in this repo and must be read onli
 
 ```
 bin/build-registry.sh         # Build tool
-widget_registry.json          # Generated — do not edit
+extensions_registry.json      # Generated — do not edit
 connectors_registry.json      # Generated — do not edit
 widgets/<name>/
   widget.json                 # Widget config (schema: online docs)
@@ -93,7 +93,7 @@ Everything else is the platform's responsibility — consult the online docs.
 
 1. Edit source files under `widgets/`, `scripts/`, or `stylesheets/`.
 2. Run `./bin/build-registry.sh` to regenerate the root registries.
-3. Commit both the source files and the regenerated `widget_registry.json` / `connectors_registry.json` in the same commit.
+3. Commit both the source files and the regenerated `extensions_registry.json` / `connectors_registry.json` in the same commit.
 
 ## Nested AGENTS.md
 
