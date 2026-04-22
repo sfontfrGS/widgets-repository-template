@@ -169,6 +169,39 @@
         "description": "A widget built with Vue and the Widget SDK."
       },
       "type": "countries-vue"
+    },
+    {
+      "title": "Community Topics Bento",
+      "description": "A modern bento-grid layout showcasing community topics with hover interactions, metadata stats, and content-type badges.",
+      "category": "Community",
+      "source": {
+        "path": "widgets/community-topics-bento/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Section Title",
+            "defaultValue": "Community Topics",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "viewAllUrl",
+            "type": "text",
+            "label": "View All URL",
+            "defaultValue": "#"
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Community Topics",
+        "viewAllUrl": "#"
+      },
+      "type": "community-topics-bento"
     }
   ],
   "stylesheets": [
