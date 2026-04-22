@@ -1,424 +1,232 @@
 <section class="cb">
 <style>
-.cb {
-  display: block;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #fff;
-  padding: 24px 20px;
-  -webkit-font-smoothing: antialiased;
-}
-.cb * { box-sizing: border-box; }
-.cb-wrap { max-width: 1140px; margin: 0 auto; }
+.cb { display:block; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#fff; padding:24px 20px; -webkit-font-smoothing:antialiased; }
+.cb * { box-sizing:border-box; }
+.cb-wrap { max-width:1140px; margin:0 auto; }
 
-/* ── Header ── */
-.cb-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-.cb-header-left h2 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #0a0a0a;
-  margin: 0 0 2px;
-}
-.cb-header-left p {
-  font-size: 13px;
-  color: #a1a1aa;
-  margin: 0;
-}
-.cb-nav {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.cb-nav-dots {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  margin-right: 4px;
-}
-.cb-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #e4e4e7;
-  transition: background .2s, transform .2s;
-  cursor: pointer;
-}
-.cb-dot.active {
-  background: #7c3aed;
-  transform: scale(1.25);
-}
-.cb-btn {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #e4e4e7;
-  border-radius: 7px;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: border-color .15s, background .15s;
-  color: #3f3f46;
-  font-size: 14px;
-  font-family: inherit;
-}
-.cb-btn:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
-.cb-btn:disabled { opacity: .35; cursor: default; }
-.cb-btn:disabled:hover { border-color: #e4e4e7; background: #fff; color: #3f3f46; }
+/* Header */
+.cb-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:16px; }
+.cb-header h2 { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:#0a0a0a; margin:0 0 2px; }
+.cb-header p { font-size:13px; color:#a1a1aa; margin:0; }
+.cb-nav { display:flex; align-items:center; gap:6px; }
+.cb-dots { display:flex; gap:5px; align-items:center; margin-right:4px; }
+.cb-dot { width:6px; height:6px; border-radius:50%; background:#e4e4e7; transition:background .2s,transform .2s; cursor:pointer; }
+.cb-dot.active { background:#7c3aed; transform:scale(1.3); }
+.cb-btn { width:30px; height:30px; border:1px solid #e4e4e7; border-radius:7px; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:border-color .15s,background .15s; color:#3f3f46; font-size:15px; }
+.cb-btn:hover { border-color:#c4b5fd; background:#f5f3ff; color:#7c3aed; }
+.cb-btn:disabled { opacity:.35; cursor:default; pointer-events:none; }
 
-/* ── Carousel track ── */
-.cb-carousel {
-  overflow: hidden;
-  border-radius: 0;
-  border: none;
-}
-.cb-track {
-  display: flex;
-  transition: transform .4s cubic-bezier(.4, 0, .2, 1);
-  will-change: transform;
-}
+/* Carousel */
+.cb-carousel { overflow:hidden; }
+.cb-track { display:flex; transition:transform .42s cubic-bezier(.4,0,.2,1); will-change:transform; }
 
-/* ── Each page = one bento grid ── */
+/* Page — bento grid */
 .cb-page {
-  width: 100%;
-  flex-shrink: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    "c1 c1 c2"
-    "c3 c4 c5";
-  gap: 0;
-  background: transparent;
+  width:100%; flex-shrink:0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto;
+  grid-template-areas:"c1 c1 c2" "c3 c4 c5";
+  gap:0;
 }
-
-/* Alt pages: 2-col layout — big feature left + 4 compact list items right */
+/* Alt page — editorial split */
 .cb-page--alt {
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    "c1 c2"
-    "c1 c3"
-    "c1 c4"
-    "c1 c5";
-  background: #e4e4e7;
-}
-.cb-page--alt .cb-card--c1 {
-  grid-area: c1;
-  min-height: unset;
-}
-.cb-page--alt .cb-card--c1 .cb-title {
-  font-size: 20px;
-  -webkit-line-clamp: 4;
-}
-/* Compact list rows on right side */
-.cb-page--alt .cb-card--c2,
-.cb-page--alt .cb-card--c3,
-.cb-page--alt .cb-card--c4,
-.cb-page--alt .cb-card--c5 {
-  min-height: unset;
-  flex-direction: row;
-  align-items: center;
-  gap: 0;
-  padding: 12px 16px;
-}
-.cb-page--alt .cb-card--c2 .cb-desc,
-.cb-page--alt .cb-card--c3 .cb-desc,
-.cb-page--alt .cb-card--c4 .cb-desc,
-.cb-page--alt .cb-card--c5 .cb-desc { display: none; }
-.cb-page--alt .cb-card--c2 > div:first-child,
-.cb-page--alt .cb-card--c3 > div:first-child,
-.cb-page--alt .cb-card--c4 > div:first-child,
-.cb-page--alt .cb-card--c5 > div:first-child { flex: 1; }
-.cb-page--alt .cb-card--c2 .cb-title,
-.cb-page--alt .cb-card--c3 .cb-title,
-.cb-page--alt .cb-card--c4 .cb-title,
-.cb-page--alt .cb-card--c5 .cb-title {
-  font-size: 13px;
-  -webkit-line-clamp: 2;
-}
-.cb-page--alt .cb-card--c2 .cb-footer,
-.cb-page--alt .cb-card--c3 .cb-footer,
-.cb-page--alt .cb-card--c4 .cb-footer,
-.cb-page--alt .cb-card--c5 .cb-footer {
-  margin-top: 6px;
-  padding-top: 6px;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:repeat(4,auto);
+  grid-template-areas:"c1 c2" "c1 c3" "c1 c4" "c1 c5";
 }
 
-/* ── Card ── */
+/* Card */
 .cb-card {
-  background: #fff;
-  padding: 16px 18px 14px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 180px;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: background .15s;
-  position: relative;
-  overflow: hidden;
-  border: none;
+  background:#fff; padding:16px 18px 14px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  min-height:180px; text-decoration:none; color:inherit; cursor:pointer;
+  transition:background .15s; position:relative; overflow:hidden;
+  border:none;
 }
-.cb-card:hover { background: #faf5ff; }
-.cb-card:hover .cb-title { color: #7c3aed; }
+.cb-page--alt .cb-card--c1 { min-height:unset; }
+.cb-page--alt .cb-card:not(.cb-card--c1) { min-height:unset; padding:12px 16px; }
 
-/* Layout variants */
-.cb-card--c1 { grid-area: c1; }
-.cb-card--c2 { grid-area: c2; }
-.cb-card--c3 { grid-area: c3; }
-.cb-card--c4 { grid-area: c4; }
-.cb-card--c5 { grid-area: c5; }
+.cb-card:hover { background:#faf5ff; }
+.cb-card:hover .cb-title { color:#7c3aed; }
 
-/* ── Card top ── */
-.cb-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-  font-size: 11px;
-  color: #a1a1aa;
-}
-.cb-meta svg { width: 11px; height: 11px; flex-shrink: 0; }
-.cb-forum { font-weight: 500; }
+.cb-card--c1 { grid-area:c1; }
+.cb-card--c2 { grid-area:c2; }
+.cb-card--c3 { grid-area:c3; }
+.cb-card--c4 { grid-area:c4; }
+.cb-card--c5 { grid-area:c5; }
+.cb-card--c1 .cb-title { font-size:16px; -webkit-line-clamp:2; }
+.cb-page--alt .cb-card--c1 .cb-title { font-size:20px; -webkit-line-clamp:5; }
 
-/* ── Title ── */
+/* Subtle dividers between cards — right border except last col, bottom border except last row */
+.cb-card--c1 { border-right:1px solid #f4f4f5; border-bottom:1px solid #f4f4f5; }
+.cb-card--c2 { border-bottom:1px solid #f4f4f5; }
+.cb-card--c3 { border-right:1px solid #f4f4f5; }
+.cb-card--c4 { border-right:1px solid #f4f4f5; }
+.cb-page--alt .cb-card--c1 { border-right:1px solid #f4f4f5; border-bottom:none; }
+.cb-page--alt .cb-card--c2 { border-bottom:1px solid #f4f4f5; }
+.cb-page--alt .cb-card--c3 { border-bottom:1px solid #f4f4f5; }
+.cb-page--alt .cb-card--c4 { border-bottom:1px solid #f4f4f5; }
+.cb-page--alt .cb-card--c5 { border-bottom:none; }
+
+/* Meta */
+.cb-meta { display:flex; align-items:center; gap:6px; margin-bottom:8px; font-size:11px; color:#a1a1aa; }
+.cb-meta svg { width:11px; height:11px; flex-shrink:0; }
+.cb-forum { font-weight:500; }
+
+/* Title */
 .cb-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #0a0a0a;
-  line-height: 1.38;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  transition: color .15s;
-  flex: 1;
-}
-.cb-card--c1 .cb-title {
-  font-size: 16px;
-  -webkit-line-clamp: 2;
+  font-size:14px; font-weight:700; color:#0a0a0a; line-height:1.38;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  transition:color .15s; flex:1; margin-bottom:4px;
 }
 
-/* ── Description — appears on hover ── */
+/* Desc — hover only */
 .cb-desc {
-  font-size: 11px;
-  color: #71717a;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: max-height .25s ease, opacity .25s ease;
-  margin-top: 0;
+  font-size:11px; color:#71717a; line-height:1.5;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  max-height:0; opacity:0; transition:max-height .25s ease,opacity .25s ease;
 }
-.cb-card:hover .cb-desc {
-  max-height: 40px;
-  opacity: 1;
-  margin-top: 6px;
-}
+.cb-card:hover .cb-desc { max-height:36px; opacity:1; margin-top:4px; }
+.cb-page--alt .cb-card:not(.cb-card--c1) .cb-desc { display:none; }
 
-/* ── Footer ── */
+/* Footer */
 .cb-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid #f4f4f5;
-  flex-shrink: 0;
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:10px; padding-top:10px; border-top:1px solid #f4f4f5; flex-shrink:0;
 }
-.cb-stats {
-  display: flex;
-  gap: 9px;
-}
-.cb-stat {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 11px;
-  color: #a1a1aa;
-}
-.cb-stat svg { width: 11px; height: 11px; }
+.cb-stats { display:flex; gap:9px; }
+.cb-stat { display:inline-flex; align-items:center; gap:3px; font-size:11px; color:#a1a1aa; }
+.cb-stat svg { width:11px; height:11px; }
 
-/* ── Like button ── */
+/* Like */
 .cb-like {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  border: none;
-  background: transparent;
-  font-size: 11px;
-  font-weight: 500;
-  color: #a1a1aa;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 2px 4px;
-  border-radius: 4px;
-  transition: color .15s, background .15s;
-  user-select: none;
+  display:inline-flex; align-items:center; gap:4px;
+  border:none; background:transparent; font-size:11px; font-weight:500;
+  color:#a1a1aa; font-family:inherit; cursor:pointer; padding:2px 4px;
+  border-radius:4px; transition:color .15s,background .15s; user-select:none;
 }
-.cb-like svg { width: 12px; height: 12px; transition: fill .15s, stroke .15s; }
-.cb-like:hover { color: #ef4444; background: #fef2f2; }
-.cb-like:hover svg { stroke: #ef4444; }
-.cb-like.liked { color: #ef4444; }
-.cb-like.liked svg { fill: #ef4444; stroke: #ef4444; }
+.cb-like svg { width:12px; height:12px; transition:fill .15s,stroke .15s; }
+.cb-like:hover { color:#ef4444; background:#fef2f2; }
+.cb-like:hover svg { stroke:#ef4444; }
+.cb-like.liked { color:#ef4444; }
+.cb-like.liked svg { fill:#ef4444; stroke:#ef4444; }
 </style>
 
 <div class="cb-wrap">
-  <!-- Header -->
   <div class="cb-header">
-    <div class="cb-header-left">
+    <div>
       <h2>Community Topics</h2>
       <p>Top posts from the community</p>
     </div>
     <div class="cb-nav">
-      <div class="cb-nav-dots">
-        <div class="cb-dot active" onclick="cbGo(0)"></div>
-        <div class="cb-dot" onclick="cbGo(1)"></div>
-        <div class="cb-dot" onclick="cbGo(2)"></div>
-        <div class="cb-dot" onclick="cbGo(3)"></div>
-      </div>
-      <button class="cb-btn" id="cbPrev" onclick="cbStep(-1)" disabled>&#8592;</button>
+      <div class="cb-dots" id="cbDots"></div>
+      <button class="cb-btn" id="cbPrev" onclick="cbStep(-1)">&#8592;</button>
       <button class="cb-btn" id="cbNext" onclick="cbStep(1)">&#8594;</button>
     </div>
   </div>
-
-  <!-- Carousel -->
   <div class="cb-carousel">
-    <div class="cb-track" id="cbTrack">
-      <!-- Pages rendered dynamically by JS -->
-    </div><!-- /track -->
-  </div><!-- /carousel -->
-</div><!-- /wrap -->
-<script>
-// ── All topic data — 4 pages × 5 posts each ──
-var CB_DATA = [
-  // Page 1 — standard bento
-  [
-    { area:'c1', forum:'Product Strategy', icon:'file', title:'How we redesigned our onboarding flow and doubled activation rates in 60 days', desc:'A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation.', views:'3.2k', replies:'34', likes:148 },
-    { area:'c2', forum:'Customer Success', icon:'chat', title:'Building a scalable QBR process for enterprise accounts without burning out your CS team', desc:'Templates, automation strategies, and the exact setup we use to run QBRs at scale.', views:'1.8k', replies:'57', likes:92 },
-    { area:'c3', forum:'Growth', icon:'question', title:'Is PLG still the right motion for B2B SaaS in 2025?', desc:'The landscape has shifted. What does PLG actually look like today?', views:'940', replies:'28', likes:61 },
-    { area:'c4', forum:'Ops & Tooling', icon:'file', title:'Our 2025 CS tech stack — what stayed, what got cut', desc:'After a full audit of 19 tools, we consolidated down to 11.', views:'2.1k', replies:'41', likes:77 },
-    { area:'c5', forum:'Community Announcements', icon:'file', title:'Pulse 2025 recap: the 5 themes that will define CS this year', desc:'From AI-assisted workflows to the return of high-touch.', views:'4.7k', replies:'89', likes:203 }
-  ],
-  // Page 2 — alt (editorial split)
-  [
-    { area:'c1', forum:'AI Tools', icon:'chat', title:'The CS AI toolkit: 12 tools we actually use every day in 2025', desc:'After testing 30+ tools, here are the 12 that made it into our daily workflow — with honest pros and cons for each one.', views:'4.1k', replies:'61', likes:289 },
-    { area:'c2', forum:'Leadership', icon:'chat', title:'Building a CS org from scratch: lessons from my first 18 months as VP', desc:'When I joined there were 2 CSMs and no process.', views:'5.4k', replies:'89', likes:341 },
-    { area:'c3', forum:'Onboarding', icon:'question', title:'Async video vs live sessions: what the data says after 6 months', desc:'We ran a controlled experiment with 200 accounts.', views:'1.8k', replies:'38', likes:97 },
-    { area:'c4', forum:'Health Scores', icon:'file', title:'How we reduced churn 40% using proactive health scoring', desc:'We implemented a 3-tier health score system 6 months ago.', views:'3.2k', replies:'47', likes:203 },
-    { area:'c5', forum:'CS Ops', icon:'chat', title:'Our full CS playbook — 47 pages open-sourced after 3 years at Series B', desc:'Covers onboarding, QBRs, renewals, escalations and the metrics that matter.', views:'6.1k', replies:'124', likes:412 }
-  ],
-  // Page 3 — standard bento
-  [
-    { area:'c1', forum:'Executive Alignment', icon:'file', title:'How to get C-suite buy-in for your CS program: a step-by-step guide', desc:'The business case framework that helped us secure $2M in CS tooling budget in one board meeting.', views:'7.8k', replies:'143', likes:521 },
-    { area:'c2', forum:'Renewals', icon:'question', title:'Our renewal playbook: how we hit 118% NRR two years running', desc:'The exact process, templates, and timing that drove consistent expansion.', views:'4.3k', replies:'76', likes:318 },
-    { area:'c3', forum:'Customer Success', icon:'chat', title:'The 10 questions every CSM should ask in their first customer call', desc:'Steal this discovery framework — used by 2,000+ CSMs in this community.', views:'9.1k', replies:'211', likes:634 },
-    { area:'c4', forum:'Product Feedback', icon:'file', title:'Feature request: better bulk actions in the admin dashboard', desc:'Sharing our team's most-wanted improvements after 18 months of daily use.', views:'1.2k', replies:'29', likes:88 },
-    { area:'c5', forum:'Benchmarks', icon:'file', title:'2025 SaaS CS Benchmarks Report — community edition', desc:'Aggregated data from 340 CS leaders across ARR stages, team sizes, and verticals.', views:'11.2k', replies:'287', likes:891 }
-  ],
-  // Page 4 — alt (editorial split)
-  [
-    { area:'c1', forum:'Community', icon:'chat', title:'State of Customer Success 2025: what 1,200 practitioners told us', desc:'The most comprehensive survey the community has ever run — AI, headcount, tooling, and where the industry is heading next.', views:'14.3k', replies:'312', likes:1047 },
-    { area:'c2', forum:'Churn Prevention', icon:'file', title:'The 5 early warning signs your customer is about to churn', desc:'Pattern recognition after managing 400+ accounts across 6 years.', views:'6.7k', replies:'98', likes:447 },
-    { area:'c3', forum:'Career', icon:'question', title:'How I went from CSM to VP in 4 years without switching companies', desc:'The frameworks and relationships that accelerated my path to leadership.', views:'8.9k', replies:'176', likes:582 },
-    { area:'c4', forum:'QBR', icon:'chat', title:'QBR deck template that enterprise customers actually look forward to', desc:'We replaced a 40-slide deck with a 12-slide narrative and NPS went up 18 points.', views:'5.1k', replies:'93', likes:371 },
-    { area:'c5', forum:'Metrics', icon:'file', title:'Beyond NRR: the 7 CS metrics boards actually care about in 2025', desc:'A CFO's perspective on what CS data actually influences investment decisions.', views:'9.4k', replies:'201', likes:763 }
-  ]
-];
-
-var CB_ALT_PAGES = [1, 3]; // 0-indexed pages that use editorial split layout
-var cbCur = 0;
-var cbTotal = CB_DATA.length;
-var cbLiked = {}; // track liked state per card
-
-// ── SVG icons ──
-var ICONS = {
-  file: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>',
-  chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-  question: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
-  reply: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-  heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>'
-};
-
-function fmtNum(n) {
-  return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'')+'k' : String(n);
-}
-
-function renderCard(post, pageIdx) {
-  var isAlt = CB_ALT_PAGES.indexOf(pageIdx) !== -1;
-  var key = pageIdx + '-' + post.area;
-  var liked = !!cbLiked[key];
-  var likeCount = liked ? post.likes + 1 : post.likes;
-
-  return '<a class="cb-card cb-card--' + post.area + '" href="#" onclick="return false">'
-    + '<div>'
-    +   '<div class="cb-meta">' + ICONS[post.icon] + '<span class="cb-forum">' + post.forum + '</span></div>'
-    +   '<div class="cb-title">' + post.title + '</div>'
-    +   (post.desc ? '<div class="cb-desc">' + post.desc + '</div>' : '')
-    + '</div>'
-    + '<div class="cb-footer">'
-    +   '<div class="cb-stats">'
-    +     '<span class="cb-stat">' + ICONS.eye + post.views + '</span>'
-    +     '<span class="cb-stat">' + ICONS.reply + post.replies + '</span>'
-    +   '</div>'
-    +   '<button class="cb-like' + (liked ? ' liked' : '') + '" data-key="' + key + '" data-base="' + post.likes + '" onclick="cbLike(event,this)">'
-    +     ICONS.heart + '<span>' + fmtNum(likeCount) + '</span>'
-    +   '</button>'
-    + '</div>'
-    + '</a>';
-}
-
-function renderPage(pageIdx) {
-  var posts = CB_DATA[pageIdx];
-  var isAlt = CB_ALT_PAGES.indexOf(pageIdx) !== -1;
-  var cls = 'cb-page' + (isAlt ? ' cb-page--alt' : '');
-  return '<div class="' + cls + '">' + posts.map(function(p){ return renderCard(p, pageIdx); }).join('') + '</div>';
-}
-
-function buildTrack() {
-  var track = document.getElementById('cbTrack');
-  track.innerHTML = CB_DATA.map(function(_, i){ return renderPage(i); }).join('');
-}
-
-function cbRender() {
-  document.getElementById('cbTrack').style.transform = 'translateX(-' + (cbCur * 100) + '%)';
-  document.querySelectorAll('.cb-dot').forEach(function(d, i){ d.classList.toggle('active', i === cbCur); });
-  document.getElementById('cbPrev').disabled = cbCur === 0;
-  document.getElementById('cbNext').disabled = cbCur === cbTotal - 1;
-}
-
-function cbStep(dir) {
-  cbCur = Math.max(0, Math.min(cbTotal - 1, cbCur + dir));
-  cbRender();
-}
-
-function cbGo(i) { cbCur = i; cbRender(); }
-
-function cbLike(e, btn) {
-  e.preventDefault(); e.stopPropagation();
-  var key = btn.getAttribute('data-key');
-  var base = parseInt(btn.getAttribute('data-base'), 10);
-  var on = btn.classList.toggle('liked');
-  cbLiked[key] = on;
-  btn.querySelector('span').textContent = fmtNum(on ? base + 1 : base);
-}
-
-// Init
-buildTrack();
-cbRender();
-</script>
-
+    <div class="cb-track" id="cbTrack"></div>
+  </div>
+</div>
 </section>
 
+<script>
+var PAGES = [
+  { alt:false, cards:[
+    { a:'c1', forum:'Product Strategy', icon:'f', title:'How we redesigned our onboarding flow and doubled activation rates in 60 days', desc:'A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation.', v:'3.2k', r:'34', l:148 },
+    { a:'c2', forum:'Customer Success', icon:'c', title:'Building a scalable QBR process for enterprise accounts without burning out your CS team', desc:'Templates, automation strategies, and the exact setup we use to run QBRs at scale.', v:'1.8k', r:'57', l:92 },
+    { a:'c3', forum:'Growth', icon:'q', title:'Is PLG still the right motion for B2B SaaS in 2025?', desc:'The landscape has shifted. What does product-led growth look like today?', v:'940', r:'28', l:61 },
+    { a:'c4', forum:'Ops & Tooling', icon:'f', title:'Our 2025 CS tech stack — what stayed, what got cut', desc:'After a full audit of 19 tools, we consolidated down to 11. Here\'s what drove each decision.', v:'2.1k', r:'41', l:77 },
+    { a:'c5', forum:'Community', icon:'f', title:'Pulse 2025 recap: the 5 themes that will define CS this year', desc:'From AI-assisted workflows to the return of high-touch, here\'s what stood out.', v:'4.7k', r:'89', l:203 }
+  ]},
+  { alt:true, cards:[
+    { a:'c1', forum:'AI Tools', icon:'c', title:'The CS AI toolkit: 12 tools we actually use every day in 2025', desc:'After testing 30+ tools, here are the 12 that made it into our daily workflow — with honest pros and cons for each. A must-read before your next tooling review.', v:'4.1k', r:'61', l:289 },
+    { a:'c2', forum:'Leadership', icon:'c', title:'Building a CS org from scratch: lessons from my first 18 months as VP', desc:'When I joined there were 2 CSMs and no process.', v:'5.4k', r:'89', l:341 },
+    { a:'c3', forum:'Onboarding', icon:'q', title:'Async video vs live sessions: what the data says after 6 months', desc:'We ran a controlled experiment with 200 accounts split between both.', v:'1.8k', r:'38', l:97 },
+    { a:'c4', forum:'Health Scores', icon:'f', title:'How we reduced churn 40% using proactive health scoring', desc:'A 3-tier health score system that changed everything after 6 months.', v:'3.2k', r:'47', l:203 },
+    { a:'c5', forum:'CS Ops', icon:'c', title:'Our full CS playbook — 47 pages open-sourced', desc:'Covers onboarding, QBRs, renewals, escalations and the metrics that matter.', v:'6.1k', r:'124', l:412 }
+  ]},
+  { alt:false, cards:[
+    { a:'c1', forum:'Executive Alignment', icon:'f', title:'How to get C-suite buy-in for your CS program: a step-by-step guide', desc:'The business case framework that helped us secure $2M in CS tooling budget in one board meeting.', v:'7.8k', r:'143', l:521 },
+    { a:'c2', forum:'Renewals', icon:'q', title:'Our renewal playbook: how we hit 118% NRR two years running', desc:'The exact process, templates, and timing that drove consistent expansion.', v:'4.3k', r:'76', l:318 },
+    { a:'c3', forum:'Customer Success', icon:'c', title:'The 10 questions every CSM should ask in their first customer call', desc:'Steal this discovery framework — used by 2,000+ CSMs in this community.', v:'9.1k', r:'211', l:634 },
+    { a:'c4', forum:'Product Feedback', icon:'f', title:'Feature request: better bulk actions in the admin dashboard', desc:'Sharing our team\'s most-wanted improvements after 18 months of daily use.', v:'1.2k', r:'29', l:88 },
+    { a:'c5', forum:'Benchmarks', icon:'f', title:'2025 SaaS CS Benchmarks Report — community edition', desc:'Aggregated data from 340 CS leaders across ARR stages, team sizes, and verticals.', v:'11.2k', r:'287', l:891 }
+  ]},
+  { alt:true, cards:[
+    { a:'c1', forum:'Community', icon:'c', title:'State of Customer Success 2025: what 1,200 practitioners told us', desc:'The most comprehensive survey the community has ever run. AI, headcount, tooling, and where the industry is heading next year and beyond.', v:'14.3k', r:'312', l:1047 },
+    { a:'c2', forum:'Churn Prevention', icon:'f', title:'The 5 early warning signs your customer is about to churn', desc:'Pattern recognition after managing 400+ accounts across 6 years.', v:'6.7k', r:'98', l:447 },
+    { a:'c3', forum:'Career', icon:'q', title:'How I went from CSM to VP in 4 years without switching companies', desc:'The frameworks and relationships that accelerated my path to leadership.', v:'8.9k', r:'176', l:582 },
+    { a:'c4', forum:'QBR', icon:'c', title:'QBR deck template that enterprise customers actually look forward to', desc:'We replaced a 40-slide deck with 12 slides and NPS went up 18 points.', v:'5.1k', r:'93', l:371 },
+    { a:'c5', forum:'Metrics', icon:'f', title:'Beyond NRR: the 7 CS metrics boards actually care about in 2025', desc:'A CFO\'s perspective on what CS data influences investment decisions.', v:'9.4k', r:'201', l:763 }
+  ]}
+];
 
+var ICONS = {
+  f:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  c:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  q:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+  rep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  hrt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>'
+};
+
+var liked = {};
+function fmt(n){ return n>=1000?(n/1000).toFixed(1).replace(/\.0$/,'')+'k':String(n); }
+
+function makeCard(c, pi) {
+  var key = pi+'-'+c.a;
+  var on = !!liked[key];
+  return '<a class="cb-card cb-card--'+c.a+'" href="#" onclick="return false">'
+    +'<div><div class="cb-meta">'+ICONS[c.icon]+'<span class="cb-forum">'+c.forum+'</span></div>'
+    +'<div class="cb-title">'+c.title+'</div>'
+    +'<div class="cb-desc">'+c.desc+'</div></div>'
+    +'<div class="cb-footer"><div class="cb-stats">'
+    +'<span class="cb-stat">'+ICONS.eye+c.v+'</span>'
+    +'<span class="cb-stat">'+ICONS.rep+c.r+'</span>'
+    +'</div>'
+    +'<button class="cb-like'+(on?' liked':'')
+    +'" data-k="'+key+'" data-b="'+c.l+'" onclick="cbLike(event,this)">'
+    +ICONS.hrt+'<span>'+fmt(on?c.l+1:c.l)+'</span></button>'
+    +'</div></a>';
+}
+
+function makePage(p, pi) {
+  var cls = 'cb-page'+(p.alt?' cb-page--alt':'');
+  return '<div class="'+cls+'">'+p.cards.map(function(c){ return makeCard(c,pi); }).join('')+'</div>';
+}
+
+var cur = 0;
+var total = PAGES.length;
+
+function render() {
+  document.getElementById('cbTrack').style.transform = 'translateX(-'+(cur*100)+'%)';
+  document.querySelectorAll('.cb-dot').forEach(function(d,i){ d.classList.toggle('active',i===cur); });
+  document.getElementById('cbPrev').disabled = cur===0;
+  document.getElementById('cbNext').disabled = cur===total-1;
+}
+
+function cbStep(d){ cur=Math.max(0,Math.min(total-1,cur+d)); render(); }
+function cbGo(i){ cur=i; render(); }
+function cbLike(e,btn){
+  e.preventDefault(); e.stopPropagation();
+  var k=btn.getAttribute('data-k'), b=parseInt(btn.getAttribute('data-b'),10);
+  var on=btn.classList.toggle('liked');
+  liked[k]=on;
+  btn.querySelector('span').textContent=fmt(on?b+1:b);
+}
+
+// Build everything into the DOM
+var track = document.getElementById('cbTrack');
+track.innerHTML = PAGES.map(makePage).join('');
+
+// Build dots
+var dotsEl = document.getElementById('cbDots');
+dotsEl.innerHTML = PAGES.map(function(_,i){
+  return '<div class="cb-dot'+(i===0?' active':'')+'" onclick="cbGo('+i+')"></div>';
+}).join('');
+
+// Set initial state
+document.getElementById('cbPrev').disabled = true;
+</script>
