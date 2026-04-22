@@ -1,310 +1,379 @@
 <section class="g-root">
 <style>
-/* ═══════════════════════════════════════════════
-   GAINSIGHT COMMUNITY — SHARED DESIGN SYSTEM
-   Single source of truth for all widgets.
-   Token prefix: --g-  |  Class prefix: g-
-═══════════════════════════════════════════════ */
+.g-root { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
+.g-root * { box-sizing:border-box; }
+.g-wrap { max-width:1140px; margin:0 auto; padding:20px 20px; }
 
-/* ─ Reset ─ */
-.g { all:unset; display:block; }
-.g *, .g *::before, .g *::after { box-sizing:border-box; margin:0; padding:0; }
-a.g, button.g { cursor:pointer; }
-
-/* ─ Base ─ */
-.g-root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #111;
-  background: #fff;
-  -webkit-font-smoothing: antialiased;
-}
-.g-root * { box-sizing: border-box; }
-
-/* ─ Layout ─ */
-.g-wrap  { max-width: 1140px; margin: 0 auto; padding: 24px 20px; }
-.g-wrap--narrow { padding: 20px 16px; }
-
-/* ─ Typography scale ─ */
-/* Widget label (header of every widget — identical everywhere) */
-.g-widget-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #a1a1aa;
-  line-height: 1;
-}
-/* Section sub-label */
-.g-sub-label {
-  font-size: 11px;
-  color: #a1a1aa;
-}
-/* Body text */
-.g-body   { font-size: 14px; color: #111; }
-.g-body-s { font-size: 13px; color: #111; }
-.g-muted  { font-size: 12px; color: #71717a; }
-.g-subtle { font-size: 11px; color: #a1a1aa; }
-/* Big numbers */
-.g-num-xl { font-size: 44px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: #111; }
-.g-num-lg { font-size: 28px; font-weight: 800; letter-spacing: -.03em; line-height: 1; color: #111; }
-.g-num-md { font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1; color: #111; }
-/* Card title */
-.g-card-title   { font-size: 14px; font-weight: 600; color: #111; line-height: 1.38; }
-.g-card-title-l { font-size: 16px; font-weight: 700; color: #111; line-height: 1.32; }
-
-/* ─ Colors ─ */
-.g-accent       { color: #7c3aed; }
-.g-accent-bg    { background: #f5f3ff; }
-.g-accent-bd    { border-color: #ede9fe; }
-.g-hover:hover  { background: #faf5ff !important; }
-
-/* ─ Widget header (used in every widget) ─ */
-.g-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-.g-header-left  { display: flex; flex-direction: column; gap: 2px; }
-.g-header-right { display: flex; align-items: center; gap: 6px; }
-
-/* ─ Link ─ */
-.g-link { font-size: 12px; font-weight: 500; color: #7c3aed; text-decoration: none; white-space: nowrap; }
-.g-link:hover { text-decoration: underline; }
-
-/* ─ Tabs ─ */
-.g-tabs { display: flex; gap: 2px; background: #f4f4f5; border-radius: 8px; padding: 3px; }
-.g-tab  {
-  border: none; background: transparent;
-  font-size: 12px; font-weight: 500; color: #71717a;
-  font-family: inherit; cursor: pointer;
-  padding: 5px 12px; border-radius: 6px;
-  transition: background .15s, color .15s;
-  white-space: nowrap;
-  display: inline-flex; align-items: center; gap: 5px;
-}
-.g-tab.on { background: #fff; color: #111; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-.g-tab-n  {
-  min-width: 16px; height: 16px; border-radius: 999px;
-  background: #7c3aed; color: #fff;
-  font-size: 9px; font-weight: 700; padding: 0 4px;
-  display: inline-flex; align-items: center; justify-content: center;
+/* ── Hero shell ── */
+.hw {
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  padding:36px 40px;
+  min-height:200px;
+  background:#3b0764;
+  isolation:isolate;
 }
 
-/* ─ Buttons ─ */
-.g-btn {
-  width: 30px; height: 30px;
-  border: 1px solid #e4e4e7; border-radius: 6px;
-  background: #fff; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: 14px; color: #52525b;
-  transition: border-color .15s, background .15s, color .15s;
-  font-family: inherit;
+/* Animated gradient base */
+.hw-bg {
+  position:absolute; inset:0; z-index:0;
+  background: linear-gradient(135deg,
+    #4c1d95 0%,
+    #5b21b6 20%,
+    #6d28d9 40%,
+    #4338ca 60%,
+    #3730a3 80%,
+    #312e81 100%
+  );
+  background-size:300% 300%;
+  animation:hwGradShift 8s ease infinite;
 }
-.g-btn:hover  { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
-.g-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
-
-.g-btn-primary {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: #7c3aed; color: #fff;
-  border: none; border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 12px; font-weight: 600; font-family: inherit;
-  cursor: pointer; transition: background .15s; white-space: nowrap;
-}
-.g-btn-primary:hover { background: #6d28d9; }
-
-/* ─ Dots ─ */
-.g-dots { display: flex; gap: 5px; align-items: center; }
-.g-dot  { width: 6px; height: 6px; border-radius: 50%; background: #e4e4e7; cursor: pointer; transition: background .2s, transform .2s; }
-.g-dot.on { background: #7c3aed; transform: scale(1.3); }
-
-/* ─ Badges ─ */
-.g-badge {
-  display: inline-flex; align-items: center;
-  font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid transparent;
-}
-.g-badge-p { background: #f5f3ff; color: #7c3aed; border-color: #ede9fe; }
-.g-badge-g { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
-.g-badge-a { background: #fffbeb; color: #b45309; border-color: #fde68a; }
-.g-badge-r { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
-.g-badge-m { background: #f4f4f5; color: #71717a; border-color: #e4e4e7; }
-
-/* ─ Stats row ─ */
-.g-stats { display: flex; align-items: center; gap: 10px; }
-.g-stat  { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; color: #a1a1aa; }
-.g-stat svg { width: 11px; height: 11px; flex-shrink: 0; }
-
-/* ─ Like button ─ */
-.g-like {
-  display: inline-flex; align-items: center; gap: 4px;
-  border: none; background: transparent;
-  font-size: 11px; font-weight: 500; color: #a1a1aa;
-  font-family: inherit; cursor: pointer;
-  padding: 2px 6px; border-radius: 4px;
-  transition: color .15s, background .15s; user-select: none;
-}
-.g-like svg { width: 12px; height: 12px; transition: fill .15s, stroke .15s; }
-.g-like:hover    { color: #ef4444; background: #fef2f2; }
-.g-like:hover svg { stroke: #ef4444; }
-.g-like.on       { color: #ef4444; }
-.g-like.on svg   { fill: #ef4444; stroke: #ef4444; }
-
-/* ─ Card ─ */
-.g-card {
-  border: 1px solid #e4e4e7; border-radius: 10px;
-  background: #fff; transition: border-color .15s, box-shadow .15s;
-}
-.g-card:hover { border-color: #c4b5fd; box-shadow: 0 4px 16px rgba(124,58,237,.06); }
-.g-card-p { padding: 16px 18px; }
-
-/* ─ Row (list item) ─ */
-.g-row {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 12px 0; border-bottom: 1px solid #f4f4f5;
-  text-decoration: none; color: inherit;
-  transition: background .12s; border-radius: 4px; cursor: pointer;
-}
-.g-row:last-child { border-bottom: none; }
-.g-row:hover { background: #faf5ff; padding-left: 6px; padding-right: 6px; margin: 0 -6px; }
-
-/* ─ Footer strip (stats + like) ─ */
-.g-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-top: 10px; margin-top: 10px;
-  border-top: 1px solid #f4f4f5;
+@keyframes hwGradShift {
+  0%   { background-position:0% 50%; }
+  50%  { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
 }
 
-/* ─ Divider ─ */
-.g-divider { height: 1px; background: #f4f4f5; }
-
-/* ─ Progress ─ */
-.g-prog-track { height: 5px; background: #e4e4e7; border-radius: 999px; overflow: hidden; }
-.g-prog-fill  { height: 100%; background: #7c3aed; border-radius: 999px; transition: width .8s ease; }
-
-/* ─ Input ─ */
-.g-input-wrap { position: relative; }
-.g-input-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: #a1a1aa; pointer-events: none; }
-.g-input {
-  width: 100%; height: 40px;
-  border: 1px solid #e4e4e7; border-radius: 8px;
-  padding: 0 12px 0 34px;
-  font-size: 13px; font-family: inherit; color: #111;
-  background: #fff; outline: none;
-  transition: border-color .15s, box-shadow .15s;
+/* Floating orbs */
+.hw-orb {
+  position:absolute; border-radius:50%; z-index:1;
+  filter:blur(40px); opacity:0.35; pointer-events:none;
 }
-.g-input::placeholder { color: #a1a1aa; }
-.g-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
-
-/* ─ Avatar ─ */
-.g-avatar {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: linear-gradient(135deg, #7c3aed, #0ea5e9);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+.hw-orb-1 {
+  width:340px; height:340px;
+  background:radial-gradient(circle,#a78bfa,#7c3aed);
+  top:-80px; right:-60px;
+  animation:hwOrb1 12s ease-in-out infinite;
 }
-.g-avatar-sm { width: 24px; height: 24px; font-size: 9px; }
-
-/* ─ Icon tile ─ */
-.g-icon-tile {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: #f4f4f5; display: flex; align-items: center; justify-content: center;
-  font-size: 16px; flex-shrink: 0; transition: background .15s;
+.hw-orb-2 {
+  width:220px; height:220px;
+  background:radial-gradient(circle,#60a5fa,#3b82f6);
+  bottom:-60px; left:30%;
+  animation:hwOrb2 9s ease-in-out infinite;
 }
-
-/* ─ Live dot ─ */
-.g-live-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #22c55e; flex-shrink: 0;
-  animation: gLiveDot 2s ease-in-out infinite;
+.hw-orb-3 {
+  width:160px; height:160px;
+  background:radial-gradient(circle,#f472b6,#ec4899);
+  top:20px; left:55%;
+  animation:hwOrb3 14s ease-in-out infinite;
+  opacity:0.2;
 }
-@keyframes gLiveDot { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);} }
-
-/* ─ Chip (search suggestion) ─ */
-.g-chip {
-  display: inline-flex; align-items: center;
-  border: 1px solid #e4e4e7; border-radius: 999px;
-  padding: 4px 12px; font-size: 12px; font-weight: 500;
-  color: #52525b; background: #fff; cursor: pointer;
-  transition: border-color .15s, background .15s, color .15s;
-  font-family: inherit;
+@keyframes hwOrb1 {
+  0%,100%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(-40px,30px) scale(1.1);}
+  66%{transform:translate(20px,-20px) scale(0.95);}
 }
-.g-chip:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
-
-/* ─ Scrollable feed ─ */
-.g-feed {
-  overflow-y: auto;
-  scrollbar-width: thin; scrollbar-color: #e4e4e7 transparent;
+@keyframes hwOrb2 {
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(30px,-40px) scale(1.15);}
 }
-.g-feed::-webkit-scrollbar { width: 4px; }
-.g-feed::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 999px; }
-
-/* ─ Clamp helpers ─ */
-.g-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
-/* Widget page heading (28px bold — like "Community Topics") */
-.g-widget-heading {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  color: #0a0a0a;
-  margin: 0 0 3px;
-  line-height: 1.15;
-}
-.g-widget-heading-sub {
-  font-size: 13px;
-  color: #71717a;
-  margin: 0;
-  font-weight: 400;
+@keyframes hwOrb3 {
+  0%,100%{transform:translate(0,0) scale(1) rotate(0deg);}
+  25%{transform:translate(-20px,10px) scale(1.1) rotate(5deg);}
+  75%{transform:translate(15px,-15px) scale(0.9) rotate(-5deg);}
 }
 
-.g-widget-heading { font-size:28px; font-weight:700; letter-spacing:-.025em; color:#0a0a0a; line-height:1.15; margin:0 0 3px; }
-.g-widget-sub { font-size:13px; color:#71717a; margin:0; font-weight:400; }
+/* Grid texture overlay */
+.hw-grid {
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  opacity:0.06;
+  background-image:
+    linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px);
+  background-size:40px 40px;
+}
 
+/* Noise texture */
+.hw-noise {
+  position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size:160px;
+}
 
-.hw-card { background:linear-gradient(135deg,#7c3aed 0%,#4f46e5 100%); border-radius:12px; padding:28px 32px; color:#fff; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:start; margin-bottom:12px; }
-.hw-stats { display:flex; gap:24px; margin-top:20px; }
-.hw-stat-n { font-size:28px; font-weight:800; letter-spacing:-.03em; line-height:1; }
-.hw-stat-l { font-size:11px; font-weight:500; opacity:.7; margin-top:2px; text-transform:uppercase; letter-spacing:.05em; }
-.hw-right { display:flex; flex-direction:column; gap:8px; min-width:200px; }
-.hw-challenge { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:10px; padding:14px 16px; backdrop-filter:blur(8px); }
-.hw-actions { display:flex; gap:8px; margin-top:4px; }
-.hw-btn-white { background:#fff; color:#7c3aed; border:none; border-radius:6px; padding:8px 16px; font-size:12px; font-weight:700; font-family:inherit; cursor:pointer; transition:opacity .15s; }
-.hw-btn-white:hover { opacity:.9; }
-.hw-btn-ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.3); border-radius:6px; padding:8px 16px; font-size:12px; font-weight:600; font-family:inherit; cursor:pointer; transition:background .15s; }
-.hw-btn-ghost:hover { background:rgba(255,255,255,.1); }
+/* Content layer */
+.hw-content {
+  position:relative; z-index:10;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:28px;
+  align-items:center;
+}
 
+/* Left side */
+.hw-left {}
+.hw-eyebrow {
+  font-size:11px; font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; color:rgba(255,255,255,.5);
+  margin-bottom:8px;
+  display:flex; align-items:center; gap:8px;
+}
+.hw-eyebrow::before {
+  content:'';
+  width:16px; height:1px;
+  background:rgba(255,255,255,.4);
+}
+.hw-name {
+  font-size:28px; font-weight:800;
+  letter-spacing:-.03em; line-height:1.1;
+  color:#fff; margin-bottom:8px;
+}
+.hw-sub {
+  font-size:14px; color:rgba(255,255,255,.65);
+  margin-bottom:28px; font-weight:400; line-height:1.5;
+}
+
+/* Stats row */
+.hw-stats { display:flex; gap:32px; margin-bottom:28px; align-items:flex-end; }
+.hw-stat {}
+.hw-stat-n {
+  font-size:32px; font-weight:800;
+  letter-spacing:-.04em; line-height:1;
+  color:#fff;
+  animation:hwCountIn .8s ease both;
+}
+.hw-stat:nth-child(1) .hw-stat-n { animation-delay:.1s; }
+.hw-stat:nth-child(2) .hw-stat-n { animation-delay:.25s; }
+.hw-stat:nth-child(3) .hw-stat-n { animation-delay:.4s; }
+@keyframes hwCountIn {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.hw-stat-l {
+  font-size:10px; font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; color:rgba(255,255,255,.45);
+  margin-top:3px;
+}
+.hw-stat-change {
+  font-size:11px; font-weight:600; color:#86efac;
+  margin-top:1px;
+}
+
+/* Divider between stats */
+.hw-stat-div {
+  width:1px; height:36px; background:rgba(255,255,255,.12);
+  align-self:center;
+}
+
+/* Actions */
+.hw-actions { display:flex; gap:10px; }
+.hw-btn-white {
+  background:#fff; color:#5b21b6;
+  border:none; border-radius:8px;
+  padding:10px 20px;
+  font-size:13px; font-weight:700;
+  font-family:inherit; cursor:pointer;
+  transition:transform .15s, box-shadow .15s, background .15s;
+  box-shadow:0 4px 14px rgba(0,0,0,.2);
+  letter-spacing:-.01em;
+}
+.hw-btn-white:hover {
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+  background:#f5f3ff;
+}
+.hw-btn-ghost {
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:8px;
+  padding:10px 20px;
+  font-size:13px; font-weight:600;
+  font-family:inherit; cursor:pointer;
+  transition:transform .15s, background .15s, border-color .15s;
+  backdrop-filter:blur(8px);
+  letter-spacing:-.01em;
+}
+.hw-btn-ghost:hover {
+  background:rgba(255,255,255,.18);
+  border-color:rgba(255,255,255,.35);
+  transform:translateY(-1px);
+}
+
+/* Right side — challenge card */
+.hw-right { min-width:240px; }
+.hw-challenge {
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;
+  padding:18px 20px;
+  backdrop-filter:blur(12px);
+  position:relative; overflow:hidden;
+}
+.hw-challenge::before {
+  content:'';
+  position:absolute; inset:0; border-radius:12px;
+  background:linear-gradient(135deg,rgba(255,255,255,.07),transparent);
+  pointer-events:none;
+}
+.hw-challenge-eye {
+  font-size:11px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:rgba(255,255,255,.5);
+  margin-bottom:10px; display:flex; align-items:center; gap:6px;
+}
+.hw-challenge-title {
+  font-size:15px; font-weight:700; color:#fff;
+  line-height:1.3; margin-bottom:14px;
+}
+.hw-prog-wrap { margin-bottom:8px; }
+.hw-prog-track {
+  height:5px; background:rgba(255,255,255,.15);
+  border-radius:999px; overflow:hidden; margin-bottom:6px;
+}
+.hw-prog-fill {
+  height:100%; border-radius:999px;
+  background:linear-gradient(90deg,#a78bfa,#60a5fa);
+  width:33%;
+  animation:hwProgIn 1.2s cubic-bezier(.4,0,.2,1) .6s both;
+  box-shadow:0 0 8px rgba(167,139,250,.5);
+}
+@keyframes hwProgIn {
+  from { width:0; }
+  to   { width:33%; }
+}
+.hw-prog-label {
+  display:flex; justify-content:space-between;
+  font-size:11px; color:rgba(255,255,255,.45);
+}
+.hw-xp-badge {
+  display:inline-flex; align-items:center; gap:4px;
+  background:rgba(167,139,250,.2);
+  border:1px solid rgba(167,139,250,.3);
+  border-radius:999px;
+  padding:3px 10px;
+  font-size:11px; font-weight:700; color:#c4b5fd;
+  margin-top:12px;
+}
+
+/* Floating particles */
+.hw-particles {
+  position:absolute; inset:0; z-index:4; pointer-events:none; overflow:hidden;
+}
+.hw-p {
+  position:absolute;
+  width:3px; height:3px; border-radius:50%;
+  background:rgba(255,255,255,.4);
+  animation:hwFloat linear infinite;
+}
+@keyframes hwFloat {
+  0%   { transform:translateY(0) translateX(0); opacity:0; }
+  10%  { opacity:1; }
+  90%  { opacity:.6; }
+  100% { transform:translateY(-180px) translateX(var(--dx,20px)); opacity:0; }
+}
 </style>
 
 <div class="g-wrap">
-  <div class="hw-card">
-    <div>
-      <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-bottom:6px">Welcome back</div>
-      <div class="g-widget-heading" style="color:#fff;margin-bottom:4px">Welcome back, Sergi Martinez</div>
-      <div style="font-size:13px;opacity:.75;margin-bottom:0">Continue where you left off — the community is active right now.</div>
+<div class="hw">
+  <!-- Layers -->
+  <div class="hw-bg"></div>
+  <div class="hw-orb hw-orb-1"></div>
+  <div class="hw-orb hw-orb-2"></div>
+  <div class="hw-orb hw-orb-3"></div>
+  <div class="hw-grid"></div>
+  <div class="hw-noise"></div>
+  <div class="hw-particles" id="hwParticles"></div>
+
+  <!-- Content -->
+  <div class="hw-content">
+    <div class="hw-left">
+      <div class="hw-eyebrow">Welcome back</div>
+      <div class="hw-name">Sergi Martinez 👋</div>
+      <div class="hw-sub">The community is active right now — continue where you left off.</div>
+
       <div class="hw-stats">
-        <div><div class="hw-stat-n">2,847</div><div class="hw-stat-l">XP points</div></div>
-        <div><div class="hw-stat-n">47</div><div class="hw-stat-l">Contributions</div></div>
-        <div><div class="hw-stat-n">Top 5%</div><div class="hw-stat-l">This month</div></div>
+        <div class="hw-stat">
+          <div class="hw-stat-n" id="hwN1">0</div>
+          <div class="hw-stat-l">XP Points</div>
+          <div class="hw-stat-change">↑ 12% this week</div>
+        </div>
+        <div class="hw-stat-div"></div>
+        <div class="hw-stat">
+          <div class="hw-stat-n" id="hwN2">0</div>
+          <div class="hw-stat-l">Contributions</div>
+          <div class="hw-stat-change">+8 this month</div>
+        </div>
+        <div class="hw-stat-div"></div>
+        <div class="hw-stat">
+          <div class="hw-stat-n">Top 5%</div>
+          <div class="hw-stat-l">This month</div>
+          <div class="hw-stat-change">↑ from Top 8%</div>
+        </div>
+        <div class="hw-stat-div"></div>
+        <div class="hw-stat">
+          <div class="hw-stat-n" id="hwN3">0</div>
+          <div class="hw-stat-l">Day streak 🔥</div>
+          <div class="hw-stat-change">Personal best!</div>
+        </div>
       </div>
-      <div class="hw-actions" style="margin-top:20px">
+
+      <div class="hw-actions">
         <button class="hw-btn-white">+ New Topic</button>
         <button class="hw-btn-ghost">My Profile →</button>
+        <button class="hw-btn-ghost">847 online now</button>
       </div>
     </div>
+
     <div class="hw-right">
       <div class="hw-challenge">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.7;margin-bottom:6px">🎯 Weekly Challenge</div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:8px">Answer 3 unanswered questions</div>
-        <div style="background:rgba(255,255,255,.2);border-radius:999px;height:5px;overflow:hidden">
-          <div style="background:#fff;width:33%;height:100%;border-radius:999px"></div>
+        <div class="hw-challenge-eye">🎯 Weekly Challenge</div>
+        <div class="hw-challenge-title">Answer 3 unanswered questions from the community</div>
+        <div class="hw-prog-wrap">
+          <div class="hw-prog-track">
+            <div class="hw-prog-fill" id="hwProg"></div>
+          </div>
+          <div class="hw-prog-label">
+            <span id="hwProgLbl">1 of 3 complete</span>
+            <span>33%</span>
+          </div>
         </div>
-        <div style="font-size:11px;opacity:.65;margin-top:5px">1 of 3 complete · +150 XP</div>
+        <div class="hw-xp-badge">⚡ +150 XP on completion</div>
       </div>
     </div>
   </div>
 </div>
+</div>
 </section>
+
+<script>
+(function(){
+  var R=document.currentScript?document.currentScript.closest('section'):document;
+  if(!R)R=document;
+
+  /* Count-up animation */
+  function countUp(id,target,duration,suffix){
+    var el=R.querySelector('#'+id); if(!el)return;
+    var start=Date.now();
+    (function tick(){
+      var p=Math.min((Date.now()-start)/duration,1);
+      var ease=1-Math.pow(1-p,3);
+      var val=Math.round(ease*target);
+      el.textContent=(val>=1000?(val/1000).toFixed(1).replace(/\.0$/,'')+'k':val)+(suffix||'');
+      if(p<1)requestAnimationFrame(tick);
+    })();
+  }
+  setTimeout(function(){ countUp('hwN1',2847,1200); },200);
+  setTimeout(function(){ countUp('hwN2',47,800); },350);
+  setTimeout(function(){ countUp('hwN3',12,600); },500);
+
+  /* Floating particles */
+  var container=R.querySelector('#hwParticles');
+  if(container){
+    for(var i=0;i<18;i++){
+      (function(i){
+        setTimeout(function(){
+          var p=document.createElement('div');
+          p.className='hw-p';
+          var x=5+Math.random()*90;
+          var dx=(Math.random()-0.5)*60;
+          var size=1+Math.random()*3;
+          var dur=4+Math.random()*6;
+          var delay=Math.random()*8;
+          p.style.cssText='left:'+x+'%;bottom:'+(Math.random()*30)+'%;width:'+size+'px;height:'+size+'px;--dx:'+dx+'px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;opacity:'+(0.2+Math.random()*0.5);
+          container.appendChild(p);
+        },i*80);
+      })(i);
+    }
+  }
+})();
+</script>
