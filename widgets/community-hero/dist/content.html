@@ -1,25 +1,24 @@
 <style>
-  .h {
-    --col-bg:       hsl(0 0% 100%);
-    --col-fg:       hsl(240 10% 3.9%);
-    --col-muted:    hsl(240 4.8% 95.9%);
-    --col-muted-fg: hsl(240 3.8% 46.1%);
-    --col-border:   hsl(240 5.9% 90%);
-    --col-primary:  hsl(263 70% 58%);
-    --radius:       0.5rem;
-    --radius-lg:    calc(var(--radius) + 6px);
-    --radius-xl:    calc(var(--radius) + 10px);
-    --ease:         cubic-bezier(0.4, 0, 0.2, 1);
-    --spring:       cubic-bezier(0.34, 1.56, 0.64, 1);
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+  .h {
+    --bg:         #ffffff;
+    --fg:         #0a0a0a;
+    --muted:      #f4f4f5;
+    --muted-fg:   #71717a;
+    --border:     #e4e4e7;
+    --primary:    #7c3aed;
+    --primary-2:  #6d28d9;
+    --radius:     12px;
+    --radius-sm:  8px;
+
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 14px;
     line-height: 1.5;
-    background: var(--col-bg);
-    color: var(--col-fg);
+    background: var(--bg);
+    color: var(--fg);
     -webkit-font-smoothing: antialiased;
   }
-  .h *, .h *::before, .h *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   .h-wrap {
     max-width: 1140px;
@@ -32,291 +31,306 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: var(--col-bg);
-    border: 1px solid var(--col-border);
+    background: var(--bg);
+    border: 1px solid var(--border);
     border-radius: 999px;
     padding: 4px 12px 4px 8px;
     font-size: 12px;
     font-weight: 500;
-    color: var(--col-fg);
     margin-bottom: 14px;
+    /* animation start */
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
-  .h-streak-dot {
+  .h-streak.in { opacity: 1; transform: translateY(0); }
+
+  .h-dot {
     width: 7px; height: 7px;
     border-radius: 50%;
     background: #f97316;
   }
+  .h-dot.pulse {
+    animation: dotPulse 2s ease-in-out infinite;
+  }
 
   /* ── Heading ── */
   .h-title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--col-fg);
+    font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--fg);
     margin-bottom: 6px;
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-6px);
+    transition: opacity 0.4s ease 0.07s, transform 0.4s ease 0.07s;
   }
+  .h-title.in { opacity: 1; transform: translateY(0); }
+
   .h-subtitle {
-    font-size: 14px;
-    color: var(--col-muted-fg);
-    font-weight: 400;
+    font-size: 13px;
+    color: var(--muted-fg);
     margin-bottom: 24px;
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-6px);
+    transition: opacity 0.4s ease 0.13s, transform 0.4s ease 0.13s;
   }
+  .h-subtitle.in { opacity: 1; transform: translateY(0); }
 
-  /* ── Two-column layout — equal height ── */
+  /* ── Body: two equal-height columns ── */
   .h-body {
     display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 16px;
-    align-items: stretch; /* ← both columns same height */
+    grid-template-columns: 1fr 320px;
+    gap: 14px;
+    align-items: stretch;
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
+    transition: opacity 0.45s ease 0.18s, transform 0.45s ease 0.18s;
   }
+  .h-body.in { opacity: 1; transform: translateY(0); }
 
-  /* ── Impact card (purple) ── */
-  .h-impact {
+  /* ── Left: purple impact card ── */
+  .h-card {
     position: relative;
-    background: var(--col-primary);
-    border-radius: var(--radius-xl);
-    padding: 28px 28px 24px;
+    background: var(--primary);
+    border-radius: var(--radius);
+    padding: 26px 26px 22px;
     overflow: hidden;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-  /* orb decorations */
-  .h-impact::before {
+
+  /* Soft orbs */
+  .h-card::before {
     content: '';
     position: absolute;
-    top: -60px; right: -60px;
-    width: 220px; height: 220px;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
     border-radius: 50%;
-    background: hsla(263,70%,70%,0.35);
+    background: rgba(255,255,255,0.1);
     pointer-events: none;
-    animation: orbFloat 6s ease-in-out infinite;
+    animation: orbDrift 7s ease-in-out infinite;
   }
-  .h-impact::after {
+  .h-card::after {
     content: '';
     position: absolute;
-    bottom: -40px; left: 20px;
-    width: 140px; height: 140px;
+    bottom: -30px; left: 30px;
+    width: 120px; height: 120px;
     border-radius: 50%;
-    background: hsla(263,70%,70%,0.18);
+    background: rgba(255,255,255,0.07);
     pointer-events: none;
-    animation: orbFloat 8s ease-in-out infinite reverse;
+    animation: orbDrift 9s ease-in-out infinite reverse;
   }
 
-  .h-impact-label {
+  .h-card-label {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-weight: 600;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
-    opacity: 0.75;
-    margin-bottom: 12px;
+    opacity: 0.7;
+    margin-bottom: 10px;
   }
-  .h-impact-label svg { width: 14px; height: 14px; }
+  .h-card-label svg { width: 13px; height: 13px; }
 
-  .h-impact-number {
-    font-size: clamp(3rem, 6vw, 4rem);
+  .h-big-number {
+    font-size: clamp(2.75rem, 5.5vw, 3.75rem);
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 1;
     position: relative;
     z-index: 1;
   }
-  .h-impact-desc {
-    font-size: 13px;
-    opacity: 0.8;
-    margin-top: 6px;
-    margin-bottom: 20px;
+  .h-big-label {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 5px;
+    margin-bottom: 22px;
     position: relative;
     z-index: 1;
   }
 
-  .h-substats {
+  /* Three sub-tiles */
+  .h-tiles {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    gap: 7px;
     position: relative;
     z-index: 1;
   }
-  .h-substat {
-    background: hsla(0,0%,100%,0.15);
-    border-radius: var(--radius-lg);
-    padding: 12px 10px;
-    backdrop-filter: blur(4px);
+  .h-tile {
+    background: rgba(255,255,255,0.13);
+    border-radius: var(--radius-sm);
+    padding: 11px 10px;
     position: relative;
-    transition: background 200ms var(--ease);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.35s ease,
+                background 0.15s ease;
   }
-  .h-substat:hover { background: hsla(0,0%,100%,0.22); }
-  .h-substat-icon {
+  .h-tile.in { opacity: 1; transform: translateY(0); }
+  .h-tile:hover { background: rgba(255,255,255,0.2); }
+
+  .h-tile-icon {
     position: absolute;
-    top: 10px; right: 10px;
-    opacity: 0.5;
-    width: 14px; height: 14px;
+    top: 9px; right: 9px;
+    opacity: 0.45;
+    width: 13px; height: 13px;
   }
-  .h-substat-value {
-    font-size: 1.375rem;
+  .h-tile-val {
+    font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1;
   }
-  .h-substat-label { font-size: 11px; opacity: 0.7; margin-top: 4px; }
+  .h-tile-lbl {
+    font-size: 11px;
+    opacity: 0.65;
+    margin-top: 3px;
+  }
 
-  /* ── Right column — same height as impact card ── */
+  /* ── Right column: fills exact same height as left ── */
   .h-right {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    /* stretch to match left column height */
     height: 100%;
   }
 
-  /* Stat rows fill available space evenly */
-  .h-stat-rows {
+  /* Stat rows stretch to fill the space above the challenge card */
+  .h-stats {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
   }
 
-  .h-stat-row {
+  .h-stat {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0 4px;
-    border-bottom: 1px solid var(--col-border);
-    transition: background 150ms var(--ease), padding 150ms var(--ease);
-    border-radius: var(--radius);
+    gap: 11px;
+    padding: 0 14px;
+    flex: 1; /* equal share of vertical space */
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s ease;
     cursor: default;
-    flex: 1; /* equal height rows */
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.35s ease, transform 0.35s ease, background 0.15s ease;
   }
-  .h-stat-row:first-child { border-top: 1px solid var(--col-border); }
-  .h-stat-row:hover {
-    background: var(--col-muted);
-    padding-left: 10px;
-    padding-right: 10px;
-    margin: 0 -6px;
-  }
+  .h-stat:last-child { border-bottom: none; }
+  .h-stat.in { opacity: 1; transform: translateX(0); }
+  .h-stat:hover { background: var(--muted); }
 
-  .h-stat-icon-wrap {
-    width: 36px; height: 36px;
-    border-radius: var(--radius-lg);
+  .h-stat-icon {
+    width: 34px; height: 34px;
+    border-radius: var(--radius-sm);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .h-stat-icon-wrap svg { width: 16px; height: 16px; }
-  .h-stat-name { flex: 1; font-size: 13px; font-weight: 500; color: var(--col-fg); }
-  .h-stat-value {
-    font-size: 1.25rem;
+  .h-stat-icon svg { width: 15px; height: 15px; }
+  .h-stat-name { flex: 1; font-size: 13px; font-weight: 500; }
+  .h-stat-val {
+    font-size: 1.2rem;
     font-weight: 700;
-    color: var(--col-fg);
     letter-spacing: -0.02em;
   }
 
-  /* Weekly challenge card — fixed height, sits below stat rows */
+  /* Challenge card — fixed at bottom of right column */
   .h-challenge {
-    margin-top: 12px;
-    background: linear-gradient(135deg, hsl(263 70% 97%), hsl(263 70% 93%));
-    border: 1px solid hsl(263 70% 88%);
-    border-radius: var(--radius-xl);
-    padding: 16px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+    border: 1px solid #ddd6fe;
+    border-radius: var(--radius);
+    padding: 14px 16px;
     flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s;
   }
-  .h-challenge-header {
+  .h-challenge.in { opacity: 1; transform: translateY(0); }
+
+  .h-ch-header {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
   }
-  .h-challenge-icon {
-    width: 36px; height: 36px;
-    border-radius: var(--radius-lg);
-    background: var(--col-primary);
+  .h-ch-icon {
+    width: 34px; height: 34px;
+    border-radius: var(--radius-sm);
+    background: var(--primary);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    animation: iconPop 0.5s var(--spring) 1s both;
   }
-  .h-challenge-icon svg { width: 18px; height: 18px; color: white; }
-  .h-challenge-title { font-size: 13px; font-weight: 600; color: var(--col-fg); }
-  .h-challenge-subtitle { font-size: 11px; color: var(--col-muted-fg); margin-top: 2px; }
-  .h-progress-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--col-muted-fg);
-    margin-bottom: 6px;
+  .h-ch-icon svg { width: 16px; height: 16px; color: white; }
+  .h-ch-title { font-size: 13px; font-weight: 600; }
+  .h-ch-sub { font-size: 11px; color: var(--muted-fg); margin-top: 1px; }
+
+  .h-progress-meta {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted-fg);
+    margin-bottom: 5px;
   }
   .h-progress-track {
     height: 5px;
-    background: hsl(263 70% 88%);
+    background: #ddd6fe;
     border-radius: 999px;
     overflow: hidden;
   }
-  .h-progress-fill {
+  .h-progress-bar {
     height: 100%;
-    background: var(--col-primary);
+    width: 0;
+    background: var(--primary);
     border-radius: 999px;
-    width: 0%;
-    transition: width 1.1s cubic-bezier(0.34, 1.1, 0.64, 1) 0.8s;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
   }
 
-  /* ── Animations ── */
-  @keyframes orbFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33%       { transform: translate(8px, -12px) scale(1.04); }
-    66%       { transform: translate(-6px, 8px) scale(0.97); }
-  }
-  @keyframes pulseRing {
+  /* ── Keyframes ── */
+  @keyframes dotPulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.55; transform: scale(0.82); }
+    50%       { opacity: 0.5; transform: scale(0.75); }
   }
-  @keyframes iconPop {
-    from { opacity: 0; transform: scale(0.6); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-  @keyframes shimmer {
-    0%   { background-position: -200% center; }
-    100% { background-position:  200% center; }
+  @keyframes orbDrift {
+    0%, 100% { transform: translate(0, 0); }
+    40%       { transform: translate(10px, -14px); }
+    70%       { transform: translate(-7px, 8px); }
   }
 </style>
 
-<!-- SVG sprite -->
+<!-- Icon sprite -->
 <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
-  <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="ic-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/>
   </symbol>
-  <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/>
-    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+  <symbol id="ic-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+    <path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
     <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
   </symbol>
-  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="ic-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
   </symbol>
-  <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="ic-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
   </symbol>
-  <symbol id="i-reply" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="ic-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
   </symbol>
-  <symbol id="i-at" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="ic-at" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/>
   </symbol>
-  <symbol id="i-thumb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="ic-thumb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/>
   </symbol>
-  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="ic-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
   </symbol>
 </svg>
@@ -324,195 +338,171 @@
 <div class="h">
   <div class="h-wrap">
 
-    <div class="h-streak" id="hStreak">
-      <span class="h-streak-dot" id="hDot"></span>
+    <!-- Streak -->
+    <div class="h-streak" id="js-streak">
+      <span class="h-dot" id="js-dot"></span>
       12 day streak 🔥
     </div>
 
-    <h1 class="h-title" id="hTitle">Welcome back, Sergi Martinez</h1>
-    <p class="h-subtitle" id="hSubtitle">You've made a real impact this week — here's what's happening</p>
+    <!-- Heading -->
+    <h1 class="h-title" id="js-title">Welcome back, Sergi Martinez</h1>
+    <p class="h-subtitle" id="js-sub">You've made a real impact this week — here's what's happening</p>
 
-    <div class="h-body" id="hBody">
+    <!-- Body -->
+    <div class="h-body" id="js-body">
 
-      <!-- Impact card -->
-      <div class="h-impact">
+      <!-- Left: impact card -->
+      <div class="h-card">
         <div>
-          <div class="h-impact-label">
-            <svg><use href="#i-sparkles"/></svg>
+          <div class="h-card-label">
+            <svg><use href="#ic-star"/></svg>
             Your impact this week
           </div>
-          <div class="h-impact-number" id="reachCount">0</div>
-          <div class="h-impact-desc">people reached with your contributions</div>
+          <div class="h-big-number" id="js-reach">0</div>
+          <div class="h-big-label">people reached with your contributions</div>
         </div>
-        <div class="h-substats">
-          <div class="h-substat">
-            <svg class="h-substat-icon"><use href="#i-trophy"/></svg>
-            <div class="h-substat-value">#2</div>
-            <div class="h-substat-label">Expert in Design</div>
+        <div class="h-tiles">
+          <div class="h-tile" id="js-t0">
+            <svg class="h-tile-icon"><use href="#ic-trophy"/></svg>
+            <div class="h-tile-val">#2</div>
+            <div class="h-tile-lbl">Expert in Design</div>
           </div>
-          <div class="h-substat">
-            <svg class="h-substat-icon"><use href="#i-heart"/></svg>
-            <div class="h-substat-value" id="helpCount">0</div>
-            <div class="h-substat-label">People helped</div>
+          <div class="h-tile" id="js-t1">
+            <svg class="h-tile-icon"><use href="#ic-heart"/></svg>
+            <div class="h-tile-val" id="js-helped">0</div>
+            <div class="h-tile-lbl">People helped</div>
           </div>
-          <div class="h-substat">
-            <svg class="h-substat-icon"><use href="#i-trend"/></svg>
-            <div class="h-substat-value">Top 5%</div>
-            <div class="h-substat-label">Contributor</div>
+          <div class="h-tile" id="js-t2">
+            <svg class="h-tile-icon"><use href="#ic-trend"/></svg>
+            <div class="h-tile-val">Top 5%</div>
+            <div class="h-tile-lbl">Contributor</div>
           </div>
         </div>
       </div>
 
       <!-- Right column -->
       <div class="h-right">
-        <div class="h-stat-rows">
-          <div class="h-stat-row">
-            <div class="h-stat-icon-wrap" style="background:hsl(210 100% 94%)">
-              <svg style="color:hsl(210 100% 42%)"><use href="#i-reply"/></svg>
+
+        <!-- Stat rows -->
+        <div class="h-stats">
+          <div class="h-stat" id="js-s0">
+            <div class="h-stat-icon" style="background:#dbeafe">
+              <svg style="color:#2563eb"><use href="#ic-msg"/></svg>
             </div>
             <span class="h-stat-name">New replies</span>
-            <span class="h-stat-value" data-target="12">0</span>
+            <span class="h-stat-val" data-to="12">0</span>
           </div>
-          <div class="h-stat-row">
-            <div class="h-stat-icon-wrap" style="background:hsl(0 86% 94%)">
-              <svg style="color:hsl(0 72% 48%)"><use href="#i-at"/></svg>
+          <div class="h-stat" id="js-s1">
+            <div class="h-stat-icon" style="background:#fee2e2">
+              <svg style="color:#dc2626"><use href="#ic-at"/></svg>
             </div>
             <span class="h-stat-name">Mentions</span>
-            <span class="h-stat-value" data-target="5">0</span>
+            <span class="h-stat-val" data-to="5">0</span>
           </div>
-          <div class="h-stat-row">
-            <div class="h-stat-icon-wrap" style="background:hsl(38 100% 92%)">
-              <svg style="color:hsl(38 92% 38%)"><use href="#i-thumb"/></svg>
+          <div class="h-stat" id="js-s2">
+            <div class="h-stat-icon" style="background:#fef3c7">
+              <svg style="color:#d97706"><use href="#ic-thumb"/></svg>
             </div>
             <span class="h-stat-name">Reactions</span>
-            <span class="h-stat-value" data-target="34">0</span>
+            <span class="h-stat-val" data-to="34">0</span>
           </div>
         </div>
 
-        <div class="h-challenge">
-          <div class="h-challenge-header">
-            <div class="h-challenge-icon">
-              <svg><use href="#i-target"/></svg>
+        <!-- Weekly challenge -->
+        <div class="h-challenge" id="js-ch">
+          <div class="h-ch-header">
+            <div class="h-ch-icon">
+              <svg><use href="#ic-target"/></svg>
             </div>
             <div>
-              <div class="h-challenge-title">Weekly Challenge</div>
-              <div class="h-challenge-subtitle">Answer 3 questions</div>
+              <div class="h-ch-title">Weekly Challenge</div>
+              <div class="h-ch-sub">Answer 3 questions</div>
             </div>
           </div>
-          <div class="h-progress-row">
+          <div class="h-progress-meta">
             <span>Progress</span><span>1 / 3</span>
           </div>
           <div class="h-progress-track">
-            <div class="h-progress-fill" id="progressFill"></div>
+            <div class="h-progress-bar" id="js-bar"></div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
 </div>
 
 <script>
 (function () {
-  var ease = 'cubic-bezier(0.4,0,0.2,1)';
-
-  /* ── Count-up ── */
-  function countUp(el, target, duration) {
-    var start = null;
-    function step(ts) {
-      if (!start) start = ts;
-      var p = Math.min((ts - start) / duration, 1);
-      var e = 1 - Math.pow(2, -10 * p);
-      el.textContent = Math.round(e * target).toLocaleString();
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+  /* count-up */
+  function countUp(el, target, duration, delay) {
+    setTimeout(function () {
+      var s = null;
+      function step(ts) {
+        if (!s) s = ts;
+        var p = Math.min((ts - s) / duration, 1);
+        var v = Math.round((1 - Math.pow(2, -10 * p)) * target);
+        el.textContent = v.toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }, delay);
   }
 
-  /* ── Animate element in ── */
-  function fadeIn(el, delay, y) {
-    el.style.transition = 'opacity 0.45s '+ease+' '+delay+'s, transform 0.45s '+ease+' '+delay+'s';
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-      });
-    });
-  }
-
-  /* ── Pulse dot ── */
-  function startPulse(dot) {
-    dot.style.animation = 'pulseRing 2s ease-in-out infinite';
-  }
-
-  /* ── Staggered stat row entrance ── */
-  function animateRows() {
-    var rows = document.querySelectorAll('.h-stat-row');
-    rows.forEach(function(row, i) {
-      row.style.opacity = '0';
-      row.style.transform = 'translateX(12px)';
-      row.style.transition = 'opacity 0.35s '+ease+' '+(0.55 + i*0.08)+'s, transform 0.35s '+ease+' '+(0.55 + i*0.08)+'s';
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          row.style.opacity = '1';
-          row.style.transform = 'translateX(0)';
-        });
-      });
-    });
-  }
-
-  /* ── Substat tiles entrance ── */
-  function animateSubstats() {
-    var tiles = document.querySelectorAll('.h-substat');
-    tiles.forEach(function(tile, i) {
-      tile.style.opacity = '0';
-      tile.style.transform = 'translateY(8px) scale(0.96)';
-      tile.style.transition = 'opacity 0.35s '+ease+' '+(0.6 + i*0.07)+'s, transform 0.35s '+ease+' '+(0.6 + i*0.07)+'s';
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          tile.style.opacity = '1';
-          tile.style.transform = 'translateY(0) scale(1)';
-        });
-      });
-    });
+  /* add class after tiny delay so CSS transition fires */
+  function show(id, delay) {
+    setTimeout(function () {
+      var el = document.getElementById(id);
+      if (el) el.classList.add('in');
+    }, delay);
   }
 
   function init() {
-    /* Staggered heading entrance */
-    fadeIn(document.getElementById('hStreak'),  0.0);
-    fadeIn(document.getElementById('hTitle'),   0.08);
-    fadeIn(document.getElementById('hSubtitle'),0.14);
-    fadeIn(document.getElementById('hBody'),    0.2);
+    /* staggered entrance */
+    show('js-streak',  0);
+    show('js-title',   70);
+    show('js-sub',     130);
+    show('js-body',    190);
 
-    /* Pulse the streak dot */
-    setTimeout(function() { startPulse(document.getElementById('hDot')); }, 400);
+    /* streak dot pulse */
+    setTimeout(function () {
+      document.getElementById('js-dot').classList.add('pulse');
+    }, 400);
 
-    /* Count-up numbers */
-    setTimeout(function() {
-      countUp(document.getElementById('reachCount'), 2847, 1400);
-      countUp(document.getElementById('helpCount'),  47,   900);
-      document.querySelectorAll('.h-stat-value[data-target]').forEach(function(el) {
-        countUp(el, parseInt(el.dataset.target, 10), 800);
-      });
-    }, 350);
+    /* count-ups */
+    countUp(document.getElementById('js-reach'),  2847, 1400, 300);
+    countUp(document.getElementById('js-helped'), 47,   900,  500);
+    document.querySelectorAll('.h-stat-val[data-to]').forEach(function (el) {
+      countUp(el, parseInt(el.dataset.to, 10), 700, 400);
+    });
 
-    /* Row + substat animations */
-    animateRows();
-    animateSubstats();
+    /* stat rows slide in from right */
+    ['js-s0','js-s1','js-s2'].forEach(function (id, i) {
+      show(id, 300 + i * 70);
+    });
 
-    /* Progress bar */
-    setTimeout(function() {
-      document.getElementById('progressFill').style.width = '33.33%';
+    /* tiles pop up */
+    ['js-t0','js-t1','js-t2'].forEach(function (id, i) {
+      show(id, 500 + i * 60);
+    });
+
+    /* challenge card */
+    show('js-ch', 400);
+
+    /* progress bar */
+    setTimeout(function () {
+      document.getElementById('js-bar').style.width = '33.33%';
     }, 700);
   }
 
+  /* fire when visible */
   if ('IntersectionObserver' in window) {
-    var obs = new IntersectionObserver(function(entries) {
-      if (entries[0].isIntersecting) { init(); obs.disconnect(); }
-    }, { threshold: 0.15 });
-    obs.observe(document.querySelector('.h'));
+    var io = new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { init(); io.disconnect(); }
+    }, { threshold: 0.1 });
+    io.observe(document.querySelector('.h'));
   } else {
-    setTimeout(init, 100);
+    init();
   }
-})();
+}());
 </script>
