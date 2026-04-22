@@ -1,133 +1,84 @@
+<section class="hw">
 <style>
-.hw-wrap {
-  max-width: 1140px;
-  margin: 0 auto;
+.hw {
   padding: 28px 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
   font-size: 14px;
-  line-height: 1.5;
   color: #0a0a0a;
   background: #ffffff;
-  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
 }
-
+.hw * { box-sizing: border-box; }
 .hw-streak {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #ffffff;
   border: 1px solid #e4e4e7;
   border-radius: 999px;
   padding: 4px 12px 4px 8px;
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 14px;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
 }
-.hw-streak.in { opacity: 1; transform: translateY(0); }
-
 .hw-dot {
-  width: 7px;
-  height: 7px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: #f97316;
   flex-shrink: 0;
+  animation: hwPulse 2s ease-in-out infinite;
 }
-.hw-dot.pulse { animation: hwDotPulse 2s ease-in-out infinite; }
-
 .hw-title {
   font-size: 32px;
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.15;
-  color: #0a0a0a;
   margin-bottom: 6px;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity 0.4s ease 0.07s, transform 0.4s ease 0.07s;
 }
-.hw-title.in { opacity: 1; transform: translateY(0); }
-
-.hw-subtitle {
+.hw-sub {
   font-size: 13px;
   color: #71717a;
   margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity 0.4s ease 0.13s, transform 0.4s ease 0.13s;
 }
-.hw-subtitle.in { opacity: 1; transform: translateY(0); }
-
 .hw-body {
   display: grid;
   grid-template-columns: 1fr 320px;
   gap: 14px;
   align-items: stretch;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.45s ease 0.18s, transform 0.45s ease 0.18s;
 }
-.hw-body.in { opacity: 1; transform: translateY(0); }
-
-/* Purple impact card */
+/* Purple card */
 .hw-card {
-  position: relative;
   background: #7c3aed;
   border-radius: 12px;
-  padding: 26px 26px 22px;
-  overflow: hidden;
+  padding: 26px;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
 }
 .hw-card::before {
   content: '';
   position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 200px;
-  height: 200px;
+  top: -50px; right: -50px;
+  width: 200px; height: 200px;
   border-radius: 50%;
   background: rgba(255,255,255,0.1);
-  pointer-events: none;
   animation: hwOrb 7s ease-in-out infinite;
 }
-.hw-card::after {
-  content: '';
-  position: absolute;
-  bottom: -30px;
-  left: 30px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.07);
-  pointer-events: none;
-  animation: hwOrb 9s ease-in-out infinite reverse;
-}
-
 .hw-card-label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
   opacity: 0.7;
   margin-bottom: 10px;
-  color: #ffffff;
 }
-.hw-card-label svg { width: 13px; height: 13px; }
-
 .hw-big-num {
   font-size: 56px;
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: #ffffff;
   position: relative;
   z-index: 1;
 }
@@ -136,11 +87,9 @@
   opacity: 0.75;
   margin-top: 5px;
   margin-bottom: 22px;
-  color: #ffffff;
   position: relative;
   z-index: 1;
 }
-
 .hw-tiles {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -149,39 +98,12 @@
   z-index: 1;
 }
 .hw-tile {
-  background: rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.15);
   border-radius: 8px;
   padding: 11px 10px;
-  position: relative;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.35s ease, transform 0.35s ease, background 0.15s ease;
 }
-.hw-tile.in { opacity: 1; transform: translateY(0); }
-.hw-tile:hover { background: rgba(255,255,255,0.22); }
-.hw-tile-icon {
-  position: absolute;
-  top: 9px;
-  right: 9px;
-  opacity: 0.45;
-  width: 13px;
-  height: 13px;
-  color: #ffffff;
-}
-.hw-tile-val {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: #ffffff;
-}
-.hw-tile-lbl {
-  font-size: 11px;
-  opacity: 0.65;
-  margin-top: 3px;
-  color: #ffffff;
-}
-
+.hw-tile-val { font-size: 20px; font-weight: 700; line-height: 1; }
+.hw-tile-lbl { font-size: 11px; opacity: 0.65; margin-top: 3px; }
 /* Right column */
 .hw-right {
   display: flex;
@@ -203,226 +125,108 @@
   padding: 0 14px;
   flex: 1;
   border-bottom: 1px solid #e4e4e7;
-  transition: background 0.15s ease;
-  cursor: default;
-  opacity: 0;
-  transform: translateX(8px);
-  transition: opacity 0.35s ease, transform 0.35s ease, background 0.15s ease;
 }
 .hw-stat:last-child { border-bottom: none; }
-.hw-stat.in { opacity: 1; transform: translateX(0); }
 .hw-stat:hover { background: #f4f4f5; }
-
 .hw-stat-icon {
-  width: 34px;
-  height: 34px;
+  width: 34px; height: 34px;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 .hw-stat-icon svg { width: 15px; height: 15px; }
-.hw-stat-name { flex: 1; font-size: 13px; font-weight: 500; color: #0a0a0a; }
-.hw-stat-val {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #0a0a0a;
-}
-
-/* Challenge card */
-.hw-challenge {
+.hw-stat-name { flex: 1; font-size: 13px; font-weight: 500; }
+.hw-stat-val { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+/* Challenge */
+.hw-ch {
   margin-top: 10px;
   background: #f5f3ff;
   border: 1px solid #ddd6fe;
   border-radius: 12px;
   padding: 14px 16px;
   flex-shrink: 0;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s;
 }
-.hw-challenge.in { opacity: 1; transform: translateY(0); }
-.hw-ch-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.hw-ch-icon {
-  width: 34px;
-  height: 34px;
+.hw-ch-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.hw-ch-ico {
+  width: 34px; height: 34px;
   border-radius: 8px;
   background: #7c3aed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.hw-ch-icon svg { width: 16px; height: 16px; color: #ffffff; }
-.hw-ch-title { font-size: 13px; font-weight: 600; color: #0a0a0a; }
+.hw-ch-ico svg { width: 16px; height: 16px; color: #fff; }
+.hw-ch-title { font-size: 13px; font-weight: 600; }
 .hw-ch-sub { font-size: 11px; color: #71717a; margin-top: 1px; }
-.hw-progress-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: #71717a;
-  margin-bottom: 5px;
-}
-.hw-progress-track {
-  height: 5px;
-  background: #ddd6fe;
-  border-radius: 999px;
-  overflow: hidden;
-}
-.hw-progress-bar {
-  height: 100%;
-  width: 0;
-  background: #7c3aed;
-  border-radius: 999px;
-  transition: width 1s ease 0.5s;
-}
-
-@keyframes hwDotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.75); }
+.hw-prog-meta { display: flex; justify-content: space-between; font-size: 11px; color: #71717a; margin-bottom: 5px; }
+.hw-prog-track { height: 5px; background: #ddd6fe; border-radius: 999px; overflow: hidden; }
+.hw-prog-bar { height: 100%; width: 33.33%; background: #7c3aed; border-radius: 999px; transition: width 1s ease; }
+@keyframes hwPulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.5; transform:scale(0.75); }
 }
 @keyframes hwOrb {
-  0%, 100% { transform: translate(0, 0); }
-  40% { transform: translate(10px, -14px); }
-  70% { transform: translate(-7px, 8px); }
+  0%,100% { transform:translate(0,0); }
+  40% { transform:translate(10px,-14px); }
+  70% { transform:translate(-7px,8px); }
 }
 </style>
 
-<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
-  <symbol id="hw-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/></symbol>
-  <symbol id="hw-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
-  <symbol id="hw-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
-  <symbol id="hw-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
-  <symbol id="hw-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
-  <symbol id="hw-at" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></symbol>
-  <symbol id="hw-thumb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></symbol>
-  <symbol id="hw-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
-</svg>
+  <div class="hw-streak"><span class="hw-dot"></span> 12 day streak 🔥</div>
+  <h1 class="hw-title">Welcome back, Sergi Martinez</h1>
+  <p class="hw-sub">You've made a real impact this week — here's what's happening</p>
 
-<div class="hw-wrap">
-  <div class="hw-streak" id="hwStreak">
-    <span class="hw-dot" id="hwDot"></span>
-    12 day streak 🔥
-  </div>
-  <h1 class="hw-title" id="hwTitle">Welcome back, Sergi Martinez</h1>
-  <p class="hw-subtitle" id="hwSub">You've made a real impact this week — here's what's happening</p>
-
-  <div class="hw-body" id="hwBody">
+  <div class="hw-body">
     <div class="hw-card">
       <div>
-        <div class="hw-card-label">
-          <svg><use href="#hw-star"/></svg>
-          Your impact this week
-        </div>
-        <div class="hw-big-num" id="hwReach">0</div>
+        <div class="hw-card-label">✦ Your impact this week</div>
+        <div class="hw-big-num" id="hwN">2,847</div>
         <div class="hw-big-lbl">people reached with your contributions</div>
       </div>
       <div class="hw-tiles">
-        <div class="hw-tile" id="hwT0">
-          <svg class="hw-tile-icon"><use href="#hw-trophy"/></svg>
-          <div class="hw-tile-val">#2</div>
-          <div class="hw-tile-lbl">Expert in Design</div>
-        </div>
-        <div class="hw-tile" id="hwT1">
-          <svg class="hw-tile-icon"><use href="#hw-heart"/></svg>
-          <div class="hw-tile-val" id="hwHelped">0</div>
-          <div class="hw-tile-lbl">People helped</div>
-        </div>
-        <div class="hw-tile" id="hwT2">
-          <svg class="hw-tile-icon"><use href="#hw-trend"/></svg>
-          <div class="hw-tile-val">Top 5%</div>
-          <div class="hw-tile-lbl">Contributor</div>
-        </div>
+        <div class="hw-tile"><div class="hw-tile-val">#2</div><div class="hw-tile-lbl">Expert in Design</div></div>
+        <div class="hw-tile"><div class="hw-tile-val">47</div><div class="hw-tile-lbl">People helped</div></div>
+        <div class="hw-tile"><div class="hw-tile-val">Top 5%</div><div class="hw-tile-lbl">Contributor</div></div>
       </div>
     </div>
 
     <div class="hw-right">
       <div class="hw-stats">
-        <div class="hw-stat" id="hwS0">
+        <div class="hw-stat">
           <div class="hw-stat-icon" style="background:#dbeafe">
-            <svg style="color:#2563eb"><use href="#hw-msg"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
           <span class="hw-stat-name">New replies</span>
-          <span class="hw-stat-val" data-to="12">0</span>
+          <span class="hw-stat-val">12</span>
         </div>
-        <div class="hw-stat" id="hwS1">
+        <div class="hw-stat">
           <div class="hw-stat-icon" style="background:#fee2e2">
-            <svg style="color:#dc2626"><use href="#hw-at"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
           </div>
           <span class="hw-stat-name">Mentions</span>
-          <span class="hw-stat-val" data-to="5">0</span>
+          <span class="hw-stat-val">5</span>
         </div>
-        <div class="hw-stat" id="hwS2">
+        <div class="hw-stat">
           <div class="hw-stat-icon" style="background:#fef3c7">
-            <svg style="color:#d97706"><use href="#hw-thumb"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
           </div>
           <span class="hw-stat-name">Reactions</span>
-          <span class="hw-stat-val" data-to="34">0</span>
+          <span class="hw-stat-val">34</span>
         </div>
       </div>
-      <div class="hw-challenge" id="hwCh">
+      <div class="hw-ch">
         <div class="hw-ch-header">
-          <div class="hw-ch-icon"><svg><use href="#hw-target"/></svg></div>
+          <div class="hw-ch-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
           <div>
             <div class="hw-ch-title">Weekly Challenge</div>
             <div class="hw-ch-sub">Answer 3 questions</div>
           </div>
         </div>
-        <div class="hw-progress-meta"><span>Progress</span><span>1 / 3</span></div>
-        <div class="hw-progress-track">
-          <div class="hw-progress-bar" id="hwBar"></div>
-        </div>
+        <div class="hw-prog-meta"><span>Progress</span><span>1 / 3</span></div>
+        <div class="hw-prog-track"><div class="hw-prog-bar"></div></div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-(function(){
-  function countUp(el, target, duration, delay) {
-    setTimeout(function(){
-      var s = null;
-      (function step(ts){
-        if(!s) s = ts;
-        var p = Math.min((ts-s)/duration, 1);
-        el.textContent = Math.round((1-Math.pow(2,-10*p))*target).toLocaleString();
-        if(p<1) requestAnimationFrame(step);
-      })(0);
-      requestAnimationFrame(function(ts){ s=ts; });
-    }, delay);
-  }
-  function show(id, delay){
-    setTimeout(function(){
-      var el = document.getElementById(id);
-      if(el) el.classList.add('in');
-    }, delay);
-  }
-  function init(){
-    show('hwStreak', 0);
-    show('hwTitle',  70);
-    show('hwSub',    130);
-    show('hwBody',   190);
-    setTimeout(function(){ var d=document.getElementById('hwDot'); if(d) d.classList.add('pulse'); }, 400);
-    countUp(document.getElementById('hwReach'),  2847, 1400, 300);
-    countUp(document.getElementById('hwHelped'), 47,   900,  500);
-    document.querySelectorAll('.hw-stat-val[data-to]').forEach(function(el){
-      countUp(el, parseInt(el.getAttribute('data-to'), 10), 700, 400);
-    });
-    show('hwS0', 300); show('hwS1', 370); show('hwS2', 440);
-    show('hwT0', 500); show('hwT1', 560); show('hwT2', 620);
-    show('hwCh', 400);
-    setTimeout(function(){ var b=document.getElementById('hwBar'); if(b) b.style.width='33.33%'; }, 700);
-  }
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){ init(); io.disconnect(); } },{threshold:0.1});
-    io.observe(document.querySelector('.hw-wrap'));
-  } else { setTimeout(init, 100); }
-}());
-</script>
+</section>
