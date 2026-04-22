@@ -1,110 +1,109 @@
-<section class="cp-root">
+<section class="cp">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;500;600&display=swap');
-
-.cp-root {
+.cp {
   display: block;
   width: 100%;
-  background: #0F1117;
-  font-family: 'Sora', system-ui, sans-serif;
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
+  border-bottom: 1px solid #e4e4e7;
 }
 
 .cp-bar {
   max-width: 1140px;
   margin: 0 auto;
-  height: 52px;
+  height: 48px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   padding: 0 20px;
-  gap: 0;
-  border-bottom: 1px solid rgba(124,58,237,0.25);
-  box-shadow: 0 1px 0 0 rgba(124,58,237,0.15), 0 4px 24px rgba(0,0,0,0.4);
-  position: relative;
 }
 
-/* top glow line */
-.cp-bar::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(124,58,237,0.6) 30%, rgba(14,165,233,0.4) 70%, transparent);
-  pointer-events: none;
-}
-
-/* ── Segment + divider ── */
+/* ── Segment ── */
 .cp-seg {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   padding: 0 18px;
-  height: 100%;
-  flex-shrink: 0;
   position: relative;
+  flex-shrink: 0;
 }
+.cp-seg:first-child { padding-left: 0; }
+.cp-seg:last-child  { padding-right: 0; }
+
+/* vertical divider between segments */
 .cp-seg + .cp-seg::before {
   content: '';
   position: absolute;
-  left: 0; top: 20%; bottom: 20%;
+  left: 0; top: 25%; bottom: 25%;
   width: 1px;
-  background: rgba(255,255,255,0.08);
+  background: #e4e4e7;
 }
 
-/* Online segment */
+/* ── Live dot ── */
 .cp-dot {
-  width: 8px; height: 8px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: #22c55e;
   flex-shrink: 0;
-  animation: cpPulse 2s ease-in-out infinite;
-  box-shadow: 0 0 6px #22c55e;
+  animation: cpBreathe 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.4);
 }
-.cp-seg-label {
+@keyframes cpBreathe {
+  0%,100% { transform: scale(1);   opacity: 1;   box-shadow: 0 0 0 0   rgba(34,197,94,0.4); }
+  50%      { transform: scale(0.7); opacity: 0.5; box-shadow: 0 0 0 5px rgba(34,197,94,0);   }
+}
+
+/* ── Labels ── */
+.cp-tag {
   font-size: 11px;
-  color: rgba(255,255,255,0.45);
+  font-weight: 500;
+  color: #a1a1aa;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  font-weight: 500;
-  white-space: nowrap;
-}
-.cp-num {
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  font-size: 14px;
-  font-weight: 500;
-  color: #ffffff;
+  letter-spacing: 0.06em;
   white-space: nowrap;
 }
 
-/* Trending segment — grows to fill space */
+.cp-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0a0a0a;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ── Trending — fills remaining space ── */
 .cp-seg-trend {
   flex: 1;
   min-width: 0;
   cursor: pointer;
   position: relative;
 }
-.cp-trend-inner {
-  display: flex;
+.cp-trend-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-width: 0;
+  gap: 6px;
+  background: #f5f3ff;
+  border: 1px solid #ede9fe;
+  border-radius: 999px;
+  padding: 3px 10px 3px 7px;
+  max-width: 100%;
 }
-.cp-trend-label {
-  font-size: 11px;
-  color: #7c3aed;
+.cp-trend-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  font-weight: 600;
+  color: #7c3aed;
   flex-shrink: 0;
 }
 .cp-trend-text {
-  font-size: 13px;
-  color: rgba(255,255,255,0.85);
+  font-size: 12px;
+  font-weight: 500;
+  color: #3f3f46;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 400;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
 }
 .cp-trend-text.fade { opacity: 0; }
 
@@ -112,58 +111,49 @@
 .cp-tooltip {
   display: none;
   position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1A1D2E;
-  border: 1px solid rgba(124,58,237,0.3);
-  border-radius: 8px;
-  padding: 10px 14px;
-  width: 260px;
-  z-index: 100;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  top: calc(100% + 6px);
+  left: 18px;
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 10px;
+  padding: 12px 14px;
+  width: 256px;
+  z-index: 200;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.05);
 }
 .cp-seg-trend:hover .cp-tooltip { display: block; }
-.cp-tooltip-title {
-  font-size: 12px;
+.cp-tip-title {
+  font-size: 13px;
   font-weight: 600;
-  color: #ffffff;
+  color: #0a0a0a;
   margin-bottom: 4px;
   line-height: 1.4;
 }
-.cp-tooltip-meta {
-  font-size: 11px;
-  color: rgba(255,255,255,0.45);
-}
+.cp-tip-meta { font-size: 11px; color: #71717a; }
 
-/* Top contributor */
-.cp-contrib {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
+/* ── Top contributor ── */
 .cp-avatar {
   width: 24px; height: 24px;
   border-radius: 50%;
   background: linear-gradient(135deg, #7c3aed, #0ea5e9);
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   color: #fff;
   flex-shrink: 0;
 }
 .cp-contrib-name {
   font-size: 12px;
-  color: rgba(255,255,255,0.75);
-  white-space: nowrap;
   font-weight: 500;
+  color: #3f3f46;
+  white-space: nowrap;
 }
 
-/* CTA button */
+/* ── CTA button ── */
 .cp-cta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: #7c3aed;
   color: #ffffff;
   border: none;
@@ -174,10 +164,10 @@
   font-family: inherit;
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
   position: relative;
   overflow: hidden;
-  transition: background 0.2s ease, transform 0.15s ease;
-  text-decoration: none;
+  transition: background 0.15s ease, transform 0.1s ease;
   flex-shrink: 0;
 }
 .cp-cta:hover { background: #6d28d9; transform: scale(1.02); }
@@ -185,77 +175,63 @@
 .cp-cta::after {
   content: '';
   position: absolute;
-  top: 0; left: -100%;
+  top: 0; left: -80%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transform: skewX(-20deg);
-  transition: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-15deg);
 }
 .cp-cta:hover::after {
-  left: 160%;
-  transition: left 0.5s ease;
+  animation: cpShimmer 0.5s ease forwards;
+}
+@keyframes cpShimmer {
+  from { left: -80%; }
+  to   { left: 140%; }
 }
 
-/* Animations */
-@keyframes cpPulse {
-  0%,100% { opacity:1; transform:scale(1); }
-  50%      { opacity:0.4; transform:scale(0.7); }
-}
-@keyframes cpCount {
-  from { opacity:0; transform:translateY(4px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-
-/* Mobile: hide non-essential segments */
+/* Mobile */
 @media (max-width: 768px) {
-  .cp-seg-posts,
-  .cp-seg-contrib { display: none; }
-  .cp-cta { display: none; }
+  .cp-seg-posts, .cp-seg-contrib, .cp-seg-cta { display: none; }
 }
 </style>
 
 <div class="cp-bar">
 
-  <!-- Members online -->
+  <!-- Online -->
   <div class="cp-seg">
     <span class="cp-dot"></span>
-    <span class="cp-num" id="cpOnline">0</span>
-    <span class="cp-seg-label">online</span>
+    <span class="cp-val" id="cpOnline">847</span>
+    <span class="cp-tag">online</span>
   </div>
 
-  <!-- New posts today -->
+  <!-- Posts today -->
   <div class="cp-seg cp-seg-posts">
-    <span class="cp-num" id="cpPosts">0</span>
-    <span class="cp-seg-label">new posts today</span>
+    <span class="cp-val" id="cpPosts">63</span>
+    <span class="cp-tag">new posts today</span>
   </div>
 
-  <!-- Trending topic -->
+  <!-- Trending -->
   <div class="cp-seg cp-seg-trend">
-    <div class="cp-trend-inner">
-      <span class="cp-trend-label">🔥 Trending</span>
-      <span class="cp-trend-text" id="cpTrend">Loading…</span>
+    <div class="cp-trend-pill">
+      <span class="cp-trend-badge">🔥 Trending</span>
+      <span class="cp-trend-text" id="cpTrend">How to reduce churn in your first 90 days</span>
     </div>
     <div class="cp-tooltip">
-      <div class="cp-tooltip-title" id="cpTipTitle"></div>
-      <div class="cp-tooltip-meta" id="cpTipMeta"></div>
+      <div class="cp-tip-title" id="cpTipTitle">How to reduce churn in your first 90 days</div>
+      <div class="cp-tip-meta" id="cpTipMeta">24 replies · Click to read</div>
     </div>
   </div>
 
   <!-- Top contributor -->
   <div class="cp-seg cp-seg-contrib">
-    <span class="cp-seg-label">🏆 Top</span>
-    <div class="cp-contrib">
-      <div class="cp-avatar" id="cpAvatar">SM</div>
-      <span class="cp-contrib-name" id="cpContrib">Sergi M.</span>
-    </div>
+    <span class="cp-tag">🏆 Top</span>
+    <div class="cp-avatar">SM</div>
+    <span class="cp-contrib-name">Sergi M.</span>
   </div>
 
   <!-- CTA -->
-  <div class="cp-seg">
-    <a class="cp-cta" href="#">
-      + Create Topic
-    </a>
+  <div class="cp-seg cp-seg-cta">
+    <a class="cp-cta" href="#">+ Create Topic</a>
   </div>
 
 </div>
@@ -263,46 +239,42 @@
 
 <script>
 (function(){
-  var TOPICS = [
-    { text: "How to reduce churn in your first 90 days", replies: 24 },
-    { text: "Best QBR templates for enterprise accounts", replies: 18 },
-    { text: "AI tools your CS team should be using now", replies: 31 },
-    { text: "PLG vs sales-led: which motion fits your stage?", replies: 12 }
+  var topics = [
+    { text: "How to reduce churn in your first 90 days",       replies: 24 },
+    { text: "Best QBR templates for enterprise accounts",       replies: 18 },
+    { text: "AI tools your CS team should be using now",        replies: 31 },
+    { text: "PLG vs sales-led: which motion fits your stage?",  replies: 12 }
   ];
-  var idx = 0;
+  var i = 0;
   var el = document.getElementById('cpTrend');
   var tipTitle = document.getElementById('cpTipTitle');
-  var tipMeta = document.getElementById('cpTipMeta');
+  var tipMeta  = document.getElementById('cpTipMeta');
 
-  function setTopic(i) {
-    var t = TOPICS[i % TOPICS.length];
+  function setTopic(idx) {
+    var t = topics[idx % topics.length];
     el.classList.add('fade');
     setTimeout(function(){
-      el.textContent = t.text;
+      el.textContent       = t.text;
       tipTitle.textContent = t.text;
-      tipMeta.textContent = t.replies + ' replies · Click to read';
+      tipMeta.textContent  = t.replies + ' replies · Click to read';
       el.classList.remove('fade');
-    }, 400);
+    }, 350);
   }
 
-  // count-up helper
-  function countUp(elId, target, ms) {
-    var node = document.getElementById(elId);
-    if(!node) return;
+  function countUp(id, target, ms) {
+    var node = document.getElementById(id);
+    if (!node) return;
     var start = Date.now();
-    var raf = function(){
-      var p = Math.min((Date.now()-start)/ms, 1);
-      var v = Math.round((1-Math.pow(2,-8*p))*target);
-      node.textContent = v >= 1000 ? (v/1000).toFixed(1)+'k' : v;
-      if(p < 1) requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
+    (function tick(){
+      var p = Math.min((Date.now() - start) / ms, 1);
+      var v = Math.round((1 - Math.pow(2, -8 * p)) * target);
+      node.textContent = v >= 1000 ? (v/1000).toFixed(1) + 'k' : v;
+      if (p < 1) requestAnimationFrame(tick);
+    })();
   }
 
-  // Init
-  setTopic(0);
   countUp('cpOnline', 847, 800);
-  countUp('cpPosts', 63, 600);
-  setInterval(function(){ idx++; setTopic(idx); }, 5000);
+  countUp('cpPosts',   63, 600);
+  setInterval(function(){ i++; setTopic(i); }, 5000);
 }());
 </script>
