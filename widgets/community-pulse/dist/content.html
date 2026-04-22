@@ -1,245 +1,62 @@
-<section class="cp">
+<section class="gs-root">
 <style>
-.cp {
-  display: block;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #ffffff;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-  padding: 24px 20px;
-}
-.cp * { box-sizing: border-box; }
-
-.cp-wrap {
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-.cp-heading {
-  margin-bottom: 16px;
-}
-.cp-heading h2 {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #71717a;
-  margin: 0;
-}
-
-.cp-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-/* ── Card base ── */
-.cp-card {
-  border: 1px solid #e4e4e7;
-  border-radius: 12px;
-  padding: 20px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.cp-card:hover {
-  border-color: #c4b5fd;
-  box-shadow: 0 4px 16px rgba(124,58,237,0.07);
-}
-
-.cp-card-label {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #a1a1aa;
-}
-
-/* live dot */
-.cp-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #22c55e;
-  flex-shrink: 0;
-  animation: cpBreathe 2s ease-in-out infinite;
-}
-@keyframes cpBreathe {
-  0%,100% { opacity:1; transform:scale(1); }
-  50%      { opacity:0.45; transform:scale(0.65); }
-}
-
-/* big number */
-.cp-number {
-  font-size: 48px;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  color: #0a0a0a;
-}
-
-.cp-sublabel {
-  font-size: 12px;
-  color: #71717a;
-  margin-top: -4px;
-}
-
-/* sparkline bar chart */
-.cp-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 32px;
-  margin-top: 4px;
-}
-.cp-bar-item {
-  flex: 1;
-  border-radius: 3px 3px 0 0;
-  background: #ede9fe;
-  transition: background 0.15s ease;
-  min-height: 4px;
-}
-.cp-bar-item.active { background: #7c3aed; }
-.cp-bars:hover .cp-bar-item { background: #ddd6fe; }
-.cp-bars:hover .cp-bar-item.active { background: #6d28d9; }
-
-/* posts card — recent list */
-.cp-posts-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-top: 2px;
-}
-.cp-post-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid #f4f4f5;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.12s ease;
-  border-radius: 4px;
-}
-.cp-post-row:last-child { border-bottom: none; }
-.cp-post-row:hover { background: #faf5ff; padding-left: 4px; padding-right: 4px; margin: 0 -4px; }
-
-.cp-post-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #7c3aed;
-  flex-shrink: 0;
-  opacity: 0.5;
-}
-.cp-post-title {
-  flex: 1;
-  font-size: 12px;
-  font-weight: 500;
-  color: #18181b;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.cp-post-time {
-  font-size: 11px;
-  color: #a1a1aa;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-/* ── Consistent widget header ── */
-.gs-header { margin-bottom: 16px; }
-.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
-.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
-.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
-.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
-.gs-link:hover { text-decoration: underline; }
-
+/* ─── Unified Design System ─── */
+.gs-root { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:14px; line-height:1.5; color:#0a0a0a; background:#fff; -webkit-font-smoothing:antialiased; }
+.gs-root * { box-sizing:border-box; }
+.gs-wrap { max-width:1140px; margin:0 auto; padding:24px 20px; }
+.gs-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.gs-label { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#a1a1aa; }
+.gs-stat { display:inline-flex; align-items:center; gap:3px; font-size:11px; color:#a1a1aa; }
+.gs-stat svg { width:11px; height:11px; }
+/* Pulse */
+.cp-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.cp-card { border:1px solid #e4e4e7; border-radius:10px; padding:20px 20px 16px; transition:border-color .15s,box-shadow .15s; }
+.cp-card:hover { border-color:#c4b5fd; box-shadow:0 4px 16px rgba(124,58,237,.06); }
+.cp-num { font-size:44px; font-weight:800; letter-spacing:-.04em; line-height:1; color:#0a0a0a; margin:8px 0 4px; }
+.cp-sub { font-size:12px; color:#71717a; margin-bottom:10px; }
+.cp-live { width:7px; height:7px; border-radius:50%; background:#22c55e; display:inline-block; animation:cpP 2s ease-in-out infinite; margin-right:5px; }
+@keyframes cpP { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);} }
+.cp-bars { display:flex; align-items:flex-end; gap:3px; height:28px; }
+.cp-bar { flex:1; border-radius:2px 2px 0 0; background:#ede9fe; min-height:3px; }
+.cp-bar.hi { background:#7c3aed; }
+.cp-feed { display:flex; flex-direction:column; margin-top:8px; }
+.cp-row { display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px solid #f4f4f5; text-decoration:none; color:inherit; transition:background .12s; border-radius:4px; }
+.cp-row:last-child { border-bottom:none; }
+.cp-row:hover { background:#faf5ff; padding-left:4px; padding-right:4px; margin:0 -4px; }
+.cp-row-dot { width:5px; height:5px; border-radius:50%; background:#7c3aed; opacity:.4; flex-shrink:0; }
+.cp-row-title { flex:1; font-size:12px; font-weight:500; color:#18181b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cp-row-time { font-size:11px; color:#a1a1aa; flex-shrink:0; }
 </style>
-
-<div class="cp-wrap">
-  <div class="cp-heading"><div class="gs-header"><div class="gs-header-row"><h2 class="gs-title">Community Pulse</h2></div></div></div>
+<div class="gs-wrap">
+  <div class="gs-header">
+    <span class="gs-label">Community Pulse</span>
+  </div>
   <div class="cp-grid">
-
-    <!-- Active users -->
     <div class="cp-card">
-      <div class="cp-card-label">
-        <span class="cp-dot"></span>
-        Active members right now
-      </div>
-      <div class="cp-number" id="cpOnline">0</div>
-      <div class="cp-sublabel">people online in the last 15 minutes</div>
-      <!-- sparkline — hourly activity -->
-      <div class="cp-bars" title="Hourly activity today">
-        <div class="cp-bar-item" style="height:35%"></div>
-        <div class="cp-bar-item" style="height:28%"></div>
-        <div class="cp-bar-item" style="height:20%"></div>
-        <div class="cp-bar-item" style="height:45%"></div>
-        <div class="cp-bar-item" style="height:60%"></div>
-        <div class="cp-bar-item" style="height:55%"></div>
-        <div class="cp-bar-item" style="height:70%"></div>
-        <div class="cp-bar-item" style="height:80%"></div>
-        <div class="cp-bar-item" style="height:65%"></div>
-        <div class="cp-bar-item" style="height:72%"></div>
-        <div class="cp-bar-item" style="height:88%"></div>
-        <div class="cp-bar-item active" style="height:100%"></div>
+      <div class="gs-label"><span class="cp-live"></span>Active right now</div>
+      <div class="cp-num" id="cpN1">847</div>
+      <div class="cp-sub">members online in the last 15 min</div>
+      <div class="cp-bars">
+        <div class="cp-bar" style="height:35%"></div><div class="cp-bar" style="height:28%"></div><div class="cp-bar" style="height:45%"></div><div class="cp-bar" style="height:55%"></div><div class="cp-bar" style="height:65%"></div><div class="cp-bar" style="height:72%"></div><div class="cp-bar" style="height:80%"></div><div class="cp-bar" style="height:68%"></div><div class="cp-bar" style="height:75%"></div><div class="cp-bar" style="height:88%"></div><div class="cp-bar" style="height:94%"></div><div class="cp-bar hi" style="height:100%"></div>
       </div>
     </div>
-
-    <!-- New posts today -->
     <div class="cp-card">
-      <div class="cp-card-label">New posts today</div>
-      <div class="cp-number" id="cpPosts">0</div>
-      <div class="cp-sublabel">topics started in the last 24 hours</div>
-      <div class="cp-posts-list">
-        <a class="cp-post-row" href="#">
-          <span class="cp-post-dot"></span>
-          <span class="cp-post-title">How to reduce churn in your first 90 days</span>
-          <span class="cp-post-time">2m ago</span>
-        </a>
-        <a class="cp-post-row" href="#">
-          <span class="cp-post-dot"></span>
-          <span class="cp-post-title">Best QBR templates for enterprise accounts</span>
-          <span class="cp-post-time">18m ago</span>
-        </a>
-        <a class="cp-post-row" href="#">
-          <span class="cp-post-dot"></span>
-          <span class="cp-post-title">AI tools your CS team should be using now</span>
-          <span class="cp-post-time">41m ago</span>
-        </a>
+      <div class="gs-label">New posts today</div>
+      <div class="cp-num" id="cpN2">63</div>
+      <div class="cp-sub">topics started in the last 24h</div>
+      <div class="cp-feed">
+        <a class="cp-row" href="#"><span class="cp-row-dot"></span><span class="cp-row-title">How to reduce churn in your first 90 days</span><span class="cp-row-time">2m</span></a>
+        <a class="cp-row" href="#"><span class="cp-row-dot"></span><span class="cp-row-title">Best QBR templates for enterprise accounts</span><span class="cp-row-time">18m</span></a>
+        <a class="cp-row" href="#"><span class="cp-row-dot"></span><span class="cp-row-title">AI tools your CS team should be using now</span><span class="cp-row-time">41m</span></a>
       </div>
     </div>
-
   </div>
 </div>
 </section>
-
 <script>
-(function() {
-  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
-  if (!ROOT) ROOT = document;
-
 (function(){
-  function countUp(id, target, ms) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    var start = Date.now();
-    (function tick(){
-      var p = Math.min((Date.now()-start)/ms, 1);
-      var v = Math.round((1-Math.pow(2,-8*p))*target);
-      el.textContent = v >= 1000 ? (v/1000).toFixed(1)+'k' : v;
-      if (p < 1) requestAnimationFrame(tick);
-    })();
-  }
-  countUp('cpOnline', 847, 900);
-  countUp('cpPosts',   63, 700);
-  // Also set static values immediately as fallback in case count-up fails
-  var on=ROOT.querySelector('#cpOnline'); var ps=ROOT.querySelector('#cpPosts');
-  if(on && !on.textContent) on.textContent='847';
-  if(ps && !ps.textContent) ps.textContent='63';
-}());
+  var ROOT=document.currentScript?document.currentScript.closest('section'):document; if(!ROOT)ROOT=document;
+  function cu(id,t,ms){var el=ROOT.querySelector('#'+id);if(!el)return;var s=Date.now();(function r(){var p=Math.min((Date.now()-s)/ms,1),v=Math.round((1-Math.pow(2,-8*p))*t);el.textContent=v>=1000?(v/1000).toFixed(1).replace(/\.0$/,'')+'k':v;if(p<1)requestAnimationFrame(r);})();}
+  cu('cpN1',847,900); cu('cpN2',63,700);
 })();
 </script>
