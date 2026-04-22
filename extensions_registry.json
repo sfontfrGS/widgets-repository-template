@@ -339,6 +339,176 @@
         "description": "Find answers and related discussions."
       },
       "type": "community-ask"
+    },
+    {
+      "title": "Global Member Map",
+      "description": "Interactive world map showing where community members are located, with animated live dots and top countries leaderboard.",
+      "category": "Exploration",
+      "imageSrc": "widgets/exp-member-map/thumbnail.png",
+      "source": {
+        "path": "widgets/exp-member-map/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Global Member Map",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Interactive world map showing where community members are located, with animated live dots and top countries leaderboard."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Global Member Map",
+        "description": "Interactive world map showing where community members are located, with animated live dots and top countries leaderboard."
+      },
+      "type": "exp-member-map"
+    },
+    {
+      "title": "Learning Path",
+      "description": "Guided skill progression widget with topic tracks, XP points, step completion and overall progress bar.",
+      "category": "Exploration",
+      "imageSrc": "widgets/exp-learning-path/thumbnail.png",
+      "source": {
+        "path": "widgets/exp-learning-path/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Learning Path",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Guided skill progression widget with topic tracks, XP points, step completion and overall progress bar."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Learning Path",
+        "description": "Guided skill progression widget with topic tracks, XP points, step completion and overall progress bar."
+      },
+      "type": "exp-learning-path"
+    },
+    {
+      "title": "Reputation & Badges",
+      "description": "Personal reputation card with XP level, earned badges, locked achievements and weekly leaderboard.",
+      "category": "Exploration",
+      "imageSrc": "widgets/exp-reputation/thumbnail.png",
+      "source": {
+        "path": "widgets/exp-reputation/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Reputation & Badges",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Personal reputation card with XP level, earned badges, locked achievements and weekly leaderboard."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Reputation & Badges",
+        "description": "Personal reputation card with XP level, earned badges, locked achievements and weekly leaderboard."
+      },
+      "type": "exp-reputation"
+    },
+    {
+      "title": "Live Activity Feed",
+      "description": "Real-time stream of community actions: new posts, reactions, badge awards and accepted answers. Simulates live updates every 8 seconds.",
+      "category": "Exploration",
+      "imageSrc": "widgets/exp-live-feed/thumbnail.png",
+      "source": {
+        "path": "widgets/exp-live-feed/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Live Activity Feed",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Real-time stream of community actions: new posts, reactions, badge awards and accepted answers. Simulates live updates every 8 seconds."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Live Activity Feed",
+        "description": "Real-time stream of community actions: new posts, reactions, badge awards and accepted answers. Simulates live updates every 8 seconds."
+      },
+      "type": "exp-live-feed"
+    },
+    {
+      "title": "Community Mood Poll",
+      "description": "Weekly mood check-in poll with animated vote bars, mood trend chart and community vibe summary.",
+      "category": "Exploration",
+      "imageSrc": "widgets/exp-mood-poll/thumbnail.png",
+      "source": {
+        "path": "widgets/exp-mood-poll/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Community Mood Poll",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Weekly mood check-in poll with animated vote bars, mood trend chart and community vibe summary."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Community Mood Poll",
+        "description": "Weekly mood check-in poll with animated vote bars, mood trend chart and community vibe summary."
+      },
+      "type": "exp-mood-poll"
     }
   ],
   "stylesheets": [

@@ -1,0 +1,33 @@
+{
+  "title": "Community Mood Poll",
+  "description": "Weekly mood check-in poll with animated vote bars, mood trend chart and community vibe summary.",
+  "category": "Exploration",
+  "imageSrc": "thumbnail.png",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "title",
+        "type": "text",
+        "label": "Title",
+        "defaultValue": "Community Mood Poll",
+        "rules": {
+          "required": true
+        }
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "label": "Description",
+        "defaultValue": "Weekly mood check-in poll with animated vote bars, mood trend chart and community vibe summary."
+      }
+    ]
+  },
+  "defaultConfig": {
+    "title": "Community Mood Poll",
+    "description": "Weekly mood check-in poll with animated vote bars, mood trend chart and community vibe summary."
+  }
+}

@@ -1,0 +1,155 @@
+<section class="mm">
+<style>
+.mm { display:block; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#fff; padding:24px 20px; -webkit-font-smoothing:antialiased; }
+.mm * { box-sizing:border-box; }
+.mm-wrap { max-width:1140px; margin:0 auto; }
+.mm-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:16px; }
+.mm-header h2 { font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#71717a; margin:0; }
+.mm-header span { font-size:11px; color:#a1a1aa; }
+
+.mm-body { display:grid; grid-template-columns:1fr 220px; gap:16px; align-items:start; }
+
+/* SVG world map */
+.mm-map-wrap { position:relative; background:#f9f9fb; border:1px solid #e4e4e7; border-radius:12px; overflow:hidden; padding:12px; }
+.mm-map-wrap svg { width:100%; height:auto; display:block; }
+.mm-continent { fill:#e4e4e7; transition:fill .2s ease; }
+.mm-continent:hover { fill:#ddd6fe; }
+/* animated dots for active members */
+.mm-dot { cursor:pointer; }
+.mm-dot circle.pulse {
+  animation: mmPulse 2s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes mmPulse {
+  0%,100% { opacity:.6; r:5; }
+  50% { opacity:.15; r:9; }
+}
+
+/* right: top locations list */
+.mm-list { display:flex; flex-direction:column; gap:0; }
+.mm-list-title { font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#a1a1aa; margin-bottom:10px; }
+.mm-loc { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid #f4f4f5; }
+.mm-loc:last-child { border-bottom:none; }
+.mm-loc-rank { font-size:11px; color:#a1a1aa; font-weight:500; width:16px; flex-shrink:0; }
+.mm-loc-flag { font-size:18px; line-height:1; flex-shrink:0; }
+.mm-loc-info { flex:1; min-width:0; }
+.mm-loc-name { font-size:12px; font-weight:600; color:#18181b; }
+.mm-loc-count { font-size:11px; color:#71717a; }
+.mm-loc-bar { width:40px; height:4px; background:#f4f4f5; border-radius:999px; overflow:hidden; flex-shrink:0; }
+.mm-loc-bar-fill { height:100%; background:#7c3aed; border-radius:999px; transition:width .8s cubic-bezier(.4,0,.2,1); }
+
+/* tooltip */
+.mm-tip {
+  position:absolute;
+  background:#fff;
+  border:1px solid #e4e4e7;
+  border-radius:8px;
+  padding:8px 12px;
+  font-size:12px;
+  color:#18181b;
+  font-weight:500;
+  box-shadow:0 4px 16px rgba(0,0,0,.08);
+  pointer-events:none;
+  display:none;
+  z-index:10;
+  white-space:nowrap;
+}
+</style>
+
+<div class="mm-wrap">
+  <div class="mm-header">
+    <h2>🌍 Member Map</h2>
+    <span>2,341 members across 48 countries</span>
+  </div>
+  <div class="mm-body">
+    <div class="mm-map-wrap">
+      <!-- Simplified world map SVG with continent shapes -->
+      <svg viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg">
+        <!-- North America -->
+        <path class="mm-continent" d="M80,80 L180,60 L220,100 L240,160 L200,200 L160,220 L120,200 L80,160 Z"/>
+        <!-- South America -->
+        <path class="mm-continent" d="M160,230 L210,220 L230,280 L220,350 L180,380 L150,360 L140,300 L150,250 Z"/>
+        <!-- Europe -->
+        <path class="mm-continent" d="M380,70 L450,60 L470,90 L460,130 L420,140 L390,120 L375,95 Z"/>
+        <!-- Africa -->
+        <path class="mm-continent" d="M380,150 L450,140 L470,200 L460,290 L420,320 L380,310 L360,260 L365,190 Z"/>
+        <!-- Asia -->
+        <path class="mm-continent" d="M480,60 L720,50 L740,130 L700,180 L620,200 L540,190 L490,150 L475,100 Z"/>
+        <!-- Australia -->
+        <path class="mm-continent" d="M650,280 L730,270 L750,320 L720,360 L660,360 L630,330 L635,290 Z"/>
+        <!-- UK/Ireland blob -->
+        <path class="mm-continent" d="M355,75 L370,70 L372,88 L358,90 Z"/>
+
+        <!-- Live member dots -->
+        <!-- San Francisco -->
+        <g class="mm-dot" data-tip="San Francisco · 312 members">
+          <circle cx="95" cy="135" r="9" fill="#7c3aed" opacity=".12" class="pulse"/>
+          <circle cx="95" cy="135" r="5" fill="#7c3aed"/>
+        </g>
+        <!-- New York -->
+        <g class="mm-dot" data-tip="New York · 278 members">
+          <circle cx="170" cy="120" r="8" fill="#7c3aed" opacity=".12" class="pulse" style="animation-delay:.4s"/>
+          <circle cx="170" cy="120" r="4" fill="#7c3aed"/>
+        </g>
+        <!-- London -->
+        <g class="mm-dot" data-tip="London · 241 members">
+          <circle cx="390" cy="85" r="9" fill="#0ea5e9" opacity=".12" class="pulse" style="animation-delay:.8s"/>
+          <circle cx="390" cy="85" r="5" fill="#0ea5e9"/>
+        </g>
+        <!-- Berlin -->
+        <g class="mm-dot" data-tip="Berlin · 189 members">
+          <circle cx="430" cy="82" r="7" fill="#0ea5e9" opacity=".12" class="pulse" style="animation-delay:.3s"/>
+          <circle cx="430" cy="82" r="4" fill="#0ea5e9"/>
+        </g>
+        <!-- Singapore -->
+        <g class="mm-dot" data-tip="Singapore · 167 members">
+          <circle cx="640" cy="185" r="7" fill="#10b981" opacity=".12" class="pulse" style="animation-delay:1s"/>
+          <circle cx="640" cy="185" r="4" fill="#10b981"/>
+        </g>
+        <!-- Sydney -->
+        <g class="mm-dot" data-tip="Sydney · 134 members">
+          <circle cx="700" cy="320" r="6" fill="#10b981" opacity=".12" class="pulse" style="animation-delay:.6s"/>
+          <circle cx="700" cy="320" r="3.5" fill="#10b981"/>
+        </g>
+        <!-- São Paulo -->
+        <g class="mm-dot" data-tip="São Paulo · 98 members">
+          <circle cx="200" cy="310" r="6" fill="#f59e0b" opacity=".12" class="pulse" style="animation-delay:.2s"/>
+          <circle cx="200" cy="310" r="3.5" fill="#f59e0b"/>
+        </g>
+      </svg>
+      <div class="mm-tip" id="mmTip"></div>
+    </div>
+
+    <div class="mm-list">
+      <div class="mm-list-title">Top locations</div>
+      <div class="mm-loc"><span class="mm-loc-rank">1</span><span class="mm-loc-flag">🇺🇸</span><div class="mm-loc-info"><div class="mm-loc-name">United States</div><div class="mm-loc-count">312 members</div></div><div class="mm-loc-bar"><div class="mm-loc-bar-fill" data-w="100"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">2</span><span class="mm-loc-flag">🇬🇧</span><div class="mm-loc-info"><div class="mm-loc-name">United Kingdom</div><div class="mm-loc-count">241 members</div></div><div class="mm-loc-bar"><div class="mm-loc-bar-fill" data-w="77"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">3</span><span class="mm-loc-flag">🇩🇪</span><div class="mm-loc-info"><div class="mm-loc-name">Germany</div><div class="mm-loc-count">189 members</div></div><div class="mm-loc-bar"><div class="mm-loc-bar-fill" data-w="61"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">4</span><span class="mm-loc-flag">🇸🇬</span><div class="mm-loc-info"><div class="mm-loc-name">Singapore</div><div class="mm-loc-count">167 members</div></div><div class="mm-loc-bar"><div class="mm-loc-bar-fill" data-w="54"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">5</span><span class="mm-loc-flag">🇦🇺</span><div class="mm-loc-info"><div class="mm-loc-name">Australia</div><div class="mm-loc-count">134 members</div></div><div class="mm-loc-bar"><div class="mm-loc-bar-fill" data-w="43"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">6</span><span class="mm-loc-flag">🇧🇷</span><div class="mm-loc-info"><div class="mm-loc-name">Brazil</div><div class="mm-loc-count">98 members</div></div><div class="mm-loc-bar"><div class="mm-loc-bar-fill" data-w="31"></div></div></div>
+    </div>
+  </div>
+</div>
+</section>
+<script>
+(function(){
+  // Dot tooltips
+  var tip = document.getElementById('mmTip');
+  document.querySelectorAll('.mm-dot').forEach(function(g){
+    g.addEventListener('mouseenter', function(e){
+      tip.textContent = g.getAttribute('data-tip');
+      tip.style.display = 'block';
+    });
+    g.addEventListener('mousemove', function(e){
+      var rect = g.closest('.mm-map-wrap').getBoundingClientRect();
+      tip.style.left = (e.clientX - rect.left + 10) + 'px';
+      tip.style.top  = (e.clientY - rect.top  - 30) + 'px';
+    });
+    g.addEventListener('mouseleave', function(){ tip.style.display = 'none'; });
+  });
+  // Animate bars
+  function go(){ document.querySelectorAll('.mm-loc-bar-fill').forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; }); }
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.2}); io.observe(document.querySelector('.mm')); } else { setTimeout(go,300); }
+}());
+</script>

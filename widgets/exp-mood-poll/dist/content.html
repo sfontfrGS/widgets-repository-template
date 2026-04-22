@@ -1,0 +1,193 @@
+<section class="mp">
+<style>
+.mp { display:block; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#fff; padding:24px 20px; -webkit-font-smoothing:antialiased; }
+.mp * { box-sizing:border-box; }
+.mp-wrap { max-width:1140px; margin:0 auto; }
+.mp-header { margin-bottom:20px; }
+.mp-header h2 { font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#71717a; margin:0 0 3px; }
+.mp-header p { font-size:13px; color:#a1a1aa; margin:0; }
+
+.mp-body { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+/* Poll card */
+.mp-poll { border:1px solid #e4e4e7; border-radius:14px; padding:22px; }
+.mp-poll-q { font-size:16px; font-weight:700; color:#0a0a0a; margin-bottom:16px; line-height:1.35; }
+
+.mp-options { display:flex; flex-direction:column; gap:8px; }
+.mp-opt {
+  display:flex; align-items:center; gap:12px;
+  border:1.5px solid #e4e4e7; border-radius:10px;
+  padding:12px 14px; cursor:pointer;
+  transition:border-color .15s,background .15s,transform .1s;
+  position:relative; overflow:hidden;
+}
+.mp-opt:hover { border-color:#c4b5fd; background:#faf5ff; }
+.mp-opt.selected { border-color:#7c3aed; background:#f5f3ff; }
+.mp-opt.voted { cursor:default; }
+.mp-opt.voted:hover { transform:none; }
+
+/* fill bar behind option */
+.mp-opt-fill {
+  position:absolute; left:0; top:0; bottom:0;
+  background:rgba(124,58,237,.07);
+  border-radius:10px;
+  width:0;
+  transition:width 0.9s cubic-bezier(.4,0,.2,1) .2s;
+  z-index:0;
+}
+.mp-opt-emoji { font-size:22px; position:relative; z-index:1; flex-shrink:0; }
+.mp-opt-label { font-size:13px; font-weight:500; color:#18181b; flex:1; position:relative; z-index:1; }
+.mp-opt-pct { font-size:13px; font-weight:700; color:#7c3aed; position:relative; z-index:1; display:none; }
+.mp-opt.voted .mp-opt-pct { display:block; }
+
+.mp-vote-meta { margin-top:12px; font-size:11px; color:#a1a1aa; display:flex; justify-content:space-between; }
+.mp-vote-btn { margin-top:14px; width:100%; padding:10px; background:#7c3aed; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:600; font-family:inherit; cursor:pointer; transition:background .15s; }
+.mp-vote-btn:hover { background:#6d28d9; }
+.mp-vote-btn:disabled { background:#e4e4e7; color:#a1a1aa; cursor:default; }
+
+/* Mood history */
+.mp-history { border:1px solid #e4e4e7; border-radius:14px; padding:22px; }
+.mp-history-title { font-size:13px; font-weight:600; color:#0a0a0a; margin-bottom:16px; }
+.mp-chart { display:flex; align-items:flex-end; gap:6px; height:80px; margin-bottom:10px; }
+.mp-bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.mp-bar-seg { width:100%; border-radius:4px 4px 0 0; transition:height .8s cubic-bezier(.4,0,.2,1); }
+.mp-bar-day { font-size:10px; color:#a1a1aa; }
+
+.mp-legend { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+.mp-legend-item { display:flex; align-items:center; gap:5px; font-size:11px; color:#71717a; }
+.mp-legend-dot { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+
+/* today's vibe summary */
+.mp-vibe { margin-top:16px; padding:14px; background:#f9f9fb; border-radius:10px; }
+.mp-vibe-label { font-size:11px; color:#a1a1aa; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.mp-vibe-row { display:flex; align-items:center; gap:10px; }
+.mp-vibe-emoji { font-size:28px; }
+.mp-vibe-text { font-size:14px; font-weight:600; color:#18181b; }
+.mp-vibe-sub { font-size:11px; color:#71717a; margin-top:1px; }
+</style>
+
+<div class="mp-wrap">
+  <div class="mp-header">
+    <h2>😊 Community Mood</h2>
+    <p>How is everyone feeling this week?</p>
+  </div>
+  <div class="mp-body">
+
+    <!-- Poll -->
+    <div class="mp-poll">
+      <div class="mp-poll-q">How would you describe your experience this week?</div>
+      <div class="mp-options" id="mpOptions">
+        <div class="mp-opt" data-val="60" onclick="vote(this)">
+          <div class="mp-opt-fill"></div>
+          <span class="mp-opt-emoji">🚀</span>
+          <span class="mp-opt-label">Crushing it — great week</span>
+          <span class="mp-opt-pct">60%</span>
+        </div>
+        <div class="mp-opt" data-val="22" onclick="vote(this)">
+          <div class="mp-opt-fill"></div>
+          <span class="mp-opt-emoji">😊</span>
+          <span class="mp-opt-label">Solid — things are progressing</span>
+          <span class="mp-opt-pct">22%</span>
+        </div>
+        <div class="mp-opt" data-val="12" onclick="vote(this)">
+          <div class="mp-opt-fill"></div>
+          <span class="mp-opt-emoji">😐</span>
+          <span class="mp-opt-label">Mixed — some challenges</span>
+          <span class="mp-opt-pct">12%</span>
+        </div>
+        <div class="mp-opt" data-val="6" onclick="vote(this)">
+          <div class="mp-opt-fill"></div>
+          <span class="mp-opt-emoji">😓</span>
+          <span class="mp-opt-label">Tough — need some support</span>
+          <span class="mp-opt-pct">6%</span>
+        </div>
+      </div>
+      <div class="mp-vote-meta"><span id="mpCount">847 responses this week</span><span>Resets Monday</span></div>
+      <button class="mp-vote-btn" id="mpBtn" onclick="submitVote()">Submit</button>
+    </div>
+
+    <!-- History + vibe -->
+    <div class="mp-history">
+      <div class="mp-history-title">Weekly mood trend</div>
+      <div class="mp-chart" id="mpChart"></div>
+      <div class="mp-legend">
+        <div class="mp-legend-item"><div class="mp-legend-dot" style="background:#7c3aed"></div>Crushing it</div>
+        <div class="mp-legend-item"><div class="mp-legend-dot" style="background:#0ea5e9"></div>Solid</div>
+        <div class="mp-legend-item"><div class="mp-legend-dot" style="background:#f59e0b"></div>Mixed</div>
+        <div class="mp-legend-item"><div class="mp-legend-dot" style="background:#f4f4f5"></div>Tough</div>
+      </div>
+      <div class="mp-vibe">
+        <div class="mp-vibe-label">This week's community vibe</div>
+        <div class="mp-vibe-row">
+          <span class="mp-vibe-emoji">🚀</span>
+          <div><div class="mp-vibe-text">High energy &amp; optimistic</div><div class="mp-vibe-sub">60% of members are crushing it this week</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<script>
+var selected = null;
+function vote(el) {
+  if (document.querySelector('.mp-opt.voted')) return;
+  document.querySelectorAll('.mp-opt').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  selected = el;
+  document.getElementById('mpBtn').disabled = false;
+}
+
+function submitVote() {
+  if (!selected) return;
+  document.querySelectorAll('.mp-opt').forEach(function(o){
+    o.classList.add('voted');
+    o.classList.remove('selected');
+    o.onclick = null;
+    var fill = o.querySelector('.mp-opt-fill');
+    if (fill) fill.style.width = o.getAttribute('data-val') + '%';
+  });
+  selected.classList.add('selected');
+  document.getElementById('mpBtn').textContent = '✓ Vote recorded — thanks!';
+  document.getElementById('mpBtn').disabled = true;
+  document.getElementById('mpCount').textContent = '848 responses this week';
+}
+
+// Render bar chart
+(function(){
+  var days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var data = [
+    [55,25,14,6],[58,24,12,6],[52,28,13,7],[60,22,12,6],[63,20,11,6],[57,26,11,6],[60,22,12,6]
+  ];
+  var colors = ['#7c3aed','#0ea5e9','#f59e0b','#f4f4f5'];
+  var chart = document.getElementById('mpChart');
+  days.forEach(function(day, di) {
+    var col = document.createElement('div');
+    col.className = 'mp-bar-col';
+    var segs = data[di];
+    var total = segs.reduce(function(a,b){return a+b;},0);
+    segs.forEach(function(v, si) {
+      var seg = document.createElement('div');
+      seg.className = 'mp-bar-seg';
+      seg.style.background = colors[si];
+      seg.style.height = '0px';
+      seg.setAttribute('data-h', Math.round((v/total)*68)+'px');
+      col.appendChild(seg);
+    });
+    var lbl = document.createElement('div');
+    lbl.className = 'mp-bar-day';
+    lbl.textContent = day;
+    col.appendChild(lbl);
+    chart.appendChild(col);
+  });
+
+  function go() {
+    document.querySelectorAll('.mp-bar-seg').forEach(function(seg){
+      seg.style.transition = 'height .8s cubic-bezier(.4,0,.2,1) .2s';
+      seg.style.height = seg.getAttribute('data-h');
+    });
+  }
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.2}); io.observe(document.querySelector('.mp')); } else { setTimeout(go,300); }
+}());
+</script>

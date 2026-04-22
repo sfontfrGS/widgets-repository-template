@@ -1,0 +1,121 @@
+<section class="lp">
+<style>
+.lp { display:block; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#fff; padding:24px 20px; -webkit-font-smoothing:antialiased; }
+.lp * { box-sizing:border-box; }
+.lp-wrap { max-width:1140px; margin:0 auto; }
+.lp-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:20px; }
+.lp-header h2 { font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#71717a; margin:0; }
+.lp-tabs { display:flex; gap:4px; }
+.lp-tab { border:none; background:transparent; font-size:12px; font-weight:500; color:#a1a1aa; font-family:inherit; cursor:pointer; padding:4px 10px; border-radius:6px; transition:background .15s,color .15s; }
+.lp-tab.active { background:#f5f3ff; color:#7c3aed; }
+
+/* path track */
+.lp-track { position:relative; display:flex; flex-direction:column; gap:0; }
+
+/* connector line */
+.lp-track::before { content:''; position:absolute; left:19px; top:20px; bottom:20px; width:2px; background:linear-gradient(to bottom,#7c3aed,#e4e4e7); z-index:0; }
+
+.lp-step { display:flex; gap:16px; align-items:flex-start; position:relative; z-index:1; padding:10px 0; }
+
+.lp-node {
+  width:40px; height:40px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:700; transition:transform .2s ease;
+}
+.lp-node:hover { transform:scale(1.1); }
+.lp-node.done { background:#7c3aed; color:#fff; }
+.lp-node.active { background:#fff; border:2px solid #7c3aed; color:#7c3aed; box-shadow:0 0 0 4px rgba(124,58,237,.12); animation:lpGlow 2s ease-in-out infinite; }
+.lp-node.locked { background:#f4f4f5; color:#a1a1aa; border:2px solid #e4e4e7; }
+@keyframes lpGlow { 0%,100%{box-shadow:0 0 0 4px rgba(124,58,237,.12);} 50%{box-shadow:0 0 0 8px rgba(124,58,237,.05);} }
+
+.lp-content { flex:1; padding-top:8px; }
+.lp-step-title { font-size:14px; font-weight:600; color:#18181b; margin-bottom:3px; }
+.lp-step-desc { font-size:12px; color:#71717a; margin-bottom:6px; line-height:1.5; }
+.lp-step-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.lp-badge { font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; padding:2px 7px; border-radius:4px; }
+.lp-badge-done { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
+.lp-badge-active { background:#f5f3ff; color:#7c3aed; border:1px solid #ede9fe; }
+.lp-badge-locked { background:#f4f4f5; color:#a1a1aa; border:1px solid #e4e4e7; }
+.lp-pts { font-size:11px; color:#a1a1aa; }
+
+/* progress summary */
+.lp-summary { display:flex; align-items:center; gap:12px; margin-top:20px; padding:14px 16px; background:#f9f9fb; border-radius:10px; }
+.lp-summary-stat { text-align:center; flex:1; }
+.lp-summary-val { font-size:22px; font-weight:800; color:#0a0a0a; letter-spacing:-.03em; line-height:1; }
+.lp-summary-lbl { font-size:11px; color:#71717a; margin-top:2px; }
+.lp-prog-wrap { flex:2; }
+.lp-prog-label { display:flex; justify-content:space-between; font-size:11px; color:#71717a; margin-bottom:5px; }
+.lp-prog-track { height:6px; background:#e4e4e7; border-radius:999px; overflow:hidden; }
+.lp-prog-fill { height:100%; background:linear-gradient(90deg,#7c3aed,#0ea5e9); border-radius:999px; width:0; transition:width 1s cubic-bezier(.4,0,.2,1) .3s; }
+</style>
+
+<div class="lp-wrap">
+  <div class="lp-header">
+    <h2>🎓 Your Learning Path</h2>
+    <div class="lp-tabs">
+      <button class="lp-tab active">CS Mastery</button>
+      <button class="lp-tab">Product</button>
+      <button class="lp-tab">Leadership</button>
+    </div>
+  </div>
+
+  <div class="lp-track">
+    <div class="lp-step">
+      <div class="lp-node done">✓</div>
+      <div class="lp-content">
+        <div class="lp-step-title">CS Foundations</div>
+        <div class="lp-step-desc">Core frameworks, metrics, and mindset for modern customer success.</div>
+        <div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+150 pts</span></div>
+      </div>
+    </div>
+    <div class="lp-step">
+      <div class="lp-node done">✓</div>
+      <div class="lp-content">
+        <div class="lp-step-title">Onboarding Excellence</div>
+        <div class="lp-step-desc">Design onboarding flows that drive activation and long-term retention.</div>
+        <div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+200 pts</span></div>
+      </div>
+    </div>
+    <div class="lp-step">
+      <div class="lp-node active">3</div>
+      <div class="lp-content">
+        <div class="lp-step-title">Health Score Mastery</div>
+        <div class="lp-step-desc">Build predictive health models that catch churn before it happens.</div>
+        <div class="lp-step-meta"><span class="lp-badge lp-badge-active">In progress</span><span class="lp-pts">+250 pts</span></div>
+      </div>
+    </div>
+    <div class="lp-step">
+      <div class="lp-node locked">4</div>
+      <div class="lp-content">
+        <div class="lp-step-title">Executive Alignment</div>
+        <div class="lp-step-desc">Communicate value to C-suite and build executive sponsor relationships.</div>
+        <div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+300 pts</span></div>
+      </div>
+    </div>
+    <div class="lp-step">
+      <div class="lp-node locked">5</div>
+      <div class="lp-content">
+        <div class="lp-step-title">CS Leadership</div>
+        <div class="lp-step-desc">Scale your team, define processes, and become a strategic CS leader.</div>
+        <div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+400 pts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-summary">
+    <div class="lp-summary-stat"><div class="lp-summary-val">350</div><div class="lp-summary-lbl">XP earned</div></div>
+    <div class="lp-summary-stat"><div class="lp-summary-val">2/5</div><div class="lp-summary-lbl">Completed</div></div>
+    <div class="lp-prog-wrap">
+      <div class="lp-prog-label"><span>Overall progress</span><span>40%</span></div>
+      <div class="lp-prog-track"><div class="lp-prog-fill" id="lpBar"></div></div>
+    </div>
+  </div>
+</div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.lp-tab').forEach(function(t){ t.addEventListener('click',function(){ document.querySelectorAll('.lp-tab').forEach(function(x){x.classList.remove('active');}); t.classList.add('active'); }); });
+  function go(){ document.getElementById('lpBar').style.width='40%'; }
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.2}); io.observe(document.querySelector('.lp')); } else { setTimeout(go,300); }
+}());
+</script>

@@ -1,0 +1,92 @@
+<section class="lf">
+<style>
+.lf { display:block; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#fff; padding:24px 20px; -webkit-font-smoothing:antialiased; }
+.lf * { box-sizing:border-box; }
+.lf-wrap { max-width:1140px; margin:0 auto; }
+.lf-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.lf-header h2 { font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#71717a; margin:0; display:flex; align-items:center; gap:7px; }
+.lf-live { display:inline-flex; align-items:center; gap:5px; background:#fef2f2; border:1px solid #fecaca; border-radius:999px; padding:3px 9px; font-size:10px; font-weight:700; color:#ef4444; letter-spacing:.05em; }
+.lf-live-dot { width:6px; height:6px; border-radius:50%; background:#ef4444; animation:lfPulse 1.5s ease-in-out infinite; }
+@keyframes lfPulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(.7);} }
+
+.lf-feed { display:flex; flex-direction:column; gap:0; }
+.lf-item {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:12px 0; border-bottom:1px solid #f4f4f5;
+  animation:lfSlide .35s ease both;
+}
+.lf-item:last-child { border-bottom:none; }
+@keyframes lfSlide { from{opacity:0;transform:translateY(-8px);} to{opacity:1;transform:translateY(0);} }
+
+.lf-av { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; flex-shrink:0; margin-top:1px; }
+.lf-body { flex:1; min-width:0; }
+.lf-text { font-size:13px; color:#18181b; line-height:1.45; }
+.lf-text strong { font-weight:600; }
+.lf-text a { color:#7c3aed; text-decoration:none; font-weight:500; }
+.lf-text a:hover { text-decoration:underline; }
+.lf-time { font-size:11px; color:#a1a1aa; margin-top:3px; }
+.lf-type-icon { font-size:14px; flex-shrink:0; margin-top:7px; }
+</style>
+
+<div class="lf-wrap">
+  <div class="lf-header">
+    <h2>⚡ Live Activity</h2>
+    <span class="lf-live"><span class="lf-live-dot"></span>LIVE</span>
+  </div>
+  <div class="lf-feed" id="lfFeed"></div>
+</div>
+</section>
+
+<script>
+(function(){
+  var EVENTS = [
+    { av:'AK', col:'#f59e0b', icon:'💬', html:'<strong>Anna Kim</strong> replied to <a href="#">How to reduce churn in your first 90 days</a>', time:'just now' },
+    { av:'MR', col:'#6366f1', icon:'❤️', html:'<strong>Marcus R.</strong> liked <a href="#">The complete QBR playbook for enterprise CS</a>', time:'1m ago' },
+    { av:'JL', col:'#0ea5e9', icon:'✍️', html:'<strong>Julia L.</strong> posted <a href="#">Using AI to detect early churn signals</a> in <a href="#">#ai-tools</a>', time:'3m ago' },
+    { av:'DP', col:'#10b981', icon:'🏆', html:'<strong>David P.</strong> earned the <strong>Thought Leader</strong> badge', time:'5m ago' },
+    { av:'SM', col:'#7c3aed', icon:'✅', html:'<strong>Sergi M.</strong>\'s answer was marked as <strong>accepted</strong> in <a href="#">How to set up health score alerts?</a>', time:'7m ago' },
+    { av:'RW', col:'#ec4899', icon:'🔥', html:'<strong>Rachel W.</strong> started a new discussion: <a href="#">Benchmarks for enterprise QBR attendance rates</a>', time:'9m ago' },
+    { av:'TK', col:'#f97316', icon:'💬', html:'<strong>Tom K.</strong> replied to <a href="#">Best CS tools for a 3-person team?</a>', time:'12m ago' },
+    { av:'AK', col:'#f59e0b', icon:'👍', html:'<strong>Anna Kim</strong> reacted to <a href="#">Onboarding checklist for complex SaaS products</a>', time:'14m ago' },
+  ];
+
+  var feed = document.getElementById('lfFeed');
+
+  function renderItem(e, delay) {
+    var el = document.createElement('div');
+    el.className = 'lf-item';
+    el.style.animationDelay = delay + 'ms';
+    el.innerHTML =
+      '<div class="lf-av" style="background:'+e.col+'">'+e.av+'</div>'+
+      '<div class="lf-body"><div class="lf-text">'+e.html+'</div><div class="lf-time">'+e.time+'</div></div>'+
+      '<span class="lf-type-icon">'+e.icon+'</span>';
+    return el;
+  }
+
+  // Initial render
+  EVENTS.forEach(function(e, i) { feed.appendChild(renderItem(e, i * 60)); });
+
+  // Simulate live incoming events every 8s
+  var newEvents = [
+    { av:'CL', col:'#14b8a6', icon:'✍️', html:'<strong>Chris L.</strong> posted <a href="#">How we halved onboarding time with async video</a> in <a href="#">#onboarding</a>', time:'just now' },
+    { av:'PD', col:'#8b5cf6', icon:'❤️', html:'<strong>Priya D.</strong> liked <a href="#">Top 5% contributor this week — my approach</a>', time:'just now' },
+    { av:'NB', col:'#06b6d4', icon:'💬', html:'<strong>Nick B.</strong> replied to <a href="#">AI tools your CS team should be using now</a>', time:'just now' },
+  ];
+  var ni = 0;
+  setInterval(function() {
+    if (ni >= newEvents.length) return;
+    var e = newEvents[ni++];
+    var el = renderItem(e, 0);
+    feed.insertBefore(el, feed.firstChild);
+    // update times on existing items
+    var items = feed.querySelectorAll('.lf-item');
+    var times = ['just now','1m ago','2m ago','4m ago','6m ago','8m ago','10m ago','13m ago','15m ago'];
+    items.forEach(function(item, i) {
+      var t = item.querySelector('.lf-time');
+      if (t && times[i]) t.textContent = times[i];
+    });
+    // trim to 8 items
+    while (feed.children.length > 8) feed.removeChild(feed.lastChild);
+  }, 8000);
+}());
+</script>

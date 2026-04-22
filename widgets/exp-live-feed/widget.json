@@ -1,0 +1,33 @@
+{
+  "title": "Live Activity Feed",
+  "description": "Real-time stream of community actions: new posts, reactions, badge awards and accepted answers. Simulates live updates every 8 seconds.",
+  "category": "Exploration",
+  "imageSrc": "thumbnail.png",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "title",
+        "type": "text",
+        "label": "Title",
+        "defaultValue": "Live Activity Feed",
+        "rules": {
+          "required": true
+        }
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "label": "Description",
+        "defaultValue": "Real-time stream of community actions: new posts, reactions, badge awards and accepted answers. Simulates live updates every 8 seconds."
+      }
+    ]
+  },
+  "defaultConfig": {
+    "title": "Live Activity Feed",
+    "description": "Real-time stream of community actions: new posts, reactions, badge awards and accepted answers. Simulates live updates every 8 seconds."
+  }
+}

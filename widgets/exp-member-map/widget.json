@@ -1,0 +1,33 @@
+{
+  "title": "Global Member Map",
+  "description": "Interactive world map showing where community members are located, with animated live dots and top countries leaderboard.",
+  "category": "Exploration",
+  "imageSrc": "thumbnail.png",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "title",
+        "type": "text",
+        "label": "Title",
+        "defaultValue": "Global Member Map",
+        "rules": {
+          "required": true
+        }
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "label": "Description",
+        "defaultValue": "Interactive world map showing where community members are located, with animated live dots and top countries leaderboard."
+      }
+    ]
+  },
+  "defaultConfig": {
+    "title": "Global Member Map",
+    "description": "Interactive world map showing where community members are located, with animated live dots and top countries leaderboard."
+  }
+}
