@@ -1,0 +1,33 @@
+{
+  "title": "Quick Links",
+  "description": "Compact sidebar navigation widget with grouped links for My Space, Explore and Resources. Designed for narrow sidebar columns.",
+  "category": "Exploration",
+  "imageSrc": "thumbnail.png",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "title",
+        "type": "text",
+        "label": "Title",
+        "defaultValue": "Quick Links",
+        "rules": {
+          "required": true
+        }
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "label": "Description",
+        "defaultValue": "Compact sidebar navigation widget with grouped links for My Space, Explore and Resources. Designed for narrow sidebar columns."
+      }
+    ]
+  },
+  "defaultConfig": {
+    "title": "Quick Links",
+    "description": "Compact sidebar navigation widget with grouped links for My Space, Explore and Resources. Designed for narrow sidebar columns."
+  }
+}

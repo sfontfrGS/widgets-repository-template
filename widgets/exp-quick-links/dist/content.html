@@ -1,0 +1,265 @@
+<section class="ql">
+<style>
+.ql {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #fff;
+  padding: 20px 16px;
+  -webkit-font-smoothing: antialiased;
+}
+.ql * { box-sizing: border-box; }
+
+/* No max-width — designed for narrow sidebar column */
+.ql-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.ql-header h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #a1a1aa;
+  margin: 0;
+}
+.ql-edit {
+  border: none;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 500;
+  color: #7c3aed;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background .12s;
+}
+.ql-edit:hover { background: #f5f3ff; }
+
+/* ── Link groups ── */
+.ql-group { margin-bottom: 14px; }
+.ql-group:last-child { margin-bottom: 0; }
+.ql-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #d4d4d8;
+  margin-bottom: 4px;
+  padding: 0 2px;
+}
+
+/* ── Link item ── */
+.ql-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: #18181b;
+  transition: background .12s, color .12s;
+  cursor: pointer;
+}
+.ql-link:hover { background: #f5f3ff; color: #7c3aed; }
+.ql-link:hover .ql-link-icon { background: #ede9fe; }
+.ql-link:hover .ql-link-arrow { opacity: 1; }
+
+.ql-link-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: #f4f4f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background .12s;
+}
+.ql-link-text { flex: 1; min-width: 0; }
+.ql-link-label {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.ql-link-sub {
+  font-size: 10px;
+  color: #a1a1aa;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.ql-link-arrow {
+  font-size: 11px;
+  color: #a1a1aa;
+  opacity: 0;
+  transition: opacity .12s;
+  flex-shrink: 0;
+}
+
+/* ── Badge on link ── */
+.ql-badge {
+  font-size: 9px;
+  font-weight: 700;
+  background: #7c3aed;
+  color: #fff;
+  border-radius: 999px;
+  padding: 1px 5px;
+  flex-shrink: 0;
+}
+.ql-badge.new { background: #16a34a; }
+.ql-badge.hot { background: #ea580c; }
+
+/* ── Divider ── */
+.ql-divider {
+  height: 1px;
+  background: #f4f4f5;
+  margin: 10px 0;
+}
+
+/* ── CTA at bottom ── */
+.ql-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 9px;
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 14px;
+  transition: background .15s, transform .1s;
+}
+.ql-cta:hover { background: #6d28d9; transform: scale(1.01); }
+</style>
+
+<div class="ql-header">
+  <h2>Quick Links</h2>
+  <button class="ql-edit">Edit</button>
+</div>
+
+<!-- Group: My Space -->
+<div class="ql-group">
+  <div class="ql-group-label">My Space</div>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">🔔</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Notifications</span>
+    </div>
+    <span class="ql-badge">12</span>
+    <span class="ql-link-arrow">›</span>
+  </a>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">📌</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Bookmarks</span>
+      <span class="ql-link-sub">8 saved topics</span>
+    </div>
+    <span class="ql-link-arrow">›</span>
+  </a>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">✍️</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">My Posts</span>
+      <span class="ql-link-sub">147 contributions</span>
+    </div>
+    <span class="ql-link-arrow">›</span>
+  </a>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">🏆</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">My Badges</span>
+      <span class="ql-link-sub">4 earned</span>
+    </div>
+    <span class="ql-link-arrow">›</span>
+  </a>
+</div>
+
+<div class="ql-divider"></div>
+
+<!-- Group: Explore -->
+<div class="ql-group">
+  <div class="ql-group-label">Explore</div>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">🔥</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Trending Now</span>
+    </div>
+    <span class="ql-badge hot">Hot</span>
+    <span class="ql-link-arrow">›</span>
+  </a>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">❓</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Unanswered Questions</span>
+      <span class="ql-link-sub">4 need a reply</span>
+    </div>
+    <span class="ql-link-arrow">›</span>
+  </a>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">📅</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Upcoming Events</span>
+      <span class="ql-link-sub">Next: Pulse 2025</span>
+    </div>
+    <span class="ql-badge new">2</span>
+    <span class="ql-link-arrow">›</span>
+  </a>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">💡</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Ideas Board</span>
+    </div>
+    <span class="ql-link-arrow">›</span>
+  </a>
+</div>
+
+<div class="ql-divider"></div>
+
+<!-- Group: Resources -->
+<div class="ql-group">
+  <div class="ql-group-label">Resources</div>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">📖</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Knowledge Base</span>
+    </div>
+    <span class="ql-link-arrow">›</span>
+  </a>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">🎓</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Learning Paths</span>
+      <span class="ql-link-sub">40% complete</span>
+    </div>
+    <span class="ql-link-arrow">›</span>
+  </a>
+  <a class="ql-link" href="#">
+    <div class="ql-link-icon">📣</div>
+    <div class="ql-link-text">
+      <span class="ql-link-label">Product Updates</span>
+    </div>
+    <span class="ql-badge new">New</span>
+    <span class="ql-link-arrow">›</span>
+  </a>
+</div>
+
+<a class="ql-cta" href="#">
+  + Create a Topic
+</a>
+</section>

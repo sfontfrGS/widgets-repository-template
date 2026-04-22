@@ -509,6 +509,74 @@
         "description": "Weekly mood check-in poll with animated vote bars, mood trend chart and community vibe summary."
       },
       "type": "exp-mood-poll"
+    },
+    {
+      "title": "Topic Feed",
+      "description": "Scrollable feed of latest community topics with tabs for All, For You (expert match), and Unanswered questions.",
+      "category": "Exploration",
+      "imageSrc": "widgets/exp-topic-feed/thumbnail.png",
+      "source": {
+        "path": "widgets/exp-topic-feed/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Topic Feed",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Scrollable feed of latest community topics with tabs for All, For You (expert match), and Unanswered questions."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Topic Feed",
+        "description": "Scrollable feed of latest community topics with tabs for All, For You (expert match), and Unanswered questions."
+      },
+      "type": "exp-topic-feed"
+    },
+    {
+      "title": "Quick Links",
+      "description": "Compact sidebar navigation widget with grouped links for My Space, Explore and Resources. Designed for narrow sidebar columns.",
+      "category": "Exploration",
+      "imageSrc": "widgets/exp-quick-links/thumbnail.png",
+      "source": {
+        "path": "widgets/exp-quick-links/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Quick Links",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Compact sidebar navigation widget with grouped links for My Space, Explore and Resources. Designed for narrow sidebar columns."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Quick Links",
+        "description": "Compact sidebar navigation widget with grouped links for My Space, Explore and Resources. Designed for narrow sidebar columns."
+      },
+      "type": "exp-quick-links"
     }
   ],
   "stylesheets": [
