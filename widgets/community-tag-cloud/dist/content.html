@@ -245,213 +245,329 @@ a.g, button.g { cursor:pointer; }
 .g-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* Trending Topics — dynamic activity feed style */
-.tc-wrap-inner { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+/* Widget page heading (28px bold — like "Community Topics") */
+.g-widget-heading {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0a0a0a;
+  margin: 0 0 3px;
+  line-height: 1.15;
+}
+.g-widget-heading-sub {
+  font-size: 13px;
+  color: #71717a;
+  margin: 0;
+  font-weight: 400;
+}
 
-/* Left: ranked list with live activity */
-.tc-list { display:flex; flex-direction:column; gap:0; }
+.g-widget-heading{font-size:28px;font-weight:700;letter-spacing:-.025em;color:#0a0a0a;line-height:1.15;margin:0 0 3px;}
+.g-widget-sub{font-size:13px;color:#71717a;margin:0;}
+
+
+.tc-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+
+/* Left: ranked list */
 .tc-row {
   display:flex; align-items:center; gap:12px;
-  padding:10px 0; border-bottom:1px solid #f4f4f5;
+  padding:10px 10px; border-radius:8px; border-bottom:1px solid #f4f4f5;
   text-decoration:none; color:inherit; cursor:pointer;
-  transition:background .12s; border-radius:6px;
+  transition:background .12s, border-color .12s;
+  border:1px solid transparent; margin-bottom:2px;
 }
-.tc-row:last-child { border-bottom:none; }
-.tc-row:hover { background:#faf5ff; padding-left:8px; padding-right:8px; margin:0 -8px; }
-
-.tc-rank {
-  font-size:12px; font-weight:700; color:#d4d4d8;
-  width:18px; flex-shrink:0; text-align:center;
-}
+.tc-row:last-child { border-bottom:1px solid transparent; }
+.tc-row:hover { background:#faf5ff; border-color:#ede9fe; }
+.tc-row.active { background:#f5f3ff; border-color:#c4b5fd; }
+.tc-rank { font-size:12px; font-weight:700; color:#d4d4d8; width:16px; flex-shrink:0; text-align:center; }
 .tc-rank.top { color:#7c3aed; }
-
-.tc-color {
-  width:4px; height:36px; border-radius:2px; flex-shrink:0;
-}
-
+.tc-color { width:3px; height:36px; border-radius:2px; flex-shrink:0; }
 .tc-info { flex:1; min-width:0; }
-.tc-name { font-size:13px; font-weight:600; color:#111; margin-bottom:2px; }
+.tc-name { font-size:13px; font-weight:600; color:#111; margin-bottom:1px; }
 .tc-meta { font-size:11px; color:#a1a1aa; }
-
+.tc-bars { display:flex; align-items:flex-end; gap:2px; height:16px; margin-top:3px; }
+.tc-bar { width:4px; border-radius:1px 1px 0 0; background:#ede9fe; }
 .tc-right { flex-shrink:0; text-align:right; }
 .tc-count { font-size:18px; font-weight:800; letter-spacing:-.02em; color:#111; line-height:1; }
-.tc-trend-val { font-size:11px; font-weight:600; margin-top:1px; }
-.tc-trend-up  { color:#16a34a; }
-.tc-trend-dn  { color:#dc2626; }
-.tc-trend-hot { color:#f59e0b; }
+.tc-trend { font-size:11px; font-weight:600; margin-top:1px; }
+.tc-up { color:#16a34a; } .tc-dn { color:#dc2626; } .tc-hot { color:#f59e0b; }
 
-/* Activity bar */
-.tc-bar-wrap { display:flex; align-items:flex-end; gap:2px; height:20px; margin-top:2px; }
-.tc-mini-bar { width:4px; border-radius:1px 1px 0 0; background:#ede9fe; flex-shrink:0; }
-.tc-mini-bar.hi { background:var(--c); }
-
-/* Right: spotlight card */
-.tc-spotlight {
-  border:1px solid #e4e4e7; border-radius:10px; overflow:hidden;
-}
-.tc-spot-header {
+/* Right: topic detail panel */
+.tc-panel { border:1px solid #e4e4e7; border-radius:10px; overflow:hidden; }
+.tc-panel-hdr {
   padding:14px 16px 12px;
-  background:linear-gradient(135deg,var(--spot-c1,#f5f3ff),var(--spot-c2,#ede9fe));
   border-bottom:1px solid #e4e4e7;
+  transition:background .3s;
 }
-.tc-spot-tag { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--spot-txt,#7c3aed); margin-bottom:6px; }
-.tc-spot-title { font-size:15px; font-weight:700; color:#111; line-height:1.35; }
-.tc-spot-body { padding:12px 16px; }
-.tc-spot-posts { display:flex; flex-direction:column; gap:0; }
-.tc-spot-post { display:flex; align-items:flex-start; gap:8px; padding:8px 0; border-bottom:1px solid #f4f4f5; text-decoration:none; color:inherit; }
-.tc-spot-post:last-child { border-bottom:none; }
-.tc-spot-post:hover .tc-spot-post-title { color:#7c3aed; }
-.tc-spot-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; margin-top:6px; }
-.tc-spot-post-title { font-size:12px; font-weight:500; color:#111; line-height:1.4; flex:1; }
-.tc-spot-replies { font-size:11px; color:#a1a1aa; flex-shrink:0; white-space:nowrap; margin-top:1px; }
+.tc-panel-tag { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin-bottom:5px; }
+.tc-panel-title { font-size:15px; font-weight:700; color:#111; line-height:1.3; margin-bottom:2px; }
+.tc-panel-meta { font-size:11px; color:#a1a1aa; }
+.tc-panel-body { padding:0; }
+.tc-post {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:11px 16px; border-bottom:1px solid #f4f4f5;
+  text-decoration:none; color:inherit; cursor:pointer;
+  transition:background .12s;
+}
+.tc-post:last-child { border-bottom:none; }
+.tc-post:hover { background:#faf5ff; }
+.tc-post-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+.tc-post-title { flex:1; font-size:12px; font-weight:500; color:#111; line-height:1.45; }
+.tc-post-replies { font-size:11px; color:#a1a1aa; flex-shrink:0; white-space:nowrap; margin-top:1px; }
+.tc-panel-footer { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-top:1px solid #f4f4f5; }
+.tc-dots { display:flex; gap:5px; }
 
-/* Switching indicator dots */
-.tc-spot-dots { display:flex; gap:5px; align-items:center; padding:10px 16px; border-top:1px solid #f4f4f5; justify-content:center; }
-
-.g-widget-heading { font-size:28px; font-weight:700; letter-spacing:-.025em; color:#111; line-height:1.15; margin:0 0 3px; }
-.g-widget-heading-sub { font-size:13px; color:#71717a; margin:0; }
+.tc-live-pill { display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#a1a1aa; }
 </style>
 
 <div class="g-wrap">
-  <div class="g-header">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div><div class="g-widget-heading">Trending Topics</div><div class="g-widget-sub">Most active this week</div></div>
-      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#a1a1aa"><span class="g-live-dot"></span>Updated live</span>
+  <div class="g-header" style="align-items:flex-start">
+    <div>
+      <div class="g-widget-heading">Trending Topics</div>
+      <div class="g-widget-sub">Most active this week</div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px">
-      <span class="g-subtle" id="tcPeriod">This week</span>
+    <div class="tc-live-pill" style="margin-top:6px">
+      <span class="g-live-dot"></span>Updated live
     </div>
   </div>
 
-  <div class="tc-wrap-inner">
-
-    <!-- Left: ranked list -->
-    <div class="tc-list" id="tcList">
-      <a class="tc-row" href="#">
+  <div class="tc-grid">
+    <!-- Left: topics list -->
+    <div id="tcList">
+      <div class="tc-row active" data-topic="cs">
         <span class="tc-rank top">1</span>
         <div class="tc-color" style="background:#7c3aed"></div>
         <div class="tc-info">
           <div class="tc-name"># customer-success</div>
           <div class="tc-meta">284 posts · 47 contributors</div>
-          <div class="tc-bar-wrap">
-            <div class="tc-mini-bar hi" style="--c:#7c3aed;height:60%"></div><div class="tc-mini-bar hi" style="--c:#7c3aed;height:70%"></div><div class="tc-mini-bar hi" style="--c:#7c3aed;height:55%"></div><div class="tc-mini-bar hi" style="--c:#7c3aed;height:80%"></div><div class="tc-mini-bar hi" style="--c:#7c3aed;height:90%"></div><div class="tc-mini-bar hi" style="--c:#7c3aed;height:75%"></div><div class="tc-mini-bar hi" style="--c:#7c3aed;height:100%"></div>
+          <div class="tc-bars">
+            <div class="tc-bar" style="height:60%;background:#7c3aed"></div><div class="tc-bar" style="height:70%;background:#7c3aed"></div><div class="tc-bar" style="height:55%;background:#7c3aed"></div><div class="tc-bar" style="height:80%;background:#7c3aed"></div><div class="tc-bar" style="height:90%;background:#7c3aed"></div><div class="tc-bar" style="height:75%;background:#7c3aed"></div><div class="tc-bar" style="height:100%;background:#7c3aed"></div>
           </div>
         </div>
-        <div class="tc-right"><div class="tc-count">284</div><div class="tc-trend-val tc-trend-up">↑ 34%</div></div>
-      </a>
-      <a class="tc-row" href="#">
+        <div class="tc-right"><div class="tc-count">284</div><div class="tc-trend tc-up">↑ 34%</div></div>
+      </div>
+      <div class="tc-row" data-topic="ai">
         <span class="tc-rank top">2</span>
         <div class="tc-color" style="background:#10b981"></div>
         <div class="tc-info">
           <div class="tc-name"># ai-tools</div>
           <div class="tc-meta">119 posts · 28 contributors</div>
-          <div class="tc-bar-wrap">
-            <div class="tc-mini-bar hi" style="--c:#10b981;height:30%"></div><div class="tc-mini-bar hi" style="--c:#10b981;height:40%"></div><div class="tc-mini-bar hi" style="--c:#10b981;height:55%"></div><div class="tc-mini-bar hi" style="--c:#10b981;height:68%"></div><div class="tc-mini-bar hi" style="--c:#10b981;height:80%"></div><div class="tc-mini-bar hi" style="--c:#10b981;height:90%"></div><div class="tc-mini-bar hi" style="--c:#10b981;height:100%"></div>
+          <div class="tc-bars">
+            <div class="tc-bar" style="height:30%;background:#10b981"></div><div class="tc-bar" style="height:45%;background:#10b981"></div><div class="tc-bar" style="height:60%;background:#10b981"></div><div class="tc-bar" style="height:72%;background:#10b981"></div><div class="tc-bar" style="height:85%;background:#10b981"></div><div class="tc-bar" style="height:93%;background:#10b981"></div><div class="tc-bar" style="height:100%;background:#10b981"></div>
           </div>
         </div>
-        <div class="tc-right"><div class="tc-count">119</div><div class="tc-trend-val tc-trend-hot">🔥 +61%</div></div>
-      </a>
-      <a class="tc-row" href="#">
+        <div class="tc-right"><div class="tc-count">119</div><div class="tc-trend tc-hot">🔥 +61%</div></div>
+      </div>
+      <div class="tc-row" data-topic="onboarding">
         <span class="tc-rank top">3</span>
         <div class="tc-color" style="background:#0ea5e9"></div>
         <div class="tc-info">
           <div class="tc-name"># onboarding</div>
           <div class="tc-meta">161 posts · 39 contributors</div>
-          <div class="tc-bar-wrap">
-            <div class="tc-mini-bar hi" style="--c:#0ea5e9;height:65%"></div><div class="tc-mini-bar hi" style="--c:#0ea5e9;height:60%"></div><div class="tc-mini-bar hi" style="--c:#0ea5e9;height:72%"></div><div class="tc-mini-bar hi" style="--c:#0ea5e9;height:68%"></div><div class="tc-mini-bar hi" style="--c:#0ea5e9;height:75%"></div><div class="tc-mini-bar hi" style="--c:#0ea5e9;height:80%"></div><div class="tc-mini-bar hi" style="--c:#0ea5e9;height:100%"></div>
+          <div class="tc-bars">
+            <div class="tc-bar" style="height:65%;background:#0ea5e9"></div><div class="tc-bar" style="height:60%;background:#0ea5e9"></div><div class="tc-bar" style="height:72%;background:#0ea5e9"></div><div class="tc-bar" style="height:68%;background:#0ea5e9"></div><div class="tc-bar" style="height:75%;background:#0ea5e9"></div><div class="tc-bar" style="height:85%;background:#0ea5e9"></div><div class="tc-bar" style="height:100%;background:#0ea5e9"></div>
           </div>
         </div>
-        <div class="tc-right"><div class="tc-count">161</div><div class="tc-trend-val tc-trend-up">↑ 18%</div></div>
-      </a>
-      <a class="tc-row" href="#">
+        <div class="tc-right"><div class="tc-count">161</div><div class="tc-trend tc-up">↑ 18%</div></div>
+      </div>
+      <div class="tc-row" data-topic="feedback">
         <span class="tc-rank">4</span>
         <div class="tc-color" style="background:#f59e0b"></div>
         <div class="tc-info">
           <div class="tc-name"># product-feedback</div>
           <div class="tc-meta">138 posts · 31 contributors</div>
-          <div class="tc-bar-wrap">
-            <div class="tc-mini-bar hi" style="--c:#f59e0b;height:80%"></div><div class="tc-mini-bar hi" style="--c:#f59e0b;height:75%"></div><div class="tc-mini-bar hi" style="--c:#f59e0b;height:70%"></div><div class="tc-mini-bar hi" style="--c:#f59e0b;height:68%"></div><div class="tc-mini-bar hi" style="--c:#f59e0b;height:65%"></div><div class="tc-mini-bar hi" style="--c:#f59e0b;height:72%"></div><div class="tc-mini-bar hi" style="--c:#f59e0b;height:100%"></div>
+          <div class="tc-bars">
+            <div class="tc-bar" style="height:80%;background:#f59e0b"></div><div class="tc-bar" style="height:78%;background:#f59e0b"></div><div class="tc-bar" style="height:72%;background:#f59e0b"></div><div class="tc-bar" style="height:68%;background:#f59e0b"></div><div class="tc-bar" style="height:65%;background:#f59e0b"></div><div class="tc-bar" style="height:70%;background:#f59e0b"></div><div class="tc-bar" style="height:100%;background:#f59e0b"></div>
           </div>
         </div>
-        <div class="tc-right"><div class="tc-count">138</div><div class="tc-trend-val tc-trend-dn">↓ 5%</div></div>
-      </a>
-      <a class="tc-row" href="#">
+        <div class="tc-right"><div class="tc-count">138</div><div class="tc-trend tc-dn">↓ 5%</div></div>
+      </div>
+      <div class="tc-row" data-topic="qbr">
         <span class="tc-rank">5</span>
         <div class="tc-color" style="background:#8b5cf6"></div>
         <div class="tc-info">
           <div class="tc-name"># qbr</div>
           <div class="tc-meta">97 posts · 22 contributors</div>
-          <div class="tc-bar-wrap">
-            <div class="tc-mini-bar hi" style="--c:#8b5cf6;height:50%"></div><div class="tc-mini-bar hi" style="--c:#8b5cf6;height:55%"></div><div class="tc-mini-bar hi" style="--c:#8b5cf6;height:65%"></div><div class="tc-mini-bar hi" style="--c:#8b5cf6;height:70%"></div><div class="tc-mini-bar hi" style="--c:#8b5cf6;height:80%"></div><div class="tc-mini-bar hi" style="--c:#8b5cf6;height:88%"></div><div class="tc-mini-bar hi" style="--c:#8b5cf6;height:100%"></div>
+          <div class="tc-bars">
+            <div class="tc-bar" style="height:50%;background:#8b5cf6"></div><div class="tc-bar" style="height:58%;background:#8b5cf6"></div><div class="tc-bar" style="height:66%;background:#8b5cf6"></div><div class="tc-bar" style="height:74%;background:#8b5cf6"></div><div class="tc-bar" style="height:82%;background:#8b5cf6"></div><div class="tc-bar" style="height:90%;background:#8b5cf6"></div><div class="tc-bar" style="height:100%;background:#8b5cf6"></div>
           </div>
         </div>
-        <div class="tc-right"><div class="tc-count">97</div><div class="tc-trend-val tc-trend-up">↑ 12%</div></div>
-      </a>
-      <a class="tc-row" href="#">
+        <div class="tc-right"><div class="tc-count">97</div><div class="tc-trend tc-up">↑ 12%</div></div>
+      </div>
+      <div class="tc-row" data-topic="churn">
         <span class="tc-rank">6</span>
         <div class="tc-color" style="background:#ec4899"></div>
         <div class="tc-info">
           <div class="tc-name"># churn-prevention</div>
           <div class="tc-meta">84 posts · 19 contributors</div>
-          <div class="tc-bar-wrap">
-            <div class="tc-mini-bar hi" style="--c:#ec4899;height:90%"></div><div class="tc-mini-bar hi" style="--c:#ec4899;height:85%"></div><div class="tc-mini-bar hi" style="--c:#ec4899;height:80%"></div><div class="tc-mini-bar hi" style="--c:#ec4899;height:78%"></div><div class="tc-mini-bar hi" style="--c:#ec4899;height:75%"></div><div class="tc-mini-bar hi" style="--c:#ec4899;height:80%"></div><div class="tc-mini-bar hi" style="--c:#ec4899;height:100%"></div>
+          <div class="tc-bars">
+            <div class="tc-bar" style="height:90%;background:#ec4899"></div><div class="tc-bar" style="height:85%;background:#ec4899"></div><div class="tc-bar" style="height:80%;background:#ec4899"></div><div class="tc-bar" style="height:75%;background:#ec4899"></div><div class="tc-bar" style="height:78%;background:#ec4899"></div><div class="tc-bar" style="height:82%;background:#ec4899"></div><div class="tc-bar" style="height:100%;background:#ec4899"></div>
           </div>
         </div>
-        <div class="tc-right"><div class="tc-count">84</div><div class="tc-trend-val tc-trend-dn">↓ 3%</div></div>
-      </a>
-    </div>
-
-    <!-- Right: rotating spotlight -->
-    <div class="tc-spotlight" id="tcSpot">
-      <div class="tc-spot-header" style="--spot-c1:#f5f3ff;--spot-c2:#ede9fe;--spot-txt:#7c3aed">
-        <div class="tc-spot-tag" id="tcSpotTag"># customer-success · Spotlight</div>
-        <div class="tc-spot-title" id="tcSpotTitle">Top topic this week</div>
-      </div>
-      <div class="tc-spot-body">
-        <div class="g-widget-label" style="margin-bottom:8px">Top posts in this topic</div>
-        <div class="tc-spot-posts" id="tcSpotPosts">
-          <a class="tc-spot-post" href="#"><span class="tc-spot-dot" style="background:#7c3aed"></span><span class="tc-spot-post-title">How we reduced churn by 40% using proactive health scoring</span><span class="tc-spot-replies">47 replies</span></a>
-          <a class="tc-spot-post" href="#"><span class="tc-spot-dot" style="background:#7c3aed"></span><span class="tc-spot-post-title">What cadence works best for enterprise check-ins?</span><span class="tc-spot-replies">28 replies</span></a>
-          <a class="tc-spot-post" href="#"><span class="tc-spot-dot" style="background:#7c3aed"></span><span class="tc-spot-post-title">CS team of one — how do you prioritise accounts?</span><span class="tc-spot-replies">19 replies</span></a>
-        </div>
-      </div>
-      <div class="tc-spot-dots">
-        <div class="g-dot on" data-i="0"></div>
-        <div class="g-dot" data-i="1"></div>
-        <div class="g-dot" data-i="2"></div>
+        <div class="tc-right"><div class="tc-count">84</div><div class="tc-trend tc-dn">↓ 3%</div></div>
       </div>
     </div>
 
+    <!-- Right: topic detail panel -->
+    <div class="tc-panel">
+      <div class="tc-panel-hdr" id="tcHdr" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe)">
+        <div class="tc-panel-tag" id="tcTag" style="color:#7c3aed"># customer-success · 284 posts this week</div>
+        <div class="tc-panel-title" id="tcTitle">Top posts in # customer-success</div>
+        <div class="tc-panel-meta" id="tcMeta">47 contributors · ↑ 34% from last week</div>
+      </div>
+      <div class="tc-panel-body" id="tcPosts">
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">How we reduced churn by 40% using proactive health scoring</span><span class="tc-post-replies">47 replies</span></a>
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">What cadence works best for enterprise check-ins?</span><span class="tc-post-replies">28 replies</span></a>
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">CS team of one — how do you prioritise accounts?</span><span class="tc-post-replies">19 replies</span></a>
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">Building a CS team culture that retains top talent</span><span class="tc-post-replies">14 replies</span></a>
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">When should a CSM escalate to their manager?</span><span class="tc-post-replies">11 replies</span></a>
+      </div>
+      <div class="tc-panel-footer">
+        <span class="g-subtle" id="tcFooter">284 posts total in # customer-success</span>
+        <a href="#" class="g-link">View all →</a>
+      </div>
+    </div>
   </div>
 </div>
 </section>
+
 <script>
 (function(){
   var R=document.currentScript?document.currentScript.closest('section'):document;if(!R)R=document;
-  var SPOTS=[
-    {tag:'# customer-success · Spotlight',c1:'#f5f3ff',c2:'#ede9fe',txt:'#7c3aed',dot:'#7c3aed',
-      posts:[['How we reduced churn by 40% using proactive health scoring','47 replies'],['What cadence works best for enterprise check-ins?','28 replies'],['CS team of one — how do you prioritise accounts?','19 replies']]},
-    {tag:'# ai-tools · 🔥 Rising fast',c1:'#f0fdf4',c2:'#dcfce7',txt:'#16a34a',dot:'#10b981',
-      posts:[['The CS AI toolkit: 12 tools we actually use every day','61 replies'],['Using AI to detect early churn signals before they're obvious','37 replies'],['Prompt templates CS teams are using with ChatGPT','19 replies']]},
-    {tag:'# onboarding · Spotlight',c1:'#f0f9ff',c2:'#e0f2fe',txt:'#0369a1',dot:'#0ea5e9',
-      posts:[['Async video vs live sessions: what the data says after 6 months','38 replies'],['The 30-60-90 day onboarding framework that actually works','22 replies'],['Measuring onboarding success beyond time-to-first-value','14 replies']]}
-  ];
-  var cur=0;
-  function setSpot(i){
-    var s=SPOTS[i];
-    var hdr=R.querySelector('.tc-spot-header');
-    hdr.style.setProperty('--spot-c1',s.c1);
-    hdr.style.setProperty('--spot-c2',s.c2);
-    hdr.style.setProperty('--spot-txt',s.txt);
-    R.querySelector('#tcSpotTag').textContent=s.tag;
-    var posts=R.querySelector('#tcSpotPosts');
-    var items=posts.querySelectorAll('.tc-spot-post');
-    s.posts.forEach(function(p,j){if(items[j]){items[j].querySelector('.tc-spot-dot').style.background=s.dot;items[j].querySelector('.tc-spot-post-title').textContent=p[0];items[j].querySelector('.tc-spot-replies').textContent=p[1];}});
-    R.querySelectorAll('[data-i]').forEach(function(d){d.classList.toggle('on',parseInt(d.getAttribute('data-i'))===i);});
+
+  var DATA={
+    cs:{
+      color:'#7c3aed', bg1:'#f5f3ff', bg2:'#ede9fe',
+      tag:'# customer-success · 284 posts this week',
+      title:'Top posts in # customer-success',
+      meta:'47 contributors · ↑ 34% from last week',
+      footer:'284 posts total in # customer-success',
+      posts:[
+        ['How we reduced churn by 40% using proactive health scoring','47 replies'],
+        ['What cadence works best for enterprise check-ins?','28 replies'],
+        ['CS team of one — how do you prioritise accounts?','19 replies'],
+        ['Building a CS team culture that retains top talent','14 replies'],
+        ['When should a CSM escalate to their manager?','11 replies'],
+      ]
+    },
+    ai:{
+      color:'#10b981', bg1:'#f0fdf4', bg2:'#dcfce7',
+      tag:'# ai-tools · 119 posts this week',
+      title:'Top posts in # ai-tools',
+      meta:'28 contributors · 🔥 +61% from last week',
+      footer:'119 posts total in # ai-tools',
+      posts:[
+        ['The CS AI toolkit: 12 tools we actually use every day in 2025','61 replies'],
+        ['Using AI to detect early churn signals before they're obvious','37 replies'],
+        ['Prompt templates CS teams are actually using with ChatGPT','19 replies'],
+        ['Is AI replacing CSMs? An honest look at the data','24 replies'],
+        ['How we built an AI-powered health score in 2 weeks','15 replies'],
+      ]
+    },
+    onboarding:{
+      color:'#0ea5e9', bg1:'#f0f9ff', bg2:'#e0f2fe',
+      tag:'# onboarding · 161 posts this week',
+      title:'Top posts in # onboarding',
+      meta:'39 contributors · ↑ 18% from last week',
+      footer:'161 posts total in # onboarding',
+      posts:[
+        ['Async video vs live sessions: what the data says after 6 months','38 replies'],
+        ['The 30-60-90 day onboarding framework that actually works','22 replies'],
+        ['Measuring onboarding success beyond time-to-first-value','14 replies'],
+        ['How to onboard enterprise accounts with 5 stakeholders','18 replies'],
+        ['Our onboarding completion rate went from 60% to 91% — here's how','27 replies'],
+      ]
+    },
+    feedback:{
+      color:'#f59e0b', bg1:'#fffbeb', bg2:'#fef3c7',
+      tag:'# product-feedback · 138 posts this week',
+      title:'Top posts in # product-feedback',
+      meta:'31 contributors · ↓ 5% from last week',
+      footer:'138 posts total in # product-feedback',
+      posts:[
+        ['Feature request: better bulk actions in the admin dashboard','29 replies'],
+        ['Why doesn't the API support webhook retries? A deep dive','17 replies'],
+        ['The 10 Gainsight features we wish existed — community wishlist','41 replies'],
+        ['CSV export is broken for >10k rows — workarounds?','12 replies'],
+        ['Dark mode when? Tracking the feature request history','33 replies'],
+      ]
+    },
+    qbr:{
+      color:'#8b5cf6', bg1:'#f5f3ff', bg2:'#ede9fe',
+      tag:'# qbr · 97 posts this week',
+      title:'Top posts in # qbr',
+      meta:'22 contributors · ↑ 12% from last week',
+      footer:'97 posts total in # qbr',
+      posts:[
+        ['QBR deck template that enterprise customers actually look forward to','41 replies'],
+        ['How to handle a QBR when the exec sponsor cancels last minute','18 replies'],
+        ['Running QBRs async — does it actually work?','22 replies'],
+        ['How do you quantify ROI for a qualitative product use case?','16 replies'],
+        ['The 12-slide QBR framework we use across 80 accounts','31 replies'],
+      ]
+    },
+    churn:{
+      color:'#ec4899', bg1:'#fdf2f8', bg2:'#fce7f3',
+      tag:'# churn-prevention · 84 posts this week',
+      title:'Top posts in # churn-prevention',
+      meta:'19 contributors · ↓ 3% from last week',
+      footer:'84 posts total in # churn-prevention',
+      posts:[
+        ['The 5 early warning signs your customer is about to churn','47 replies'],
+        ['How we built a churn prediction model with no ML background','23 replies'],
+        ['Scripts for difficult renewal conversations — share yours','19 replies'],
+        ['What's your win-back rate? Benchmarks from 50 CS teams','14 replies'],
+        ['Churn post-mortem template — what we ask every churned account','28 replies'],
+      ]
+    }
+  };
+
+  function setTopic(key) {
+    var d=DATA[key];
+    if(!d)return;
+
+    // Update header
+    var hdr=R.querySelector('#tcHdr');
+    hdr.style.background='linear-gradient(135deg,'+d.bg1+','+d.bg2+')';
+    R.querySelector('#tcTag').style.color=d.color;
+    R.querySelector('#tcTag').textContent=d.tag;
+    R.querySelector('#tcTitle').textContent=d.title;
+    R.querySelector('#tcMeta').textContent=d.meta;
+    R.querySelector('#tcFooter').textContent=d.footer;
+
+    // Update posts using textContent only — safe in Shadow DOM
+    var posts=R.querySelectorAll('.tc-post');
+    d.posts.forEach(function(p,i){
+      if(posts[i]){
+        posts[i].querySelector('.tc-post-dot').style.background=d.color;
+        posts[i].querySelector('.tc-post-title').textContent=p[0];
+        posts[i].querySelector('.tc-post-replies').textContent=p[1];
+      }
+    });
+
+    // Update active row
+    R.querySelectorAll('.tc-row').forEach(function(row){
+      row.classList.toggle('active', row.getAttribute('data-topic')===key);
+    });
   }
-  R.querySelectorAll('[data-i]').forEach(function(dot){
-    dot.addEventListener('click',function(){cur=parseInt(dot.getAttribute('data-i'));setSpot(cur);});
+
+  // Attach click listeners to rows
+  R.querySelectorAll('.tc-row').forEach(function(row){
+    row.addEventListener('click', function(){
+      setTopic(row.getAttribute('data-topic'));
+    });
   });
-  setInterval(function(){cur=(cur+1)%SPOTS.length;setSpot(cur);},4000);
+
+  // Auto-rotate every 5s through top 3
+  var AUTO=['cs','ai','onboarding'];
+  var ai=0;
+  var timer=setInterval(function(){
+    ai=(ai+1)%AUTO.length;
+    setTopic(AUTO[ai]);
+  },5000);
+
+  // Stop auto-rotate on manual click
+  R.querySelectorAll('.tc-row').forEach(function(row){
+    row.addEventListener('click',function(){clearInterval(timer);});
+  });
 })();
 </script>
