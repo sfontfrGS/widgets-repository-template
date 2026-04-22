@@ -2,24 +2,21 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
 
-/* ── Reset ── */
 #w-hero-cinematic, #w-hero-cinematic * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Root container ── */
 .hc-root {
   position: relative;
   width: 100%;
-  min-height: 580px;
+  min-height: 620px;
   overflow: hidden;
   background: #ffffff;
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* ── Video layer ── */
+/* ── Video: covers full widget ── */
 .hc-video-wrap {
   position: absolute;
-  top: 280px;
-  left: 0; right: 0; bottom: 0;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
 }
@@ -28,19 +25,23 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: opacity 0.05s linear;
   opacity: 0;
+  transition: opacity 0.05s linear;
 }
+
+/* Three-layer gradient: white top → clear middle → white bottom */
 .hc-video-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    #ffffff 0%,
-    rgba(255,255,255,0.2) 40%,
-    rgba(255,255,255,0.2) 60%,
-    #ffffff 100%
-  );
+  background:
+    linear-gradient(to bottom,
+      rgba(255,255,255,1)   0%,
+      rgba(255,255,255,0.5) 25%,
+      rgba(255,255,255,0)   45%,
+      rgba(255,255,255,0)   55%,
+      rgba(255,255,255,0.6) 80%,
+      rgba(255,255,255,1)   100%
+    );
   pointer-events: none;
 }
 
@@ -54,50 +55,45 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 3rem;
-  max-width: 90rem;
-  margin: 0 auto;
+  padding: 1.75rem 3rem;
 }
 .hc-logo {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: 1.875rem;
+  font-size: 1.75rem;
   letter-spacing: -0.02em;
   color: #000000;
   user-select: none;
   line-height: 1;
 }
-.hc-logo sup {
-  font-size: 0.5em;
-  vertical-align: super;
-}
+.hc-logo sup { font-size: 0.52em; vertical-align: super; }
 .hc-nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
   list-style: none;
 }
 .hc-nav-links a {
   font-size: 0.875rem;
   text-decoration: none;
-  transition: opacity 0.2s;
   font-family: 'Inter', system-ui, sans-serif;
+  transition: opacity 0.2s;
 }
-.hc-nav-links a:hover { opacity: 0.6; }
+.hc-nav-links a:hover { opacity: 0.55; }
 .hc-nav-cta {
-  padding: 0.625rem 1.5rem;
-  background: #000000;
-  color: #ffffff;
+  padding: 0.6rem 1.4rem;
+  background: #000;
+  color: #fff;
   border: none;
   border-radius: 999px;
   font-size: 0.875rem;
   font-family: 'Inter', system-ui, sans-serif;
   cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
   letter-spacing: -0.01em;
+  transition: transform 0.2s, opacity 0.2s;
 }
 .hc-nav-cta:hover { transform: scale(1.03); }
 
-/* ── Hero section ── */
+/* ── Hero ── */
 .hc-hero {
   position: relative;
   z-index: 10;
@@ -106,61 +102,54 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 3.5rem 2rem 8rem;
+  padding: 2rem 2rem 7rem;
 }
 .hc-headline {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-size: clamp(2.6rem, 6.5vw, 5.5rem);
   font-weight: 400;
   line-height: 0.95;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.055em;
   color: #000000;
   max-width: 80rem;
 }
-.hc-headline em {
-  color: #6F6F6F;
-  font-style: italic;
-}
+.hc-headline em { color: #6F6F6F; font-style: italic; }
 .hc-desc {
-  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  font-size: clamp(0.875rem, 1.3vw, 1rem);
   color: #6F6F6F;
-  max-width: 38rem;
-  margin-top: 2rem;
-  line-height: 1.7;
+  max-width: 36rem;
+  margin-top: 1.75rem;
+  line-height: 1.75;
   font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 400;
 }
 .hc-cta {
-  margin-top: 3rem;
-  padding: 1.1rem 3.5rem;
-  background: #000000;
-  color: #ffffff;
+  margin-top: 2.5rem;
+  padding: 1rem 3.5rem;
+  background: #000;
+  color: #fff;
   border: none;
   border-radius: 999px;
   font-size: 1rem;
   font-family: 'Inter', system-ui, sans-serif;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
   letter-spacing: -0.01em;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.hc-cta:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-}
+.hc-cta:hover { transform: scale(1.03); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
 
-/* ── Keyframe animations ── */
+/* ── Animations ── */
 @keyframes hcFadeRise {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(22px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.hc-a1 { animation: hcFadeRise 0.8s ease-out 0.0s both; }
-.hc-a2 { animation: hcFadeRise 0.8s ease-out 0.2s both; }
-.hc-a3 { animation: hcFadeRise 0.8s ease-out 0.4s both; }
+.hc-a1 { animation: hcFadeRise 0.9s ease-out 0.1s both; }
+.hc-a2 { animation: hcFadeRise 0.9s ease-out 0.3s both; }
+.hc-a3 { animation: hcFadeRise 0.9s ease-out 0.5s both; }
 </style>
 
 <div class="hc-root">
 
-  <!-- Video -->
+  <!-- Video background — covers full widget -->
   <div class="hc-video-wrap">
     <video
       id="hcVideo"
@@ -178,7 +167,7 @@
     <div class="hc-nav-inner">
       <span class="hc-logo">Aethera<sup>®</sup></span>
       <ul class="hc-nav-links">
-        <li><a href="#" style="color:#000000">Home</a></li>
+        <li><a href="#" style="color:#000">Home</a></li>
         <li><a href="#" style="color:#6F6F6F">Studio</a></li>
         <li><a href="#" style="color:#6F6F6F">About</a></li>
         <li><a href="#" style="color:#6F6F6F">Journal</a></li>
@@ -188,7 +177,7 @@
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- Hero content -->
   <section class="hc-hero">
     <h1 class="hc-headline hc-a1">
       Beyond <em>silence,</em> we build <em>the eternal.</em>
@@ -205,44 +194,58 @@
 
 <script>
 (function() {
-  var R = document;
-  var FADE = 0.5;
-
   function init() {
-    var video = R.getElementById('hcVideo');
+    var video = document.getElementById('hcVideo');
     if (!video) return;
 
+    var FADE = 0.5;
     var dead = false;
     var rafId;
 
+    // Fade loop via rAF
     function tick() {
-      if (!dead && video.duration && !isNaN(video.duration)) {
+      if (!dead && video.duration && !isNaN(video.duration) && video.duration > 0) {
         var t = video.currentTime;
         var d = video.duration;
         var op;
         if (t < FADE) {
           op = t / FADE;
-        } else if (t > d - FADE) {
+        } else if (d - t < FADE) {
           op = (d - t) / FADE;
         } else {
           op = 1;
         }
         video.style.opacity = String(Math.max(0, Math.min(1, op)));
       }
-      rafId = requestAnimationFrame(tick);
+      if (!dead) rafId = requestAnimationFrame(tick);
     }
 
+    // On end: fade out, pause, reset, play again
     video.addEventListener('ended', function() {
       video.style.opacity = '0';
       setTimeout(function() {
         if (dead) return;
         video.currentTime = 0;
         video.play().catch(function() {});
-      }, 100);
+      }, 120);
     });
 
+    // Start
     video.style.opacity = '0';
-    video.play().catch(function() {});
+    var p = video.play();
+    if (p && p.catch) {
+      p.catch(function() {
+        // Autoplay blocked — try on first interaction
+        document.addEventListener('click', function onClick() {
+          video.play().catch(function(){});
+          document.removeEventListener('click', onClick);
+        });
+        document.addEventListener('touchstart', function onTouch() {
+          video.play().catch(function(){});
+          document.removeEventListener('touchstart', onTouch);
+        });
+      });
+    }
     rafId = requestAnimationFrame(tick);
   }
 
