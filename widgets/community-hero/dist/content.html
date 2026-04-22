@@ -1,0 +1,485 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap');
+
+  /* ── shadcn/ui design tokens ── */
+  .h {
+    --background:       0 0% 100%;
+    --foreground:       240 10% 3.9%;
+    --muted:            240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --border:           240 5.9% 90%;
+    --primary:          263 70% 58%;   /* purple accent */
+    --primary-dark:     263 70% 44%;
+
+    --col-bg:        hsl(var(--background));
+    --col-fg:        hsl(var(--foreground));
+    --col-muted:     hsl(var(--muted));
+    --col-muted-fg:  hsl(var(--muted-foreground));
+    --col-border:    hsl(var(--border));
+    --col-primary:   hsl(var(--primary));
+    --col-primary-d: hsl(var(--primary-dark));
+
+    --radius:    0.5rem;
+    --radius-lg: calc(var(--radius) + 6px);
+    --radius-xl: calc(var(--radius) + 10px);
+
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    background: var(--col-bg);
+    color: var(--col-fg);
+    -webkit-font-smoothing: antialiased;
+  }
+  .h *, .h *::before, .h *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Wrapper ── */
+  .h-wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 28px 20px;
+  }
+
+  /* ── Streak pill ── */
+  .h-streak {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--col-bg);
+    border: 1px solid var(--col-border);
+    border-radius: 999px;
+    padding: 4px 12px 4px 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--col-fg);
+    margin-bottom: 14px;
+    animation: fadeSlideDown 0.4s var(--ease) both;
+  }
+  .h-streak-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #f97316;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* ── Heading ── */
+  .h-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--col-fg);
+    margin-bottom: 6px;
+    animation: fadeSlideDown 0.45s var(--ease) 0.05s both;
+  }
+  .h-subtitle {
+    font-size: 14px;
+    color: var(--col-muted-fg);
+    font-weight: 400;
+    margin-bottom: 24px;
+    animation: fadeSlideDown 0.45s var(--ease) 0.1s both;
+  }
+
+  /* ── Two-column layout ── */
+  .h-body {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 16px;
+    align-items: start;
+    animation: fadeSlideDown 0.5s var(--ease) 0.15s both;
+  }
+
+  /* ── Impact card (purple) ── */
+  .h-impact {
+    position: relative;
+    background: var(--col-primary);
+    border-radius: var(--radius-xl);
+    padding: 28px 28px 24px;
+    overflow: hidden;
+    color: white;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Decorative orb */
+  .h-impact::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: hsla(263,70%,70%,0.35);
+    pointer-events: none;
+  }
+  .h-impact::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: hsla(263,70%,70%,0.18);
+    pointer-events: none;
+  }
+
+  .h-impact-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-bottom: 12px;
+  }
+  .h-impact-label svg { width: 14px; height: 14px; }
+
+  .h-impact-number {
+    font-size: clamp(3rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .h-impact-desc {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-top: 6px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Sub-stats row inside impact card */
+  .h-substats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .h-substat {
+    background: hsla(0,0%,100%,0.15);
+    border-radius: var(--radius-lg);
+    padding: 12px 10px;
+    backdrop-filter: blur(4px);
+    position: relative;
+  }
+  .h-substat-icon {
+    position: absolute;
+    top: 10px; right: 10px;
+    opacity: 0.5;
+    width: 14px; height: 14px;
+  }
+  .h-substat-value {
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .h-substat-label {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  /* ── Right column ── */
+  .h-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Stat rows */
+  .h-stat-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--col-border);
+    transition: background 150ms var(--ease);
+    border-radius: var(--radius);
+    cursor: default;
+  }
+  .h-stat-row:first-child { border-top: 1px solid var(--col-border); }
+  .h-stat-row:hover { background: var(--col-muted); padding-left: 10px; padding-right: 10px; margin: 0 -6px; }
+
+  .h-stat-icon-wrap {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-lg);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .h-stat-icon-wrap svg { width: 16px; height: 16px; }
+
+  .h-stat-name {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--col-fg);
+  }
+  .h-stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--col-fg);
+    letter-spacing: -0.02em;
+    /* count-up animation target */
+  }
+
+  /* Weekly challenge card */
+  .h-challenge {
+    margin-top: 12px;
+    background: linear-gradient(135deg, hsl(263 70% 97%), hsl(263 70% 93%));
+    border: 1px solid hsl(263 70% 88%);
+    border-radius: var(--radius-xl);
+    padding: 16px;
+    animation: fadeSlideUp 0.5s var(--ease) 0.3s both;
+  }
+
+  .h-challenge-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .h-challenge-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-lg);
+    background: var(--col-primary);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .h-challenge-icon svg { width: 18px; height: 18px; color: white; }
+
+  .h-challenge-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--col-fg);
+  }
+  .h-challenge-subtitle {
+    font-size: 11px;
+    color: var(--col-muted-fg);
+    margin-top: 2px;
+  }
+
+  /* Progress bar */
+  .h-progress-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--col-muted-fg);
+    margin-bottom: 6px;
+  }
+  .h-progress-track {
+    height: 5px;
+    background: hsl(263 70% 88%);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .h-progress-fill {
+    height: 100%;
+    background: var(--col-primary);
+    border-radius: 999px;
+    width: 0%;
+    transition: width 1s cubic-bezier(0.34, 1.1, 0.64, 1) 0.6s;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(0.85); }
+  }
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<!-- Icon sprite -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/>
+  </symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+  </symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+  </symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+  </symbol>
+  <symbol id="i-reply" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </symbol>
+  <symbol id="i-at" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/>
+  </symbol>
+  <symbol id="i-thumb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/>
+  </symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+  </symbol>
+</svg>
+
+<div class="h">
+  <div class="h-wrap">
+
+    <!-- Streak pill -->
+    <div class="h-streak">
+      <span class="h-streak-dot"></span>
+      12 day streak 🔥
+    </div>
+
+    <!-- Heading -->
+    <h1 class="h-title">Welcome back, Sergi Martinez</h1>
+    <p class="h-subtitle">You've made a real impact this week — here's what's happening</p>
+
+    <!-- Body: impact card + right column -->
+    <div class="h-body">
+
+      <!-- Left: Impact card -->
+      <div class="h-impact">
+        <div>
+          <div class="h-impact-label">
+            <svg><use href="#i-sparkles"/></svg>
+            Your impact this week
+          </div>
+          <div class="h-impact-number" id="reachCount">0</div>
+          <div class="h-impact-desc">people reached with your contributions</div>
+        </div>
+        <div class="h-substats">
+          <div class="h-substat">
+            <svg class="h-substat-icon"><use href="#i-trophy"/></svg>
+            <div class="h-substat-value">#2</div>
+            <div class="h-substat-label">Expert in Design</div>
+          </div>
+          <div class="h-substat">
+            <svg class="h-substat-icon"><use href="#i-heart"/></svg>
+            <div class="h-substat-value" id="helpCount">0</div>
+            <div class="h-substat-label">People helped</div>
+          </div>
+          <div class="h-substat">
+            <svg class="h-substat-icon"><use href="#i-trend"/></svg>
+            <div class="h-substat-value">Top 5%</div>
+            <div class="h-substat-label">Contributor</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: stats + challenge -->
+      <div class="h-right">
+
+        <div class="h-stat-row">
+          <div class="h-stat-icon-wrap" style="background:hsl(210 100% 94%)">
+            <svg style="color:hsl(210 100% 45%)"><use href="#i-reply"/></svg>
+          </div>
+          <span class="h-stat-name">New replies</span>
+          <span class="h-stat-value" data-target="12">0</span>
+        </div>
+
+        <div class="h-stat-row">
+          <div class="h-stat-icon-wrap" style="background:hsl(0 86% 94%)">
+            <svg style="color:hsl(0 86% 50%)"><use href="#i-at"/></svg>
+          </div>
+          <span class="h-stat-name">Mentions</span>
+          <span class="h-stat-value" data-target="5">0</span>
+        </div>
+
+        <div class="h-stat-row">
+          <div class="h-stat-icon-wrap" style="background:hsl(38 100% 92%)">
+            <svg style="color:hsl(38 100% 42%)"><use href="#i-thumb"/></svg>
+          </div>
+          <span class="h-stat-name">Reactions</span>
+          <span class="h-stat-value" data-target="34">0</span>
+        </div>
+
+        <!-- Weekly Challenge -->
+        <div class="h-challenge">
+          <div class="h-challenge-header">
+            <div class="h-challenge-icon">
+              <svg><use href="#i-target"/></svg>
+            </div>
+            <div>
+              <div class="h-challenge-title">Weekly Challenge</div>
+              <div class="h-challenge-subtitle">Answer 3 questions</div>
+            </div>
+          </div>
+          <div class="h-progress-row">
+            <span>Progress</span>
+            <span>1 / 3</span>
+          </div>
+          <div class="h-progress-track">
+            <div class="h-progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ── Count-up animation ── */
+  function countUp(el, target, duration, prefix, suffix) {
+    prefix = prefix || '';
+    suffix = suffix || '';
+    var start = 0;
+    var startTime = null;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      // easeOutExpo
+      var ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      var current = Math.round(ease * target);
+      el.textContent = prefix + current.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ── Trigger on intersection (when widget enters viewport) ── */
+  function init() {
+    // Big reach number
+    countUp(document.getElementById('reachCount'), 2847, 1400);
+    countUp(document.getElementById('helpCount'), 47, 900);
+
+    // Right column stat values
+    document.querySelectorAll('.h-stat-value[data-target]').forEach(function (el) {
+      countUp(el, parseInt(el.dataset.target, 10), 800);
+    });
+
+    // Progress bar
+    setTimeout(function () {
+      document.getElementById('progressFill').style.width = '33.33%';
+    }, 200);
+  }
+
+  // Use IntersectionObserver if available, otherwise run immediately
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { init(); obs.disconnect(); }
+    }, { threshold: 0.2 });
+    obs.observe(document.querySelector('.h'));
+  } else {
+    init();
+  }
+})();
+</script>
