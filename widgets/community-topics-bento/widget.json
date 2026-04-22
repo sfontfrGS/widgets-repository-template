@@ -2,6 +2,7 @@
   "title": "Community Topics Bento",
   "description": "A modern bento-grid layout showcasing community topics with hover interactions, metadata stats, and content-type badges.",
   "category": "Community",
+  "imageSrc": "thumbnail.png",
   "source": {
     "path": "dist",
     "entry": "content.html"
@@ -11,22 +12,22 @@
       {
         "name": "title",
         "type": "text",
-        "label": "Section Title",
-        "defaultValue": "Community Topics",
+        "label": "Title",
+        "defaultValue": "Community Topics Bento",
         "rules": {
           "required": true
         }
       },
       {
-        "name": "viewAllUrl",
+        "name": "description",
         "type": "text",
-        "label": "View All URL",
-        "defaultValue": "#"
+        "label": "Description",
+        "defaultValue": "A modern bento-grid layout showcasing community topics."
       }
     ]
   },
   "defaultConfig": {
-    "title": "Community Topics",
-    "viewAllUrl": "#"
+    "title": "Community Topics Bento",
+    "description": "A modern bento-grid layout showcasing community topics."
   }
 }
