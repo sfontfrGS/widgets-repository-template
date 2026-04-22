@@ -1,376 +1,328 @@
-<section id="w-hero" class="g-root">
+<section class="g-root">
 <style>
-.g-root { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
-.g-root * { box-sizing:border-box; }
-.g-wrap { max-width:1140px; margin:0 auto; padding:20px 20px; }
+.g-root { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; display:block; }
+.g-root * { box-sizing:border-box; margin:0; padding:0; }
 
 /* ── Hero shell ── */
 .hw {
-  position:relative;
-  border-radius:16px;
-  overflow:hidden;
-  padding:36px 40px;
-  min-height:200px;
-  background:#3b0764;
-  isolation:isolate;
-}
-
-/* Animated gradient base */
-.hw-bg {
-  position:absolute; inset:0; z-index:0;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 36px 40px;
+  min-height: 200px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+  /* Rich multi-stop gradient */
   background: linear-gradient(135deg,
     #4c1d95 0%,
-    #5b21b6 20%,
-    #6d28d9 40%,
-    #4338ca 60%,
-    #3730a3 80%,
-    #312e81 100%
+    #6d28d9 25%,
+    #7c3aed 50%,
+    #4338ca 75%,
+    #3730a3 100%
   );
-  background-size:300% 300%;
-  animation:hwGradShift 8s ease infinite;
-}
-@keyframes hwGradShift {
-  0%   { background-position:0% 50%; }
-  50%  { background-position:100% 50%; }
-  100% { background-position:0% 50%; }
 }
 
-/* Floating orbs */
+/* ── Animated background orbs ── */
+.hw-orbs { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
 .hw-orb {
-  position:absolute; border-radius:50%; z-index:1;
-  filter:blur(40px); opacity:0.35; pointer-events:none;
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  animation: orbFloat linear infinite;
+  will-change: transform;
 }
-.hw-orb-1 {
-  width:340px; height:340px;
-  background:radial-gradient(circle,#a78bfa,#7c3aed);
-  top:-80px; right:-60px;
-  animation:hwOrb1 12s ease-in-out infinite;
-}
-.hw-orb-2 {
-  width:220px; height:220px;
-  background:radial-gradient(circle,#60a5fa,#3b82f6);
-  bottom:-60px; left:30%;
-  animation:hwOrb2 9s ease-in-out infinite;
-}
-.hw-orb-3 {
-  width:160px; height:160px;
-  background:radial-gradient(circle,#f472b6,#ec4899);
-  top:20px; left:55%;
-  animation:hwOrb3 14s ease-in-out infinite;
-  opacity:0.2;
-}
-@keyframes hwOrb1 {
-  0%,100%{transform:translate(0,0) scale(1);}
-  33%{transform:translate(-40px,30px) scale(1.1);}
-  66%{transform:translate(20px,-20px) scale(0.95);}
-}
-@keyframes hwOrb2 {
-  0%,100%{transform:translate(0,0) scale(1);}
-  50%{transform:translate(30px,-40px) scale(1.15);}
-}
-@keyframes hwOrb3 {
-  0%,100%{transform:translate(0,0) scale(1) rotate(0deg);}
-  25%{transform:translate(-20px,10px) scale(1.1) rotate(5deg);}
-  75%{transform:translate(15px,-15px) scale(0.9) rotate(-5deg);}
+.hw-orb-1 { width:280px; height:280px; top:-80px; right:10%; animation-duration:18s; animation-delay:0s; }
+.hw-orb-2 { width:180px; height:180px; bottom:-60px; right:30%; animation-duration:14s; animation-delay:-5s; background:rgba(167,139,250,.12); }
+.hw-orb-3 { width:120px; height:120px; top:20%; left:40%; animation-duration:20s; animation-delay:-8s; background:rgba(99,102,241,.1); }
+.hw-orb-4 { width:60px;  height:60px;  top:15px; right:22%; animation-duration:12s; animation-delay:-3s; background:rgba(255,255,255,.08); }
+.hw-orb-5 { width:40px;  height:40px;  bottom:20px; left:35%; animation-duration:16s; animation-delay:-10s; background:rgba(167,139,250,.15); }
+
+@keyframes orbFloat {
+  0%   { transform: translateY(0px) translateX(0px) scale(1); }
+  25%  { transform: translateY(-18px) translateX(10px) scale(1.04); }
+  50%  { transform: translateY(-8px) translateX(-8px) scale(0.97); }
+  75%  { transform: translateY(-22px) translateX(5px) scale(1.02); }
+  100% { transform: translateY(0px) translateX(0px) scale(1); }
 }
 
-/* Grid texture overlay */
+/* ── Animated mesh grid ── */
 .hw-grid {
-  position:absolute; inset:0; z-index:2; pointer-events:none;
-  opacity:0.06;
+  position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px);
-  background-size:40px 40px;
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridShift 30s linear infinite;
+}
+@keyframes gridShift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
 }
 
-/* Noise texture */
-.hw-noise {
-  position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0.03;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  background-size:160px;
+/* ── Shimmer accent line ── */
+.hw-shimmer {
+  position: absolute;
+  top: 0; left: -100%; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+  animation: shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%   { left: -100%; }
+  50%  { left: 100%; }
+  100% { left: 100%; }
 }
 
-/* Content layer */
-.hw-content {
-  position:relative; z-index:10;
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:28px;
-  align-items:center;
-}
-
-/* Left side */
-.hw-left {}
+/* ── Content ── */
+.hw-content { position:relative; z-index:1; }
 .hw-eyebrow {
-  font-size:11px; font-weight:600; letter-spacing:.12em;
-  text-transform:uppercase; color:rgba(255,255,255,.5);
-  margin-bottom:8px;
-  display:flex; align-items:center; gap:8px;
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.55);
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
 }
-.hw-eyebrow::before {
-  content:'';
-  width:16px; height:1px;
-  background:rgba(255,255,255,.4);
-}
+.hw-eyebrow-dot { width:5px; height:5px; border-radius:50%; background:#a78bfa; animation:eyeDot 2s ease-in-out infinite; }
+@keyframes eyeDot { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);} }
+
 .hw-name {
-  font-size:28px; font-weight:800;
-  letter-spacing:-.03em; line-height:1.1;
-  color:#fff; margin-bottom:8px;
+  font-size: 32px; font-weight: 800;
+  letter-spacing: -.03em; line-height: 1.1;
+  color: #fff;
+  margin-bottom: 8px;
 }
 .hw-sub {
-  font-size:14px; color:rgba(255,255,255,.65);
-  margin-bottom:28px; font-weight:400; line-height:1.5;
+  font-size: 14px; color: rgba(255,255,255,.65);
+  margin-bottom: 24px; line-height: 1.5;
 }
 
-/* Stats row */
-.hw-stats { display:flex; gap:32px; margin-bottom:28px; align-items:flex-end; }
-.hw-stat {}
+/* ── Stats row ── */
+.hw-stats { display:flex; gap:28px; margin-bottom:24px; align-items:flex-end; }
+.hw-stat { }
 .hw-stat-n {
-  font-size:32px; font-weight:800;
-  letter-spacing:-.04em; line-height:1;
-  color:#fff;
-  animation:hwCountIn .8s ease both;
-}
-.hw-stat:nth-child(1) .hw-stat-n { animation-delay:.1s; }
-.hw-stat:nth-child(2) .hw-stat-n { animation-delay:.25s; }
-.hw-stat:nth-child(3) .hw-stat-n { animation-delay:.4s; }
-@keyframes hwCountIn {
-  from { opacity:0; transform:translateY(12px); }
-  to   { opacity:1; transform:translateY(0); }
+  font-size: 30px; font-weight: 800;
+  letter-spacing: -.04em; line-height: 1; color: #fff;
+  display: block;
 }
 .hw-stat-l {
-  font-size:10px; font-weight:600; letter-spacing:.08em;
-  text-transform:uppercase; color:rgba(255,255,255,.45);
-  margin-top:3px;
+  font-size: 10px; font-weight: 600; letter-spacing: .07em;
+  text-transform: uppercase; color: rgba(255,255,255,.5);
+  margin-top: 3px; display: block;
 }
-.hw-stat-change {
-  font-size:11px; font-weight:600; color:#86efac;
-  margin-top:1px;
-}
+.hw-stat-divider { width:1px; height:40px; background:rgba(255,255,255,.15); align-self:center; }
 
-/* Divider between stats */
-.hw-stat-div {
-  width:1px; height:36px; background:rgba(255,255,255,.12);
-  align-self:center;
-}
-
-/* Actions */
+/* ── Action buttons ── */
 .hw-actions { display:flex; gap:10px; }
-.hw-btn-white {
-  background:#fff; color:#5b21b6;
-  border:none; border-radius:8px;
-  padding:10px 20px;
-  font-size:13px; font-weight:700;
-  font-family:inherit; cursor:pointer;
-  transition:transform .15s, box-shadow .15s, background .15s;
-  box-shadow:0 4px 14px rgba(0,0,0,.2);
-  letter-spacing:-.01em;
+.hw-btn-primary {
+  background: #fff; color: #6d28d9;
+  border: none; border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 13px; font-weight: 700; font-family: inherit;
+  cursor: pointer; letter-spacing: -.01em;
+  transition: transform .15s, box-shadow .15s, background .15s;
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
 }
-.hw-btn-white:hover {
-  transform:translateY(-1px);
-  box-shadow:0 6px 20px rgba(0,0,0,.25);
-  background:#f5f3ff;
-}
+.hw-btn-primary:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,0,0,.25); background:#f5f3ff; }
 .hw-btn-ghost {
-  background:rgba(255,255,255,.1);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:8px;
-  padding:10px 20px;
-  font-size:13px; font-weight:600;
-  font-family:inherit; cursor:pointer;
-  transition:transform .15s, background .15s, border-color .15s;
-  backdrop-filter:blur(8px);
-  letter-spacing:-.01em;
+  background: rgba(255,255,255,.1); color: #fff;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 8px; padding: 10px 20px;
+  font-size: 13px; font-weight: 600; font-family: inherit;
+  cursor: pointer; letter-spacing: -.01em;
+  transition: background .15s, border-color .15s, transform .15s;
+  backdrop-filter: blur(8px);
 }
-.hw-btn-ghost:hover {
-  background:rgba(255,255,255,.18);
-  border-color:rgba(255,255,255,.35);
-  transform:translateY(-1px);
-}
+.hw-btn-ghost:hover { background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.35); transform:translateY(-1px); }
 
-/* Right side — challenge card */
-.hw-right { min-width:240px; }
+/* ── Right panel: challenge card ── */
+.hw-right { position:relative; z-index:1; min-width:240px; }
 .hw-challenge {
-  background:rgba(255,255,255,.09);
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:12px;
-  padding:18px 20px;
-  backdrop-filter:blur(12px);
-  position:relative; overflow:hidden;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px; padding: 18px 20px;
+  backdrop-filter: blur(12px);
+  position: relative; overflow: hidden;
 }
 .hw-challenge::before {
-  content:'';
-  position:absolute; inset:0; border-radius:12px;
-  background:linear-gradient(135deg,rgba(255,255,255,.07),transparent);
-  pointer-events:none;
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.08), transparent);
+  pointer-events: none;
 }
-.hw-challenge-eye {
-  font-size:11px; font-weight:700; letter-spacing:.08em;
-  text-transform:uppercase; color:rgba(255,255,255,.5);
-  margin-bottom:10px; display:flex; align-items:center; gap:6px;
+.hw-ch-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: rgba(255,255,255,.6);
+  margin-bottom: 10px; display:flex; align-items:center; gap:5px;
 }
-.hw-challenge-title {
-  font-size:15px; font-weight:700; color:#fff;
-  line-height:1.3; margin-bottom:14px;
+.hw-ch-title {
+  font-size: 15px; font-weight: 700; color: #fff;
+  line-height: 1.3; margin-bottom: 4px;
 }
-.hw-prog-wrap { margin-bottom:8px; }
+.hw-ch-sub {
+  font-size: 12px; color: rgba(255,255,255,.55);
+  margin-bottom: 14px;
+}
+/* Progress bar */
 .hw-prog-track {
-  height:5px; background:rgba(255,255,255,.15);
-  border-radius:999px; overflow:hidden; margin-bottom:6px;
+  height: 5px; background: rgba(255,255,255,.15);
+  border-radius: 999px; overflow: hidden; margin-bottom: 6px;
 }
 .hw-prog-fill {
-  height:100%; border-radius:999px;
-  background:linear-gradient(90deg,#a78bfa,#60a5fa);
-  width:33%;
-  animation:hwProgIn 1.2s cubic-bezier(.4,0,.2,1) .6s both;
-  box-shadow:0 0 8px rgba(167,139,250,.5);
+  height: 100%;
+  background: linear-gradient(90deg, #a78bfa, #fff);
+  border-radius: 999px;
+  width: 33%;
+  transition: width 1s ease .5s;
+  position: relative;
 }
-@keyframes hwProgIn {
-  from { width:0; }
-  to   { width:33%; }
+.hw-prog-fill::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+  animation: progShimmer 2s ease-in-out infinite;
 }
-.hw-prog-label {
-  display:flex; justify-content:space-between;
-  font-size:11px; color:rgba(255,255,255,.45);
+@keyframes progShimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }
-.hw-xp-badge {
-  display:inline-flex; align-items:center; gap:4px;
-  background:rgba(167,139,250,.2);
-  border:1px solid rgba(167,139,250,.3);
-  border-radius:999px;
-  padding:3px 10px;
-  font-size:11px; font-weight:700; color:#c4b5fd;
-  margin-top:12px;
+.hw-ch-progress { font-size: 11px; color: rgba(255,255,255,.55); }
+.hw-ch-xp {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(167,139,250,.25); border: 1px solid rgba(167,139,250,.3);
+  border-radius: 999px; padding: 3px 10px;
+  font-size: 11px; font-weight: 700; color: #ddd6fe;
+  margin-top: 10px;
+  animation: xpPulse 3s ease-in-out infinite;
 }
+@keyframes xpPulse { 0%,100%{opacity:1;}50%{opacity:.7;} }
 
-/* Floating particles */
-.hw-particles {
-  position:absolute; inset:0; z-index:4; pointer-events:none; overflow:hidden;
-}
+/* ── Floating particles ── */
+.hw-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
 .hw-p {
-  position:absolute;
-  width:3px; height:3px; border-radius:50%;
-  background:rgba(255,255,255,.4);
-  animation:hwFloat linear infinite;
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.4);
+  animation: particleRise linear infinite;
 }
-@keyframes hwFloat {
-  0%   { transform:translateY(0) translateX(0); opacity:0; }
-  10%  { opacity:1; }
-  90%  { opacity:.6; }
-  100% { transform:translateY(-180px) translateX(var(--dx,20px)); opacity:0; }
+@keyframes particleRise {
+  0%   { transform: translateY(100%) translateX(0); opacity:0; }
+  10%  { opacity: .6; }
+  90%  { opacity: .3; }
+  100% { transform: translateY(-20px) translateX(var(--dx,10px)); opacity:0; }
 }
 </style>
 
-<div class="g-wrap">
 <div class="hw">
-  <!-- Layers -->
-  <div class="hw-bg"></div>
-  <div class="hw-orb hw-orb-1"></div>
-  <div class="hw-orb hw-orb-2"></div>
-  <div class="hw-orb hw-orb-3"></div>
+  <!-- Background layers -->
   <div class="hw-grid"></div>
-  <div class="hw-noise"></div>
+  <div class="hw-orbs">
+    <div class="hw-orb hw-orb-1"></div>
+    <div class="hw-orb hw-orb-2"></div>
+    <div class="hw-orb hw-orb-3"></div>
+    <div class="hw-orb hw-orb-4"></div>
+    <div class="hw-orb hw-orb-5"></div>
+  </div>
   <div class="hw-particles" id="hwParticles"></div>
+  <div class="hw-shimmer"></div>
 
-  <!-- Content -->
+  <!-- Left: main content -->
   <div class="hw-content">
-    <div class="hw-left">
-      <div class="hw-eyebrow">Welcome back</div>
-      <div class="hw-name">Sergi Martinez 👋</div>
-      <div class="hw-sub">The community is active right now — continue where you left off.</div>
+    <div class="hw-eyebrow">
+      <div class="hw-eyebrow-dot"></div>
+      Welcome back
+    </div>
+    <div class="hw-name">Welcome back,<br>Sergi Martinez</div>
+    <div class="hw-sub">Continue where you left off — the community is active right now.</div>
 
-      <div class="hw-stats">
-        <div class="hw-stat">
-          <div class="hw-stat-n" id="hwN1">0</div>
-          <div class="hw-stat-l">XP Points</div>
-          <div class="hw-stat-change">↑ 12% this week</div>
-        </div>
-        <div class="hw-stat-div"></div>
-        <div class="hw-stat">
-          <div class="hw-stat-n" id="hwN2">0</div>
-          <div class="hw-stat-l">Contributions</div>
-          <div class="hw-stat-change">+8 this month</div>
-        </div>
-        <div class="hw-stat-div"></div>
-        <div class="hw-stat">
-          <div class="hw-stat-n">Top 5%</div>
-          <div class="hw-stat-l">This month</div>
-          <div class="hw-stat-change">↑ from Top 8%</div>
-        </div>
-        <div class="hw-stat-div"></div>
-        <div class="hw-stat">
-          <div class="hw-stat-n" id="hwN3">0</div>
-          <div class="hw-stat-l">Day streak 🔥</div>
-          <div class="hw-stat-change">Personal best!</div>
-        </div>
+    <div class="hw-stats">
+      <div class="hw-stat">
+        <span class="hw-stat-n" id="hwXp">0</span>
+        <span class="hw-stat-l">XP Points</span>
       </div>
-
-      <div class="hw-actions">
-        <button class="hw-btn-white">+ New Topic</button>
-        <button class="hw-btn-ghost">My Profile →</button>
-        <button class="hw-btn-ghost">847 online now</button>
+      <div class="hw-stat-divider"></div>
+      <div class="hw-stat">
+        <span class="hw-stat-n" id="hwContrib">0</span>
+        <span class="hw-stat-l">Contributions</span>
+      </div>
+      <div class="hw-stat-divider"></div>
+      <div class="hw-stat">
+        <span class="hw-stat-n">Top 5%</span>
+        <span class="hw-stat-l">This month</span>
       </div>
     </div>
 
-    <div class="hw-right">
-      <div class="hw-challenge">
-        <div class="hw-challenge-eye">🎯 Weekly Challenge</div>
-        <div class="hw-challenge-title">Answer 3 unanswered questions from the community</div>
-        <div class="hw-prog-wrap">
-          <div class="hw-prog-track">
-            <div class="hw-prog-fill" id="hwProg"></div>
-          </div>
-          <div class="hw-prog-label">
-            <span id="hwProgLbl">1 of 3 complete</span>
-            <span>33%</span>
-          </div>
-        </div>
-        <div class="hw-xp-badge">⚡ +150 XP on completion</div>
-      </div>
+    <div class="hw-actions">
+      <button class="hw-btn-primary">+ New Topic</button>
+      <button class="hw-btn-ghost">My Profile →</button>
     </div>
   </div>
-</div>
+
+  <!-- Right: weekly challenge -->
+  <div class="hw-right">
+    <div class="hw-challenge">
+      <div class="hw-ch-label">🎯 Weekly Challenge</div>
+      <div class="hw-ch-title">Answer 3 unanswered questions</div>
+      <div class="hw-ch-sub">Help your community — earn XP and reputation.</div>
+      <div class="hw-prog-track">
+        <div class="hw-prog-fill" id="hwBar"></div>
+      </div>
+      <div class="hw-ch-progress">1 of 3 complete</div>
+      <div class="hw-ch-xp">⚡ +150 XP on completion</div>
+    </div>
+  </div>
 </div>
 </section>
 
 <script>
-(function(){
-  var R=document.getElementById('w-hero');if(!R)R=document;
+(function() {
+  var R = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!R) R = document;
 
-  /* Count-up animation */
-  function countUp(id,target,duration,suffix){
-    var el=R.querySelector('#'+id); if(!el)return;
-    var start=Date.now();
-    (function tick(){
-      var p=Math.min((Date.now()-start)/duration,1);
-      var ease=1-Math.pow(1-p,3);
-      var val=Math.round(ease*target);
-      el.textContent=(val>=1000?(val/1000).toFixed(1).replace(/\.0$/,'')+'k':val)+(suffix||'');
-      if(p<1)requestAnimationFrame(tick);
+  /* ── Count-up animation ── */
+  function countUp(id, target, duration) {
+    var el = R.querySelector('#' + id);
+    if (!el) return;
+    var start = Date.now();
+    (function tick() {
+      var p = Math.min((Date.now() - start) / duration, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      var val = Math.round(ease * target);
+      el.textContent = val >= 1000
+        ? (val / 1000).toFixed(1).replace(/\.0$/, '') + 'k'
+        : val;
+      if (p < 1) requestAnimationFrame(tick);
     })();
   }
-  setTimeout(function(){ countUp('hwN1',2847,1200); },200);
-  setTimeout(function(){ countUp('hwN2',47,800); },350);
-  setTimeout(function(){ countUp('hwN3',12,600); },500);
+  countUp('hwXp', 2847, 1200);
+  countUp('hwContrib', 47, 800);
 
-  /* Floating particles */
-  var container=R.querySelector('#hwParticles');
-  if(container){
-    for(var i=0;i<18;i++){
-      (function(i){
-        setTimeout(function(){
-          var p=document.createElement('div');
-          p.className='hw-p';
-          var x=5+Math.random()*90;
-          var dx=(Math.random()-0.5)*60;
-          var size=1+Math.random()*3;
-          var dur=4+Math.random()*6;
-          var delay=Math.random()*8;
-          p.style.cssText='left:'+x+'%;bottom:'+(Math.random()*30)+'%;width:'+size+'px;height:'+size+'px;--dx:'+dx+'px;animation-duration:'+dur+'s;animation-delay:'+delay+'s;opacity:'+(0.2+Math.random()*0.5);
-          container.appendChild(p);
-        },i*80);
+  /* ── Progress bar animate in ── */
+  var bar = R.querySelector('#hwBar');
+  if (bar) setTimeout(function() { bar.style.width = '33%'; }, 400);
+
+  /* ── Floating particles ── */
+  var container = R.querySelector('#hwParticles');
+  if (container) {
+    for (var i = 0; i < 18; i++) {
+      (function(i) {
+        var p = document.createElement('div');
+        p.className = 'hw-p';
+        var left = 10 + Math.random() * 80;
+        var delay = Math.random() * 8;
+        var dur = 6 + Math.random() * 8;
+        var dx = (Math.random() - 0.5) * 40;
+        var size = 1.5 + Math.random() * 2.5;
+        p.style.cssText = [
+          'left:' + left + '%',
+          'bottom:0',
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'animation-duration:' + dur + 's',
+          'animation-delay:-' + delay + 's',
+          '--dx:' + dx + 'px',
+          'opacity:' + (0.2 + Math.random() * 0.5)
+        ].join(';');
+        container.appendChild(p);
       })(i);
     }
   }
