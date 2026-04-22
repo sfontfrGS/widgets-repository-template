@@ -1,807 +1,621 @@
-<section class="tf">
+<section class="g-root">
 <style>
-/* ─────────────────────────────────────────
-   UNIFIED DESIGN SYSTEM
-   Matches Community Topics Bento as reference
-───────────────────────────────────────── */
-.gs-root {
+/* ═══════════════════════════════════════════════
+   GAINSIGHT COMMUNITY — SHARED DESIGN SYSTEM
+   Single source of truth for all widgets.
+   Token prefix: --g-  |  Class prefix: g-
+═══════════════════════════════════════════════ */
+
+/* ─ Reset ─ */
+.g { all:unset; display:block; }
+.g *, .g *::before, .g *::after { box-sizing:border-box; margin:0; padding:0; }
+a.g, button.g { cursor:pointer; }
+
+/* ─ Base ─ */
+.g-root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: #0a0a0a;
-  background: #ffffff;
+  color: #111;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
 }
-.gs-root * { box-sizing: border-box; }
+.g-root * { box-sizing: border-box; }
 
-/* Wrapper */
-.gs-wrap { max-width: 1140px; margin: 0 auto; padding: 24px 20px; }
-.gs-wrap--sidebar { padding: 20px 16px; } /* no max-width — sidebar fills column */
+/* ─ Layout ─ */
+.g-wrap  { max-width: 1140px; margin: 0 auto; padding: 24px 20px; }
+.g-wrap--narrow { padding: 20px 16px; }
 
-/* ── Header (every widget) ── */
-.gs-header { margin-bottom: 16px; }
-.gs-header-row { display: flex; align-items: center; justify-content: space-between; }
-.gs-label {
+/* ─ Typography scale ─ */
+/* Widget label (header of every widget — identical everywhere) */
+.g-widget-label {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #a1a1aa;
+  line-height: 1;
 }
-.gs-heading {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -.02em;
-  color: #0a0a0a;
-  margin: 0 0 2px;
+/* Section sub-label */
+.g-sub-label {
+  font-size: 11px;
+  color: #a1a1aa;
 }
-.gs-sub {
-  font-size: 13px;
-  color: #71717a;
-  margin: 0;
-}
-.gs-link {
-  font-size: 12px;
-  font-weight: 500;
-  color: #7c3aed;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.gs-link:hover { text-decoration: underline; }
+/* Body text */
+.g-body   { font-size: 14px; color: #111; }
+.g-body-s { font-size: 13px; color: #111; }
+.g-muted  { font-size: 12px; color: #71717a; }
+.g-subtle { font-size: 11px; color: #a1a1aa; }
+/* Big numbers */
+.g-num-xl { font-size: 44px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: #111; }
+.g-num-lg { font-size: 28px; font-weight: 800; letter-spacing: -.03em; line-height: 1; color: #111; }
+.g-num-md { font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1; color: #111; }
+/* Card title */
+.g-card-title   { font-size: 14px; font-weight: 600; color: #111; line-height: 1.38; }
+.g-card-title-l { font-size: 16px; font-weight: 700; color: #111; line-height: 1.32; }
 
-/* ── Tabs ── */
-.gs-tabs {
+/* ─ Colors ─ */
+.g-accent       { color: #7c3aed; }
+.g-accent-bg    { background: #f5f3ff; }
+.g-accent-bd    { border-color: #ede9fe; }
+.g-hover:hover  { background: #faf5ff !important; }
+
+/* ─ Widget header (used in every widget) ─ */
+.g-header {
   display: flex;
-  gap: 2px;
-  background: #f4f4f5;
-  border-radius: 8px;
-  padding: 3px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
-.gs-tab {
-  border: none;
-  background: transparent;
-  font-size: 12px;
-  font-weight: 500;
-  color: #71717a;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 5px 12px;
-  border-radius: 6px;
+.g-header-left  { display: flex; flex-direction: column; gap: 2px; }
+.g-header-right { display: flex; align-items: center; gap: 6px; }
+
+/* ─ Link ─ */
+.g-link { font-size: 12px; font-weight: 500; color: #7c3aed; text-decoration: none; white-space: nowrap; }
+.g-link:hover { text-decoration: underline; }
+
+/* ─ Tabs ─ */
+.g-tabs { display: flex; gap: 2px; background: #f4f4f5; border-radius: 8px; padding: 3px; }
+.g-tab  {
+  border: none; background: transparent;
+  font-size: 12px; font-weight: 500; color: #71717a;
+  font-family: inherit; cursor: pointer;
+  padding: 5px 12px; border-radius: 6px;
   transition: background .15s, color .15s;
   white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.gs-tab.active {
-  background: #ffffff;
-  color: #0a0a0a;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-}
-.gs-tab-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: #7c3aed;
-  color: #fff;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 0 4px;
-}
-
-/* ── Buttons ── */
-.gs-btn-icon {
-  width: 30px; height: 30px;
-  border: 1px solid #e4e4e7;
-  border-radius: 6px;
-  background: #ffffff;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  font-size: 14px;
-  color: #3f3f46;
-  transition: border-color .15s, background .15s, color .15s;
-}
-.gs-btn-icon:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
-.gs-btn-icon:disabled { opacity: .3; cursor: default; pointer-events: none; }
-
-.gs-btn-primary {
   display: inline-flex; align-items: center; gap: 5px;
-  background: #7c3aed; color: #ffffff;
+}
+.g-tab.on { background: #fff; color: #111; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.g-tab-n  {
+  min-width: 16px; height: 16px; border-radius: 999px;
+  background: #7c3aed; color: #fff;
+  font-size: 9px; font-weight: 700; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* ─ Buttons ─ */
+.g-btn {
+  width: 30px; height: 30px;
+  border: 1px solid #e4e4e7; border-radius: 6px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; color: #52525b;
+  transition: border-color .15s, background .15s, color .15s;
+  font-family: inherit;
+}
+.g-btn:hover  { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
+.g-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
+
+.g-btn-primary {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #7c3aed; color: #fff;
   border: none; border-radius: 6px;
   padding: 8px 16px;
   font-size: 12px; font-weight: 600; font-family: inherit;
-  cursor: pointer; white-space: nowrap;
-  transition: background .15s;
+  cursor: pointer; transition: background .15s; white-space: nowrap;
 }
-.gs-btn-primary:hover { background: #6d28d9; }
+.g-btn-primary:hover { background: #6d28d9; }
 
-/* ── Dots (carousel) ── */
-.gs-dots { display: flex; gap: 5px; align-items: center; }
-.gs-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #e4e4e7;
-  cursor: pointer;
-  transition: background .2s, transform .2s;
+/* ─ Dots ─ */
+.g-dots { display: flex; gap: 5px; align-items: center; }
+.g-dot  { width: 6px; height: 6px; border-radius: 50%; background: #e4e4e7; cursor: pointer; transition: background .2s, transform .2s; }
+.g-dot.on { background: #7c3aed; transform: scale(1.3); }
+
+/* ─ Badges ─ */
+.g-badge {
+  display: inline-flex; align-items: center;
+  font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid transparent;
 }
-.gs-dot.active { background: #7c3aed; transform: scale(1.3); }
+.g-badge-p { background: #f5f3ff; color: #7c3aed; border-color: #ede9fe; }
+.g-badge-g { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+.g-badge-a { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+.g-badge-r { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+.g-badge-m { background: #f4f4f5; color: #71717a; border-color: #e4e4e7; }
 
-/* ── Row / card hover ── */
-.gs-hover:hover { background: #faf5ff; }
+/* ─ Stats row ─ */
+.g-stats { display: flex; align-items: center; gap: 10px; }
+.g-stat  { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; color: #a1a1aa; }
+.g-stat svg { width: 11px; height: 11px; flex-shrink: 0; }
 
-/* ── Stats ── */
-.gs-stats { display: flex; align-items: center; gap: 10px; }
-.gs-stat {
-  display: inline-flex; align-items: center; gap: 3px;
-  font-size: 11px; color: #a1a1aa; white-space: nowrap;
-}
-.gs-stat svg { width: 11px; height: 11px; }
-
-/* ── Like ── */
-.gs-like {
+/* ─ Like button ─ */
+.g-like {
   display: inline-flex; align-items: center; gap: 4px;
   border: none; background: transparent;
   font-size: 11px; font-weight: 500; color: #a1a1aa;
   font-family: inherit; cursor: pointer;
   padding: 2px 6px; border-radius: 4px;
-  transition: color .15s, background .15s;
-  user-select: none;
+  transition: color .15s, background .15s; user-select: none;
 }
-.gs-like svg { width: 12px; height: 12px; transition: fill .15s, stroke .15s; }
-.gs-like:hover { color: #ef4444; background: #fef2f2; }
-.gs-like:hover svg { stroke: #ef4444; }
-.gs-like.on { color: #ef4444; }
-.gs-like.on svg { fill: #ef4444; stroke: #ef4444; }
+.g-like svg { width: 12px; height: 12px; transition: fill .15s, stroke .15s; }
+.g-like:hover    { color: #ef4444; background: #fef2f2; }
+.g-like:hover svg { stroke: #ef4444; }
+.g-like.on       { color: #ef4444; }
+.g-like.on svg   { fill: #ef4444; stroke: #ef4444; }
 
-/* ── Badge ── */
-.gs-badge {
-  display: inline-flex; align-items: center;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: .04em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 4px;
-  white-space: nowrap;
+/* ─ Card ─ */
+.g-card {
+  border: 1px solid #e4e4e7; border-radius: 10px;
+  background: #fff; transition: border-color .15s, box-shadow .15s;
 }
-.gs-badge--purple { background: #f5f3ff; color: #7c3aed; border: 1px solid #ede9fe; }
-.gs-badge--green  { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
-.gs-badge--amber  { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
-.gs-badge--red    { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-.gs-badge--muted  { background: #f4f4f5; color: #71717a; border: 1px solid #e4e4e7; }
+.g-card:hover { border-color: #c4b5fd; box-shadow: 0 4px 16px rgba(124,58,237,.06); }
+.g-card-p { padding: 16px 18px; }
 
-/* ── Divider ── */
-.gs-divider { height: 1px; background: #f4f4f5; margin: 0; }
-.gs-card-footer {
+/* ─ Row (list item) ─ */
+.g-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 0; border-bottom: 1px solid #f4f4f5;
+  text-decoration: none; color: inherit;
+  transition: background .12s; border-radius: 4px; cursor: pointer;
+}
+.g-row:last-child { border-bottom: none; }
+.g-row:hover { background: #faf5ff; padding-left: 6px; padding-right: 6px; margin: 0 -6px; }
+
+/* ─ Footer strip (stats + like) ─ */
+.g-footer {
   display: flex; align-items: center; justify-content: space-between;
   padding-top: 10px; margin-top: 10px;
   border-top: 1px solid #f4f4f5;
 }
 
-/* ── Progress ── */
-.gs-progress-track { height: 5px; background: #e4e4e7; border-radius: 999px; overflow: hidden; }
-.gs-progress-fill  { height: 100%; background: #7c3aed; border-radius: 999px; transition: width .8s ease; }
+/* ─ Divider ─ */
+.g-divider { height: 1px; background: #f4f4f5; }
 
-/* ── Input ── */
-.gs-input {
+/* ─ Progress ─ */
+.g-prog-track { height: 5px; background: #e4e4e7; border-radius: 999px; overflow: hidden; }
+.g-prog-fill  { height: 100%; background: #7c3aed; border-radius: 999px; transition: width .8s ease; }
+
+/* ─ Input ─ */
+.g-input-wrap { position: relative; }
+.g-input-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: #a1a1aa; pointer-events: none; }
+.g-input {
   width: 100%; height: 40px;
   border: 1px solid #e4e4e7; border-radius: 8px;
-  padding: 0 12px 0 36px;
-  font-size: 13px; font-family: inherit;
-  color: #0a0a0a; background: #ffffff;
-  outline: none;
+  padding: 0 12px 0 34px;
+  font-size: 13px; font-family: inherit; color: #111;
+  background: #fff; outline: none;
   transition: border-color .15s, box-shadow .15s;
 }
-.gs-input::placeholder { color: #a1a1aa; }
-.gs-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
+.g-input::placeholder { color: #a1a1aa; }
+.g-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
 
-.tf {
-  display: block;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #fff;
-  padding: 24px 20px;
-  -webkit-font-smoothing: antialiased;
+/* ─ Avatar ─ */
+.g-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
 }
-.tf * { box-sizing: border-box; }
-.tf-wrap { max-width: 1140px; margin: 0 auto; }
+.g-avatar-sm { width: 24px; height: 24px; font-size: 9px; }
 
-/* ── Header + Tabs ── */
-.tf-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
+/* ─ Icon tile ─ */
+.g-icon-tile {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: #f4f4f5; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0; transition: background .15s;
 }
-.tf-header h2 {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: #71717a;
-  margin: 0;
+
+/* ─ Live dot ─ */
+.g-live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #22c55e; flex-shrink: 0;
+  animation: gLiveDot 2s ease-in-out infinite;
 }
-.tf-tabs {
-  display: flex;
-  gap: 2px;
-  background: #f4f4f5;
-  border-radius: 8px;
-  padding: 3px;
-}
-.tf-tab {
-  border: none;
-  background: transparent;
-  font-size: 12px;
-  font-weight: 500;
-  color: #71717a;
+@keyframes gLiveDot { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);} }
+
+/* ─ Chip (search suggestion) ─ */
+.g-chip {
+  display: inline-flex; align-items: center;
+  border: 1px solid #e4e4e7; border-radius: 999px;
+  padding: 4px 12px; font-size: 12px; font-weight: 500;
+  color: #52525b; background: #fff; cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s;
   font-family: inherit;
-  cursor: pointer;
-  padding: 5px 12px;
-  border-radius: 6px;
-  transition: background .15s, color .15s;
-  white-space: nowrap;
 }
-.tf-tab.active {
-  background: #fff;
-  color: #0a0a0a;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-}
-.tf-tab .tf-tab-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: #7c3aed;
-  color: #fff;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 0 4px;
-  margin-left: 5px;
-  vertical-align: middle;
-}
+.g-chip:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
 
-/* ── Feed container — scrollable ── */
-.tf-feed {
-  height: 520px;
+/* ─ Scrollable feed ─ */
+.g-feed {
   overflow-y: auto;
-  border: 1px solid #e4e4e7;
-  border-radius: 12px;
-  scrollbar-width: thin;
-  scrollbar-color: #e4e4e7 transparent;
+  scrollbar-width: thin; scrollbar-color: #e4e4e7 transparent;
 }
-.tf-feed::-webkit-scrollbar { width: 4px; }
-.tf-feed::-webkit-scrollbar-track { background: transparent; }
-.tf-feed::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 999px; }
+.g-feed::-webkit-scrollbar { width: 4px; }
+.g-feed::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 999px; }
 
-/* panel */
-.tf-panel { display: none; }
-.tf-panel.active { display: block; }
+/* ─ Clamp helpers ─ */
+.g-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-/* ── Topic row ── */
-.tf-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 16px;
-  border-bottom: 1px solid #f4f4f5;
-  text-decoration: none;
-  color: inherit;
-  transition: background .12s;
-  cursor: pointer;
-}
-.tf-item:last-child { border-bottom: none; }
-.tf-item:hover { background: #faf5ff; }
 
-/* type icon */
-.tf-type {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* content */
-.tf-content { flex: 1; min-width: 0; }
-.tf-item-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-  flex-wrap: wrap;
-}
-.tf-forum {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: #7c3aed;
-}
-.tf-badge {
-  font-size: 10px;
-  font-weight: 500;
-  color: #a1a1aa;
-  background: #f4f4f5;
-  border-radius: 4px;
-  padding: 1px 6px;
-}
-.tf-badge.expert {
-  background: #fef3c7;
-  color: #b45309;
-  font-weight: 600;
-}
-.tf-badge.unanswered {
-  background: #fee2e2;
-  color: #dc2626;
-  font-weight: 600;
-}
-.tf-badge.hot {
-  background: #fff7ed;
-  color: #ea580c;
-}
-.tf-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #18181b;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-.tf-excerpt {
-  font-size: 11px;
-  color: #71717a;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin-bottom: 6px;
-}
-.tf-stats {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.tf-stat {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 11px;
-  color: #a1a1aa;
-  white-space: nowrap;
-}
-.tf-stat svg { width: 11px; height: 11px; flex-shrink: 0; }
-.tf-time { font-size: 11px; color: #a1a1aa; margin-left: auto; white-space: nowrap; }
-
-/* ── Expert match banner ── */
-.tf-expert-banner {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  background: linear-gradient(90deg, #fffbeb, #fff);
-  border-bottom: 1px solid #fde68a;
-  font-size: 12px;
-  color: #92400e;
-  font-weight: 500;
-}
-.tf-expert-banner span { font-size: 16px; }
-
-/* ── Load more ── */
-.tf-load-more {
-  padding: 14px;
-  text-align: center;
-  border-top: 1px solid #f4f4f5;
-  font-size: 12px;
-  font-weight: 600;
-  color: #7c3aed;
-  cursor: pointer;
-  transition: background .12s;
-}
-.tf-load-more:hover { background: #faf5ff; }
-
-/* ── Consistent widget header ── */
-.gs-header { margin-bottom: 16px; }
-.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
-.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
-.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
-.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
-.gs-link:hover { text-decoration: underline; }
+.tf-feed { height:520px; overflow-y:auto; border:1px solid #e4e4e7; border-radius:10px; scrollbar-width:thin; scrollbar-color:#e4e4e7 transparent; }
+.tf-feed::-webkit-scrollbar { width:4px; }
+.tf-feed::-webkit-scrollbar-thumb { background:#e4e4e7; border-radius:999px; }
+.tf-panel { display:none; }
+.tf-panel.on { display:block; }
+.tf-item { display:flex; align-items:flex-start; gap:10px; padding:14px 14px; border-bottom:1px solid #f4f4f5; text-decoration:none; color:inherit; transition:background .12s; cursor:pointer; }
+.tf-item:last-child { border-bottom:none; }
+.tf-item:hover { background:#faf5ff; }
+.tf-icon { width:30px; height:30px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; margin-top:1px; }
+.tf-load { padding:14px; text-align:center; border-top:1px solid #f4f4f5; }
+.tf-exp-banner { display:flex; align-items:center; gap:8px; padding:10px 14px; background:linear-gradient(90deg,#fffbeb,#fff); border-bottom:1px solid #fde68a; font-size:12px; color:#92400e; }
 
 </style>
-
-<div class="tf-wrap">
-  <div class="tf-header">
-    <span class="gs-label">Latest Topics</span>
-    <div class="gs-tabs">
-      <button class="gs-tab active" data-tab="all">All Topics</button>
-      <button class="gs-tab" data-tab="expert">
-        For You
-        <span class="gs-tab-badge">6</span>
-      </button>
-      <button class="gs-tab" data-tab="unanswered">
-        Unanswered
-        <span class="gs-tab-badge" style="background:#dc2626">4</span>
-      </button>
+<div class="g-wrap">
+  <div class="g-header">
+    <span class="g-widget-label">Latest Topics</span>
+    <div class="g-tabs">
+      <button class="g-tab on" data-tab="all">All Topics</button>
+      <button class="g-tab" data-tab="expert">For You <span class="g-tab-n">6</span></button>
+      <button class="g-tab" data-tab="unans">Unanswered <span class="g-tab-n" style="background:#dc2626">4</span></button>
     </div>
   </div>
-
   <div class="tf-feed">
-
-    <!-- ALL TOPICS panel -->
-    <div class="tf-panel active" id="tf-all">
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#f5f3ff">💬</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Customer Success</span><span class="tf-badge hot">🔥 Hot</span></div>
-          <div class="tf-title">How we reduced churn by 40% using proactive health scoring</div>
-          <div class="tf-excerpt">We implemented a 3-tier health score system six months ago and the results have been remarkable. Here's the exact setup we used...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.2k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>47</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>203</span>
-            <span class="tf-time">2m ago</span>
-          </div>
+    <div class="tf-panel on" id="tf-all">
+      <a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#f5f3ff">💬</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Customer Success</span><span class="g-badge g-badge-a" style="font-size:9px">🔥 Hot</span>
         </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Product Strategy</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">What's the best way to structure a PLG motion alongside an enterprise sales team?</div>
-          <div class="tf-excerpt">We're transitioning from pure sales-led to a hybrid PLG model. Our enterprise reps are worried about...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>612</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>31</span>
-            <span class="tf-time">8m ago</span>
-          </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">How we reduced churn by 40% using proactive health scoring</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">We implemented a 3-tier health score system six months ago and the results have been remarkable...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.2k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>47</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>203</span>
+          <span class="g-subtle" style="margin-left:auto">2m</span>
         </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#ecfdf5">📄</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">AI Tools</span><span class="tf-badge">Article</span></div>
-          <div class="tf-title">The CS AI toolkit: 12 tools we actually use every day in 2025</div>
-          <div class="tf-excerpt">After testing over 30 tools, here are the 12 that made it into our daily workflow — with honest pros and cons for each...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.1k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>61</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>289</span>
-            <span class="tf-time">23m ago</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#f0f9ff">💬</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Onboarding</span></div>
-          <div class="tf-title">Async video onboarding vs live sessions — what the data says after 6 months</div>
-          <div class="tf-excerpt">We ran a controlled experiment with 200 accounts split across async Loom walkthroughs and live Zoom onboarding sessions...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>1.8k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>38</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>97</span>
-            <span class="tf-time">1h ago</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">QBR</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">How do you handle a QBR when the executive sponsor suddenly cancels?</div>
-          <div class="tf-excerpt">This has happened to us twice this quarter. We reschedule but by then the momentum is gone...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>340</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>18</span>
-            <span class="tf-time">2h ago</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#f5f3ff">💬</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">CS Ops</span></div>
-          <div class="tf-title">Our complete tech stack review: what we kept, dropped and added in 2025</div>
-          <div class="tf-excerpt">After a full audit of 19 tools, we consolidated down to 11. Here's what drove each decision...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.1k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>41</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>77</span>
-            <span class="tf-time">3h ago</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#ecfdf5">📄</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Leadership</span><span class="tf-badge">Article</span></div>
-          <div class="tf-title">Building a CS org from scratch: lessons from my first 18 months as VP of CS</div>
-          <div class="tf-excerpt">When I joined, there were 2 CSMs and no process. Here's how we built a 15-person org with clear career tracks...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>5.4k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>341</span>
-            <span class="tf-time">5h ago</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Product Feedback</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">Anyone using Gainsight for health score automation? What triggers are you using?</div>
-          <div class="tf-excerpt">Looking for inspiration on what signals people are feeding into their health scores beyond basic usage...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>189</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>24</span>
-            <span class="tf-time">6h ago</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#f5f3ff">💬</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Community</span></div>
-          <div class="tf-title">Pulse 2025 was incredible — key takeaways from all 3 days</div>
-          <div class="tf-excerpt">Attended every session I could. Here are the themes that kept coming up across tracks...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.7k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>203</span>
-            <span class="tf-time">8h ago</span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Hidden items shown on Load more -->
-      <a class="tf-item tf-item--hidden" href="#" style="display:none">
-        <div class="tf-type" style="background:#f5f3ff">💬</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Customer Success</span></div>
-          <div class="tf-title">How to build a CS team culture that retains top talent</div>
-          <div class="tf-excerpt">The practices that keep our team engagement scores above 85% for three consecutive years...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.3k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>44</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>118</span>
-            <span class="tf-time">10h ago</span>
-          </div>
-        </div>
-      </a>
-      <a class="tf-item tf-item--hidden" href="#" style="display:none">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Metrics</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">What NRR benchmark should a Series B SaaS company be targeting?</div>
-          <div class="tf-excerpt">Our board keeps asking about industry benchmarks and I want to give a confident answer backed by data...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>512</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-time">11h ago</span>
-          </div>
-        </div>
-      </a>
-      <a class="tf-item tf-item--hidden" href="#" style="display:none">
-        <div class="tf-type" style="background:#ecfdf5">📄</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">AI Tools</span><span class="tf-badge">Article</span></div>
-          <div class="tf-title">We gave our CS team access to AI for 90 days — here's what changed</div>
-          <div class="tf-excerpt">A before-and-after look at productivity, quality of customer interactions, and the surprises we didn't expect...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.8k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>67</span>
-            <span class="tf-time">1d ago</span>
-          </div>
-        </div>
-      </a>
-            <div class="tf-load-more" id="tfLoadMore" data-action="loadmore">Load more topics ↓</div>
-    </div>
-
-    <!-- FOR YOU (expert match) panel -->
-    <div class="tf-panel" id="tf-expert">
-
-      <div class="tf-expert-banner">
-        <span>⭐</span>
-        <span>These topics match your expertise in <strong>Customer Success</strong> and <strong>Onboarding</strong> — your answer could really help here</span>
       </div>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Customer Success</span><span class="tf-badge expert">⭐ Your expertise</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">What's the right cadence for check-ins with a newly onboarded enterprise account?</div>
-          <div class="tf-excerpt">We just closed a 500-seat deal and the sponsor is very hands-off. Wondering how often to reach out without being annoying...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>284</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>19</span>
-            <span class="tf-time">15m ago</span>
-          </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Product Strategy</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
         </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Onboarding</span><span class="tf-badge expert">⭐ Your expertise</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">How do you measure onboarding success beyond time-to-first-value?</div>
-          <div class="tf-excerpt">We have time-to-activate nailed down but leadership wants more signals for how sticky the onboarding experience actually is...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>412</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>27</span>
-            <span class="tf-time">1h ago</span>
-          </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">What's the best way to structure a PLG motion alongside an enterprise sales team?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">We're transitioning from pure sales-led to a hybrid PLG model...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>612</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>31</span>
+          <span class="g-subtle" style="margin-left:auto">8m</span>
         </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Customer Success</span><span class="tf-badge expert">⭐ Your expertise</span></div>
-          <div class="tf-title">Best practices for handling a customer who keeps missing their onboarding milestones?</div>
-          <div class="tf-excerpt">3 weeks in and they've completed 20% of setup. Executive is unresponsive and the champion keeps promising things will pick up...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>538</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>12</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>44</span>
-            <span class="tf-time">3h ago</span>
-          </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#ecfdf5">📄</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">AI Tools</span>
         </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">QBR</span><span class="tf-badge expert">⭐ Your expertise</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">How do you quantify ROI for a customer who uses your product qualitatively?</div>
-          <div class="tf-excerpt">Our biggest account uses us mostly for internal comms and collaboration. Hard to show hard numbers in the QBR...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>231</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>16</span>
-            <span class="tf-time">4h ago</span>
-          </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">The CS AI toolkit: 12 tools we actually use every day in 2025</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">After testing over 30 tools, here are the 12 that made it into our daily workflow...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.1k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>61</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>289</span>
+          <span class="g-subtle" style="margin-left:auto">23m</span>
         </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#f0f9ff">💬</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">CS Ops</span><span class="tf-badge expert">⭐ Your expertise</span></div>
-          <div class="tf-title">Sharing our full CS playbook — what we built over 3 years at Series B</div>
-          <div class="tf-excerpt">We're open-sourcing our entire CS playbook. 47 pages covering onboarding, QBRs, renewals, escalations...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>6.1k</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>124</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>412</span>
-            <span class="tf-time">1d ago</span>
-          </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#f0f9ff">💬</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Onboarding</span>
         </div>
-      </a>
-
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Onboarding</span><span class="tf-badge expert">⭐ Your expertise</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">Is there a standard for onboarding completion rate benchmarks by industry?</div>
-          <div class="tf-excerpt">We're sitting at 68% onboarding completion at 30 days. No idea if that's good or bad for B2B SaaS...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>317</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>22</span>
-            <span class="tf-time">2d ago</span>
-          </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">Async video onboarding vs live sessions — what the data says after 6 months</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">We ran a controlled experiment with 200 accounts split across both approaches...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>1.8k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>38</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>97</span>
+          <span class="g-subtle" style="margin-left:auto">1h</span>
         </div>
-      </a>
-
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">QBR</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">How do you handle a QBR when the executive sponsor suddenly cancels?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">This has happened to us twice this quarter. By the time we reschedule the momentum is gone...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>340</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>18</span>
+          <span class="g-subtle" style="margin-left:auto">2h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#f5f3ff">💬</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">CS Ops</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">Our complete tech stack review: what we kept, dropped and added in 2025</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">After a full audit of 19 tools, we consolidated down to 11. Here's what drove each decision...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.1k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>41</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>77</span>
+          <span class="g-subtle" style="margin-left:auto">3h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#ecfdf5">📄</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Leadership</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">Building a CS org from scratch: lessons from my first 18 months as VP of CS</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">When I joined, there were 2 CSMs and no process. Here's how we built a 15-person org...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>5.4k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>341</span>
+          <span class="g-subtle" style="margin-left:auto">5h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Product Feedback</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">Anyone using Gainsight for health score automation? What triggers are you using?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">Looking for inspiration on what signals people are feeding into their health scores...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>189</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>24</span>
+          <span class="g-subtle" style="margin-left:auto">6h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#f5f3ff">💬</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Community</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">Pulse 2025 was incredible — key takeaways from all 3 days</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">Attended every session I could. Here are the themes that kept coming up across tracks...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.7k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>203</span>
+          <span class="g-subtle" style="margin-left:auto">8h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="display:none">
+      <div class="tf-icon" style="background:#f5f3ff">💬</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Customer Success</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">How to build a CS team culture that retains top talent</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">The practices that keep our team engagement scores above 85% for three consecutive years...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.3k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>44</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>118</span>
+          <span class="g-subtle" style="margin-left:auto">10h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="display:none">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Metrics</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">What NRR benchmark should a Series B SaaS company be targeting?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">Our board keeps asking about industry benchmarks and I want to give a confident answer...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>512</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>16</span>
+          <span class="g-subtle" style="margin-left:auto">11h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="display:none">
+      <div class="tf-icon" style="background:#ecfdf5">📄</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">AI Tools</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">We gave our CS team access to AI for 90 days — here's what changed</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">A before-and-after look at productivity, quality of customer interactions, and the surprises...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.8k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>67</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>201</span>
+          <span class="g-subtle" style="margin-left:auto">1d</span>
+        </div>
+      </div>
+    </a>
+      <div class="tf-load"><a href="#" class="g-link" id="tfMore">Load more topics ↓</a></div>
     </div>
-
-    <!-- UNANSWERED panel -->
-    <div class="tf-panel" id="tf-unanswered">
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Product Strategy</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">What's the best way to structure a PLG motion alongside an enterprise sales team?</div>
-          <div class="tf-excerpt">We're transitioning from pure sales-led to hybrid PLG. Our enterprise reps are worried about self-serve cannibalizing deals...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>612</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-time">8m ago</span>
-          </div>
+    <div class="tf-panel" id="tf-expert">
+      <div class="tf-exp-banner"><span>⭐</span><span>Topics matching your expertise in <strong>Customer Success</strong> and <strong>Onboarding</strong></span></div>
+      <a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Customer Success</span><span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
         </div>
-      </a>
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">QBR</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">How do you handle a QBR when the executive sponsor suddenly cancels?</div>
-          <div class="tf-excerpt">This has happened twice this quarter. By the time we reschedule the momentum is completely gone...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>340</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-time">2h ago</span>
-          </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">What's the right cadence for check-ins with a newly onboarded enterprise account?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">We just closed a 500-seat deal and the sponsor is very hands-off...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>284</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>19</span>
+          <span class="g-subtle" style="margin-left:auto">15m</span>
         </div>
-      </a>
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Product Feedback</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">Anyone using Gainsight for health score automation? What triggers are you using?</div>
-          <div class="tf-excerpt">Looking for inspiration beyond basic product usage data for health score inputs...</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>189</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-time">6h ago</span>
-          </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Onboarding</span><span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
         </div>
-      </a>
-      <a class="tf-item" href="#">
-        <div class="tf-type" style="background:#fef3c7">❓</div>
-        <div class="tf-content">
-          <div class="tf-item-meta"><span class="tf-forum">Customer Success</span><span class="tf-badge expert">⭐ Your expertise</span><span class="tf-badge unanswered">Unanswered</span></div>
-          <div class="tf-title">What's the right cadence for check-ins with a newly onboarded enterprise account?</div>
-          <div class="tf-excerpt">Just closed a 500-seat deal, sponsor is hands-off. How often should I reach out without being annoying?</div>
-          <div class="tf-stats">
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>284</span>
-            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-            <span class="tf-time">15m ago</span>
-          </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">How do you measure onboarding success beyond time-to-first-value?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">We have time-to-activate nailed down but leadership wants more signals...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>412</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>27</span>
+          <span class="g-subtle" style="margin-left:auto">1h</span>
         </div>
-      </a>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#f5f3ff">💬</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Customer Success</span><span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">Best practices for handling a customer who keeps missing their onboarding milestones?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">3 weeks in and they've completed 20% of setup. Executive is unresponsive...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>538</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>12</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>44</span>
+          <span class="g-subtle" style="margin-left:auto">3h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">QBR</span><span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">How do you quantify ROI for a customer who uses your product qualitatively?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">Our biggest account uses us mostly for internal comms. Hard to show hard numbers in the QBR...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>231</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>16</span>
+          <span class="g-subtle" style="margin-left:auto">4h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#f0f9ff">📄</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">CS Ops</span><span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">Sharing our full CS playbook — what we built over 3 years at Series B</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">We're open-sourcing our entire CS playbook. 47 pages covering onboarding, QBRs, renewals...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>6.1k</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>124</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>412</span>
+          <span class="g-subtle" style="margin-left:auto">1d</span>
+        </div>
+      </div>
+    </a>
     </div>
-
+    <div class="tf-panel" id="tf-unans">
+      <a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Product Strategy</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">What's the best way to structure a PLG motion alongside an enterprise sales team?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">We're transitioning from pure sales-led to hybrid PLG. Enterprise reps are worried about cannibalization...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>612</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>31</span>
+          <span class="g-subtle" style="margin-left:auto">8m</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">QBR</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">How do you handle a QBR when the executive sponsor suddenly cancels?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">This has happened twice this quarter. By the time we reschedule the momentum is completely gone...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>340</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>18</span>
+          <span class="g-subtle" style="margin-left:auto">2h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Product Feedback</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">Anyone using Gainsight for health score automation? What triggers are you using?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">Looking for inspiration beyond basic product usage data for health score inputs...</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>189</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>24</span>
+          <span class="g-subtle" style="margin-left:auto">6h</span>
+        </div>
+      </div>
+    </a><a class="tf-item" href="#" style="">
+      <div class="tf-icon" style="background:#fef3c7">❓</div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span class="g-accent g-subtle" style="font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.05em">Customer Success</span><span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise</span><span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+        </div>
+        <div class="g-card-title g-clamp-2" style="margin-bottom:4px">What's the right cadence for check-ins with a newly onboarded enterprise account?</div>
+        <div class="g-muted g-clamp-1" style="margin-bottom:6px">Just closed a 500-seat deal, sponsor is hands-off. How often to reach out without being annoying?</div>
+        <div class="g-stats">
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>284</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>19</span>
+          <span class="g-subtle" style="margin-left:auto">15m</span>
+        </div>
+      </div>
+    </a>
+    </div>
   </div>
 </div>
 </section>
-
 <script>
-(function() {
-  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
-  if (!ROOT) ROOT = document;
+(function(){var R=document.currentScript?document.currentScript.closest('section'):document;if(!R)R=document;
 
-  ROOT.querySelectorAll('[data-tab]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      tfSwitch(btn.getAttribute('data-tab'), btn);
-    });
+R.querySelectorAll('[data-tab]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    R.querySelectorAll('[data-tab]').forEach(function(b){b.classList.remove('on');});
+    btn.classList.add('on');
+    R.querySelectorAll('.tf-panel').forEach(function(p){p.classList.remove('on');});
+    R.querySelector('#tf-'+btn.getAttribute('data-tab')).classList.add('on');
+    R.querySelector('.tf-feed').scrollTop=0;
   });
-  var lm = ROOT.querySelector('[data-action="loadmore"]');
-  if (lm) lm.addEventListener('click', function() { tfLoadMore(); });
+});
+var more=R.querySelector('#tfMore');
+if(more)more.addEventListener('click',function(e){
+  e.preventDefault();
+  R.querySelectorAll('.tf-item[style*="display:none"]').forEach(function(el){el.style.display='flex';});
+  more.closest('.tf-load').style.display='none';
+});
 
-function tfLoadMore() {
-  var hidden = ROOT.querySelectorAll('.tf-item--hidden');
-  hidden.forEach(function(el){ el.style.display='flex'; el.classList.remove('tf-item--hidden'); });
-  ROOT.querySelector('#tfLoadMore').style.display = 'none';
-}
-function tfSwitch(panel, btn) {
-  ROOT.querySelectorAll('.tf-panel').forEach(function(p){ p.classList.remove('active'); });
-  ROOT.querySelectorAll('.tf-tab').forEach(function(t){ t.classList.remove('active'); });
-  document.getElementById('tf-' + panel).classList.add('active');
-  btn.classList.add('active');
-  ROOT.querySelector('.tf-feed').scrollTop = 0;
-}
 })();
 </script>

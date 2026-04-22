@@ -1,460 +1,295 @@
-<section class="ql">
+<section class="g-root">
 <style>
-/* ─────────────────────────────────────────
-   UNIFIED DESIGN SYSTEM
-   Matches Community Topics Bento as reference
-───────────────────────────────────────── */
-.gs-root {
+/* ═══════════════════════════════════════════════
+   GAINSIGHT COMMUNITY — SHARED DESIGN SYSTEM
+   Single source of truth for all widgets.
+   Token prefix: --g-  |  Class prefix: g-
+═══════════════════════════════════════════════ */
+
+/* ─ Reset ─ */
+.g { all:unset; display:block; }
+.g *, .g *::before, .g *::after { box-sizing:border-box; margin:0; padding:0; }
+a.g, button.g { cursor:pointer; }
+
+/* ─ Base ─ */
+.g-root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: #0a0a0a;
-  background: #ffffff;
+  color: #111;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
 }
-.gs-root * { box-sizing: border-box; }
+.g-root * { box-sizing: border-box; }
 
-/* Wrapper */
-.gs-wrap { max-width: 1140px; margin: 0 auto; padding: 24px 20px; }
-.gs-wrap--sidebar { padding: 20px 16px; } /* no max-width — sidebar fills column */
+/* ─ Layout ─ */
+.g-wrap  { max-width: 1140px; margin: 0 auto; padding: 24px 20px; }
+.g-wrap--narrow { padding: 20px 16px; }
 
-/* ── Header (every widget) ── */
-.gs-header { margin-bottom: 16px; }
-.gs-header-row { display: flex; align-items: center; justify-content: space-between; }
-.gs-label {
+/* ─ Typography scale ─ */
+/* Widget label (header of every widget — identical everywhere) */
+.g-widget-label {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #a1a1aa;
+  line-height: 1;
 }
-.gs-heading {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -.02em;
-  color: #0a0a0a;
-  margin: 0 0 2px;
+/* Section sub-label */
+.g-sub-label {
+  font-size: 11px;
+  color: #a1a1aa;
 }
-.gs-sub {
-  font-size: 13px;
-  color: #71717a;
-  margin: 0;
-}
-.gs-link {
-  font-size: 12px;
-  font-weight: 500;
-  color: #7c3aed;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.gs-link:hover { text-decoration: underline; }
+/* Body text */
+.g-body   { font-size: 14px; color: #111; }
+.g-body-s { font-size: 13px; color: #111; }
+.g-muted  { font-size: 12px; color: #71717a; }
+.g-subtle { font-size: 11px; color: #a1a1aa; }
+/* Big numbers */
+.g-num-xl { font-size: 44px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: #111; }
+.g-num-lg { font-size: 28px; font-weight: 800; letter-spacing: -.03em; line-height: 1; color: #111; }
+.g-num-md { font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1; color: #111; }
+/* Card title */
+.g-card-title   { font-size: 14px; font-weight: 600; color: #111; line-height: 1.38; }
+.g-card-title-l { font-size: 16px; font-weight: 700; color: #111; line-height: 1.32; }
 
-/* ── Tabs ── */
-.gs-tabs {
+/* ─ Colors ─ */
+.g-accent       { color: #7c3aed; }
+.g-accent-bg    { background: #f5f3ff; }
+.g-accent-bd    { border-color: #ede9fe; }
+.g-hover:hover  { background: #faf5ff !important; }
+
+/* ─ Widget header (used in every widget) ─ */
+.g-header {
   display: flex;
-  gap: 2px;
-  background: #f4f4f5;
-  border-radius: 8px;
-  padding: 3px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
-.gs-tab {
-  border: none;
-  background: transparent;
-  font-size: 12px;
-  font-weight: 500;
-  color: #71717a;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 5px 12px;
-  border-radius: 6px;
+.g-header-left  { display: flex; flex-direction: column; gap: 2px; }
+.g-header-right { display: flex; align-items: center; gap: 6px; }
+
+/* ─ Link ─ */
+.g-link { font-size: 12px; font-weight: 500; color: #7c3aed; text-decoration: none; white-space: nowrap; }
+.g-link:hover { text-decoration: underline; }
+
+/* ─ Tabs ─ */
+.g-tabs { display: flex; gap: 2px; background: #f4f4f5; border-radius: 8px; padding: 3px; }
+.g-tab  {
+  border: none; background: transparent;
+  font-size: 12px; font-weight: 500; color: #71717a;
+  font-family: inherit; cursor: pointer;
+  padding: 5px 12px; border-radius: 6px;
   transition: background .15s, color .15s;
   white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.gs-tab.active {
-  background: #ffffff;
-  color: #0a0a0a;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-}
-.gs-tab-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: #7c3aed;
-  color: #fff;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 0 4px;
-}
-
-/* ── Buttons ── */
-.gs-btn-icon {
-  width: 30px; height: 30px;
-  border: 1px solid #e4e4e7;
-  border-radius: 6px;
-  background: #ffffff;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  font-size: 14px;
-  color: #3f3f46;
-  transition: border-color .15s, background .15s, color .15s;
-}
-.gs-btn-icon:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
-.gs-btn-icon:disabled { opacity: .3; cursor: default; pointer-events: none; }
-
-.gs-btn-primary {
   display: inline-flex; align-items: center; gap: 5px;
-  background: #7c3aed; color: #ffffff;
+}
+.g-tab.on { background: #fff; color: #111; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.g-tab-n  {
+  min-width: 16px; height: 16px; border-radius: 999px;
+  background: #7c3aed; color: #fff;
+  font-size: 9px; font-weight: 700; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* ─ Buttons ─ */
+.g-btn {
+  width: 30px; height: 30px;
+  border: 1px solid #e4e4e7; border-radius: 6px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; color: #52525b;
+  transition: border-color .15s, background .15s, color .15s;
+  font-family: inherit;
+}
+.g-btn:hover  { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
+.g-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
+
+.g-btn-primary {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #7c3aed; color: #fff;
   border: none; border-radius: 6px;
   padding: 8px 16px;
   font-size: 12px; font-weight: 600; font-family: inherit;
-  cursor: pointer; white-space: nowrap;
-  transition: background .15s;
+  cursor: pointer; transition: background .15s; white-space: nowrap;
 }
-.gs-btn-primary:hover { background: #6d28d9; }
+.g-btn-primary:hover { background: #6d28d9; }
 
-/* ── Dots (carousel) ── */
-.gs-dots { display: flex; gap: 5px; align-items: center; }
-.gs-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #e4e4e7;
-  cursor: pointer;
-  transition: background .2s, transform .2s;
+/* ─ Dots ─ */
+.g-dots { display: flex; gap: 5px; align-items: center; }
+.g-dot  { width: 6px; height: 6px; border-radius: 50%; background: #e4e4e7; cursor: pointer; transition: background .2s, transform .2s; }
+.g-dot.on { background: #7c3aed; transform: scale(1.3); }
+
+/* ─ Badges ─ */
+.g-badge {
+  display: inline-flex; align-items: center;
+  font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid transparent;
 }
-.gs-dot.active { background: #7c3aed; transform: scale(1.3); }
+.g-badge-p { background: #f5f3ff; color: #7c3aed; border-color: #ede9fe; }
+.g-badge-g { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+.g-badge-a { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+.g-badge-r { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+.g-badge-m { background: #f4f4f5; color: #71717a; border-color: #e4e4e7; }
 
-/* ── Row / card hover ── */
-.gs-hover:hover { background: #faf5ff; }
+/* ─ Stats row ─ */
+.g-stats { display: flex; align-items: center; gap: 10px; }
+.g-stat  { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; color: #a1a1aa; }
+.g-stat svg { width: 11px; height: 11px; flex-shrink: 0; }
 
-/* ── Stats ── */
-.gs-stats { display: flex; align-items: center; gap: 10px; }
-.gs-stat {
-  display: inline-flex; align-items: center; gap: 3px;
-  font-size: 11px; color: #a1a1aa; white-space: nowrap;
-}
-.gs-stat svg { width: 11px; height: 11px; }
-
-/* ── Like ── */
-.gs-like {
+/* ─ Like button ─ */
+.g-like {
   display: inline-flex; align-items: center; gap: 4px;
   border: none; background: transparent;
   font-size: 11px; font-weight: 500; color: #a1a1aa;
   font-family: inherit; cursor: pointer;
   padding: 2px 6px; border-radius: 4px;
-  transition: color .15s, background .15s;
-  user-select: none;
+  transition: color .15s, background .15s; user-select: none;
 }
-.gs-like svg { width: 12px; height: 12px; transition: fill .15s, stroke .15s; }
-.gs-like:hover { color: #ef4444; background: #fef2f2; }
-.gs-like:hover svg { stroke: #ef4444; }
-.gs-like.on { color: #ef4444; }
-.gs-like.on svg { fill: #ef4444; stroke: #ef4444; }
+.g-like svg { width: 12px; height: 12px; transition: fill .15s, stroke .15s; }
+.g-like:hover    { color: #ef4444; background: #fef2f2; }
+.g-like:hover svg { stroke: #ef4444; }
+.g-like.on       { color: #ef4444; }
+.g-like.on svg   { fill: #ef4444; stroke: #ef4444; }
 
-/* ── Badge ── */
-.gs-badge {
-  display: inline-flex; align-items: center;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: .04em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 4px;
-  white-space: nowrap;
+/* ─ Card ─ */
+.g-card {
+  border: 1px solid #e4e4e7; border-radius: 10px;
+  background: #fff; transition: border-color .15s, box-shadow .15s;
 }
-.gs-badge--purple { background: #f5f3ff; color: #7c3aed; border: 1px solid #ede9fe; }
-.gs-badge--green  { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
-.gs-badge--amber  { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
-.gs-badge--red    { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-.gs-badge--muted  { background: #f4f4f5; color: #71717a; border: 1px solid #e4e4e7; }
+.g-card:hover { border-color: #c4b5fd; box-shadow: 0 4px 16px rgba(124,58,237,.06); }
+.g-card-p { padding: 16px 18px; }
 
-/* ── Divider ── */
-.gs-divider { height: 1px; background: #f4f4f5; margin: 0; }
-.gs-card-footer {
+/* ─ Row (list item) ─ */
+.g-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 0; border-bottom: 1px solid #f4f4f5;
+  text-decoration: none; color: inherit;
+  transition: background .12s; border-radius: 4px; cursor: pointer;
+}
+.g-row:last-child { border-bottom: none; }
+.g-row:hover { background: #faf5ff; padding-left: 6px; padding-right: 6px; margin: 0 -6px; }
+
+/* ─ Footer strip (stats + like) ─ */
+.g-footer {
   display: flex; align-items: center; justify-content: space-between;
   padding-top: 10px; margin-top: 10px;
   border-top: 1px solid #f4f4f5;
 }
 
-/* ── Progress ── */
-.gs-progress-track { height: 5px; background: #e4e4e7; border-radius: 999px; overflow: hidden; }
-.gs-progress-fill  { height: 100%; background: #7c3aed; border-radius: 999px; transition: width .8s ease; }
+/* ─ Divider ─ */
+.g-divider { height: 1px; background: #f4f4f5; }
 
-/* ── Input ── */
-.gs-input {
+/* ─ Progress ─ */
+.g-prog-track { height: 5px; background: #e4e4e7; border-radius: 999px; overflow: hidden; }
+.g-prog-fill  { height: 100%; background: #7c3aed; border-radius: 999px; transition: width .8s ease; }
+
+/* ─ Input ─ */
+.g-input-wrap { position: relative; }
+.g-input-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: #a1a1aa; pointer-events: none; }
+.g-input {
   width: 100%; height: 40px;
   border: 1px solid #e4e4e7; border-radius: 8px;
-  padding: 0 12px 0 36px;
-  font-size: 13px; font-family: inherit;
-  color: #0a0a0a; background: #ffffff;
-  outline: none;
+  padding: 0 12px 0 34px;
+  font-size: 13px; font-family: inherit; color: #111;
+  background: #fff; outline: none;
   transition: border-color .15s, box-shadow .15s;
 }
-.gs-input::placeholder { color: #a1a1aa; }
-.gs-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
+.g-input::placeholder { color: #a1a1aa; }
+.g-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
 
-.ql {
-  display: block;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #fff;
-  padding: 20px 16px;
-  -webkit-font-smoothing: antialiased;
+/* ─ Avatar ─ */
+.g-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
 }
-.ql * { box-sizing: border-box; }
+.g-avatar-sm { width: 24px; height: 24px; font-size: 9px; }
 
-/* No max-width — designed for narrow sidebar column */
-.ql-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
+/* ─ Icon tile ─ */
+.g-icon-tile {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: #f4f4f5; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0; transition: background .15s;
 }
-.ql-header h2 {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: #a1a1aa;
-  margin: 0;
+
+/* ─ Live dot ─ */
+.g-live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #22c55e; flex-shrink: 0;
+  animation: gLiveDot 2s ease-in-out infinite;
 }
-.ql-edit {
-  border: none;
-  background: transparent;
-  font-size: 11px;
-  font-weight: 500;
-  color: #7c3aed;
+@keyframes gLiveDot { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);} }
+
+/* ─ Chip (search suggestion) ─ */
+.g-chip {
+  display: inline-flex; align-items: center;
+  border: 1px solid #e4e4e7; border-radius: 999px;
+  padding: 4px 12px; font-size: 12px; font-weight: 500;
+  color: #52525b; background: #fff; cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s;
   font-family: inherit;
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: background .12s;
 }
-.ql-edit:hover { background: #f5f3ff; }
+.g-chip:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
 
-/* ── Link groups ── */
-.ql-group { margin-bottom: 14px; }
-.ql-group:last-child { margin-bottom: 0; }
-.ql-group-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: #d4d4d8;
-  margin-bottom: 4px;
-  padding: 0 2px;
+/* ─ Scrollable feed ─ */
+.g-feed {
+  overflow-y: auto;
+  scrollbar-width: thin; scrollbar-color: #e4e4e7 transparent;
 }
+.g-feed::-webkit-scrollbar { width: 4px; }
+.g-feed::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 999px; }
 
-/* ── Link item ── */
-.ql-link {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 7px 8px;
-  border-radius: 7px;
-  text-decoration: none;
-  color: #18181b;
-  transition: background .12s, color .12s;
-  cursor: pointer;
-}
-.ql-link:hover { background: #f5f3ff; color: #7c3aed; }
-.ql-link:hover .ql-link-icon { background: #ede9fe; }
-.ql-link:hover .ql-link-arrow { opacity: 1; }
+/* ─ Clamp helpers ─ */
+.g-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-.ql-link-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  background: #f4f4f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  flex-shrink: 0;
-  transition: background .12s;
-}
-.ql-link-text { flex: 1; min-width: 0; }
-.ql-link-label {
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-}
-.ql-link-sub {
-  font-size: 10px;
-  color: #a1a1aa;
-  margin-top: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-}
-.ql-link-arrow {
-  font-size: 11px;
-  color: #a1a1aa;
-  opacity: 0;
-  transition: opacity .12s;
-  flex-shrink: 0;
-}
 
-/* ── Badge on link ── */
-.ql-badge {
-  font-size: 9px;
-  font-weight: 700;
-  background: #7c3aed;
-  color: #fff;
-  border-radius: 999px;
-  padding: 1px 5px;
-  flex-shrink: 0;
-}
-.ql-badge.new { background: #16a34a; }
-.ql-badge.hot { background: #ea580c; }
+.ql-group { margin-bottom:12px; }
+.ql-item { display:flex; align-items:center; gap:9px; padding:7px 8px; border-radius:7px; text-decoration:none; color:#111; transition:background .12s,color .12s; cursor:pointer; border:none; background:transparent; width:100%; font-family:inherit; text-align:left; }
+.ql-item:hover { background:#f5f3ff; color:#7c3aed; }
+.ql-item:hover .g-icon-tile { background:#ede9fe; }
+.ql-item:hover .ql-arrow { opacity:1; }
+.ql-arrow { font-size:12px; color:#a1a1aa; opacity:0; transition:opacity .12s; margin-left:auto; flex-shrink:0; }
+.ql-count { min-width:18px; height:18px; border-radius:999px; background:#7c3aed; color:#fff; font-size:9px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; padding:0 4px; margin-left:auto; flex-shrink:0; }
+.ql-count-g { background:#16a34a; }
+.ql-count-o { background:#ea580c; }
 
-/* ── Divider ── */
-.ql-divider {
-  height: 1px;
-  background: #f4f4f5;
-  margin: 10px 0;
-}
-
-/* ── CTA at bottom ── */
-.ql-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  padding: 9px;
-  background: #7c3aed;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  text-decoration: none;
-  margin-top: 14px;
-  transition: background .15s, transform .1s;
-}
-.ql-cta:hover { background: #6d28d9; transform: scale(1.01); }
 </style>
+<div class="g-wrap g-wrap--narrow">
+  <div class="g-header" style="margin-bottom:12px">
+    <span class="g-widget-label">Quick Links</span>
+    <button class="g-link" style="border:none;background:transparent;font-family:inherit;cursor:pointer">Edit</button>
+  </div>
 
-<div class="ql-header">
-  <span class="gs-label">Quick Links</span>
-  <button class="ql-edit">Edit</button>
+  <div class="ql-group">
+    <div class="g-sub-label" style="margin-bottom:4px;padding:0 8px">My Space</div>
+    <a class="ql-item" href="#"><div class="g-icon-tile">🔔</div><div><div class="g-body-s">Notifications</div></div><span class="ql-count">12</span></a>
+    <a class="ql-item" href="#"><div class="g-icon-tile">📌</div><div><div class="g-body-s">Bookmarks</div><div class="g-subtle">8 saved</div></div><span class="ql-arrow">›</span></a>
+    <a class="ql-item" href="#"><div class="g-icon-tile">✍️</div><div><div class="g-body-s">My Posts</div><div class="g-subtle">147 contributions</div></div><span class="ql-arrow">›</span></a>
+    <a class="ql-item" href="#"><div class="g-icon-tile">🏆</div><div><div class="g-body-s">My Badges</div><div class="g-subtle">4 earned</div></div><span class="ql-arrow">›</span></a>
+  </div>
+
+  <div class="g-divider" style="margin:4px 0 12px"></div>
+
+  <div class="ql-group">
+    <div class="g-sub-label" style="margin-bottom:4px;padding:0 8px">Explore</div>
+    <a class="ql-item" href="#"><div class="g-icon-tile">🔥</div><div><div class="g-body-s">Trending Now</div></div><span class="ql-count ql-count-o">Hot</span></a>
+    <a class="ql-item" href="#"><div class="g-icon-tile">❓</div><div><div class="g-body-s">Unanswered</div><div class="g-subtle">4 need a reply</div></div><span class="ql-arrow">›</span></a>
+    <a class="ql-item" href="#"><div class="g-icon-tile">📅</div><div><div class="g-body-s">Events</div><div class="g-subtle">2 upcoming</div></div><span class="ql-count ql-count-g">2</span></a>
+    <a class="ql-item" href="#"><div class="g-icon-tile">💡</div><div><div class="g-body-s">Ideas Board</div></div><span class="ql-arrow">›</span></a>
+  </div>
+
+  <div class="g-divider" style="margin:4px 0 12px"></div>
+
+  <div class="ql-group">
+    <div class="g-sub-label" style="margin-bottom:4px;padding:0 8px">Resources</div>
+    <a class="ql-item" href="#"><div class="g-icon-tile">📖</div><div><div class="g-body-s">Knowledge Base</div></div><span class="ql-arrow">›</span></a>
+    <a class="ql-item" href="#"><div class="g-icon-tile">🎓</div><div><div class="g-body-s">Learning Paths</div><div class="g-subtle">40% complete</div></div><span class="ql-arrow">›</span></a>
+    <a class="ql-item" href="#"><div class="g-icon-tile">📣</div><div><div class="g-body-s">Product Updates</div></div><span class="ql-count ql-count-g">New</span></a>
+  </div>
+
+  <button class="g-btn-primary" style="width:100%;justify-content:center;margin-top:12px">+ Create a Topic</button>
 </div>
-
-<!-- Group: My Space -->
-<div class="ql-group">
-  <div class="ql-group-label">My Space</div>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">🔔</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Notifications</span>
-    </div>
-    <span class="ql-badge">12</span>
-    <span class="ql-link-arrow">›</span>
-  </a>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">📌</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Bookmarks</span>
-      <span class="ql-link-sub">8 saved topics</span>
-    </div>
-    <span class="ql-link-arrow">›</span>
-  </a>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">✍️</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">My Posts</span>
-      <span class="ql-link-sub">147 contributions</span>
-    </div>
-    <span class="ql-link-arrow">›</span>
-  </a>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">🏆</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">My Badges</span>
-      <span class="ql-link-sub">4 earned</span>
-    </div>
-    <span class="ql-link-arrow">›</span>
-  </a>
-</div>
-
-<div class="ql-divider"></div>
-
-<!-- Group: Explore -->
-<div class="ql-group">
-  <div class="ql-group-label">Explore</div>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">🔥</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Trending Now</span>
-    </div>
-    <span class="ql-badge hot">Hot</span>
-    <span class="ql-link-arrow">›</span>
-  </a>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">❓</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Unanswered Questions</span>
-      <span class="ql-link-sub">4 need a reply</span>
-    </div>
-    <span class="ql-link-arrow">›</span>
-  </a>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">📅</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Upcoming Events</span>
-      <span class="ql-link-sub">Next: Pulse 2025</span>
-    </div>
-    <span class="ql-badge new">2</span>
-    <span class="ql-link-arrow">›</span>
-  </a>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">💡</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Ideas Board</span>
-    </div>
-    <span class="ql-link-arrow">›</span>
-  </a>
-</div>
-
-<div class="ql-divider"></div>
-
-<!-- Group: Resources -->
-<div class="ql-group">
-  <div class="ql-group-label">Resources</div>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">📖</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Knowledge Base</span>
-    </div>
-    <span class="ql-link-arrow">›</span>
-  </a>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">🎓</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Learning Paths</span>
-      <span class="ql-link-sub">40% complete</span>
-    </div>
-    <span class="ql-link-arrow">›</span>
-  </a>
-  <a class="ql-link" href="#">
-    <div class="ql-link-icon">📣</div>
-    <div class="ql-link-text">
-      <span class="ql-link-label">Product Updates</span>
-    </div>
-    <span class="ql-badge new">New</span>
-    <span class="ql-link-arrow">›</span>
-  </a>
-</div>
-
-<a class="ql-cta" href="#">
-  + Create a Topic
-</a>
 </section>

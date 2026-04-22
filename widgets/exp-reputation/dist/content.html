@@ -1,323 +1,309 @@
-<section class="rp">
+<section class="g-root">
 <style>
-/* ─────────────────────────────────────────
-   UNIFIED DESIGN SYSTEM
-   Matches Community Topics Bento as reference
-───────────────────────────────────────── */
-.gs-root {
+/* ═══════════════════════════════════════════════
+   GAINSIGHT COMMUNITY — SHARED DESIGN SYSTEM
+   Single source of truth for all widgets.
+   Token prefix: --g-  |  Class prefix: g-
+═══════════════════════════════════════════════ */
+
+/* ─ Reset ─ */
+.g { all:unset; display:block; }
+.g *, .g *::before, .g *::after { box-sizing:border-box; margin:0; padding:0; }
+a.g, button.g { cursor:pointer; }
+
+/* ─ Base ─ */
+.g-root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: #0a0a0a;
-  background: #ffffff;
+  color: #111;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
 }
-.gs-root * { box-sizing: border-box; }
+.g-root * { box-sizing: border-box; }
 
-/* Wrapper */
-.gs-wrap { max-width: 1140px; margin: 0 auto; padding: 24px 20px; }
-.gs-wrap--sidebar { padding: 20px 16px; } /* no max-width — sidebar fills column */
+/* ─ Layout ─ */
+.g-wrap  { max-width: 1140px; margin: 0 auto; padding: 24px 20px; }
+.g-wrap--narrow { padding: 20px 16px; }
 
-/* ── Header (every widget) ── */
-.gs-header { margin-bottom: 16px; }
-.gs-header-row { display: flex; align-items: center; justify-content: space-between; }
-.gs-label {
+/* ─ Typography scale ─ */
+/* Widget label (header of every widget — identical everywhere) */
+.g-widget-label {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #a1a1aa;
+  line-height: 1;
 }
-.gs-heading {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -.02em;
-  color: #0a0a0a;
-  margin: 0 0 2px;
+/* Section sub-label */
+.g-sub-label {
+  font-size: 11px;
+  color: #a1a1aa;
 }
-.gs-sub {
-  font-size: 13px;
-  color: #71717a;
-  margin: 0;
-}
-.gs-link {
-  font-size: 12px;
-  font-weight: 500;
-  color: #7c3aed;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.gs-link:hover { text-decoration: underline; }
+/* Body text */
+.g-body   { font-size: 14px; color: #111; }
+.g-body-s { font-size: 13px; color: #111; }
+.g-muted  { font-size: 12px; color: #71717a; }
+.g-subtle { font-size: 11px; color: #a1a1aa; }
+/* Big numbers */
+.g-num-xl { font-size: 44px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: #111; }
+.g-num-lg { font-size: 28px; font-weight: 800; letter-spacing: -.03em; line-height: 1; color: #111; }
+.g-num-md { font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1; color: #111; }
+/* Card title */
+.g-card-title   { font-size: 14px; font-weight: 600; color: #111; line-height: 1.38; }
+.g-card-title-l { font-size: 16px; font-weight: 700; color: #111; line-height: 1.32; }
 
-/* ── Tabs ── */
-.gs-tabs {
+/* ─ Colors ─ */
+.g-accent       { color: #7c3aed; }
+.g-accent-bg    { background: #f5f3ff; }
+.g-accent-bd    { border-color: #ede9fe; }
+.g-hover:hover  { background: #faf5ff !important; }
+
+/* ─ Widget header (used in every widget) ─ */
+.g-header {
   display: flex;
-  gap: 2px;
-  background: #f4f4f5;
-  border-radius: 8px;
-  padding: 3px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
-.gs-tab {
-  border: none;
-  background: transparent;
-  font-size: 12px;
-  font-weight: 500;
-  color: #71717a;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 5px 12px;
-  border-radius: 6px;
+.g-header-left  { display: flex; flex-direction: column; gap: 2px; }
+.g-header-right { display: flex; align-items: center; gap: 6px; }
+
+/* ─ Link ─ */
+.g-link { font-size: 12px; font-weight: 500; color: #7c3aed; text-decoration: none; white-space: nowrap; }
+.g-link:hover { text-decoration: underline; }
+
+/* ─ Tabs ─ */
+.g-tabs { display: flex; gap: 2px; background: #f4f4f5; border-radius: 8px; padding: 3px; }
+.g-tab  {
+  border: none; background: transparent;
+  font-size: 12px; font-weight: 500; color: #71717a;
+  font-family: inherit; cursor: pointer;
+  padding: 5px 12px; border-radius: 6px;
   transition: background .15s, color .15s;
   white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.gs-tab.active {
-  background: #ffffff;
-  color: #0a0a0a;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-}
-.gs-tab-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: #7c3aed;
-  color: #fff;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 0 4px;
-}
-
-/* ── Buttons ── */
-.gs-btn-icon {
-  width: 30px; height: 30px;
-  border: 1px solid #e4e4e7;
-  border-radius: 6px;
-  background: #ffffff;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  font-size: 14px;
-  color: #3f3f46;
-  transition: border-color .15s, background .15s, color .15s;
-}
-.gs-btn-icon:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
-.gs-btn-icon:disabled { opacity: .3; cursor: default; pointer-events: none; }
-
-.gs-btn-primary {
   display: inline-flex; align-items: center; gap: 5px;
-  background: #7c3aed; color: #ffffff;
+}
+.g-tab.on { background: #fff; color: #111; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.g-tab-n  {
+  min-width: 16px; height: 16px; border-radius: 999px;
+  background: #7c3aed; color: #fff;
+  font-size: 9px; font-weight: 700; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* ─ Buttons ─ */
+.g-btn {
+  width: 30px; height: 30px;
+  border: 1px solid #e4e4e7; border-radius: 6px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; color: #52525b;
+  transition: border-color .15s, background .15s, color .15s;
+  font-family: inherit;
+}
+.g-btn:hover  { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
+.g-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
+
+.g-btn-primary {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #7c3aed; color: #fff;
   border: none; border-radius: 6px;
   padding: 8px 16px;
   font-size: 12px; font-weight: 600; font-family: inherit;
-  cursor: pointer; white-space: nowrap;
-  transition: background .15s;
+  cursor: pointer; transition: background .15s; white-space: nowrap;
 }
-.gs-btn-primary:hover { background: #6d28d9; }
+.g-btn-primary:hover { background: #6d28d9; }
 
-/* ── Dots (carousel) ── */
-.gs-dots { display: flex; gap: 5px; align-items: center; }
-.gs-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #e4e4e7;
-  cursor: pointer;
-  transition: background .2s, transform .2s;
+/* ─ Dots ─ */
+.g-dots { display: flex; gap: 5px; align-items: center; }
+.g-dot  { width: 6px; height: 6px; border-radius: 50%; background: #e4e4e7; cursor: pointer; transition: background .2s, transform .2s; }
+.g-dot.on { background: #7c3aed; transform: scale(1.3); }
+
+/* ─ Badges ─ */
+.g-badge {
+  display: inline-flex; align-items: center;
+  font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px; white-space: nowrap; border: 1px solid transparent;
 }
-.gs-dot.active { background: #7c3aed; transform: scale(1.3); }
+.g-badge-p { background: #f5f3ff; color: #7c3aed; border-color: #ede9fe; }
+.g-badge-g { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+.g-badge-a { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+.g-badge-r { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+.g-badge-m { background: #f4f4f5; color: #71717a; border-color: #e4e4e7; }
 
-/* ── Row / card hover ── */
-.gs-hover:hover { background: #faf5ff; }
+/* ─ Stats row ─ */
+.g-stats { display: flex; align-items: center; gap: 10px; }
+.g-stat  { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; color: #a1a1aa; }
+.g-stat svg { width: 11px; height: 11px; flex-shrink: 0; }
 
-/* ── Stats ── */
-.gs-stats { display: flex; align-items: center; gap: 10px; }
-.gs-stat {
-  display: inline-flex; align-items: center; gap: 3px;
-  font-size: 11px; color: #a1a1aa; white-space: nowrap;
-}
-.gs-stat svg { width: 11px; height: 11px; }
-
-/* ── Like ── */
-.gs-like {
+/* ─ Like button ─ */
+.g-like {
   display: inline-flex; align-items: center; gap: 4px;
   border: none; background: transparent;
   font-size: 11px; font-weight: 500; color: #a1a1aa;
   font-family: inherit; cursor: pointer;
   padding: 2px 6px; border-radius: 4px;
-  transition: color .15s, background .15s;
-  user-select: none;
+  transition: color .15s, background .15s; user-select: none;
 }
-.gs-like svg { width: 12px; height: 12px; transition: fill .15s, stroke .15s; }
-.gs-like:hover { color: #ef4444; background: #fef2f2; }
-.gs-like:hover svg { stroke: #ef4444; }
-.gs-like.on { color: #ef4444; }
-.gs-like.on svg { fill: #ef4444; stroke: #ef4444; }
+.g-like svg { width: 12px; height: 12px; transition: fill .15s, stroke .15s; }
+.g-like:hover    { color: #ef4444; background: #fef2f2; }
+.g-like:hover svg { stroke: #ef4444; }
+.g-like.on       { color: #ef4444; }
+.g-like.on svg   { fill: #ef4444; stroke: #ef4444; }
 
-/* ── Badge ── */
-.gs-badge {
-  display: inline-flex; align-items: center;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: .04em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 4px;
-  white-space: nowrap;
+/* ─ Card ─ */
+.g-card {
+  border: 1px solid #e4e4e7; border-radius: 10px;
+  background: #fff; transition: border-color .15s, box-shadow .15s;
 }
-.gs-badge--purple { background: #f5f3ff; color: #7c3aed; border: 1px solid #ede9fe; }
-.gs-badge--green  { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
-.gs-badge--amber  { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
-.gs-badge--red    { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-.gs-badge--muted  { background: #f4f4f5; color: #71717a; border: 1px solid #e4e4e7; }
+.g-card:hover { border-color: #c4b5fd; box-shadow: 0 4px 16px rgba(124,58,237,.06); }
+.g-card-p { padding: 16px 18px; }
 
-/* ── Divider ── */
-.gs-divider { height: 1px; background: #f4f4f5; margin: 0; }
-.gs-card-footer {
+/* ─ Row (list item) ─ */
+.g-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 0; border-bottom: 1px solid #f4f4f5;
+  text-decoration: none; color: inherit;
+  transition: background .12s; border-radius: 4px; cursor: pointer;
+}
+.g-row:last-child { border-bottom: none; }
+.g-row:hover { background: #faf5ff; padding-left: 6px; padding-right: 6px; margin: 0 -6px; }
+
+/* ─ Footer strip (stats + like) ─ */
+.g-footer {
   display: flex; align-items: center; justify-content: space-between;
   padding-top: 10px; margin-top: 10px;
   border-top: 1px solid #f4f4f5;
 }
 
-/* ── Progress ── */
-.gs-progress-track { height: 5px; background: #e4e4e7; border-radius: 999px; overflow: hidden; }
-.gs-progress-fill  { height: 100%; background: #7c3aed; border-radius: 999px; transition: width .8s ease; }
+/* ─ Divider ─ */
+.g-divider { height: 1px; background: #f4f4f5; }
 
-/* ── Input ── */
-.gs-input {
+/* ─ Progress ─ */
+.g-prog-track { height: 5px; background: #e4e4e7; border-radius: 999px; overflow: hidden; }
+.g-prog-fill  { height: 100%; background: #7c3aed; border-radius: 999px; transition: width .8s ease; }
+
+/* ─ Input ─ */
+.g-input-wrap { position: relative; }
+.g-input-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: #a1a1aa; pointer-events: none; }
+.g-input {
   width: 100%; height: 40px;
   border: 1px solid #e4e4e7; border-radius: 8px;
-  padding: 0 12px 0 36px;
-  font-size: 13px; font-family: inherit;
-  color: #0a0a0a; background: #ffffff;
-  outline: none;
+  padding: 0 12px 0 34px;
+  font-size: 13px; font-family: inherit; color: #111;
+  background: #fff; outline: none;
   transition: border-color .15s, box-shadow .15s;
 }
-.gs-input::placeholder { color: #a1a1aa; }
-.gs-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
+.g-input::placeholder { color: #a1a1aa; }
+.g-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.08); }
 
-.rp { display:block; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#fff; padding:24px 20px; -webkit-font-smoothing:antialiased; }
-.rp * { box-sizing:border-box; }
-.rp-wrap { max-width:1140px; margin:0 auto; }
-.rp-header { margin-bottom:20px; }
-.rp-header h2 { font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#71717a; margin:0 0 2px; }
+/* ─ Avatar ─ */
+.g-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #0ea5e9);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.g-avatar-sm { width: 24px; height: 24px; font-size: 9px; }
 
-.rp-body { display:grid; grid-template-columns:240px 1fr; gap:20px; align-items:start; }
+/* ─ Icon tile ─ */
+.g-icon-tile {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: #f4f4f5; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0; transition: background .15s;
+}
 
-/* Score card */
-.rp-score-card { border:1px solid #e4e4e7; border-radius:14px; padding:22px; text-align:center; }
-.rp-avatar-wrap { position:relative; display:inline-block; margin-bottom:12px; }
-.rp-avatar { width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,#7c3aed,#0ea5e9); display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; color:#fff; margin:0 auto; }
-.rp-level-badge { position:absolute; bottom:-4px; right:-4px; background:#7c3aed; color:#fff; font-size:10px; font-weight:700; padding:2px 6px; border-radius:999px; border:2px solid #fff; }
-.rp-name { font-size:15px; font-weight:700; color:#0a0a0a; margin-bottom:2px; }
-.rp-role { font-size:12px; color:#71717a; margin-bottom:16px; }
-.rp-xp-label { font-size:11px; color:#a1a1aa; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
-.rp-xp-val { font-size:32px; font-weight:800; letter-spacing:-.03em; color:#0a0a0a; line-height:1; margin-bottom:12px; }
-.rp-prog-track { height:6px; background:#f4f4f5; border-radius:999px; overflow:hidden; margin-bottom:6px; }
-.rp-prog-fill { height:100%; background:linear-gradient(90deg,#7c3aed,#a78bfa); border-radius:999px; width:0; transition:width 1s cubic-bezier(.4,0,.2,1) .4s; }
-.rp-prog-label { font-size:11px; color:#71717a; display:flex; justify-content:space-between; }
-.rp-divider { height:1px; background:#f4f4f5; margin:14px 0; }
-.rp-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.rp-stat { text-align:center; }
-.rp-stat-val { font-size:18px; font-weight:700; color:#0a0a0a; letter-spacing:-.02em; }
-.rp-stat-lbl { font-size:10px; color:#a1a1aa; text-transform:uppercase; letter-spacing:.05em; }
+/* ─ Live dot ─ */
+.g-live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #22c55e; flex-shrink: 0;
+  animation: gLiveDot 2s ease-in-out infinite;
+}
+@keyframes gLiveDot { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);} }
 
-/* Badges grid */
-.rp-badges-title { font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#a1a1aa; margin-bottom:12px; }
-.rp-badges-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
-.rp-badge-card { border:1px solid #e4e4e7; border-radius:10px; padding:14px 10px; text-align:center; cursor:pointer; transition:border-color .15s,background .15s,transform .15s; position:relative; }
-.rp-badge-card:hover { border-color:#c4b5fd; background:#faf5ff; transform:translateY(-2px); }
+/* ─ Chip (search suggestion) ─ */
+.g-chip {
+  display: inline-flex; align-items: center;
+  border: 1px solid #e4e4e7; border-radius: 999px;
+  padding: 4px 12px; font-size: 12px; font-weight: 500;
+  color: #52525b; background: #fff; cursor: pointer;
+  transition: border-color .15s, background .15s, color .15s;
+  font-family: inherit;
+}
+.g-chip:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
+
+/* ─ Scrollable feed ─ */
+.g-feed {
+  overflow-y: auto;
+  scrollbar-width: thin; scrollbar-color: #e4e4e7 transparent;
+}
+.g-feed::-webkit-scrollbar { width: 4px; }
+.g-feed::-webkit-scrollbar-thumb { background: #e4e4e7; border-radius: 999px; }
+
+/* ─ Clamp helpers ─ */
+.g-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+
+.rp-body { display:grid; grid-template-columns:220px 1fr; gap:20px; align-items:start; }
+.rp-score { border:1px solid #e4e4e7; border-radius:10px; padding:20px; text-align:center; }
+.rp-av-wrap { position:relative; display:inline-block; margin-bottom:10px; }
+.rp-avatar { width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,#7c3aed,#0ea5e9); display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; color:#fff; margin:0 auto; }
+.rp-level { position:absolute; bottom:-3px; right:-3px; background:#7c3aed; color:#fff; font-size:9px; font-weight:700; padding:2px 5px; border-radius:999px; border:2px solid #fff; }
+.rp-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:12px; }
+.rp-stat-cell { text-align:center; padding:6px 0; }
+.rp-badges-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
+.rp-badge-card { border:1px solid #e4e4e7; border-radius:8px; padding:12px 8px; text-align:center; cursor:pointer; transition:border-color .15s,background .15s,transform .15s; position:relative; }
+.rp-badge-card:hover { border-color:#c4b5fd; background:#faf5ff; transform:translateY(-1px); }
 .rp-badge-card.locked { opacity:.4; filter:grayscale(1); }
-.rp-badge-icon { font-size:28px; margin-bottom:6px; display:block; }
-.rp-badge-name { font-size:11px; font-weight:600; color:#18181b; margin-bottom:2px; }
-.rp-badge-desc { font-size:10px; color:#71717a; line-height:1.3; }
 .rp-badge-new { position:absolute; top:-5px; right:-5px; background:#ef4444; color:#fff; font-size:9px; font-weight:700; padding:1px 5px; border-radius:999px; }
-
-/* Leaderboard */
-.rp-board { display:flex; flex-direction:column; gap:0; border:1px solid #e4e4e7; border-radius:10px; overflow:hidden; }
-.rp-board-row { display:flex; align-items:center; gap:10px; padding:10px 14px; border-bottom:1px solid #f4f4f5; transition:background .12s; }
+.rp-board-row { display:flex; align-items:center; gap:9px; padding:9px 12px; border-bottom:1px solid #f4f4f5; transition:background .12s; border-radius:4px; }
 .rp-board-row:last-child { border-bottom:none; }
 .rp-board-row:hover { background:#faf5ff; }
 .rp-board-row.you { background:#f5f3ff; }
-.rp-board-rank { font-size:12px; font-weight:700; color:#71717a; width:20px; flex-shrink:0; }
-.rp-board-rank.gold { color:#f59e0b; }
-.rp-board-rank.silver { color:#94a3b8; }
-.rp-board-rank.bronze { color:#b45309; }
-.rp-board-av { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; flex-shrink:0; }
-.rp-board-name { flex:1; font-size:13px; font-weight:500; color:#18181b; }
-.rp-board-you { font-size:10px; background:#7c3aed; color:#fff; border-radius:4px; padding:1px 5px; font-weight:600; }
-.rp-board-xp { font-size:13px; font-weight:700; color:#0a0a0a; }
-
-/* ── Consistent widget header ── */
-.gs-header { margin-bottom: 16px; }
-.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
-.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
-.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
-.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
-.gs-link:hover { text-decoration: underline; }
 
 </style>
-
-<div class="rp-wrap">
-  <div class="rp-header"><span class="gs-label">🏆 Reputation &amp; Badges</span></div>
+<div class="g-wrap">
+  <div class="g-header"><span class="g-widget-label">🏆 Reputation &amp; Badges</span></div>
   <div class="rp-body">
-
-    <!-- Score card -->
-    <div class="rp-score-card">
-      <div class="rp-avatar-wrap">
-        <div class="rp-avatar">SM</div>
-        <div class="rp-level-badge">Lv 7</div>
-      </div>
-      <div class="rp-name">Sergi Martinez</div>
-      <div class="rp-role">Customer Success Expert</div>
-      <div class="rp-xp-label">Total XP</div>
-      <div class="rp-xp-val" id="rpXp">7,660</div>
-      <div class="rp-prog-track"><div class="rp-prog-fill" id="rpBar" style="width:67%"></div></div>
-      <div class="rp-prog-label"><span>Level 7</span><span>2,340 to Lv 8</span></div>
-      <div class="rp-divider"></div>
-      <div class="rp-stats">
-        <div class="rp-stat"><div class="rp-stat-val">147</div><div class="rp-stat-lbl">Posts</div></div>
-        <div class="rp-stat"><div class="rp-stat-val">834</div><div class="rp-stat-lbl">Reactions</div></div>
-        <div class="rp-stat"><div class="rp-stat-val">62</div><div class="rp-stat-lbl">Answers</div></div>
-        <div class="rp-stat"><div class="rp-stat-val">12</div><div class="rp-stat-lbl">Streak</div></div>
+    <div class="rp-score">
+      <div class="rp-av-wrap"><div class="rp-avatar">SM</div><div class="rp-level">Lv 7</div></div>
+      <div class="g-body-s" style="font-weight:600;margin-bottom:2px">Sergi Martinez</div>
+      <div class="g-muted" style="margin-bottom:14px">Customer Success Expert</div>
+      <div class="g-widget-label" style="margin-bottom:4px">Total XP</div>
+      <div class="g-num-xl" id="rpXp" style="margin-bottom:10px">7,660</div>
+      <div class="g-prog-track"><div class="g-prog-fill" style="width:67%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px"><span class="g-subtle">Level 7</span><span class="g-subtle">2,340 to Lv 8</span></div>
+      <div class="g-divider" style="margin:12px 0"></div>
+      <div class="rp-stat-grid">
+        <div class="rp-stat-cell"><div class="g-num-md">147</div><div class="g-subtle">Posts</div></div>
+        <div class="rp-stat-cell"><div class="g-num-md">834</div><div class="g-subtle">Reactions</div></div>
+        <div class="rp-stat-cell"><div class="g-num-md">62</div><div class="g-subtle">Answers</div></div>
+        <div class="rp-stat-cell"><div class="g-num-md">12</div><div class="g-subtle">Streak</div></div>
       </div>
     </div>
-
     <div>
-      <!-- Badges -->
-      <div class="rp-badges-title">Earned badges</div>
+      <div class="g-widget-label" style="margin-bottom:10px">Earned badges</div>
       <div class="rp-badges-grid">
-        <div class="rp-badge-card"><span class="rp-badge-icon">🎯</span><div class="rp-badge-name">Sharpshooter</div><div class="rp-badge-desc">10 accepted answers</div><span class="rp-badge-new">NEW</span></div>
-        <div class="rp-badge-card"><span class="rp-badge-icon">🔥</span><div class="rp-badge-name">On Fire</div><div class="rp-badge-desc">7 day streak</div></div>
-        <div class="rp-badge-card"><span class="rp-badge-icon">🌱</span><div class="rp-badge-name">Early Adopter</div><div class="rp-badge-desc">Joined in beta</div></div>
-        <div class="rp-badge-card"><span class="rp-badge-icon">💡</span><div class="rp-badge-name">Thought Leader</div><div class="rp-badge-desc">5 featured posts</div></div>
-        <div class="rp-badge-card locked"><span class="rp-badge-icon">🦁</span><div class="rp-badge-name">Veteran</div><div class="rp-badge-desc">1 year active</div></div>
-        <div class="rp-badge-card locked"><span class="rp-badge-icon">🚀</span><div class="rp-badge-name">Rocketeer</div><div class="rp-badge-desc">1,000 reactions</div></div>
-        <div class="rp-badge-card locked"><span class="rp-badge-icon">🏅</span><div class="rp-badge-name">Ambassador</div><div class="rp-badge-desc">Top 1% all-time</div></div>
-        <div class="rp-badge-card locked"><span class="rp-badge-icon">👑</span><div class="rp-badge-name">Legend</div><div class="rp-badge-desc">Invite only</div></div>
+        <div class="rp-badge-card"><span style="font-size:24px">🎯</span><div class="g-body-s" style="margin-top:4px">Sharpshooter</div><div class="g-subtle">10 accepted answers</div><span class="rp-badge-new">NEW</span></div>
+        <div class="rp-badge-card"><span style="font-size:24px">🔥</span><div class="g-body-s" style="margin-top:4px">On Fire</div><div class="g-subtle">7 day streak</div></div>
+        <div class="rp-badge-card"><span style="font-size:24px">🌱</span><div class="g-body-s" style="margin-top:4px">Early Adopter</div><div class="g-subtle">Joined in beta</div></div>
+        <div class="rp-badge-card"><span style="font-size:24px">💡</span><div class="g-body-s" style="margin-top:4px">Thought Leader</div><div class="g-subtle">5 featured posts</div></div>
+        <div class="rp-badge-card locked"><span style="font-size:24px">🦁</span><div class="g-body-s" style="margin-top:4px">Veteran</div><div class="g-subtle">1 year active</div></div>
+        <div class="rp-badge-card locked"><span style="font-size:24px">🚀</span><div class="g-body-s" style="margin-top:4px">Rocketeer</div><div class="g-subtle">1,000 reactions</div></div>
+        <div class="rp-badge-card locked"><span style="font-size:24px">🏅</span><div class="g-body-s" style="margin-top:4px">Ambassador</div><div class="g-subtle">Top 1% all-time</div></div>
+        <div class="rp-badge-card locked"><span style="font-size:24px">👑</span><div class="g-body-s" style="margin-top:4px">Legend</div><div class="g-subtle">Invite only</div></div>
       </div>
-
-      <!-- Leaderboard -->
-      <div class="rp-badges-title" style="margin-top:4px">This week's leaderboard</div>
-      <div class="rp-board">
-        <div class="rp-board-row"><span class="rp-board-rank gold">🥇</span><div class="rp-board-av" style="background:#f59e0b">AK</div><span class="rp-board-name">Anna Kim</span><span class="rp-board-xp">1,240 xp</span></div>
-        <div class="rp-board-row"><span class="rp-board-rank silver">🥈</span><div class="rp-board-av" style="background:#6366f1">MR</div><span class="rp-board-name">Marcus R.</span><span class="rp-board-xp">980 xp</span></div>
-        <div class="rp-board-row you"><span class="rp-board-rank bronze">🥉</span><div class="rp-board-av" style="background:#7c3aed">SM</div><span class="rp-board-name">Sergi Martinez</span><span class="rp-board-you">You</span><span class="rp-board-xp">850 xp</span></div>
-        <div class="rp-board-row"><span class="rp-board-rank">4</span><div class="rp-board-av" style="background:#0ea5e9">JL</div><span class="rp-board-name">Julia L.</span><span class="rp-board-xp">710 xp</span></div>
-        <div class="rp-board-row"><span class="rp-board-rank">5</span><div class="rp-board-av" style="background:#10b981">DP</div><span class="rp-board-name">David P.</span><span class="rp-board-xp">620 xp</span></div>
+      <div class="g-widget-label" style="margin-bottom:8px">This week's leaderboard</div>
+      <div>
+        <div class="rp-board-row"><span style="font-size:16px">🥇</span><div class="g-avatar g-avatar-sm" style="background:#f59e0b">AK</div><span class="g-body-s" style="flex:1">Anna Kim</span><span class="g-body-s" style="font-weight:600">1,240 xp</span></div>
+        <div class="rp-board-row"><span style="font-size:16px">🥈</span><div class="g-avatar g-avatar-sm" style="background:#6366f1">MR</div><span class="g-body-s" style="flex:1">Marcus R.</span><span class="g-body-s" style="font-weight:600">980 xp</span></div>
+        <div class="rp-board-row you"><span style="font-size:16px">🥉</span><div class="g-avatar g-avatar-sm" style="background:#7c3aed">SM</div><span class="g-body-s" style="flex:1">Sergi Martinez</span><span class="g-badge g-badge-p" style="margin-right:6px">You</span><span class="g-body-s" style="font-weight:600">850 xp</span></div>
+        <div class="rp-board-row"><span class="g-subtle" style="width:20px;text-align:center">4</span><div class="g-avatar g-avatar-sm" style="background:#0ea5e9">JL</div><span class="g-body-s" style="flex:1">Julia L.</span><span class="g-body-s" style="font-weight:600">710 xp</span></div>
+        <div class="rp-board-row"><span class="g-subtle" style="width:20px;text-align:center">5</span><div class="g-avatar g-avatar-sm" style="background:#10b981">DP</div><span class="g-body-s" style="flex:1">David P.</span><span class="g-body-s" style="font-weight:600">620 xp</span></div>
       </div>
     </div>
   </div>
 </div>
 </section>
-<script>
-(function() {
-  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
-  if (!ROOT) ROOT = document;
-
-(function(){
-  function countUp(id,target,ms){ var el=document.getElementById(id); if(!el)return; var s=Date.now(); (function t(){ var p=Math.min((Date.now()-s)/ms,1); el.textContent=Math.round((1-Math.pow(2,-8*p))*target).toLocaleString(); if(p<1)requestAnimationFrame(t); })(); }
-  function go(){ countUp('rpXp',7660,1200); ROOT.querySelector('#rpBar').style.width='67%'; }
-  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.15}); io.observe(ROOT.querySelector('.rp')); } else { setTimeout(go,300); }
-}());
-})();
-</script>

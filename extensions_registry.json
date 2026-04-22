@@ -577,6 +577,40 @@
         "description": "Compact sidebar navigation widget with grouped links for My Space, Explore and Resources. Designed for narrow sidebar columns."
       },
       "type": "exp-quick-links"
+    },
+    {
+      "title": "Community Events",
+      "description": "Upcoming community events in a bento-grid layout \u2014 webinars, workshops, AMAs, roundtables with RSVP buttons.",
+      "category": "Exploration",
+      "imageSrc": "widgets/exp-events/thumbnail.png",
+      "source": {
+        "path": "widgets/exp-events/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Community Events",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Upcoming community events."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Community Events",
+        "description": "Upcoming community events."
+      },
+      "type": "exp-events"
     }
   ],
   "stylesheets": [

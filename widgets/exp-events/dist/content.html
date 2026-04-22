@@ -246,58 +246,148 @@ a.g, button.g { cursor:pointer; }
 .g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
 
-.tc-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
-.tc-card { position:relative; padding:12px 14px 10px; border-radius:10px; background:#fff; border:1px solid #e4e4e7; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:4px; transition:border-color .15s,background .15s,transform .15s; overflow:hidden; cursor:pointer; }
-.tc-card:hover { border-color:#c4b5fd; background:#faf5ff; transform:translateY(-1px); }
-.tc-card::before { content:''; position:absolute; left:0; top:15%; bottom:15%; width:3px; border-radius:0 2px 2px 0; background:var(--c,#7c3aed); }
-.tc-card--wide { grid-column:span 2; }
-.tc-bar-track { height:3px; background:#f4f4f5; border-radius:999px; overflow:hidden; margin-top:4px; }
-.tc-bar-fill  { height:100%; border-radius:999px; background:var(--c,#7c3aed); transition:width .9s ease var(--d,.1s); }
-.tc-trend-up  { color:#16a34a; } .tc-trend-dn { color:#dc2626; } .tc-trend-hot { color:#f59e0b; }
+.ev-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.ev-card { border:1px solid #e4e4e7; border-radius:10px; overflow:hidden; text-decoration:none; color:inherit; display:block; transition:border-color .15s,box-shadow .15s,transform .15s; cursor:pointer; }
+.ev-card:hover { border-color:#c4b5fd; box-shadow:0 4px 16px rgba(124,58,237,.07); transform:translateY(-1px); }
+.ev-card--featured { grid-column:span 2; }
+.ev-banner { height:90px; position:relative; display:flex; align-items:flex-end; padding:12px 14px; }
+.ev-banner--featured { height:120px; }
+.ev-type-pill { position:absolute; top:10px; right:10px; font-size:10px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; padding:3px 8px; border-radius:999px; background:rgba(255,255,255,.18); color:#fff; border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(4px); }
+.ev-body { padding:12px 14px 14px; }
+.ev-date-row { display:flex; align-items:center; gap:6px; margin-bottom:6px; }
+.ev-dot { width:5px; height:5px; border-radius:50%; background:#7c3aed; flex-shrink:0; }
+.ev-title { font-size:13px; font-weight:600; color:#111; line-height:1.38; margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.ev-card--featured .ev-title { font-size:15px; }
+.ev-footer { display:flex; align-items:center; justify-content:space-between; padding-top:10px; margin-top:8px; border-top:1px solid #f4f4f5; }
+.ev-attendees { display:flex; align-items:center; gap:-4px; }
+.ev-av { width:20px; height:20px; border-radius:50%; border:2px solid #fff; margin-left:-6px; font-size:8px; font-weight:700; color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ev-av:first-child { margin-left:0; }
+.ev-rsvp { display:inline-flex; align-items:center; border:1px solid #e4e4e7; border-radius:5px; padding:3px 10px; font-size:11px; font-weight:600; color:#52525b; background:#fff; cursor:pointer; transition:background .15s,border-color .15s,color .15s; font-family:inherit; }
+.ev-rsvp:hover { border-color:#c4b5fd; background:#f5f3ff; color:#7c3aed; }
+.ev-rsvp.on { background:#7c3aed; border-color:#7c3aed; color:#fff; }
 
 </style>
 <div class="g-wrap">
   <div class="g-header">
-    <span class="g-widget-label">🔥 Trending Topics</span>
-    <span class="g-subtle">This week</span>
+    <span class="g-widget-label">📅 Upcoming Events</span>
+    <a href="#" class="g-link">View all →</a>
   </div>
-  <div class="tc-grid">
-    <a class="tc-card tc-card--wide" href="#" style="--c:#7c3aed">
-      <span class="g-widget-label" style="padding-left:8px"># customer-success</span>
-      <span class="g-num-lg" style="padding-left:8px">284</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:100%;--d:.05s"></div></div>
-      <span class="g-subtle tc-trend-up" style="padding-left:8px">↑ 34% this week</span>
+  <div class="ev-grid">
+
+    <!-- Featured event -->
+    <a class="ev-card ev-card--featured" href="#">
+      <div class="ev-banner ev-banner--featured" style="background:linear-gradient(135deg,#7c3aed,#0ea5e9)">
+        <span class="ev-type-pill">Webinar</span>
+        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Gainsight Community · Free</div>
+      </div>
+      <div class="ev-body">
+        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">May 14, 2025 · 2:00 PM EST</span></div>
+        <div class="ev-title">CS AI Summit 2025: How leading teams are using AI to scale without losing the human touch</div>
+        <div class="g-muted" style="margin-bottom:8px">Join 500+ CS leaders for a deep dive into practical AI workflows, live demos, and real case studies from teams that have done it.</div>
+        <div class="ev-footer">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="ev-attendees">
+              <div class="ev-av" style="background:#7c3aed">AK</div>
+              <div class="ev-av" style="background:#0ea5e9">MR</div>
+              <div class="ev-av" style="background:#10b981">JL</div>
+              <div class="ev-av" style="background:#f59e0b">DP</div>
+            </div>
+            <span class="g-subtle">342 / 500 attending</span>
+          </div>
+          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+        </div>
+      </div>
     </a>
-    <a class="tc-card" href="#" style="--c:#0ea5e9">
-      <span class="g-widget-label" style="padding-left:8px"># onboarding</span>
-      <span class="g-num-lg" style="padding-left:8px">161</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:57%;--d:.1s"></div></div>
-      <span class="g-subtle tc-trend-up" style="padding-left:8px">↑ 18%</span>
+
+    <!-- Small event 1 -->
+    <a class="ev-card" href="#">
+      <div class="ev-banner" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4)">
+        <span class="ev-type-pill">Workshop</span>
+        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Expert-led · Free</div>
+      </div>
+      <div class="ev-body">
+        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">May 21 · 11:00 AM EST</span></div>
+        <div class="ev-title">QBR Masterclass: the 12-slide deck framework</div>
+        <div class="ev-footer">
+          <div class="ev-attendees">
+            <div class="ev-av" style="background:#0ea5e9">SM</div>
+            <div class="ev-av" style="background:#6366f1">TK</div>
+            <div class="ev-av" style="background:#f97316">RW</div>
+          </div>
+          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+        </div>
+      </div>
     </a>
-    <a class="tc-card" href="#" style="--c:#10b981">
-      <span class="g-widget-label" style="padding-left:8px"># ai-tools</span>
-      <span class="g-num-lg" style="padding-left:8px">119</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:42%;--d:.15s"></div></div>
-      <span class="g-subtle tc-trend-hot" style="padding-left:8px">🔥 +61%</span>
+
+    <!-- Small event 2 -->
+    <a class="ev-card" href="#">
+      <div class="ev-banner" style="background:linear-gradient(135deg,#10b981,#059669)">
+        <span class="ev-type-pill">AMA</span>
+        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Open to all</div>
+      </div>
+      <div class="ev-body">
+        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">May 28 · 1:00 PM EST</span></div>
+        <div class="ev-title">Ask Me Anything: scaling CS from 50 to 500 accounts</div>
+        <div class="ev-footer">
+          <div class="ev-attendees">
+            <div class="ev-av" style="background:#10b981">AK</div>
+            <div class="ev-av" style="background:#7c3aed">MR</div>
+          </div>
+          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+        </div>
+      </div>
     </a>
-    <a class="tc-card" href="#" style="--c:#f59e0b">
-      <span class="g-widget-label" style="padding-left:8px"># product-feedback</span>
-      <span class="g-num-lg" style="padding-left:8px">138</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:49%;--d:.2s"></div></div>
-      <span class="g-subtle tc-trend-dn" style="padding-left:8px">↓ 5%</span>
+
+    <!-- Small event 3 -->
+    <a class="ev-card" href="#">
+      <div class="ev-banner" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+        <span class="ev-type-pill">Round table</span>
+        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Members only</div>
+      </div>
+      <div class="ev-body">
+        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">Jun 4 · 3:00 PM EST</span></div>
+        <div class="ev-title">CS Leaders roundtable: headcount planning for 2026</div>
+        <div class="ev-footer">
+          <div class="ev-attendees">
+            <div class="ev-av" style="background:#f59e0b">JL</div>
+            <div class="ev-av" style="background:#ec4899">DP</div>
+            <div class="ev-av" style="background:#0ea5e9">NB</div>
+          </div>
+          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+        </div>
+      </div>
     </a>
-    <a class="tc-card" href="#" style="--c:#8b5cf6">
-      <span class="g-widget-label" style="padding-left:8px"># qbr</span>
-      <span class="g-num-lg" style="padding-left:8px">97</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:34%;--d:.25s"></div></div>
-      <span class="g-subtle tc-trend-up" style="padding-left:8px">↑ 12%</span>
+
+    <!-- Small event 4 -->
+    <a class="ev-card" href="#">
+      <div class="ev-banner" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
+        <span class="ev-type-pill">Demo Day</span>
+        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Gainsight · Free</div>
+      </div>
+      <div class="ev-body">
+        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">Jun 11 · 10:00 AM EST</span></div>
+        <div class="ev-title">Community Demo Day: share what you've built this quarter</div>
+        <div class="ev-footer">
+          <div class="ev-attendees">
+            <div class="ev-av" style="background:#8b5cf6">CL</div>
+            <div class="ev-av" style="background:#f97316">PD</div>
+          </div>
+          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+        </div>
+      </div>
     </a>
-    <a class="tc-card" href="#" style="--c:#ec4899">
-      <span class="g-widget-label" style="padding-left:8px"># churn</span>
-      <span class="g-num-lg" style="padding-left:8px">84</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:30%;--d:.3s"></div></div>
-      <span class="g-subtle tc-trend-dn" style="padding-left:8px">↓ 3%</span>
-    </a>
+
   </div>
 </div>
 </section>
+<script>
+(function(){var R=document.currentScript?document.currentScript.closest('section'):document;if(!R)R=document;
+
+function evRsvp(e,btn){
+  e.preventDefault(); e.stopPropagation();
+  btn.classList.toggle('on');
+  btn.textContent = btn.classList.contains('on') ? '✓ Going' : 'RSVP';
+}
+
+})();
+</script>
