@@ -1,43 +1,34 @@
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
 
-  /* ── shadcn/ui design tokens (light theme) ── */
+  /* ── shadcn/ui design tokens ── */
   .sdcn {
-    --background:        0 0% 100%;
-    --foreground:        240 10% 3.9%;
-    --card:              0 0% 100%;
-    --card-foreground:   240 10% 3.9%;
-    --muted:             240 4.8% 95.9%;
-    --muted-foreground:  240 3.8% 46.1%;
-    --border:            240 5.9% 90%;
-    --primary:           240 5.9% 10%;
-    --primary-foreground:0 0% 98%;
-    --accent:            240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --ring:              240 5.9% 10%;
-    --radius:            0.5rem;
+    --background:       0 0% 100%;
+    --foreground:       240 10% 3.9%;
+    --card:             0 0% 100%;
+    --muted:            240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --border:           240 5.9% 90%;
+    --primary:          240 5.9% 10%;
+    --accent:           240 4.8% 95.9%;
+    --radius:           0.5rem;
 
-    /* Semantic aliases for convenience */
-    --col-bg:         hsl(var(--background));
-    --col-fg:         hsl(var(--foreground));
-    --col-card:       hsl(var(--card));
-    --col-muted:      hsl(var(--muted));
-    --col-muted-fg:   hsl(var(--muted-foreground));
-    --col-border:     hsl(var(--border));
-    --col-primary:    hsl(var(--primary));
-    --col-primary-fg: hsl(var(--primary-foreground));
-    --col-accent:     hsl(var(--accent));
-    --col-accent-fg:  hsl(var(--accent-foreground));
+    --col-bg:       hsl(var(--background));
+    --col-fg:       hsl(var(--foreground));
+    --col-card:     hsl(var(--card));
+    --col-muted:    hsl(var(--muted));
+    --col-muted-fg: hsl(var(--muted-foreground));
+    --col-border:   hsl(var(--border));
+    --col-primary:  hsl(var(--primary));
 
-    /* shadcn radius scale */
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
 
-    /* shadcn motion */
-    --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
-    --duration: 150ms;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --dur: 150ms;
+    --dur-slow: 220ms;
 
     font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
     font-size: 14px;
@@ -45,66 +36,33 @@
     background: var(--col-bg);
     color: var(--col-fg);
     -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
-    padding: 0;
   }
 
-  .sdcn *, .sdcn *::before, .sdcn *::after {
-    box-sizing: border-box;
+  .sdcn *, .sdcn *::before, .sdcn *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Outer wrapper — max 1140px centered ── */
+  .sdcn-wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 24px 20px;
   }
 
-  /* ── Card ── */
-  .sdcn-card {
-    background: var(--col-card);
-    border: 1px solid var(--col-border);
-    border-radius: var(--radius-xl);
-    padding: 0;
-    overflow: hidden;
-  }
-
-  /* ── Card header ── */
-  .sdcn-card-header {
+  /* ── Section header ── */
+  .sdcn-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px 14px;
-    border-bottom: 1px solid var(--col-border);
+    margin-bottom: 16px;
   }
 
-  .sdcn-card-title {
+  .sdcn-header-title {
     font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.01em;
-    color: var(--col-fg);
-  }
-
-  /* ── shadcn Badge ── */
-  .sdcn-badge {
-    display: inline-flex;
-    align-items: center;
-    border-radius: calc(var(--radius) - 2px);
-    border: 1px solid transparent;
-    padding: 2px 8px;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 1;
-    white-space: nowrap;
-    transition: background var(--duration) var(--ease-out);
-  }
-
-  .sdcn-badge--outline {
-    border-color: var(--col-border);
-    background: transparent;
-    color: var(--col-fg);
-  }
-
-  .sdcn-badge--secondary {
-    background: var(--col-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     color: var(--col-muted-fg);
-    border-color: transparent;
   }
 
-  /* ── shadcn Button (ghost variant for "View all") ── */
   .sdcn-btn-ghost {
     display: inline-flex;
     align-items: center;
@@ -119,213 +77,315 @@
     padding: 4px 8px;
     border-radius: var(--radius-sm);
     text-decoration: none;
-    transition: background var(--duration) var(--ease-out),
-                color var(--duration) var(--ease-out);
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
   }
-  .sdcn-btn-ghost:hover {
-    background: var(--col-accent);
-    color: var(--col-accent-fg);
+  .sdcn-btn-ghost:hover { background: var(--col-muted); color: var(--col-fg); }
+
+  /* ── Bento grid ── */
+  .sdcn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 10px;
   }
 
-  /* ── Separator ── */
-  .sdcn-separator {
-    height: 1px;
-    background: var(--col-border);
-    margin: 0;
-  }
-
-  /* ── Post row ── */
-  .sdcn-post {
+  /* ── Card base ── */
+  .sdcn-card {
+    position: relative;
+    background: var(--col-card);
+    border: 1px solid var(--col-border);
+    border-radius: var(--radius-xl);
+    padding: 20px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 16px 20px;
+    justify-content: space-between;
+    min-height: 180px;
     text-decoration: none;
     color: inherit;
-    transition: background var(--duration) var(--ease-out);
     cursor: pointer;
-    position: relative;
+    transition:
+      box-shadow var(--dur-slow) var(--ease),
+      border-color var(--dur-slow) var(--ease),
+      transform var(--dur-slow) var(--ease);
   }
 
-  .sdcn-post:hover {
-    background: var(--col-muted);
+  .sdcn-card:hover {
+    box-shadow: 0 4px 24px -4px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.04);
+    border-color: hsl(240 5.9% 78%);
+    transform: translateY(-1px);
   }
 
-  .sdcn-post:hover .sdcn-post-title {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
+  /* Grid placement variants */
+  .sdcn-card--wide  { grid-column: span 2; }
+  .sdcn-card--tall  { grid-row: span 2; min-height: 370px; }
 
-  /* ── Post label row ── */
-  .sdcn-post-label {
+  /* ── Card inner layout ── */
+  .sdcn-card-top { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .sdcn-card-bottom {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--col-border);
+    flex-shrink: 0;
+  }
+
+  /* ── Badge ── */
+  .sdcn-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: fit-content;
+  }
+  .sdcn-badge--article    { background: hsl(221 83% 95%); color: hsl(221 83% 38%); border-color: hsl(221 83% 86%); }
+  .sdcn-badge--discussion { background: hsl(142 71% 93%); color: hsl(142 71% 26%); border-color: hsl(142 71% 80%); }
+  .sdcn-badge--question   { background: hsl(38 92% 93%);  color: hsl(38 92% 30%);  border-color: hsl(38 92% 80%); }
+  .sdcn-badge--event      { background: hsl(270 67% 94%); color: hsl(270 67% 36%); border-color: hsl(270 67% 82%); }
+
+  /* ── Forum label ── */
+  .sdcn-forum {
     font-size: 11px;
     color: var(--col-muted-fg);
+    font-weight: 400;
   }
 
-  /* ── Post title ── */
-  .sdcn-post-title {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.4;
+  /* ── Title — big, prominent ── */
+  .sdcn-title {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    line-height: 1.3;
     color: var(--col-fg);
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    transition: color var(--dur) var(--ease);
   }
 
-  .sdcn-post--featured .sdcn-post-title {
-    font-size: 15px;
-    font-weight: 600;
-  }
+  .sdcn-card--wide .sdcn-title { font-size: 1.375rem; -webkit-line-clamp: 2; }
+  .sdcn-card--tall .sdcn-title { font-size: 1.25rem; }
 
-  /* ── Post description ── */
-  .sdcn-post-desc {
+  /* ── Description — hidden, fades in on hover ── */
+  .sdcn-desc {
     font-size: 12px;
     color: var(--col-muted-fg);
-    line-height: 1.5;
+    line-height: 1.55;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition:
+      opacity var(--dur-slow) var(--ease),
+      max-height var(--dur-slow) var(--ease);
+  }
+  .sdcn-card:hover .sdcn-desc {
+    opacity: 1;
+    max-height: 80px;
   }
 
-  /* ── Post footer (stats) ── */
-  .sdcn-post-footer {
+  /* ── Stats ── */
+  .sdcn-stats {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-top: 2px;
+    gap: 10px;
   }
 
   .sdcn-stat {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
     font-size: 11px;
     color: var(--col-muted-fg);
     white-space: nowrap;
   }
+  .sdcn-stat svg { width: 11px; height: 11px; flex-shrink: 0; }
 
-  .sdcn-stat svg {
-    width: 12px;
-    height: 12px;
+  /* ── Like button ── */
+  .sdcn-like {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid var(--col-border);
+    background: transparent;
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--col-muted-fg);
+    cursor: pointer;
+    transition:
+      background var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      color var(--dur) var(--ease);
     flex-shrink: 0;
+    user-select: none;
   }
+  .sdcn-like svg { width: 12px; height: 12px; flex-shrink: 0; transition: fill var(--dur) var(--ease), stroke var(--dur) var(--ease); }
 
-  /* ── Type badge color overrides ── */
-  .sdcn-badge--article    { background: hsl(221 83% 95%); color: hsl(221 83% 40%); border-color: hsl(221 83% 87%); }
-  .sdcn-badge--discussion { background: hsl(142 71% 93%); color: hsl(142 71% 28%); border-color: hsl(142 71% 82%); }
-  .sdcn-badge--question   { background: hsl(38 92% 93%);  color: hsl(38 92% 32%);  border-color: hsl(38 92% 82%); }
-  .sdcn-badge--event      { background: hsl(270 67% 94%); color: hsl(270 67% 38%); border-color: hsl(270 67% 83%); }
+  .sdcn-like:hover {
+    background: hsl(0 86% 97%);
+    border-color: hsl(0 86% 80%);
+    color: hsl(0 86% 44%);
+  }
+  .sdcn-like:hover svg { stroke: hsl(0 86% 44%); }
+
+  .sdcn-like.liked {
+    background: hsl(0 86% 97%);
+    border-color: hsl(0 86% 80%);
+    color: hsl(0 86% 44%);
+  }
+  .sdcn-like.liked svg { fill: hsl(0 86% 55%); stroke: hsl(0 86% 44%); }
 </style>
 
 <div class="sdcn">
-  <div class="sdcn-card">
+  <div class="sdcn-wrap">
 
-    <!-- Card Header -->
-    <div class="sdcn-card-header">
-      <span class="sdcn-card-title">Community Topics</span>
+    <!-- Header -->
+    <div class="sdcn-header">
+      <span class="sdcn-header-title">Community Topics</span>
       <a class="sdcn-btn-ghost" href="#">
         View all
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </div>
 
-    <!-- Post 1 — Featured -->
-    <a class="sdcn-post sdcn-post--featured" href="#" target="_blank" rel="noopener">
-      <div class="sdcn-post-label">
-        <span class="sdcn-badge sdcn-badge--article">Article</span>
-        <span>Product Strategy</span>
-      </div>
-      <div class="sdcn-post-title">How we redesigned our onboarding flow and doubled activation rates in 60 days</div>
-      <div class="sdcn-post-desc">A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation.</div>
-      <div class="sdcn-post-footer">
-        <span class="sdcn-stat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-          3.2k
-        </span>
-        <span class="sdcn-stat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          148
-        </span>
-        <span class="sdcn-stat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          34
-        </span>
-      </div>
-    </a>
+    <!-- Bento Grid -->
+    <div class="sdcn-grid">
 
-    <div class="sdcn-separator"></div>
+      <!-- Card 1 — Wide featured -->
+      <a class="sdcn-card sdcn-card--wide" href="#" target="_blank" rel="noopener">
+        <div class="sdcn-card-top">
+          <div>
+            <span class="sdcn-badge sdcn-badge--article">Article</span>
+            <div class="sdcn-forum" style="margin-top:6px">Posted in Product Strategy</div>
+          </div>
+          <div class="sdcn-title">How we redesigned our onboarding flow and doubled activation rates in 60 days</div>
+          <div class="sdcn-desc">A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation. Includes a breakdown of the A/B tests we ran.</div>
+        </div>
+        <div class="sdcn-card-bottom">
+          <div class="sdcn-stats">
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.2k</span>
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>34</span>
+          </div>
+          <button class="sdcn-like" onclick="toggleLike(event, this, 148)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <span>148</span>
+          </button>
+        </div>
+      </a>
 
-    <!-- Post 2 -->
-    <a class="sdcn-post" href="#" target="_blank" rel="noopener">
-      <div class="sdcn-post-label">
-        <span class="sdcn-badge sdcn-badge--discussion">Discussion</span>
-        <span>Customer Success</span>
-      </div>
-      <div class="sdcn-post-title">Building a scalable QBR process for enterprise accounts without burning out your CS team</div>
-      <div class="sdcn-post-desc">Templates, automation strategies, and the exact setup we use to run QBRs at scale — covering 200+ accounts with a team of four.</div>
-      <div class="sdcn-post-footer">
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>1.8k</span>
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>92</span>
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>57</span>
-      </div>
-    </a>
+      <!-- Card 2 — Tall -->
+      <a class="sdcn-card sdcn-card--tall" href="#" target="_blank" rel="noopener">
+        <div class="sdcn-card-top">
+          <div>
+            <span class="sdcn-badge sdcn-badge--discussion">Discussion</span>
+            <div class="sdcn-forum" style="margin-top:6px">Posted in Customer Success</div>
+          </div>
+          <div class="sdcn-title">Building a scalable QBR process for enterprise accounts without burning out your CS team</div>
+          <div class="sdcn-desc">Templates, automation strategies, and the exact setup we use to run QBRs at scale — covering 200+ accounts with a team of four.</div>
+        </div>
+        <div class="sdcn-card-bottom">
+          <div class="sdcn-stats">
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>1.8k</span>
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>57</span>
+          </div>
+          <button class="sdcn-like" onclick="toggleLike(event, this, 92)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <span>92</span>
+          </button>
+        </div>
+      </a>
 
-    <div class="sdcn-separator"></div>
+      <!-- Card 3 — Normal -->
+      <a class="sdcn-card" href="#" target="_blank" rel="noopener">
+        <div class="sdcn-card-top">
+          <div>
+            <span class="sdcn-badge sdcn-badge--question">Question</span>
+            <div class="sdcn-forum" style="margin-top:6px">Posted in Growth</div>
+          </div>
+          <div class="sdcn-title">Is PLG still the right motion for B2B SaaS in 2025?</div>
+          <div class="sdcn-desc">The landscape has shifted. What does product-led growth actually look like today, and when should you layer in sales?</div>
+        </div>
+        <div class="sdcn-card-bottom">
+          <div class="sdcn-stats">
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>940</span>
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>28</span>
+          </div>
+          <button class="sdcn-like" onclick="toggleLike(event, this, 61)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <span>61</span>
+          </button>
+        </div>
+      </a>
 
-    <!-- Post 3 -->
-    <a class="sdcn-post" href="#" target="_blank" rel="noopener">
-      <div class="sdcn-post-label">
-        <span class="sdcn-badge sdcn-badge--question">Question</span>
-        <span>Growth</span>
-      </div>
-      <div class="sdcn-post-title">Is PLG still the right motion for B2B SaaS in 2025?</div>
-      <div class="sdcn-post-desc">The landscape has shifted. What does product-led growth actually look like today, and when should you layer in sales?</div>
-      <div class="sdcn-post-footer">
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>940</span>
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>61</span>
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>28</span>
-      </div>
-    </a>
+      <!-- Card 4 — Normal -->
+      <a class="sdcn-card" href="#" target="_blank" rel="noopener">
+        <div class="sdcn-card-top">
+          <div>
+            <span class="sdcn-badge sdcn-badge--article">Article</span>
+            <div class="sdcn-forum" style="margin-top:6px">Posted in Ops &amp; Tooling</div>
+          </div>
+          <div class="sdcn-title">Our 2025 CS tech stack — what stayed, what got cut</div>
+          <div class="sdcn-desc">After a full audit of tooling costs and usage, here's what we kept and why — and what surprised us most.</div>
+        </div>
+        <div class="sdcn-card-bottom">
+          <div class="sdcn-stats">
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.1k</span>
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>41</span>
+          </div>
+          <button class="sdcn-like" onclick="toggleLike(event, this, 77)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <span>77</span>
+          </button>
+        </div>
+      </a>
 
-    <div class="sdcn-separator"></div>
+      <!-- Card 5 — Wide -->
+      <a class="sdcn-card sdcn-card--wide" href="#" target="_blank" rel="noopener">
+        <div class="sdcn-card-top">
+          <div>
+            <span class="sdcn-badge sdcn-badge--article">Article</span>
+            <div class="sdcn-forum" style="margin-top:6px">Posted in Community Announcements</div>
+          </div>
+          <div class="sdcn-title">Pulse 2025 recap: the 5 themes that will define CS this year</div>
+          <div class="sdcn-desc">From AI-assisted workflows to the return of high-touch, here's what stood out across three days of sessions and hallway conversations.</div>
+        </div>
+        <div class="sdcn-card-bottom">
+          <div class="sdcn-stats">
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.7k</span>
+            <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
+          </div>
+          <button class="sdcn-like" onclick="toggleLike(event, this, 203)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <span>203</span>
+          </button>
+        </div>
+      </a>
 
-    <!-- Post 4 -->
-    <a class="sdcn-post" href="#" target="_blank" rel="noopener">
-      <div class="sdcn-post-label">
-        <span class="sdcn-badge sdcn-badge--article">Article</span>
-        <span>Ops &amp; Tooling</span>
-      </div>
-      <div class="sdcn-post-title">Our 2025 CS tech stack — what stayed, what got cut</div>
-      <div class="sdcn-post-desc">After a full audit of tooling costs and usage, here's what we kept and why.</div>
-      <div class="sdcn-post-footer">
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.1k</span>
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>77</span>
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>41</span>
-      </div>
-    </a>
-
-    <div class="sdcn-separator"></div>
-
-    <!-- Post 5 -->
-    <a class="sdcn-post" href="#" target="_blank" rel="noopener">
-      <div class="sdcn-post-label">
-        <span class="sdcn-badge sdcn-badge--article">Article</span>
-        <span>Community Announcements</span>
-      </div>
-      <div class="sdcn-post-title">Pulse 2025 recap: the 5 themes that will define CS this year</div>
-      <div class="sdcn-post-desc">From AI-assisted workflows to the return of high-touch, here's what stood out across three days of sessions.</div>
-      <div class="sdcn-post-footer">
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.7k</span>
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>203</span>
-        <span class="sdcn-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
-      </div>
-    </a>
-
+    </div>
   </div>
 </div>
+
+<script>
+function toggleLike(event, btn, baseCount) {
+  event.preventDefault();
+  event.stopPropagation();
+  var liked = btn.classList.toggle('liked');
+  var count = liked ? baseCount + 1 : baseCount;
+  btn.querySelector('span').textContent = count >= 1000
+    ? (count / 1000).toFixed(1).replace(/\.0$/, '') + 'k'
+    : count;
+}
+</script>
