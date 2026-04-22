@@ -1,4 +1,4 @@
-<section class="g-root">
+<section id="w-events" class="g-root">
 <style>
 /* ═══════════════════════════════════════════════
    GAINSIGHT COMMUNITY — SHARED DESIGN SYSTEM
@@ -297,7 +297,7 @@ a.g, button.g { cursor:pointer; }
             </div>
             <span class="g-subtle">342 / 500 attending</span>
           </div>
-          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+          <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
     </a>
@@ -317,7 +317,7 @@ a.g, button.g { cursor:pointer; }
             <div class="ev-av" style="background:#6366f1">TK</div>
             <div class="ev-av" style="background:#f97316">RW</div>
           </div>
-          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+          <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
     </a>
@@ -336,7 +336,7 @@ a.g, button.g { cursor:pointer; }
             <div class="ev-av" style="background:#10b981">AK</div>
             <div class="ev-av" style="background:#7c3aed">MR</div>
           </div>
-          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+          <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
     </a>
@@ -356,7 +356,7 @@ a.g, button.g { cursor:pointer; }
             <div class="ev-av" style="background:#ec4899">DP</div>
             <div class="ev-av" style="background:#0ea5e9">NB</div>
           </div>
-          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+          <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
     </a>
@@ -375,7 +375,7 @@ a.g, button.g { cursor:pointer; }
             <div class="ev-av" style="background:#8b5cf6">CL</div>
             <div class="ev-av" style="background:#f97316">PD</div>
           </div>
-          <button class="ev-rsvp" onclick="evRsvp(event,this)">RSVP</button>
+          <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
     </a>
@@ -384,13 +384,15 @@ a.g, button.g { cursor:pointer; }
 </div>
 </section>
 <script>
-(function(){var R=document.currentScript?document.currentScript.closest('section'):document;if(!R)R=document;
+(function(){var R=document.getElementById('w-events');if(!R)R=document;
 
-function evRsvp(e,btn){
-  e.preventDefault(); e.stopPropagation();
-  btn.classList.toggle('on');
-  btn.textContent = btn.classList.contains('on') ? '✓ Going' : 'RSVP';
-}
+R.querySelectorAll('[data-rsvp]').forEach(function(btn){
+  btn.addEventListener('click',function(e){
+    e.preventDefault(); e.stopPropagation();
+    btn.classList.toggle('on');
+    btn.textContent = btn.classList.contains('on') ? '✓ Going' : 'RSVP';
+  });
+});
 
 })();
 </script>

@@ -1,4 +1,4 @@
-<section class="g-root">
+<section id="w-hero" class="g-root">
 <style>
 .g-root { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; }
 .g-root * { box-sizing:border-box; }
@@ -337,8 +337,7 @@
 
 <script>
 (function(){
-  var R=document.currentScript?document.currentScript.closest('section'):document;
-  if(!R)R=document;
+  var R=document.getElementById('w-hero');if(!R)R=document;
 
   /* Count-up animation */
   function countUp(id,target,duration,suffix){
