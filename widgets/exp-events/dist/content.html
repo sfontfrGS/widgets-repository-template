@@ -384,15 +384,21 @@ a.g, button.g { cursor:pointer; }
 </div>
 </section>
 <script>
-(function(){var R=document.getElementById('w-events');if(!R)R=document;
-
-R.querySelectorAll('[data-rsvp]').forEach(function(btn){
+(function(){
+  var R=document;
+  function init(){
+    R.querySelectorAll('[data-rsvp]').forEach(function(btn){
   btn.addEventListener('click',function(e){
     e.preventDefault(); e.stopPropagation();
     btn.classList.toggle('on');
     btn.textContent = btn.classList.contains('on') ? '✓ Going' : 'RSVP';
   });
 });
-
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>

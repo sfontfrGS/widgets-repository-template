@@ -300,9 +300,10 @@ a.g, button.g { cursor:pointer; }
 </div>
 </section>
 <script>
-(function(){var R=document.getElementById('w-ask');if(!R)R=document;
-
-var DATA={
+(function(){
+  var R=document;
+  function init(){
+    var DATA={
   churn:{title:'Proven strategies to reduce churn in the first 90 days',exc:'The first 90 days are critical. Teams that implement structured check-ins and early health scoring see up to 40% lower churn rates.',views:'3.2k',replies:'47',rel:[['churn-prevention','Early warning signals every CS team should track','28 replies'],['onboarding','The 30-60-90 day onboarding framework','19 replies'],['health-scores','Building a customer health score from scratch','33 replies']]},
   onboarding:{title:'The complete guide to SaaS customer onboarding in 2025',exc:'Onboarding is where retention is won or lost. This post covers the five phases of onboarding, common failure points, and automation strategies.',views:'2.8k',replies:'38',rel:[['onboarding','Video vs written onboarding: what actually works','14 replies'],['cs-ops','Automating onboarding touchpoints with low effort','22 replies'],['product-led','PLG onboarding vs high-touch: when to use each','17 replies']]},
   qbr:{title:'How to run QBRs that customers actually look forward to',exc:'Most QBRs are a waste of time for both sides. This breaks down what top CS teams do differently: smaller decks, outcome focus, co-created agendas.',views:'1.9k',replies:'29',rel:[['qbr','QBR deck template that works for enterprise','41 replies'],['exec-alignment','Getting executive buy-in for your QBR program','11 replies'],['cs-ops','Running QBRs at scale with a small team','24 replies']]},
@@ -331,6 +332,11 @@ R.querySelector('#askBtn').addEventListener('click',function(){doSearch(R.queryS
 R.querySelector('#askInput').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch(this.value);});
 R.querySelector('#askInput').addEventListener('focus',function(){if(!this.value.trim())show('askChips');});
 R.querySelector('#askInput').addEventListener('input',function(){if(!this.value.trim()){hide('askResults');hide('askEmpty');show('askChips');}});
-
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>

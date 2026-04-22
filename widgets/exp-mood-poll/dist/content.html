@@ -302,9 +302,10 @@ a.g, button.g { cursor:pointer; }
 </div>
 </section>
 <script>
-(function(){var R=document.getElementById('w-moodpoll');if(!R)R=document;
-
-var sel=null;
+(function(){
+  var R=document;
+  function init(){
+    var sel=null;
 R.querySelectorAll('.mp-opt').forEach(function(opt){
   opt.addEventListener('click',function(){
     if(R.querySelector('.mp-opt.done'))return;
@@ -324,6 +325,11 @@ R.querySelector('[data-action="submit"]').addEventListener('click',function(){
   R.querySelector('#mpBtn').textContent='✓ Voted!'; R.querySelector('#mpBtn').disabled=true;
   R.querySelector('#mpCount').textContent='848 responses this week';
 });
-
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>

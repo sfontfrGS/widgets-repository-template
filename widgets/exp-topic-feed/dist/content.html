@@ -602,9 +602,10 @@ a.g, button.g { cursor:pointer; }
 </div>
 </section>
 <script>
-(function(){var R=document.getElementById('w-topicfeed');if(!R)R=document;
-
-R.querySelectorAll('[data-tab]').forEach(function(btn){
+(function(){
+  var R=document;
+  function init(){
+    R.querySelectorAll('[data-tab]').forEach(function(btn){
   btn.addEventListener('click',function(){
     R.querySelectorAll('[data-tab]').forEach(function(b){b.classList.remove('on');});
     btn.classList.add('on');
@@ -619,6 +620,11 @@ if(more)more.addEventListener('click',function(e){
   R.querySelectorAll('.tf-item[style*="display:none"]').forEach(function(el){el.style.display='flex';});
   more.closest('.tf-load').style.display='none';
 });
-
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>

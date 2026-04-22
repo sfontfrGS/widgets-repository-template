@@ -274,9 +274,10 @@ a.g, button.g { cursor:pointer; }
 </div>
 </section>
 <script>
-(function(){var R=document.getElementById('w-livefeed');if(!R)R=document;
-
-var NEW_EVENTS = [
+(function(){
+  var R=document;
+  function init(){
+    var NEW_EVENTS = [
   {av:'CL',col:'#14b8a6',icon:'✍️',html:'<strong>Chris L.</strong> posted <a href="#" class="g-link">How we halved onboarding time with async video</a>'},
   {av:'PD',col:'#8b5cf6',icon:'❤️',html:'<strong>Priya D.</strong> liked <a href="#" class="g-link">Top 5% contributor — my approach</a>'},
   {av:'NB',col:'#06b6d4',icon:'💬',html:'<strong>Nick B.</strong> replied to <a href="#" class="g-link">AI tools your CS team should be using now</a>'},
@@ -295,6 +296,11 @@ setInterval(function(){
   items.forEach(function(item,i){var t=item.querySelector('.g-subtle');if(t&&TIMES[i])t.textContent=TIMES[i];});
   while(feed.children.length>8)feed.removeChild(feed.lastChild);
 },8000);
-
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>

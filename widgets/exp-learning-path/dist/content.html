@@ -387,9 +387,10 @@ a.g, button.g { cursor:pointer; }
 </div>
 </section>
 <script>
-(function(){var R=document.getElementById('w-learning');if(!R)R=document;
-
-var STATS={cs:[350,'2/5','40%'],product:[450,'3/5','60%'],leadership:[150,'1/5','20%']};
+(function(){
+  var R=document;
+  function init(){
+    var STATS={cs:[350,'2/5','40%'],product:[450,'3/5','60%'],leadership:[150,'1/5','20%']};
 R.querySelectorAll('[data-track]').forEach(function(btn){
   btn.addEventListener('click',function(){
     R.querySelectorAll('[data-track]').forEach(function(b){b.classList.remove('on');});
@@ -404,6 +405,11 @@ R.querySelectorAll('[data-track]').forEach(function(btn){
     R.querySelector('#lpBar').style.width=s[2];
   });
 });
-
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>

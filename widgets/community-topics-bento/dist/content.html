@@ -612,8 +612,9 @@ a.g, button.g { cursor:pointer; }
 </section>
 <script>
 (function(){
-  var R=document.getElementById('w-bento');if(!R)R=document;
-  var cur=0,total=4;
+  var R=document;
+  function init(){
+    var cur=0,total=4;
   function render(){
     R.querySelector('#cbTrack').style.transform='translateX(-'+(cur*100)+'%)';
     R.querySelectorAll('.cb-dot').forEach(function(d,i){d.classList.toggle('on',i===cur);});
@@ -632,5 +633,11 @@ a.g, button.g { cursor:pointer; }
     });
   });
   render();
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>

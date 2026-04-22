@@ -432,9 +432,9 @@ a.g, button.g { cursor:pointer; }
 
 <script>
 (function(){
-  var R=document.getElementById('w-trending');if(!R)R=document;
-
-  var DATA={
+  var R=document;
+  function init(){
+    var DATA={
     cs:{
       color:'#7c3aed', bg1:'#f5f3ff', bg2:'#ede9fe',
       tag:'# customer-success · 284 posts this week',
@@ -569,5 +569,11 @@ a.g, button.g { cursor:pointer; }
   R.querySelectorAll('.tc-row').forEach(function(row){
     row.addEventListener('click',function(){clearInterval(timer);});
   });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
+  }
 })();
 </script>

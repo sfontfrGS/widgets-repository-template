@@ -274,7 +274,10 @@
 </section>
 
 <script>
-(function() {
+(function(){
+  var R=document;
+  function init(){
+    (function() {
   var R = document.currentScript ? document.currentScript.closest('section') : document;
   if (!R) R = document;
 
@@ -325,6 +328,13 @@
         container.appendChild(p);
       })(i);
     }
+  }
+})();
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  } else {
+    init();
   }
 })();
 </script>
