@@ -212,18 +212,27 @@
   transition: background .12s;
 }
 .tf-load-more:hover { background: #faf5ff; }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <div class="tf-wrap">
   <div class="tf-header">
-    <h2>Latest Topics</h2>
+    <h2 class="gs-title">Latest Topics</h2>
     <div class="tf-tabs">
-      <button class="tf-tab active" onclick="tfSwitch('all', this)">All Topics</button>
-      <button class="tf-tab" onclick="tfSwitch('expert', this)">
+      <button class="tf-tab active" data-tab="all">All Topics</button>
+      <button class="tf-tab" data-tab="expert">
         For You
         <span class="tf-tab-count">6</span>
       </button>
-      <button class="tf-tab" onclick="tfSwitch('unanswered', this)">
+      <button class="tf-tab" data-tab="unanswered">
         Unanswered
         <span class="tf-tab-count" style="background:#dc2626">4</span>
       </button>
@@ -411,7 +420,7 @@
           </div>
         </div>
       </a>
-            <div class="tf-load-more" id="tfLoadMore" onclick="tfLoadMore()">Load more topics ↓</div>
+            <div class="tf-load-more" id="tfLoadMore" data-action="loadmore">Load more topics ↓</div>
     </div>
 
     <!-- FOR YOU (expert match) panel -->
@@ -575,16 +584,29 @@
 </section>
 
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
+  ROOT.querySelectorAll('[data-tab]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tfSwitch(btn.getAttribute('data-tab'), btn);
+    });
+  });
+  var lm = ROOT.querySelector('[data-action="loadmore"]');
+  if (lm) lm.addEventListener('click', function() { tfLoadMore(); });
+
 function tfLoadMore() {
-  var hidden = document.querySelectorAll('.tf-item--hidden');
+  var hidden = ROOT.querySelectorAll('.tf-item--hidden');
   hidden.forEach(function(el){ el.style.display='flex'; el.classList.remove('tf-item--hidden'); });
-  document.getElementById('tfLoadMore').style.display = 'none';
+  ROOT.querySelector('#tfLoadMore').style.display = 'none';
 }
 function tfSwitch(panel, btn) {
-  document.querySelectorAll('.tf-panel').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelectorAll('.tf-tab').forEach(function(t){ t.classList.remove('active'); });
+  ROOT.querySelectorAll('.tf-panel').forEach(function(p){ p.classList.remove('active'); });
+  ROOT.querySelectorAll('.tf-tab').forEach(function(t){ t.classList.remove('active'); });
   document.getElementById('tf-' + panel).classList.add('active');
   btn.classList.add('active');
-  document.querySelector('.tf-feed').scrollTop = 0;
+  ROOT.querySelector('.tf-feed').scrollTop = 0;
 }
+})();
 </script>

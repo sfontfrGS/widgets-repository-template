@@ -61,24 +61,33 @@
 .mp-vibe-emoji { font-size:20px; }
 .mp-vibe-text { font-size:12px; font-weight:600; color:#18181b; }
 .mp-vibe-sub { font-size:11px; color:#71717a; }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <div class="mp-wrap">
   <div class="mp-header">
-    <h2>😊 Community Mood</h2>
+    <h2 class="gs-title">😊 Community Mood</h2>
     <span class="mp-meta">Resets every Monday · 847 responses this week</span>
   </div>
 
   <div class="mp-row">
     <div>
       <div class="mp-options" id="mpOpts">
-        <div class="mp-opt" data-val="60" onclick="mpVote(this)"><div class="mp-opt-fill"></div><span class="mp-opt-emoji">🚀</span><span class="mp-opt-label">Crushing it</span><span class="mp-opt-pct">60%</span></div>
-        <div class="mp-opt" data-val="22" onclick="mpVote(this)"><div class="mp-opt-fill"></div><span class="mp-opt-emoji">😊</span><span class="mp-opt-label">Solid week</span><span class="mp-opt-pct">22%</span></div>
-        <div class="mp-opt" data-val="12" onclick="mpVote(this)"><div class="mp-opt-fill"></div><span class="mp-opt-emoji">😐</span><span class="mp-opt-label">Mixed feelings</span><span class="mp-opt-pct">12%</span></div>
-        <div class="mp-opt" data-val="6"  onclick="mpVote(this)"><div class="mp-opt-fill"></div><span class="mp-opt-emoji">😓</span><span class="mp-opt-label">Tough week</span><span class="mp-opt-pct">6%</span></div>
+        <div class="mp-opt" data-val="60" data-action="vote"><div class="mp-opt-fill"></div><span class="mp-opt-emoji">🚀</span><span class="mp-opt-label">Crushing it</span><span class="mp-opt-pct">60%</span></div>
+        <div class="mp-opt" data-val="22" data-action="vote"><div class="mp-opt-fill"></div><span class="mp-opt-emoji">😊</span><span class="mp-opt-label">Solid week</span><span class="mp-opt-pct">22%</span></div>
+        <div class="mp-opt" data-val="12" data-action="vote"><div class="mp-opt-fill"></div><span class="mp-opt-emoji">😐</span><span class="mp-opt-label">Mixed feelings</span><span class="mp-opt-pct">12%</span></div>
+        <div class="mp-opt" data-val="6"  data-action="vote"><div class="mp-opt-fill"></div><span class="mp-opt-emoji">😓</span><span class="mp-opt-label">Tough week</span><span class="mp-opt-pct">6%</span></div>
       </div>
       <div class="mp-footer">
-        <button class="mp-submit" id="mpBtn" disabled onclick="mpSubmit()">Vote</button>
+        <button class="mp-submit" id="mpBtn" disabled data-action="submit">Vote</button>
         <span class="mp-count" id="mpCount">Select how you're feeling</span>
       </div>
     </div>
@@ -104,26 +113,37 @@
 </section>
 
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
+  ROOT.querySelectorAll('[data-action="vote"]').forEach(function(el) {
+    el.addEventListener('click', function() { mpVote(el); });
+  });
+  var sub = ROOT.querySelector('[data-action="submit"]');
+  if (sub) sub.addEventListener('click', function() { mpSubmit(); });
+
 var mpSelected = null;
 function mpVote(el) {
-  if (document.querySelector('.mp-opt.voted')) return;
-  document.querySelectorAll('.mp-opt').forEach(function(o){ o.classList.remove('selected'); });
+  if (ROOT.querySelector('.mp-opt.voted')) return;
+  ROOT.querySelectorAll('.mp-opt').forEach(function(o){ o.classList.remove('selected'); });
   el.classList.add('selected'); mpSelected = el;
-  document.getElementById('mpBtn').disabled = false;
-  document.getElementById('mpCount').textContent = 'Ready to submit your vote';
+  ROOT.querySelector('#mpBtn').disabled = false;
+  ROOT.querySelector('#mpCount').textContent = 'Ready to submit your vote';
 }
 function mpSubmit() {
   if (!mpSelected) return;
-  document.querySelectorAll('.mp-opt').forEach(function(o){
+  ROOT.querySelectorAll('.mp-opt').forEach(function(o){
     o.classList.add('voted'); o.onclick = null;
     o.querySelector('.mp-opt-fill').style.width = o.getAttribute('data-val') + '%';
   });
-  document.getElementById('mpBtn').textContent = '✓ Voted!';
-  document.getElementById('mpBtn').disabled = true;
-  document.getElementById('mpCount').textContent = '848 responses this week';
+  ROOT.querySelector('#mpBtn').textContent = '✓ Voted!';
+  ROOT.querySelector('#mpBtn').disabled = true;
+  ROOT.querySelector('#mpCount').textContent = '848 responses this week';
 }
 (function(){
   var days=['M','T','W','T','F','S','S'], data=[[55,25,14,6],[58,24,12,6],[52,28,13,7],[60,22,12,6],[63,20,11,6],[57,26,11,6],[60,22,12,6]], colors=['#7c3aed','#0ea5e9','#f59e0b','#e4e4e7'];
   // Chart bars pre-rendered in HTML
 }());
+})();
 </script>

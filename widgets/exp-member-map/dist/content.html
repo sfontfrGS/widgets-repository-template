@@ -37,13 +37,22 @@
 
 .mm-dot-pulse { animation: mmP 2s ease-in-out infinite; }
 @keyframes mmP { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(.65);} }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/svgmap@2.19.2/dist/svg-map.min.css">
 
 <div class="mm-wrap">
   <div class="mm-header">
-    <h2>🌍 Member Map</h2>
+    <h2 class="gs-title">🌍 Member Map</h2>
     <span>2,341 members · 48 countries</span>
   </div>
   <div class="mm-body">
@@ -65,6 +74,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/svgmap@2.19.2/dist/svg-map.umd.min.js"></script>
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
 (function(){
   var members = { US:312, GB:241, DE:189, SG:167, AU:134, BR:98, FR:87, CA:74, NL:61, IN:58, ES:47, SE:43, NO:38, JP:35, MX:29 };
   var max = 312;
@@ -85,12 +98,12 @@
   });
 
   // Animate sidebar bars
-  function go(){ document.querySelectorAll('.mm-loc-fill').forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; }); }
-  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.1}); io.observe(document.querySelector('.mm')); } else { setTimeout(go,400); }
+  function go(){ ROOT.querySelectorAll('.mm-loc-fill').forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; }); }
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.1}); io.observe(ROOT.querySelector('.mm')); } else { setTimeout(go,400); }
 
   // Fallback: if svgMap fails to load (CDN blocked), show a styled placeholder
   setTimeout(function(){
-    var mapEl = document.getElementById('mmMap');
+    var mapEl = ROOT.querySelector('#mmMap');
     if (mapEl && mapEl.children.length === 0) {
       mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:220px;flex-direction:column;gap:12px;">'
         + '<div style="font-size:48px">🌍</div>'
@@ -105,4 +118,5 @@
     }
   }, 2000);
 }());
+})();
 </script>

@@ -42,12 +42,20 @@
 .tc-trend.up { color:#16a34a; }
 .tc-trend.dn { color:#dc2626; }
 .tc-trend.hot { color:#f59e0b; }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <div class="tc-wrap">
   <div class="tc-header">
-    <h2>🔥 Trending Topics</h2>
-    <span class="tc-period">This week</span>
+    <h2 class="gs-title">🔥 Trending Topics</h2><span class="gs-subtitle" style="font-size:11px">This week</span>
   </div>
 
   <div class="tc-grid">
@@ -92,8 +100,13 @@
 </section>
 
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
 (function(){
-  function go(){ document.querySelectorAll('.tc-bar-fill').forEach(function(el){ el.style.width=el.getAttribute('data-w')+'%'; }); }
-  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.2}); io.observe(document.querySelector('.tc')); } else { setTimeout(go,200); }
+  function go(){ ROOT.querySelectorAll('.tc-bar-fill').forEach(function(el){ el.style.width=el.getAttribute('data-w')+'%'; }); }
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.2}); io.observe(ROOT.querySelector('.tc')); } else { setTimeout(go,200); }
 }());
+})();
 </script>

@@ -26,11 +26,20 @@
 .lf-text a:hover { text-decoration:underline; }
 .lf-time { font-size:11px; color:#a1a1aa; margin-top:3px; }
 .lf-type-icon { font-size:14px; flex-shrink:0; margin-top:7px; }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <div class="lf-wrap">
   <div class="lf-header">
-    <h2>⚡ Live Activity</h2>
+    <h2 class="gs-title">⚡ Live Activity</h2>
     <span class="lf-live"><span class="lf-live-dot"></span>LIVE</span>
   </div>
   <div class="lf-feed" id="lfFeed">
@@ -47,6 +56,10 @@
 </section>
 
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
 (function(){
   var EVENTS = [
     { av:'AK', col:'#f59e0b', icon:'💬', html:'<strong>Anna Kim</strong> replied to <a href="#">How to reduce churn in your first 90 days</a>', time:'just now' },
@@ -59,7 +72,7 @@
     { av:'AK', col:'#f59e0b', icon:'👍', html:'<strong>Anna Kim</strong> reacted to <a href="#">Onboarding checklist for complex SaaS products</a>', time:'14m ago' },
   ];
 
-  var feed = document.getElementById('lfFeed');
+  var feed = ROOT.querySelector('#lfFeed');
 
   function renderItem(e, delay) {
     var el = document.createElement('div');
@@ -97,4 +110,5 @@
     while (feed.children.length > 8) feed.removeChild(feed.lastChild);
   }, 8000);
 }());
+})();
 </script>

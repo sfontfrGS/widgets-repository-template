@@ -102,13 +102,13 @@
     <div><h2>Community Topics</h2><p>Top posts from the community</p></div>
     <div class="cb-nav">
       <div class="cb-dots">
-        <div class="cb-dot active" onclick="cbGo(0)"></div>
-        <div class="cb-dot" onclick="cbGo(1)"></div>
-        <div class="cb-dot" onclick="cbGo(2)"></div>
-        <div class="cb-dot" onclick="cbGo(3)"></div>
+        <div class="cb-dot active" data-page="0"></div>
+        <div class="cb-dot" data-page="1"></div>
+        <div class="cb-dot" data-page="2"></div>
+        <div class="cb-dot" data-page="3"></div>
       </div>
-      <button class="cb-btn" id="cbPrev" onclick="cbStep(-1)" disabled>&#8592;</button>
-      <button class="cb-btn" id="cbNext" onclick="cbStep(1)">&#8594;</button>
+      <button class="cb-btn" id="cbPrev" data-dir="-1" disabled>&#8592;</button>
+      <button class="cb-btn" id="cbNext" data-dir="1">&#8594;</button>
     </div>
   </div>
 
@@ -217,12 +217,32 @@
 </section>
 
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
+  ROOT.querySelectorAll('[data-page]').forEach(function(el) {
+    el.addEventListener('click', function() { cbGo(parseInt(el.getAttribute('data-page'))); });
+  });
+  ROOT.querySelectorAll('[data-dir]').forEach(function(el) {
+    el.addEventListener('click', function() { cbStep(parseInt(el.getAttribute('data-dir'))); });
+  });
+  ROOT.querySelectorAll('.cb-like').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      var base = parseInt(btn.getAttribute('data-base') || btn.querySelector('span').textContent, 10) || 0;
+      var on = btn.classList.toggle('liked');
+      var n = on ? base + 1 : base;
+      btn.querySelector('span').textContent = n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'')+'k' : n;
+    });
+  });
+
 var cur = 0, total = 4;
 function cbRender() {
-  document.getElementById('cbTrack').style.transform = 'translateX(-'+(cur*100)+'%)';
-  document.querySelectorAll('.cb-dot').forEach(function(d,i){ d.classList.toggle('active', i===cur); });
-  document.getElementById('cbPrev').disabled = cur===0;
-  document.getElementById('cbNext').disabled = cur===total-1;
+  ROOT.querySelector('#cbTrack').style.transform = 'translateX(-'+(cur*100)+'%)';
+  ROOT.querySelectorAll('.cb-dot').forEach(function(d,i){ d.classList.toggle('active', i===cur); });
+  ROOT.querySelector('#cbPrev').disabled = cur===0;
+  ROOT.querySelector('#cbNext').disabled = cur===total-1;
 }
 function cbStep(d){ cur=Math.max(0,Math.min(total-1,cur+d)); cbRender(); }
 function cbGo(i){ cur=i; cbRender(); }
@@ -232,4 +252,5 @@ function cbLike(e,btn,base){
   var n=on?base+1:base;
   btn.querySelector('span').textContent=n>=1000?(n/1000).toFixed(1).replace(/\.0$/,'')+'k':n;
 }
+})();
 </script>

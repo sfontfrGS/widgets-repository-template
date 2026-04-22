@@ -47,15 +47,24 @@
 .lp-prog-label { display:flex; justify-content:space-between; font-size:11px; color:#71717a; margin-bottom:5px; }
 .lp-prog-track { height:6px; background:#e4e4e7; border-radius:999px; overflow:hidden; }
 .lp-prog-fill { height:100%; background:linear-gradient(90deg,#7c3aed,#0ea5e9); border-radius:999px; width:0; transition:width 1s cubic-bezier(.4,0,.2,1) .3s; }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <div class="lp-wrap">
   <div class="lp-header">
-    <h2>🎓 Your Learning Path</h2>
+    <h2 class="gs-title">🎓 Your Learning Path</h2>
     <div class="lp-tabs">
-      <button class="lp-tab active" onclick="lpTab('cs',this)">CS Mastery</button>
-      <button class="lp-tab" onclick="lpTab('product',this)">Product</button>
-      <button class="lp-tab" onclick="lpTab('leadership',this)">Leadership</button>
+      <button class="lp-tab active" data-track="cs">CS Mastery</button>
+      <button class="lp-tab" data-track="product">Product</button>
+      <button class="lp-tab" data-track="leadership">Leadership</button>
     </div>
   </div>
 
@@ -100,17 +109,28 @@
 </div>
 </section>
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
+  ROOT.querySelectorAll('[data-track]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      lpTab(btn.getAttribute('data-track'), btn);
+    });
+  });
+
 function lpTab(key, btn) {
-  document.querySelectorAll('.lp-tab').forEach(function(t){ t.classList.remove('active'); });
+  ROOT.querySelectorAll('.lp-tab').forEach(function(t){ t.classList.remove('active'); });
   btn.classList.add('active');
-  document.querySelectorAll('.lp-track-panel').forEach(function(p){ p.style.display='none'; });
+  ROOT.querySelectorAll('.lp-track-panel').forEach(function(p){ p.style.display='none'; });
   document.getElementById('lp-'+key).style.display='block';
   // Update summary stats
   var stats = { cs:[350,'2/5','40%'], product:[450,'3/5','60%'], leadership:[150,'1/5','20%'] };
   var s = stats[key];
-  document.getElementById('lpXp').textContent = s[0];
-  document.getElementById('lpRatio').textContent = s[1];
-  document.getElementById('lpPct').textContent = s[2];
-  document.getElementById('lpBar').style.width = s[2];
+  ROOT.querySelector('#lpXp').textContent = s[0];
+  ROOT.querySelector('#lpRatio').textContent = s[1];
+  ROOT.querySelector('#lpPct').textContent = s[2];
+  ROOT.querySelector('#lpBar').style.width = s[2];
 }
+})();
 </script>

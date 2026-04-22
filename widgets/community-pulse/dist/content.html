@@ -149,10 +149,19 @@
   flex-shrink: 0;
   white-space: nowrap;
 }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <div class="cp-wrap">
-  <div class="cp-heading"><h2>Community Pulse</h2></div>
+  <div class="cp-heading"><div class="gs-header"><div class="gs-header-row"><h2 class="gs-title">Community Pulse</h2></div></div></div>
   <div class="cp-grid">
 
     <!-- Active users -->
@@ -209,6 +218,10 @@
 </section>
 
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
 (function(){
   function countUp(id, target, ms) {
     var el = document.getElementById(id);
@@ -224,8 +237,9 @@
   countUp('cpOnline', 847, 900);
   countUp('cpPosts',   63, 700);
   // Also set static values immediately as fallback in case count-up fails
-  var on=document.getElementById('cpOnline'); var ps=document.getElementById('cpPosts');
+  var on=ROOT.querySelector('#cpOnline'); var ps=ROOT.querySelector('#cpPosts');
   if(on && !on.textContent) on.textContent='847';
   if(ps && !ps.textContent) ps.textContent='63';
 }());
+})();
 </script>

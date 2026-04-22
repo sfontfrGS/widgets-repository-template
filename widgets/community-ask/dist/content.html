@@ -243,11 +243,20 @@
   background: #f5f3ff;
   color: #7c3aed;
 }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <div class="ask-wrap">
   <div class="ask-header">
-    <h2>Community Ask</h2>
+    <h2 class="gs-title">Community Ask</h2>
     <p>Search the community for answers or find related discussions</p>
   </div>
 
@@ -264,10 +273,10 @@
 
   <!-- Suggested prompts -->
   <div class="ask-suggestions" id="askSuggestions" style="display:none">
-    <button class="ask-chip" onclick="runSearch('How to reduce churn?')">How to reduce churn?</button>
-    <button class="ask-chip" onclick="runSearch('Best onboarding practices')">Best onboarding practices</button>
-    <button class="ask-chip" onclick="runSearch('QBR templates')">QBR templates</button>
-    <button class="ask-chip" onclick="runSearch('AI in customer success')">AI in customer success</button>
+    <button class="ask-chip" data-search="How to reduce churn?">How to reduce churn?</button>
+    <button class="ask-chip" data-search="Best onboarding practices">Best onboarding practices</button>
+    <button class="ask-chip" data-search="QBR templates">QBR templates</button>
+    <button class="ask-chip" data-search="AI in customer success">AI in customer success</button>
   </div>
 
   <!-- Results -->
@@ -305,6 +314,14 @@
 </section>
 
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
+  ROOT.querySelectorAll('[data-search]').forEach(function(btn) {
+    btn.addEventListener('click', function() { runSearch(btn.getAttribute('data-search')); });
+  });
+
 (function(){
   var DATA = {
     'churn': {
@@ -359,26 +376,26 @@
   }
 
   window.runSearch = function(q) {
-    document.getElementById('askInput').value = q;
+    ROOT.querySelector('#askInput').value = q;
     doSearch(q);
   };
 
   function doSearch(q) {
     if (!q.trim()) return;
     var result = matchData(q);
-    var results = document.getElementById('askResults');
-    var empty   = document.getElementById('askEmpty');
-    var sugg    = document.getElementById('askSuggestions');
+    var results = ROOT.querySelector('#askResults');
+    var empty   = ROOT.querySelector('#askEmpty');
+    var sugg    = ROOT.querySelector('#askSuggestions');
 
     sugg.style.display = 'none';
 
     if (result) {
       empty.classList.remove('visible');
-      document.getElementById('askAnswerTitle').textContent   = result.title;
-      document.getElementById('askAnswerExcerpt').textContent = result.excerpt;
-      document.getElementById('askAnswerViews').textContent   = '👁 ' + result.views + ' views';
-      document.getElementById('askAnswerReplies').textContent = '💬 ' + result.replies + ' replies';
-      var cards = document.querySelectorAll('.ask-related-card');
+      ROOT.querySelector('#askAnswerTitle').textContent   = result.title;
+      ROOT.querySelector('#askAnswerExcerpt').textContent = result.excerpt;
+      ROOT.querySelector('#askAnswerViews').textContent   = '👁 ' + result.views + ' views';
+      ROOT.querySelector('#askAnswerReplies').textContent = '💬 ' + result.replies + ' replies';
+      var cards = ROOT.querySelectorAll('.ask-related-card');
       result.related.forEach(function(r, i) {
         if (cards[i]) {
           cards[i].querySelector('.ask-related-tag').textContent = '# ' + r.tag;
@@ -394,23 +411,24 @@
   }
 
   // Show suggestions when input focused and empty
-  document.getElementById('askInput').addEventListener('focus', function(){
+  ROOT.querySelector('#askInput').addEventListener('focus', function(){
     if (!this.value.trim()) {
-      document.getElementById('askSuggestions').style.display = 'flex';
+      ROOT.querySelector('#askSuggestions').style.display = 'flex';
     }
   });
-  document.getElementById('askInput').addEventListener('input', function(){
+  ROOT.querySelector('#askInput').addEventListener('input', function(){
     if (!this.value.trim()) {
-      document.getElementById('askResults').classList.remove('visible');
-      document.getElementById('askEmpty').classList.remove('visible');
-      document.getElementById('askSuggestions').style.display = 'flex';
+      ROOT.querySelector('#askResults').classList.remove('visible');
+      ROOT.querySelector('#askEmpty').classList.remove('visible');
+      ROOT.querySelector('#askSuggestions').style.display = 'flex';
     }
   });
-  document.getElementById('askBtn').addEventListener('click', function(){
-    doSearch(document.getElementById('askInput').value);
+  ROOT.querySelector('#askBtn').addEventListener('click', function(){
+    doSearch(ROOT.querySelector('#askInput').value);
   });
-  document.getElementById('askInput').addEventListener('keydown', function(e){
+  ROOT.querySelector('#askInput').addEventListener('keydown', function(e){
     if (e.key === 'Enter') doSearch(this.value);
   });
 }());
+})();
 </script>

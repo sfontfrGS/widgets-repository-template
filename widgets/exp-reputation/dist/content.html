@@ -51,10 +51,19 @@
 .rp-board-name { flex:1; font-size:13px; font-weight:500; color:#18181b; }
 .rp-board-you { font-size:10px; background:#7c3aed; color:#fff; border-radius:4px; padding:1px 5px; font-weight:600; }
 .rp-board-xp { font-size:13px; font-weight:700; color:#0a0a0a; }
+
+/* ── Consistent widget header ── */
+.gs-header { margin-bottom: 16px; }
+.gs-header-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3px; }
+.gs-title { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-subtle, #a1a1aa); margin: 0; }
+.gs-subtitle { font-size: 13px; color: var(--gs-muted, #71717a); margin: 0; }
+.gs-link { font-size: 12px; font-weight: 500; color: var(--gs-accent, #7c3aed); text-decoration: none; }
+.gs-link:hover { text-decoration: underline; }
+
 </style>
 
 <div class="rp-wrap">
-  <div class="rp-header"><h2>🏆 Reputation &amp; Badges</h2></div>
+  <div class="rp-header"><h2 class="gs-title">🏆 Reputation &amp; Badges</h2></div>
   <div class="rp-body">
 
     <!-- Score card -->
@@ -106,9 +115,14 @@
 </div>
 </section>
 <script>
+(function() {
+  var ROOT = document.currentScript ? document.currentScript.closest('section') : document;
+  if (!ROOT) ROOT = document;
+
 (function(){
   function countUp(id,target,ms){ var el=document.getElementById(id); if(!el)return; var s=Date.now(); (function t(){ var p=Math.min((Date.now()-s)/ms,1); el.textContent=Math.round((1-Math.pow(2,-8*p))*target).toLocaleString(); if(p<1)requestAnimationFrame(t); })(); }
-  function go(){ countUp('rpXp',7660,1200); document.getElementById('rpBar').style.width='67%'; }
-  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.15}); io.observe(document.querySelector('.rp')); } else { setTimeout(go,300); }
+  function go(){ countUp('rpXp',7660,1200); ROOT.querySelector('#rpBar').style.width='67%'; }
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.15}); io.observe(ROOT.querySelector('.rp')); } else { setTimeout(go,300); }
 }());
+})();
 </script>
