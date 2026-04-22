@@ -1,0 +1,411 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  .bento-root {
+    --accent: #6b5cf6;
+    --accent-light: #ede9fe;
+    --accent-mid: #8b7cf8;
+    --bg: #f7f7f8;
+    --card-bg: #ffffff;
+    --border: rgba(0,0,0,0.07);
+    --text-primary: #111118;
+    --text-secondary: #6b6b80;
+    --text-muted: #a0a0b0;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    --shadow-hover: 0 8px 32px rgba(107,92,246,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    --radius: 14px;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    font-family: var(--font-body);
+    background: var(--bg);
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100%;
+  }
+
+  .bento-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .bento-header-title {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .bento-header-link {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+
+  .bento-header-link:hover {
+    opacity: 1;
+  }
+
+  /* Grid */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+
+  /* Card base */
+  .bento-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 18px 18px 14px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px;
+  }
+
+  .bento-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+    border-color: rgba(107, 92, 246, 0.18);
+  }
+
+  /* Size variants */
+  .bento-card--wide {
+    grid-column: span 2;
+  }
+
+  .bento-card--tall {
+    grid-row: span 2;
+    min-height: 340px;
+  }
+
+  .bento-card--featured {
+    grid-column: span 2;
+    min-height: 200px;
+    background: linear-gradient(135deg, #faf9ff 0%, #f0edfe 100%);
+    border-color: rgba(107,92,246,0.15);
+  }
+
+  /* Card top label */
+  .card-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+  }
+
+  .card-label span {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Card body — content region */
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* Title */
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .bento-card--wide .card-title,
+  .bento-card--featured .card-title {
+    font-size: 1.125rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .bento-card--tall .card-title {
+    font-size: 1.0625rem;
+    -webkit-line-clamp: 3;
+  }
+
+  .bento-card:hover .card-title {
+    color: var(--accent);
+  }
+
+  /* Description — hidden by default, fades in on hover */
+  .card-desc {
+    font-size: 0.8125rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-top: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.25s ease, max-height 0.3s ease, margin-top 0.2s ease;
+  }
+
+  .bento-card:hover .card-desc {
+    opacity: 1;
+    max-height: 80px;
+  }
+
+  /* Metadata footer */
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .card-meta-stats {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-stat {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .card-stat svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* Badge */
+  .card-badge {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 5px;
+    background: var(--accent-light);
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .card-badge--discussion {
+    background: #e6f4f1;
+    color: #0d7a60;
+  }
+
+  .card-badge--question {
+    background: #fff4e5;
+    color: #b45309;
+  }
+
+  .card-badge--article {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* Accent bar on featured card */
+  .bento-card--featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-mid));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  /* Subtle dot pattern on tall card */
+  .bento-card--tall::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; right: -10px;
+    width: 80px;
+    height: 80px;
+    background-image: radial-gradient(circle, rgba(107,92,246,0.12) 1.5px, transparent 1.5px);
+    background-size: 10px 10px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+</style>
+
+<div class="bento-root">
+
+  <div class="bento-header">
+    <span class="bento-header-title">Community Topics</span>
+    <a class="bento-header-link" href="#">View all →</a>
+  </div>
+
+  <div class="bento-grid">
+
+    <!-- Card 1: Wide + Featured -->
+    <div class="bento-card bento-card--wide bento-card--featured">
+      <div class="card-label">Posted in <span>Product Strategy</span></div>
+      <div class="card-body">
+        <p class="card-title">How we redesigned our onboarding flow and doubled activation rates in 60 days</p>
+        <p class="card-desc">A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation. Includes a breakdown of the A/B tests we ran and the surprising results.</p>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-stats">
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
+            3.2k
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
+            148
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
+            34
+          </span>
+        </div>
+        <span class="card-badge card-badge--article">Article</span>
+      </div>
+    </div>
+
+    <!-- Card 2: Tall -->
+    <div class="bento-card bento-card--tall">
+      <div class="card-label">Posted in <span>Customer Success</span></div>
+      <div class="card-body">
+        <p class="card-title">Building a scalable QBR process for enterprise accounts without burning out your CS team</p>
+        <p class="card-desc">Templates, automation strategies, and the exact Notion setup we use to run QBRs at scale — covering 200+ accounts with a team of four.</p>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-stats">
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
+            1.8k
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
+            92
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
+            57
+          </span>
+        </div>
+        <span class="card-badge card-badge--discussion">Discussion</span>
+      </div>
+    </div>
+
+    <!-- Card 3: Normal -->
+    <div class="bento-card">
+      <div class="card-label">Posted in <span>Growth</span></div>
+      <div class="card-body">
+        <p class="card-title">Is PLG still the right motion for B2B SaaS in 2025?</p>
+        <p class="card-desc">The landscape has shifted. What does product-led growth actually look like today, and when should you layer in sales?</p>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-stats">
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
+            940
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
+            61
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
+            28
+          </span>
+        </div>
+        <span class="card-badge card-badge--question">Question</span>
+      </div>
+    </div>
+
+    <!-- Card 4: Normal -->
+    <div class="bento-card">
+      <div class="card-label">Posted in <span>Ops &amp; Tooling</span></div>
+      <div class="card-body">
+        <p class="card-title">Our 2025 CS tech stack — what stayed, what got cut</p>
+        <p class="card-desc">After a full audit of our tooling costs and usage, here's what we kept and why.</p>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-stats">
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
+            2.1k
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
+            77
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
+            41
+          </span>
+        </div>
+        <span class="card-badge card-badge--article">Article</span>
+      </div>
+    </div>
+
+    <!-- Card 5: Wide -->
+    <div class="bento-card bento-card--wide">
+      <div class="card-label">Posted in <span>Community Announcements</span></div>
+      <div class="card-body">
+        <p class="card-title">Pulse 2025 recap: the 5 themes that will define CS this year</p>
+        <p class="card-desc">From AI-assisted workflows to the return of high-touch, here's what stood out across three days of sessions and conversations.</p>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-stats">
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
+            4.7k
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
+            203
+          </span>
+          <span class="card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
+            89
+          </span>
+        </div>
+        <span class="card-badge card-badge--article">Article</span>
+      </div>
+    </div>
+
+  </div>
+</div>
