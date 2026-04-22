@@ -1,19 +1,16 @@
 <section class="g-root">
 <style>
-.g-root { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; display:block; }
+.g-root { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; display:block; margin:0; padding:0; }
 .g-root * { box-sizing:border-box; margin:0; padding:0; }
 
 /* ── Hero shell ── */
 .hw {
   position: relative;
-  border-radius: 16px;
+  border-radius: 0;
   overflow: hidden;
-  padding: 36px 40px;
-  min-height: 200px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 32px;
-  align-items: center;
+  padding: 0;
+  min-height: 260px;
+  display: block;
   /* Rich multi-stop gradient */
   background: linear-gradient(135deg,
     #4c1d95 0%,
@@ -75,7 +72,17 @@
 }
 
 /* ── Content ── */
-.hw-content { position:relative; z-index:1; }
+.hw-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 48px 40px 52px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
 .hw-eyebrow {
   font-size: 10px; font-weight: 700; letter-spacing: .1em;
   text-transform: uppercase; color: rgba(255,255,255,.55);

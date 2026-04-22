@@ -137,6 +137,17 @@
 }
 .hc-cta:hover { transform: scale(1.03); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
 
+/* ── Static fallback background (always visible) ── */
+.hc-root {
+  background: linear-gradient(160deg,
+    #fafafa 0%,
+    #f0eeff 35%,
+    #e8f4ff 65%,
+    #fafafa 100%
+  ) !important;
+}
+/* ── Video shows on top when it loads ── */
+
 /* ── Animations ── */
 @keyframes hcFadeRise {
   from { opacity: 0; transform: translateY(22px); }
@@ -232,18 +243,26 @@
 
     // Start
     video.style.opacity = '0';
+    video.addEventListener('error', function(e) {
+      console.warn('[HeroCinematic] Video error:', e, video.error);
+    });
+    video.addEventListener('loadeddata', function() {
+      console.log('[HeroCinematic] Video loaded, duration:', video.duration);
+    });
+    video.addEventListener('canplay', function() {
+      console.log('[HeroCinematic] Video can play');
+      video.play().catch(function(err) {
+        console.warn('[HeroCinematic] Play failed:', err);
+      });
+    });
     var p = video.play();
     if (p && p.catch) {
-      p.catch(function() {
-        // Autoplay blocked — try on first interaction
+      p.catch(function(err) {
+        console.warn('[HeroCinematic] Initial play failed:', err);
         document.addEventListener('click', function onClick() {
           video.play().catch(function(){});
           document.removeEventListener('click', onClick);
-        });
-        document.addEventListener('touchstart', function onTouch() {
-          video.play().catch(function(){});
-          document.removeEventListener('touchstart', onTouch);
-        });
+        }, {once:true});
       });
     }
     rafId = requestAnimationFrame(tick);
