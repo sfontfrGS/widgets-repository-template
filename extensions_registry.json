@@ -611,6 +611,33 @@
         "description": "Upcoming community events."
       },
       "type": "exp-events"
+    },
+    {
+      "title": "Cinematic Hero",
+      "description": "Full-width hero section with looping video background, animated typography, and cinematic fade transitions. Features Instrument Serif display font, Inter body, nav bar and CTA.",
+      "category": "Demo",
+      "imageSrc": "widgets/community-hero-cinematic/thumbnail.png",
+      "source": {
+        "path": "widgets/community-hero-cinematic/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Cinematic Hero",
+            "rules": {
+              "required": true
+            }
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Cinematic Hero"
+      },
+      "type": "community-hero-cinematic"
     }
   ],
   "stylesheets": [

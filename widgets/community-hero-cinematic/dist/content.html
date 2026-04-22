@@ -1,0 +1,255 @@
+<section id="w-hero-cinematic">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── Reset ── */
+#w-hero-cinematic, #w-hero-cinematic * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Root container ── */
+.hc-root {
+  position: relative;
+  width: 100%;
+  min-height: 580px;
+  overflow: hidden;
+  background: #ffffff;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Video layer ── */
+.hc-video-wrap {
+  position: absolute;
+  top: 280px;
+  left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.hc-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.05s linear;
+  opacity: 0;
+}
+.hc-video-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    rgba(255,255,255,0.2) 40%,
+    rgba(255,255,255,0.2) 60%,
+    #ffffff 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Nav ── */
+.hc-nav {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+.hc-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+.hc-logo {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.875rem;
+  letter-spacing: -0.02em;
+  color: #000000;
+  user-select: none;
+  line-height: 1;
+}
+.hc-logo sup {
+  font-size: 0.5em;
+  vertical-align: super;
+}
+.hc-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+.hc-nav-links a {
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.hc-nav-links a:hover { opacity: 0.6; }
+.hc-nav-cta {
+  padding: 0.625rem 1.5rem;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  letter-spacing: -0.01em;
+}
+.hc-nav-cta:hover { transform: scale(1.03); }
+
+/* ── Hero section ── */
+.hc-hero {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.5rem 2rem 8rem;
+}
+.hc-headline {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  color: #000000;
+  max-width: 80rem;
+}
+.hc-headline em {
+  color: #6F6F6F;
+  font-style: italic;
+}
+.hc-desc {
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  color: #6F6F6F;
+  max-width: 38rem;
+  margin-top: 2rem;
+  line-height: 1.7;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+}
+.hc-cta {
+  margin-top: 3rem;
+  padding: 1.1rem 3.5rem;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: -0.01em;
+}
+.hc-cta:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+/* ── Keyframe animations ── */
+@keyframes hcFadeRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hc-a1 { animation: hcFadeRise 0.8s ease-out 0.0s both; }
+.hc-a2 { animation: hcFadeRise 0.8s ease-out 0.2s both; }
+.hc-a3 { animation: hcFadeRise 0.8s ease-out 0.4s both; }
+</style>
+
+<div class="hc-root">
+
+  <!-- Video -->
+  <div class="hc-video-wrap">
+    <video
+      id="hcVideo"
+      class="hc-video"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
+      muted
+      playsinline
+      preload="auto"
+    ></video>
+    <div class="hc-video-gradient"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="hc-nav">
+    <div class="hc-nav-inner">
+      <span class="hc-logo">Aethera<sup>®</sup></span>
+      <ul class="hc-nav-links">
+        <li><a href="#" style="color:#000000">Home</a></li>
+        <li><a href="#" style="color:#6F6F6F">Studio</a></li>
+        <li><a href="#" style="color:#6F6F6F">About</a></li>
+        <li><a href="#" style="color:#6F6F6F">Journal</a></li>
+        <li><a href="#" style="color:#6F6F6F">Reach Us</a></li>
+      </ul>
+      <button class="hc-nav-cta">Begin Journey</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hc-hero">
+    <h1 class="hc-headline hc-a1">
+      Beyond <em>silence,</em> we build <em>the eternal.</em>
+    </h1>
+    <p class="hc-desc hc-a2">
+      Building platforms for brilliant minds, fearless makers, and thoughtful souls.
+      Through the noise, we craft digital havens for deep work and pure flows.
+    </p>
+    <button class="hc-cta hc-a3">Begin Journey</button>
+  </section>
+
+</div>
+</section>
+
+<script>
+(function() {
+  var R = document;
+  var FADE = 0.5;
+
+  function init() {
+    var video = R.getElementById('hcVideo');
+    if (!video) return;
+
+    var dead = false;
+    var rafId;
+
+    function tick() {
+      if (!dead && video.duration && !isNaN(video.duration)) {
+        var t = video.currentTime;
+        var d = video.duration;
+        var op;
+        if (t < FADE) {
+          op = t / FADE;
+        } else if (t > d - FADE) {
+          op = (d - t) / FADE;
+        } else {
+          op = 1;
+        }
+        video.style.opacity = String(Math.max(0, Math.min(1, op)));
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    video.addEventListener('ended', function() {
+      video.style.opacity = '0';
+      setTimeout(function() {
+        if (dead) return;
+        video.currentTime = 0;
+        video.play().catch(function() {});
+      }, 100);
+    });
+
+    video.style.opacity = '0';
+    video.play().catch(function() {});
+    rafId = requestAnimationFrame(tick);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
