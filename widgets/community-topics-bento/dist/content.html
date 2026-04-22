@@ -74,8 +74,8 @@
 /* ── Carousel track ── */
 .cb-carousel {
   overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid #e4e4e7;
+  border-radius: 0;
+  border: none;
 }
 .cb-track {
   display: flex;
@@ -93,8 +93,8 @@
   grid-template-areas:
     "c1 c1 c2"
     "c3 c4 c5";
-  gap: 1px;
-  background: #e4e4e7;
+  gap: 0;
+  background: transparent;
 }
 
 /* Alt pages: 2-col layout — big feature left + 4 compact list items right */
@@ -164,6 +164,7 @@
   transition: background .15s;
   position: relative;
   overflow: hidden;
+  border: none;
 }
 .cb-card:hover { background: #faf5ff; }
 .cb-card:hover .cb-title { color: #7c3aed; }
@@ -294,285 +295,101 @@
   <!-- Carousel -->
   <div class="cb-carousel">
     <div class="cb-track" id="cbTrack">
-
-      <!-- ── PAGE 1 ── -->
-      <div class="cb-page">
-        <!-- Card 1: wide top-left (spans 2 cols) -->
-        <a class="cb-card cb-card--c1" href="#">
-          <div>
-            <div class="cb-meta">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <span class="cb-forum">Product Strategy</span>
-            </div>
-            <div class="cb-title">How we redesigned our onboarding flow and doubled activation rates in 60 days</div>
-            <div class="cb-desc">A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats">
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.2k</span>
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>34</span>
-            </div>
-            <button class="cb-like" onclick="cbLike(event,this,148)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>148</span></button>
-          </div>
-        </a>
-        <!-- Card 2: top-right (1 col) -->
-        <a class="cb-card cb-card--c2" href="#">
-          <div>
-            <div class="cb-meta">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span class="cb-forum">Customer Success</span>
-            </div>
-            <div class="cb-title">Building a scalable QBR process for enterprise accounts without burning out your CS team</div>
-            <div class="cb-desc">Templates, automation strategies, and the exact setup we use to run QBRs at scale.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats">
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>1.8k</span>
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>57</span>
-            </div>
-            <button class="cb-like" onclick="cbLike(event,this,92)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>92</span></button>
-          </div>
-        </a>
-        <!-- Card 3: bottom-left (1 col) -->
-        <a class="cb-card cb-card--c3" href="#">
-          <div>
-            <div class="cb-meta">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <span class="cb-forum">Growth</span>
-            </div>
-            <div class="cb-title">Is PLG still the right motion for B2B SaaS in 2025?</div>
-            <div class="cb-desc">The landscape has shifted. What does PLG actually look like today?</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats">
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>940</span>
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>28</span>
-            </div>
-            <button class="cb-like" onclick="cbLike(event,this,61)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>61</span></button>
-          </div>
-        </a>
-        <!-- Card 4 bottom-middle -->
-        <a class="cb-card cb-card--c4" href="#">
-          <div>
-            <div class="cb-meta">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <span class="cb-forum">Ops &amp; Tooling</span>
-            </div>
-            <div class="cb-title">Our 2025 CS tech stack — what stayed, what got cut</div>
-            <div class="cb-desc">After a full audit of 19 tools, we consolidated down to 11.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats">
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.1k</span>
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>41</span>
-            </div>
-            <button class="cb-like" onclick="cbLike(event,this,77)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>77</span></button>
-          </div>
-        </a>
-        <!-- Card 5: bottom-right wide (cols 2-3) -->
-        <a class="cb-card cb-card--c5" href="#">
-          <div>
-            <div class="cb-meta">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <span class="cb-forum">Community Announcements</span>
-            </div>
-            <div class="cb-title">Pulse 2025 recap: the 5 themes that will define CS this year</div>
-            <div class="cb-desc">From AI-assisted workflows to the return of high-touch.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats">
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.7k</span>
-              <span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
-            </div>
-            <button class="cb-like" onclick="cbLike(event,this,203)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>203</span></button>
-          </div>
-        </a>
-      </div>
-
-      <!-- ── PAGE 2 ── -->
-      <div class="cb-page cb-page--alt">
-        <a class="cb-card cb-card--c1" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">AI Tools</span></div>
-            <div class="cb-title">The CS AI toolkit: 12 tools we actually use every day in 2025</div>
-            <div class="cb-desc">After testing 30+ tools, here are the 12 that made it into our daily workflow — with honest pros and cons.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.1k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>61</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,289)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>289</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c2" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">Leadership</span></div>
-            <div class="cb-title">Building a CS org from scratch: lessons from my first 18 months as VP</div>
-            <div class="cb-desc">When I joined there were 2 CSMs and no process. Here's how we built a 15-person org.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>5.4k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,341)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>341</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c3" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="cb-forum">Onboarding</span></div>
-            <div class="cb-title">Async video vs live sessions: what the data says after 6 months</div>
-            <div class="cb-desc">We ran a controlled experiment with 200 accounts split across both approaches.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>1.8k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>38</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,97)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>97</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c4" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Health Scores</span></div>
-            <div class="cb-title">How we reduced churn 40% using proactive health scoring</div>
-            <div class="cb-desc">We implemented a 3-tier health score system 6 months ago. Here's what happened.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.2k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>47</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,203)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>203</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c5" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">CS Ops</span></div>
-            <div class="cb-title">Our full CS playbook — 47 pages open-sourced after 3 years at Series B</div>
-            <div class="cb-desc">Covers onboarding, QBRs, renewals, escalations and the metrics that matter at each stage.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>6.1k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>124</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,412)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>412</span></button>
-          </div>
-        </a>
-      </div>
-
-      <!-- ── PAGE 3 ── -->
-      <div class="cb-page">
-        <a class="cb-card cb-card--c1" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Executive Alignment</span></div>
-            <div class="cb-title">How to get C-suite buy-in for your CS program: a step-by-step guide</div>
-            <div class="cb-desc">The business case framework that helped us secure $2M in CS tooling budget in one board meeting.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>7.8k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>143</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,521)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>521</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c2" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="cb-forum">Renewals</span></div>
-            <div class="cb-title">Our renewal playbook: how we hit 118% NRR two years running</div>
-            <div class="cb-desc">The exact process, templates, and timing that drove consistent expansion.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.3k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>76</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,318)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>318</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c3" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">Customer Success</span></div>
-            <div class="cb-title">The 10 questions every CSM should ask in their first customer call</div>
-            <div class="cb-desc">Steal this discovery framework — it's been used by 2,000+ CSMs in this community.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>9.1k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>211</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,634)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>634</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c4" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Product Feedback</span></div>
-            <div class="cb-title">Feature request: better bulk actions in the admin dashboard</div>
-            <div class="cb-desc">Sharing our team's most-wanted improvements after 18 months of daily use.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>1.2k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>29</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,88)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>88</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c5" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">Benchmarks</span></div>
-            <div class="cb-title">2025 SaaS CS Benchmarks Report — community edition</div>
-            <div class="cb-desc">Aggregated data from 340 CS leaders across ARR stages, team sizes, and verticals.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>11.2k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>287</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,891)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>891</span></button>
-          </div>
-        </a>
-      </div>
-
-      <!-- ── PAGE 4 ── -->
-      <div class="cb-page cb-page--alt">
-        <a class="cb-card cb-card--c1" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">Community</span></div>
-            <div class="cb-title">State of Customer Success 2025: what 1,200 practitioners told us</div>
-            <div class="cb-desc">The most comprehensive survey the community has run — results are in. AI, headcount, tooling, and where the industry is heading.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>14.3k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>312</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,1047)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>1.0k</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c2" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Churn Prevention</span></div>
-            <div class="cb-title">The 5 early warning signs your customer is about to churn</div>
-            <div class="cb-desc">Pattern recognition after managing 400+ accounts across 6 years in CS.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>6.7k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>98</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,447)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>447</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c3" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="cb-forum">Career</span></div>
-            <div class="cb-title">How I went from CSM to VP in 4 years without switching companies</div>
-            <div class="cb-desc">The frameworks and relationships that accelerated my path to leadership.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>8.9k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>176</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,582)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>582</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c4" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">QBR</span></div>
-            <div class="cb-title">QBR deck template that enterprise customers actually look forward to</div>
-            <div class="cb-desc">We replaced a 40-slide deck with a 12-slide narrative and NPS went up 18 points.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>5.1k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>93</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,371)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>371</span></button>
-          </div>
-        </a>
-        <a class="cb-card cb-card--c5" href="#">
-          <div>
-            <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Metrics</span></div>
-            <div class="cb-title">Beyond NRR: the 7 CS metrics boards actually care about in 2025</div>
-            <div class="cb-desc">A CFO's perspective on what CS data actually influences investment and headcount decisions.</div>
-          </div>
-          <div class="cb-footer">
-            <div class="cb-stats"><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>9.4k</span><span class="cb-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>201</span></div>
-            <button class="cb-like" onclick="cbLike(event,this,763)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>763</span></button>
-          </div>
-        </a>
-      </div>
-
+      <!-- Pages rendered dynamically by JS -->
     </div><!-- /track -->
   </div><!-- /carousel -->
 </div><!-- /wrap -->
-</section>
-
 <script>
-var cbCur = 0, cbTotal = 4;
+// ── All topic data — 4 pages × 5 posts each ──
+var CB_DATA = [
+  // Page 1 — standard bento
+  [
+    { area:'c1', forum:'Product Strategy', icon:'file', title:'How we redesigned our onboarding flow and doubled activation rates in 60 days', desc:'A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation.', views:'3.2k', replies:'34', likes:148 },
+    { area:'c2', forum:'Customer Success', icon:'chat', title:'Building a scalable QBR process for enterprise accounts without burning out your CS team', desc:'Templates, automation strategies, and the exact setup we use to run QBRs at scale.', views:'1.8k', replies:'57', likes:92 },
+    { area:'c3', forum:'Growth', icon:'question', title:'Is PLG still the right motion for B2B SaaS in 2025?', desc:'The landscape has shifted. What does PLG actually look like today?', views:'940', replies:'28', likes:61 },
+    { area:'c4', forum:'Ops & Tooling', icon:'file', title:'Our 2025 CS tech stack — what stayed, what got cut', desc:'After a full audit of 19 tools, we consolidated down to 11.', views:'2.1k', replies:'41', likes:77 },
+    { area:'c5', forum:'Community Announcements', icon:'file', title:'Pulse 2025 recap: the 5 themes that will define CS this year', desc:'From AI-assisted workflows to the return of high-touch.', views:'4.7k', replies:'89', likes:203 }
+  ],
+  // Page 2 — alt (editorial split)
+  [
+    { area:'c1', forum:'AI Tools', icon:'chat', title:'The CS AI toolkit: 12 tools we actually use every day in 2025', desc:'After testing 30+ tools, here are the 12 that made it into our daily workflow — with honest pros and cons for each one.', views:'4.1k', replies:'61', likes:289 },
+    { area:'c2', forum:'Leadership', icon:'chat', title:'Building a CS org from scratch: lessons from my first 18 months as VP', desc:'When I joined there were 2 CSMs and no process.', views:'5.4k', replies:'89', likes:341 },
+    { area:'c3', forum:'Onboarding', icon:'question', title:'Async video vs live sessions: what the data says after 6 months', desc:'We ran a controlled experiment with 200 accounts.', views:'1.8k', replies:'38', likes:97 },
+    { area:'c4', forum:'Health Scores', icon:'file', title:'How we reduced churn 40% using proactive health scoring', desc:'We implemented a 3-tier health score system 6 months ago.', views:'3.2k', replies:'47', likes:203 },
+    { area:'c5', forum:'CS Ops', icon:'chat', title:'Our full CS playbook — 47 pages open-sourced after 3 years at Series B', desc:'Covers onboarding, QBRs, renewals, escalations and the metrics that matter.', views:'6.1k', replies:'124', likes:412 }
+  ],
+  // Page 3 — standard bento
+  [
+    { area:'c1', forum:'Executive Alignment', icon:'file', title:'How to get C-suite buy-in for your CS program: a step-by-step guide', desc:'The business case framework that helped us secure $2M in CS tooling budget in one board meeting.', views:'7.8k', replies:'143', likes:521 },
+    { area:'c2', forum:'Renewals', icon:'question', title:'Our renewal playbook: how we hit 118% NRR two years running', desc:'The exact process, templates, and timing that drove consistent expansion.', views:'4.3k', replies:'76', likes:318 },
+    { area:'c3', forum:'Customer Success', icon:'chat', title:'The 10 questions every CSM should ask in their first customer call', desc:'Steal this discovery framework — used by 2,000+ CSMs in this community.', views:'9.1k', replies:'211', likes:634 },
+    { area:'c4', forum:'Product Feedback', icon:'file', title:'Feature request: better bulk actions in the admin dashboard', desc:'Sharing our team's most-wanted improvements after 18 months of daily use.', views:'1.2k', replies:'29', likes:88 },
+    { area:'c5', forum:'Benchmarks', icon:'file', title:'2025 SaaS CS Benchmarks Report — community edition', desc:'Aggregated data from 340 CS leaders across ARR stages, team sizes, and verticals.', views:'11.2k', replies:'287', likes:891 }
+  ],
+  // Page 4 — alt (editorial split)
+  [
+    { area:'c1', forum:'Community', icon:'chat', title:'State of Customer Success 2025: what 1,200 practitioners told us', desc:'The most comprehensive survey the community has ever run — AI, headcount, tooling, and where the industry is heading next.', views:'14.3k', replies:'312', likes:1047 },
+    { area:'c2', forum:'Churn Prevention', icon:'file', title:'The 5 early warning signs your customer is about to churn', desc:'Pattern recognition after managing 400+ accounts across 6 years.', views:'6.7k', replies:'98', likes:447 },
+    { area:'c3', forum:'Career', icon:'question', title:'How I went from CSM to VP in 4 years without switching companies', desc:'The frameworks and relationships that accelerated my path to leadership.', views:'8.9k', replies:'176', likes:582 },
+    { area:'c4', forum:'QBR', icon:'chat', title:'QBR deck template that enterprise customers actually look forward to', desc:'We replaced a 40-slide deck with a 12-slide narrative and NPS went up 18 points.', views:'5.1k', replies:'93', likes:371 },
+    { area:'c5', forum:'Metrics', icon:'file', title:'Beyond NRR: the 7 CS metrics boards actually care about in 2025', desc:'A CFO's perspective on what CS data actually influences investment decisions.', views:'9.4k', replies:'201', likes:763 }
+  ]
+];
+
+var CB_ALT_PAGES = [1, 3]; // 0-indexed pages that use editorial split layout
+var cbCur = 0;
+var cbTotal = CB_DATA.length;
+var cbLiked = {}; // track liked state per card
+
+// ── SVG icons ──
+var ICONS = {
+  file: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  question: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+  reply: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>'
+};
+
+function fmtNum(n) {
+  return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'')+'k' : String(n);
+}
+
+function renderCard(post, pageIdx) {
+  var isAlt = CB_ALT_PAGES.indexOf(pageIdx) !== -1;
+  var key = pageIdx + '-' + post.area;
+  var liked = !!cbLiked[key];
+  var likeCount = liked ? post.likes + 1 : post.likes;
+
+  return '<a class="cb-card cb-card--' + post.area + '" href="#" onclick="return false">'
+    + '<div>'
+    +   '<div class="cb-meta">' + ICONS[post.icon] + '<span class="cb-forum">' + post.forum + '</span></div>'
+    +   '<div class="cb-title">' + post.title + '</div>'
+    +   (post.desc ? '<div class="cb-desc">' + post.desc + '</div>' : '')
+    + '</div>'
+    + '<div class="cb-footer">'
+    +   '<div class="cb-stats">'
+    +     '<span class="cb-stat">' + ICONS.eye + post.views + '</span>'
+    +     '<span class="cb-stat">' + ICONS.reply + post.replies + '</span>'
+    +   '</div>'
+    +   '<button class="cb-like' + (liked ? ' liked' : '') + '" data-key="' + key + '" data-base="' + post.likes + '" onclick="cbLike(event,this)">'
+    +     ICONS.heart + '<span>' + fmtNum(likeCount) + '</span>'
+    +   '</button>'
+    + '</div>'
+    + '</a>';
+}
+
+function renderPage(pageIdx) {
+  var posts = CB_DATA[pageIdx];
+  var isAlt = CB_ALT_PAGES.indexOf(pageIdx) !== -1;
+  var cls = 'cb-page' + (isAlt ? ' cb-page--alt' : '');
+  return '<div class="' + cls + '">' + posts.map(function(p){ return renderCard(p, pageIdx); }).join('') + '</div>';
+}
+
+function buildTrack() {
+  var track = document.getElementById('cbTrack');
+  track.innerHTML = CB_DATA.map(function(_, i){ return renderPage(i); }).join('');
+}
 
 function cbRender() {
   document.getElementById('cbTrack').style.transform = 'translateX(-' + (cbCur * 100) + '%)';
@@ -586,15 +403,22 @@ function cbStep(dir) {
   cbRender();
 }
 
-function cbGo(i) {
-  cbCur = i;
-  cbRender();
+function cbGo(i) { cbCur = i; cbRender(); }
+
+function cbLike(e, btn) {
+  e.preventDefault(); e.stopPropagation();
+  var key = btn.getAttribute('data-key');
+  var base = parseInt(btn.getAttribute('data-base'), 10);
+  var on = btn.classList.toggle('liked');
+  cbLiked[key] = on;
+  btn.querySelector('span').textContent = fmtNum(on ? base + 1 : base);
 }
 
-function cbLike(e, btn, base) {
-  e.preventDefault(); e.stopPropagation();
-  var on = btn.classList.toggle('liked');
-  var n = on ? base + 1 : base;
-  btn.querySelector('span').textContent = n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : n;
-}
+// Init
+buildTrack();
+cbRender();
 </script>
+
+</section>
+
+
