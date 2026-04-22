@@ -370,7 +370,48 @@
         </div>
       </a>
 
-      <div class="tf-load-more" onclick="this.textContent='Loading…'">Load more topics ↓</div>
+      <!-- Hidden items shown on Load more -->
+      <a class="tf-item tf-item--hidden" href="#" style="display:none">
+        <div class="tf-type" style="background:#f5f3ff">💬</div>
+        <div class="tf-content">
+          <div class="tf-item-meta"><span class="tf-forum">Customer Success</span></div>
+          <div class="tf-title">How to build a CS team culture that retains top talent</div>
+          <div class="tf-excerpt">The practices that keep our team engagement scores above 85% for three consecutive years...</div>
+          <div class="tf-stats">
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.3k</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>44</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>118</span>
+            <span class="tf-time">10h ago</span>
+          </div>
+        </div>
+      </a>
+      <a class="tf-item tf-item--hidden" href="#" style="display:none">
+        <div class="tf-type" style="background:#fef3c7">❓</div>
+        <div class="tf-content">
+          <div class="tf-item-meta"><span class="tf-forum">Metrics</span><span class="tf-badge unanswered">Unanswered</span></div>
+          <div class="tf-title">What NRR benchmark should a Series B SaaS company be targeting?</div>
+          <div class="tf-excerpt">Our board keeps asking about industry benchmarks and I want to give a confident answer backed by data...</div>
+          <div class="tf-stats">
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>512</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+            <span class="tf-time">11h ago</span>
+          </div>
+        </div>
+      </a>
+      <a class="tf-item tf-item--hidden" href="#" style="display:none">
+        <div class="tf-type" style="background:#ecfdf5">📄</div>
+        <div class="tf-content">
+          <div class="tf-item-meta"><span class="tf-forum">AI Tools</span><span class="tf-badge">Article</span></div>
+          <div class="tf-title">We gave our CS team access to AI for 90 days — here's what changed</div>
+          <div class="tf-excerpt">A before-and-after look at productivity, quality of customer interactions, and the surprises we didn't expect...</div>
+          <div class="tf-stats">
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.8k</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>67</span>
+            <span class="tf-time">1d ago</span>
+          </div>
+        </div>
+      </a>
+            <div class="tf-load-more" id="tfLoadMore" onclick="tfLoadMore()">Load more topics ↓</div>
     </div>
 
     <!-- FOR YOU (expert match) panel -->
@@ -534,6 +575,11 @@
 </section>
 
 <script>
+function tfLoadMore() {
+  var hidden = document.querySelectorAll('.tf-item--hidden');
+  hidden.forEach(function(el){ el.style.display='flex'; el.classList.remove('tf-item--hidden'); });
+  document.getElementById('tfLoadMore').style.display = 'none';
+}
 function tfSwitch(panel, btn) {
   document.querySelectorAll('.tf-panel').forEach(function(p){ p.classList.remove('active'); });
   document.querySelectorAll('.tf-tab').forEach(function(t){ t.classList.remove('active'); });

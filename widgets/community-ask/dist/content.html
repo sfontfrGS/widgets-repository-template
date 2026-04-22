@@ -378,10 +378,14 @@
       document.getElementById('askAnswerExcerpt').textContent = result.excerpt;
       document.getElementById('askAnswerViews').textContent   = '👁 ' + result.views + ' views';
       document.getElementById('askAnswerReplies').textContent = '💬 ' + result.replies + ' replies';
-      var rel = document.getElementById('askRelated');
-      rel.innerHTML = result.related.map(function(r){
-        return '<a class="ask-related-card" href="#"><div class="ask-related-tag"># '+r.tag+'</div><div class="ask-related-title">'+r.title+'</div><div class="ask-related-meta">'+r.meta+'</div></a>';
-      }).join('');
+      var cards = document.querySelectorAll('.ask-related-card');
+      result.related.forEach(function(r, i) {
+        if (cards[i]) {
+          cards[i].querySelector('.ask-related-tag').textContent = '# ' + r.tag;
+          cards[i].querySelector('.ask-related-title').textContent = r.title;
+          cards[i].querySelector('.ask-related-meta').textContent = r.meta;
+        }
+      });
       results.classList.add('visible');
     } else {
       results.classList.remove('visible');

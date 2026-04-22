@@ -53,69 +53,64 @@
   <div class="lp-header">
     <h2>🎓 Your Learning Path</h2>
     <div class="lp-tabs">
-      <button class="lp-tab active">CS Mastery</button>
-      <button class="lp-tab">Product</button>
-      <button class="lp-tab">Leadership</button>
+      <button class="lp-tab active" onclick="lpTab('cs',this)">CS Mastery</button>
+      <button class="lp-tab" onclick="lpTab('product',this)">Product</button>
+      <button class="lp-tab" onclick="lpTab('leadership',this)">Leadership</button>
     </div>
   </div>
 
   <div class="lp-track">
-    <div class="lp-step">
-      <div class="lp-node done">✓</div>
-      <div class="lp-content">
-        <div class="lp-step-title">CS Foundations</div>
-        <div class="lp-step-desc">Core frameworks, metrics, and mindset for modern customer success.</div>
-        <div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+150 pts</span></div>
-      </div>
+
+    <!-- CS Mastery track -->
+    <div class="lp-track-panel" id="lp-cs">
+      <div class="lp-step"><div class="lp-node done">✓</div><div class="lp-content"><div class="lp-step-title">CS Foundations</div><div class="lp-step-desc">Core frameworks, metrics, and mindset for modern customer success.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+150 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node done">✓</div><div class="lp-content"><div class="lp-step-title">Onboarding Excellence</div><div class="lp-step-desc">Design onboarding flows that drive activation and long-term retention.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+200 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node active">3</div><div class="lp-content"><div class="lp-step-title">Health Score Mastery</div><div class="lp-step-desc">Build predictive health models that catch churn before it happens.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-active">In progress</span><span class="lp-pts">+250 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node locked">4</div><div class="lp-content"><div class="lp-step-title">Executive Alignment</div><div class="lp-step-desc">Communicate value to C-suite and build executive sponsor relationships.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+300 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node locked">5</div><div class="lp-content"><div class="lp-step-title">CS Leadership</div><div class="lp-step-desc">Scale your team, define processes, and become a strategic CS leader.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+400 pts</span></div></div></div>
     </div>
-    <div class="lp-step">
-      <div class="lp-node done">✓</div>
-      <div class="lp-content">
-        <div class="lp-step-title">Onboarding Excellence</div>
-        <div class="lp-step-desc">Design onboarding flows that drive activation and long-term retention.</div>
-        <div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+200 pts</span></div>
-      </div>
+
+    <!-- Product track -->
+    <div class="lp-track-panel" id="lp-product" style="display:none">
+      <div class="lp-step"><div class="lp-node done">✓</div><div class="lp-content"><div class="lp-step-title">Product Thinking Basics</div><div class="lp-step-desc">How to think like a PM and bring product perspective to your CS role.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+100 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node done">✓</div><div class="lp-content"><div class="lp-step-title">User Research Methods</div><div class="lp-step-desc">Conducting interviews, surveys and usability tests with customers.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+150 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node done">✓</div><div class="lp-content"><div class="lp-step-title">Roadmap Collaboration</div><div class="lp-step-desc">Working with product teams to represent customer needs effectively.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+200 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node active">4</div><div class="lp-content"><div class="lp-step-title">Product Analytics</div><div class="lp-step-desc">Understand usage data and translate insights into action for customers.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-active">In progress</span><span class="lp-pts">+250 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node locked">5</div><div class="lp-content"><div class="lp-step-title">Product-Led Growth</div><div class="lp-step-desc">Drive adoption and expansion through product experience design.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+350 pts</span></div></div></div>
     </div>
-    <div class="lp-step">
-      <div class="lp-node active">3</div>
-      <div class="lp-content">
-        <div class="lp-step-title">Health Score Mastery</div>
-        <div class="lp-step-desc">Build predictive health models that catch churn before it happens.</div>
-        <div class="lp-step-meta"><span class="lp-badge lp-badge-active">In progress</span><span class="lp-pts">+250 pts</span></div>
-      </div>
+
+    <!-- Leadership track -->
+    <div class="lp-track-panel" id="lp-leadership" style="display:none">
+      <div class="lp-step"><div class="lp-node done">✓</div><div class="lp-content"><div class="lp-step-title">Leading Without Authority</div><div class="lp-step-desc">Influence stakeholders and cross-functional teams without direct power.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-done">Completed</span><span class="lp-pts">+150 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node active">2</div><div class="lp-content"><div class="lp-step-title">Team Building &amp; Hiring</div><div class="lp-step-desc">Recruiting, onboarding, and developing CS talent at scale.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-active">In progress</span><span class="lp-pts">+250 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node locked">3</div><div class="lp-content"><div class="lp-step-title">Operational Excellence</div><div class="lp-step-desc">Building repeatable processes and playbooks across your team.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+300 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node locked">4</div><div class="lp-content"><div class="lp-step-title">Executive Presence</div><div class="lp-step-desc">Communicating at the board level and representing CS in leadership.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+350 pts</span></div></div></div>
+      <div class="lp-step"><div class="lp-node locked">5</div><div class="lp-content"><div class="lp-step-title">CS Strategy &amp; Vision</div><div class="lp-step-desc">Setting long-term direction and aligning CS with company goals.</div><div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+500 pts</span></div></div></div>
     </div>
-    <div class="lp-step">
-      <div class="lp-node locked">4</div>
-      <div class="lp-content">
-        <div class="lp-step-title">Executive Alignment</div>
-        <div class="lp-step-desc">Communicate value to C-suite and build executive sponsor relationships.</div>
-        <div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+300 pts</span></div>
-      </div>
-    </div>
-    <div class="lp-step">
-      <div class="lp-node locked">5</div>
-      <div class="lp-content">
-        <div class="lp-step-title">CS Leadership</div>
-        <div class="lp-step-desc">Scale your team, define processes, and become a strategic CS leader.</div>
-        <div class="lp-step-meta"><span class="lp-badge lp-badge-locked">Locked</span><span class="lp-pts">+400 pts</span></div>
-      </div>
-    </div>
-  </div>
+</div>
 
   <div class="lp-summary">
-    <div class="lp-summary-stat"><div class="lp-summary-val">350</div><div class="lp-summary-lbl">XP earned</div></div>
-    <div class="lp-summary-stat"><div class="lp-summary-val">2/5</div><div class="lp-summary-lbl">Completed</div></div>
+    <div class="lp-summary-stat"><div class="lp-summary-val" id="lpXp">350</div><div class="lp-summary-lbl">XP earned</div></div>
+    <div class="lp-summary-stat"><div class="lp-summary-val" id="lpRatio">2/5</div><div class="lp-summary-lbl">Completed</div></div>
     <div class="lp-prog-wrap">
-      <div class="lp-prog-label"><span>Overall progress</span><span>40%</span></div>
+      <div class="lp-prog-label"><span>Overall progress</span><span id="lpPct">40%</span></div>
       <div class="lp-prog-track"><div class="lp-prog-fill" id="lpBar" style="width:40%"></div></div>
     </div>
   </div>
 </div>
 </section>
 <script>
-(function(){
-  document.querySelectorAll('.lp-tab').forEach(function(t){ t.addEventListener('click',function(){ document.querySelectorAll('.lp-tab').forEach(function(x){x.classList.remove('active');}); t.classList.add('active'); }); });
-  function go(){ document.getElementById('lpBar').style.width='40%'; }
-  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.2}); io.observe(document.querySelector('.lp')); } else { setTimeout(go,300); }
-}());
+function lpTab(key, btn) {
+  document.querySelectorAll('.lp-tab').forEach(function(t){ t.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.lp-track-panel').forEach(function(p){ p.style.display='none'; });
+  document.getElementById('lp-'+key).style.display='block';
+  // Update summary stats
+  var stats = { cs:[350,'2/5','40%'], product:[450,'3/5','60%'], leadership:[150,'1/5','20%'] };
+  var s = stats[key];
+  document.getElementById('lpXp').textContent = s[0];
+  document.getElementById('lpRatio').textContent = s[1];
+  document.getElementById('lpPct').textContent = s[2];
+  document.getElementById('lpBar').style.width = s[2];
+}
 </script>
