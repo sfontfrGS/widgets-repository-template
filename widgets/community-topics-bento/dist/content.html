@@ -88,11 +88,66 @@
   width: 100%;
   flex-shrink: 0;
   display: grid;
-  /* 3 cols, 2 rows — last card fills bottom-right 2 cells */
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto auto;
+  grid-template-areas:
+    "c1 c1 c2"
+    "c3 c4 c5";
   gap: 1px;
   background: #e4e4e7;
+}
+
+/* Alt pages: 2-col layout — big feature left + 4 compact list items right */
+.cb-page--alt {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "c1 c2"
+    "c1 c3"
+    "c1 c4"
+    "c1 c5";
+  background: #e4e4e7;
+}
+.cb-page--alt .cb-card--c1 {
+  grid-area: c1;
+  min-height: unset;
+}
+.cb-page--alt .cb-card--c1 .cb-title {
+  font-size: 20px;
+  -webkit-line-clamp: 4;
+}
+/* Compact list rows on right side */
+.cb-page--alt .cb-card--c2,
+.cb-page--alt .cb-card--c3,
+.cb-page--alt .cb-card--c4,
+.cb-page--alt .cb-card--c5 {
+  min-height: unset;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  padding: 12px 16px;
+}
+.cb-page--alt .cb-card--c2 .cb-desc,
+.cb-page--alt .cb-card--c3 .cb-desc,
+.cb-page--alt .cb-card--c4 .cb-desc,
+.cb-page--alt .cb-card--c5 .cb-desc { display: none; }
+.cb-page--alt .cb-card--c2 > div:first-child,
+.cb-page--alt .cb-card--c3 > div:first-child,
+.cb-page--alt .cb-card--c4 > div:first-child,
+.cb-page--alt .cb-card--c5 > div:first-child { flex: 1; }
+.cb-page--alt .cb-card--c2 .cb-title,
+.cb-page--alt .cb-card--c3 .cb-title,
+.cb-page--alt .cb-card--c4 .cb-title,
+.cb-page--alt .cb-card--c5 .cb-title {
+  font-size: 13px;
+  -webkit-line-clamp: 2;
+}
+.cb-page--alt .cb-card--c2 .cb-footer,
+.cb-page--alt .cb-card--c3 .cb-footer,
+.cb-page--alt .cb-card--c4 .cb-footer,
+.cb-page--alt .cb-card--c5 .cb-footer {
+  margin-top: 6px;
+  padding-top: 6px;
 }
 
 /* ── Card ── */
@@ -114,11 +169,11 @@
 .cb-card:hover .cb-title { color: #7c3aed; }
 
 /* Layout variants */
-.cb-card--wide { grid-column: span 2; }
-/* Card 5: spans bottom-right 2 columns of row 2 */
-.cb-card--wide-right {
-  grid-column: 2 / span 2;
-}
+.cb-card--c1 { grid-area: c1; }
+.cb-card--c2 { grid-area: c2; }
+.cb-card--c3 { grid-area: c3; }
+.cb-card--c4 { grid-area: c4; }
+.cb-card--c5 { grid-area: c5; }
 
 /* ── Card top ── */
 .cb-meta {
@@ -145,7 +200,7 @@
   transition: color .15s;
   flex: 1;
 }
-.cb-card--wide .cb-title {
+.cb-card--c1 .cb-title {
   font-size: 16px;
   -webkit-line-clamp: 2;
 }
@@ -243,7 +298,7 @@
       <!-- ── PAGE 1 ── -->
       <div class="cb-page">
         <!-- Card 1: wide top-left (spans 2 cols) -->
-        <a class="cb-card cb-card--wide" href="#">
+        <a class="cb-card cb-card--c1" href="#">
           <div>
             <div class="cb-meta">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -261,7 +316,7 @@
           </div>
         </a>
         <!-- Card 2: top-right (1 col) -->
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c2" href="#">
           <div>
             <div class="cb-meta">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -279,7 +334,7 @@
           </div>
         </a>
         <!-- Card 3: bottom-left (1 col) -->
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c3" href="#">
           <div>
             <div class="cb-meta">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -297,7 +352,7 @@
           </div>
         </a>
         <!-- Card 4 bottom-middle -->
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c4" href="#">
           <div>
             <div class="cb-meta">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -315,7 +370,7 @@
           </div>
         </a>
         <!-- Card 5: bottom-right wide (cols 2-3) -->
-        <a class="cb-card cb-card--wide-right" href="#">
+        <a class="cb-card cb-card--c5" href="#">
           <div>
             <div class="cb-meta">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
@@ -335,8 +390,8 @@
       </div>
 
       <!-- ── PAGE 2 ── -->
-      <div class="cb-page">
-        <a class="cb-card cb-card--wide" href="#">
+      <div class="cb-page cb-page--alt">
+        <a class="cb-card cb-card--c1" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">AI Tools</span></div>
             <div class="cb-title">The CS AI toolkit: 12 tools we actually use every day in 2025</div>
@@ -347,7 +402,7 @@
             <button class="cb-like" onclick="cbLike(event,this,289)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>289</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c2" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">Leadership</span></div>
             <div class="cb-title">Building a CS org from scratch: lessons from my first 18 months as VP</div>
@@ -358,7 +413,7 @@
             <button class="cb-like" onclick="cbLike(event,this,341)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>341</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c3" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="cb-forum">Onboarding</span></div>
             <div class="cb-title">Async video vs live sessions: what the data says after 6 months</div>
@@ -369,7 +424,7 @@
             <button class="cb-like" onclick="cbLike(event,this,97)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>97</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c4" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Health Scores</span></div>
             <div class="cb-title">How we reduced churn 40% using proactive health scoring</div>
@@ -380,7 +435,7 @@
             <button class="cb-like" onclick="cbLike(event,this,203)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>203</span></button>
           </div>
         </a>
-        <a class="cb-card cb-card--wide-right" href="#">
+        <a class="cb-card cb-card--c5" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">CS Ops</span></div>
             <div class="cb-title">Our full CS playbook — 47 pages open-sourced after 3 years at Series B</div>
@@ -395,7 +450,7 @@
 
       <!-- ── PAGE 3 ── -->
       <div class="cb-page">
-        <a class="cb-card cb-card--wide" href="#">
+        <a class="cb-card cb-card--c1" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Executive Alignment</span></div>
             <div class="cb-title">How to get C-suite buy-in for your CS program: a step-by-step guide</div>
@@ -406,7 +461,7 @@
             <button class="cb-like" onclick="cbLike(event,this,521)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>521</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c2" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="cb-forum">Renewals</span></div>
             <div class="cb-title">Our renewal playbook: how we hit 118% NRR two years running</div>
@@ -417,7 +472,7 @@
             <button class="cb-like" onclick="cbLike(event,this,318)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>318</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c3" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">Customer Success</span></div>
             <div class="cb-title">The 10 questions every CSM should ask in their first customer call</div>
@@ -428,7 +483,7 @@
             <button class="cb-like" onclick="cbLike(event,this,634)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>634</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c4" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Product Feedback</span></div>
             <div class="cb-title">Feature request: better bulk actions in the admin dashboard</div>
@@ -439,7 +494,7 @@
             <button class="cb-like" onclick="cbLike(event,this,88)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>88</span></button>
           </div>
         </a>
-        <a class="cb-card cb-card--wide-right" href="#">
+        <a class="cb-card cb-card--c5" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">Benchmarks</span></div>
             <div class="cb-title">2025 SaaS CS Benchmarks Report — community edition</div>
@@ -453,8 +508,8 @@
       </div>
 
       <!-- ── PAGE 4 ── -->
-      <div class="cb-page">
-        <a class="cb-card cb-card--wide" href="#">
+      <div class="cb-page cb-page--alt">
+        <a class="cb-card cb-card--c1" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">Community</span></div>
             <div class="cb-title">State of Customer Success 2025: what 1,200 practitioners told us</div>
@@ -465,7 +520,7 @@
             <button class="cb-like" onclick="cbLike(event,this,1047)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>1.0k</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c2" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Churn Prevention</span></div>
             <div class="cb-title">The 5 early warning signs your customer is about to churn</div>
@@ -476,7 +531,7 @@
             <button class="cb-like" onclick="cbLike(event,this,447)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>447</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c3" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="cb-forum">Career</span></div>
             <div class="cb-title">How I went from CSM to VP in 4 years without switching companies</div>
@@ -487,7 +542,7 @@
             <button class="cb-like" onclick="cbLike(event,this,582)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>582</span></button>
           </div>
         </a>
-        <a class="cb-card" href="#">
+        <a class="cb-card cb-card--c4" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="cb-forum">QBR</span></div>
             <div class="cb-title">QBR deck template that enterprise customers actually look forward to</div>
@@ -498,7 +553,7 @@
             <button class="cb-like" onclick="cbLike(event,this,371)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span>371</span></button>
           </div>
         </a>
-        <a class="cb-card cb-card--wide-right" href="#">
+        <a class="cb-card cb-card--c5" href="#">
           <div>
             <div class="cb-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg><span class="cb-forum">Metrics</span></div>
             <div class="cb-title">Beyond NRR: the 7 CS metrics boards actually care about in 2025</div>
