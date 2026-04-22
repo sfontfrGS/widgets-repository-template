@@ -237,6 +237,40 @@
         "description": "A personalized hero widget showing user activity metrics."
       },
       "type": "community-hero"
+    },
+    {
+      "title": "Community Pulse",
+      "description": "A full-width dark bar showing live community stats: members online, posts today, rotating trending topics, top contributor and a CTA button.",
+      "category": "Demo",
+      "imageSrc": "widgets/community-pulse/thumbnail.png",
+      "source": {
+        "path": "widgets/community-pulse/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Community Pulse",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Live community activity bar."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Community Pulse",
+        "description": "Live community activity bar."
+      },
+      "type": "community-pulse"
     }
   ],
   "stylesheets": [
