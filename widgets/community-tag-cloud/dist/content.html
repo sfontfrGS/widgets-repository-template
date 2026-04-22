@@ -1,0 +1,228 @@
+<section class="tc">
+<style>
+.tc {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  padding: 24px 20px;
+}
+.tc * { box-sizing: border-box; }
+
+.tc-wrap { max-width: 1140px; margin: 0 auto; }
+
+.tc-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.tc-header h2 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin: 0;
+}
+.tc-period {
+  font-size: 11px;
+  color: #a1a1aa;
+  font-weight: 400;
+}
+
+/* ── Bento grid ── */
+.tc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 8px;
+}
+
+/* ── Tag card ── */
+.tc-tag {
+  border: 1px solid #e4e4e7;
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+.tc-tag:hover {
+  border-color: #c4b5fd;
+  background: #faf5ff;
+  transform: translateY(-1px);
+}
+
+/* size variants */
+.tc-tag--lg {
+  grid-column: span 2;
+  padding: 18px 20px;
+}
+.tc-tag--xl {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 22px;
+}
+
+/* accent bar on left */
+.tc-tag::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--tag-color, #e4e4e7);
+  transition: top 0.15s ease, bottom 0.15s ease;
+}
+.tc-tag:hover::before { top: 10%; bottom: 10%; }
+
+.tc-tag-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #18181b;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.tc-tag-name span { opacity: 0.5; font-weight: 400; font-size: 12px; }
+
+.tc-tag-count {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0a0a0a;
+  line-height: 1;
+}
+.tc-tag--xl .tc-tag-count { font-size: 40px; }
+
+.tc-tag-label {
+  font-size: 11px;
+  color: #71717a;
+}
+
+/* mini bar showing relative volume */
+.tc-tag-bar {
+  height: 3px;
+  background: #f4f4f5;
+  border-radius: 999px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+.tc-tag-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--tag-color, #7c3aed);
+  width: 0;
+  transition: width 0.9s cubic-bezier(0.4,0,0.2,1) var(--bar-delay, 0s);
+}
+
+/* trend badge */
+.tc-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #16a34a;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 4px;
+  padding: 1px 6px;
+  width: fit-content;
+  margin-top: 2px;
+}
+.tc-trend.down { color: #dc2626; background: #fef2f2; border-color: #fecaca; }
+</style>
+
+<div class="tc-wrap">
+  <div class="tc-header">
+    <h2>Trending Topics</h2>
+    <span class="tc-period">This week</span>
+  </div>
+
+  <div class="tc-grid">
+
+    <!-- #1 — XL -->
+    <a class="tc-tag tc-tag--xl" href="#" style="--tag-color:#7c3aed">
+      <div class="tc-tag-name"># customer-success <span>↗</span></div>
+      <div class="tc-tag-count">284</div>
+      <div class="tc-tag-label">posts this week</div>
+      <div class="tc-tag-bar"><div class="tc-tag-bar-fill" data-w="100" style="--bar-delay:0.1s"></div></div>
+      <div class="tc-trend">↑ 34% vs last week</div>
+    </a>
+
+    <!-- #2 -->
+    <a class="tc-tag" href="#" style="--tag-color:#0ea5e9">
+      <div class="tc-tag-name"># onboarding</div>
+      <div class="tc-tag-count">161</div>
+      <div class="tc-tag-label">posts this week</div>
+      <div class="tc-tag-bar"><div class="tc-tag-bar-fill" data-w="57" style="--bar-delay:0.15s"></div></div>
+      <div class="tc-trend">↑ 18%</div>
+    </a>
+
+    <!-- #3 -->
+    <a class="tc-tag" href="#" style="--tag-color:#f59e0b">
+      <div class="tc-tag-name"># product-feedback</div>
+      <div class="tc-tag-count">138</div>
+      <div class="tc-tag-label">posts this week</div>
+      <div class="tc-tag-bar"><div class="tc-tag-bar-fill" data-w="49" style="--bar-delay:0.2s"></div></div>
+      <div class="tc-trend down">↓ 5%</div>
+    </a>
+
+    <!-- #4 — wide -->
+    <a class="tc-tag tc-tag--lg" href="#" style="--tag-color:#10b981">
+      <div class="tc-tag-name"># ai-tools <span>🔥 hot</span></div>
+      <div class="tc-tag-count">119</div>
+      <div class="tc-tag-label">posts this week</div>
+      <div class="tc-tag-bar"><div class="tc-tag-bar-fill" data-w="42" style="--bar-delay:0.25s"></div></div>
+      <div class="tc-trend">↑ 61%</div>
+    </a>
+
+    <!-- #5 -->
+    <a class="tc-tag" href="#" style="--tag-color:#8b5cf6">
+      <div class="tc-tag-name"># qbr</div>
+      <div class="tc-tag-count">97</div>
+      <div class="tc-tag-label">posts this week</div>
+      <div class="tc-tag-bar"><div class="tc-tag-bar-fill" data-w="34" style="--bar-delay:0.3s"></div></div>
+      <div class="tc-trend">↑ 12%</div>
+    </a>
+
+    <!-- #6 -->
+    <a class="tc-tag" href="#" style="--tag-color:#ec4899">
+      <div class="tc-tag-name"># churn-prevention</div>
+      <div class="tc-tag-count">84</div>
+      <div class="tc-tag-label">posts this week</div>
+      <div class="tc-tag-bar"><div class="tc-tag-bar-fill" data-w="30" style="--bar-delay:0.35s"></div></div>
+      <div class="tc-trend down">↓ 3%</div>
+    </a>
+
+  </div>
+</div>
+</section>
+
+<script>
+(function(){
+  // Animate bars when visible
+  function animateBars() {
+    document.querySelectorAll('.tc-tag-bar-fill').forEach(function(el){
+      el.style.width = el.getAttribute('data-w') + '%';
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(e){
+      if (e[0].isIntersecting) { animateBars(); io.disconnect(); }
+    }, { threshold: 0.2 });
+    io.observe(document.querySelector('.tc'));
+  } else {
+    setTimeout(animateBars, 300);
+  }
+}());
+</script>

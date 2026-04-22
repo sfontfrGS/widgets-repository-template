@@ -1,0 +1,395 @@
+<section class="ask">
+<style>
+.ask {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  padding: 24px 20px;
+}
+.ask * { box-sizing: border-box; }
+
+.ask-wrap { max-width: 1140px; margin: 0 auto; }
+
+.ask-header { margin-bottom: 18px; }
+.ask-header h2 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin: 0 0 4px;
+}
+.ask-header p {
+  font-size: 13px;
+  color: #a1a1aa;
+  margin: 0;
+}
+
+/* ── Search bar ── */
+.ask-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.ask-input-wrap {
+  flex: 1;
+  position: relative;
+}
+.ask-input-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px; height: 16px;
+  color: #a1a1aa;
+  pointer-events: none;
+}
+.ask-input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  padding: 0 12px 0 38px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #0a0a0a;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ask-input::placeholder { color: #a1a1aa; }
+.ask-input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.08);
+}
+.ask-btn {
+  height: 42px;
+  padding: 0 18px;
+  background: #7c3aed;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+.ask-btn:hover { background: #6d28d9; }
+
+/* ── Results ── */
+.ask-results { display: none; }
+.ask-results.visible { display: block; }
+
+.ask-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a1a1aa;
+  margin-bottom: 10px;
+}
+
+/* Answer card */
+.ask-answer {
+  border: 1px solid #e4e4e7;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.ask-answer::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: #7c3aed;
+  border-radius: 3px 0 0 3px;
+}
+.ask-answer-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.ask-answer-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: #f5f3ff;
+  color: #7c3aed;
+  border: 1px solid #ede9fe;
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+.ask-answer-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #18181b;
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+.ask-answer-excerpt {
+  font-size: 12px;
+  color: #52525b;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ask-answer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f4f4f5;
+}
+.ask-answer-stats {
+  display: flex;
+  gap: 10px;
+  font-size: 11px;
+  color: #a1a1aa;
+}
+.ask-answer-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7c3aed;
+  text-decoration: none;
+}
+.ask-answer-link:hover { text-decoration: underline; }
+
+/* Related topics grid */
+.ask-related {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.ask-related-card {
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ask-related-card:hover {
+  border-color: #c4b5fd;
+  background: #faf5ff;
+}
+.ask-related-tag {
+  font-size: 10px;
+  font-weight: 600;
+  color: #7c3aed;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ask-related-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #18181b;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ask-related-meta { font-size: 11px; color: #a1a1aa; }
+
+/* empty / loading */
+.ask-empty {
+  text-align: center;
+  padding: 28px 0;
+  color: #a1a1aa;
+  font-size: 13px;
+  display: none;
+}
+.ask-empty.visible { display: block; }
+
+/* Suggested prompts */
+.ask-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 0;
+}
+.ask-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3f3f46;
+  cursor: pointer;
+  background: #ffffff;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.ask-chip:hover {
+  border-color: #c4b5fd;
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+</style>
+
+<div class="ask-wrap">
+  <div class="ask-header">
+    <h2>Community Ask</h2>
+    <p>Search the community for answers or find related discussions</p>
+  </div>
+
+  <!-- Search -->
+  <div class="ask-form">
+    <div class="ask-input-wrap">
+      <svg class="ask-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input class="ask-input" id="askInput" type="text" placeholder="Ask a question or search topics…" autocomplete="off">
+    </div>
+    <button class="ask-btn" id="askBtn">Search</button>
+  </div>
+
+  <!-- Suggested prompts -->
+  <div class="ask-suggestions" id="askSuggestions">
+    <button class="ask-chip" onclick="runSearch('How to reduce churn?')">How to reduce churn?</button>
+    <button class="ask-chip" onclick="runSearch('Best onboarding practices')">Best onboarding practices</button>
+    <button class="ask-chip" onclick="runSearch('QBR templates')">QBR templates</button>
+    <button class="ask-chip" onclick="runSearch('AI in customer success')">AI in customer success</button>
+  </div>
+
+  <!-- Results -->
+  <div class="ask-results" id="askResults">
+    <div style="margin-top:20px">
+      <div class="ask-section-label">Best match</div>
+      <div class="ask-answer">
+        <div class="ask-answer-meta">
+          <span class="ask-answer-badge">Top Answer</span>
+        </div>
+        <div class="ask-answer-title" id="askAnswerTitle"></div>
+        <div class="ask-answer-excerpt" id="askAnswerExcerpt"></div>
+        <div class="ask-answer-footer">
+          <div class="ask-answer-stats">
+            <span id="askAnswerViews">👁 2.1k views</span>
+            <span id="askAnswerReplies">💬 34 replies</span>
+          </div>
+          <a class="ask-answer-link" href="#">Read discussion →</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="ask-section-label">Related discussions</div>
+      <div class="ask-related" id="askRelated"></div>
+    </div>
+  </div>
+
+  <div class="ask-empty" id="askEmpty">No results found. <a href="#" style="color:#7c3aed;text-decoration:none;font-weight:600">Start a new discussion →</a></div>
+</div>
+</section>
+
+<script>
+(function(){
+  var DATA = {
+    'churn': {
+      title: 'Proven strategies to reduce churn in the first 90 days',
+      excerpt: 'The first 90 days are critical. Teams that implement structured check-ins and early health scoring see up to 40% lower churn rates. Here\'s the exact playbook we used at two companies.',
+      views: '3.2k', replies: '47',
+      related: [
+        { tag: 'churn-prevention', title: 'Early warning signals every CS team should track', meta: '28 replies' },
+        { tag: 'onboarding', title: 'The 30-60-90 day onboarding framework', meta: '19 replies' },
+        { tag: 'health-scores', title: 'Building a customer health score from scratch', meta: '33 replies' }
+      ]
+    },
+    'onboarding': {
+      title: 'The complete guide to SaaS customer onboarding in 2025',
+      excerpt: 'Onboarding is where retention is won or lost. This post covers the five phases of onboarding, common failure points, and the tools teams are using to automate the routine parts.',
+      views: '2.8k', replies: '38',
+      related: [
+        { tag: 'onboarding', title: 'Video vs written onboarding: what actually works', meta: '14 replies' },
+        { tag: 'cs-ops', title: 'Automating onboarding touchpoints with low effort', meta: '22 replies' },
+        { tag: 'product-led', title: 'PLG onboarding vs high-touch: when to use each', meta: '17 replies' }
+      ]
+    },
+    'qbr': {
+      title: 'How to run QBRs that customers actually look forward to',
+      excerpt: 'Most QBRs are a waste of time — for both sides. This discussion breaks down what top CS teams do differently: smaller decks, outcome focus, and co-creating the agenda with customers.',
+      views: '1.9k', replies: '29',
+      related: [
+        { tag: 'qbr', title: 'QBR deck template that works for enterprise', meta: '41 replies' },
+        { tag: 'exec-alignment', title: 'Getting executive buy-in for your QBR program', meta: '11 replies' },
+        { tag: 'cs-ops', title: 'Running QBRs at scale with a small team', meta: '24 replies' }
+      ]
+    },
+    'ai': {
+      title: 'AI tools your customer success team should be using right now',
+      excerpt: 'From call summarisation to proactive health scoring, AI is changing what\'s possible for CS teams. Here\'s what\'s actually working in practice — not just the hype.',
+      views: '4.1k', replies: '61',
+      related: [
+        { tag: 'ai-tools', title: 'Using AI to detect churn signals before they\'re obvious', meta: '37 replies' },
+        { tag: 'automation', title: 'Which CS tasks are actually worth automating?', meta: '28 replies' },
+        { tag: 'ai-tools', title: 'Prompt templates CS teams are using with ChatGPT', meta: '19 replies' }
+      ]
+    }
+  };
+
+  function matchData(q) {
+    q = q.toLowerCase();
+    if (q.match(/churn|retain|renew/))       return DATA.churn;
+    if (q.match(/onboard|start|setup|begin/)) return DATA.onboarding;
+    if (q.match(/qbr|quarter|review/))        return DATA.qbr;
+    if (q.match(/ai|artificial|gpt|ml|auto/)) return DATA.ai;
+    return null;
+  }
+
+  window.runSearch = function(q) {
+    document.getElementById('askInput').value = q;
+    doSearch(q);
+  };
+
+  function doSearch(q) {
+    if (!q.trim()) return;
+    var result = matchData(q);
+    var results = document.getElementById('askResults');
+    var empty   = document.getElementById('askEmpty');
+    var sugg    = document.getElementById('askSuggestions');
+
+    sugg.style.display = 'none';
+
+    if (result) {
+      empty.classList.remove('visible');
+      document.getElementById('askAnswerTitle').textContent   = result.title;
+      document.getElementById('askAnswerExcerpt').textContent = result.excerpt;
+      document.getElementById('askAnswerViews').textContent   = '👁 ' + result.views + ' views';
+      document.getElementById('askAnswerReplies').textContent = '💬 ' + result.replies + ' replies';
+      var rel = document.getElementById('askRelated');
+      rel.innerHTML = result.related.map(function(r){
+        return '<a class="ask-related-card" href="#"><div class="ask-related-tag"># '+r.tag+'</div><div class="ask-related-title">'+r.title+'</div><div class="ask-related-meta">'+r.meta+'</div></a>';
+      }).join('');
+      results.classList.add('visible');
+    } else {
+      results.classList.remove('visible');
+      empty.classList.add('visible');
+    }
+  }
+
+  document.getElementById('askBtn').addEventListener('click', function(){
+    doSearch(document.getElementById('askInput').value);
+  });
+  document.getElementById('askInput').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') doSearch(this.value);
+  });
+}());
+</script>

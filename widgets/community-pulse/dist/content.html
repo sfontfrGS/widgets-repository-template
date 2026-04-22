@@ -2,279 +2,226 @@
 <style>
 .cp {
   display: block;
-  width: 100%;
-  background: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #ffffff;
   -webkit-font-smoothing: antialiased;
-  border-bottom: 1px solid #e4e4e7;
+  box-sizing: border-box;
+  padding: 24px 20px;
 }
+.cp * { box-sizing: border-box; }
 
-.cp-bar {
+.cp-wrap {
   max-width: 1140px;
   margin: 0 auto;
-  height: 48px;
-  display: flex;
-  align-items: stretch;
-  padding: 0 20px;
 }
 
-/* ── Segment ── */
-.cp-seg {
+.cp-heading {
+  margin-bottom: 16px;
+}
+.cp-heading h2 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin: 0;
+}
+
+.cp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ── Card base ── */
+.cp-card {
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cp-card:hover {
+  border-color: #c4b5fd;
+  box-shadow: 0 4px 16px rgba(124,58,237,0.07);
+}
+
+.cp-card-label {
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 0 18px;
-  position: relative;
-  flex-shrink: 0;
-}
-.cp-seg:first-child { padding-left: 0; }
-.cp-seg:last-child  { padding-right: 0; }
-
-/* vertical divider between segments */
-.cp-seg + .cp-seg::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 25%; bottom: 25%;
-  width: 1px;
-  background: #e4e4e7;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a1a1aa;
 }
 
-/* ── Live dot ── */
+/* live dot */
 .cp-dot {
   width: 7px; height: 7px;
   border-radius: 50%;
   background: #22c55e;
   flex-shrink: 0;
   animation: cpBreathe 2s ease-in-out infinite;
-  box-shadow: 0 0 0 0 rgba(34,197,94,0.4);
 }
 @keyframes cpBreathe {
-  0%,100% { transform: scale(1);   opacity: 1;   box-shadow: 0 0 0 0   rgba(34,197,94,0.4); }
-  50%      { transform: scale(0.7); opacity: 0.5; box-shadow: 0 0 0 5px rgba(34,197,94,0);   }
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.45; transform:scale(0.65); }
 }
 
-/* ── Labels ── */
-.cp-tag {
-  font-size: 11px;
-  font-weight: 500;
-  color: #a1a1aa;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-}
-
-.cp-val {
-  font-size: 14px;
-  font-weight: 700;
+/* big number */
+.cp-number {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
   color: #0a0a0a;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
 
-/* ── Trending — fills remaining space ── */
-.cp-seg-trend {
+.cp-sublabel {
+  font-size: 12px;
+  color: #71717a;
+  margin-top: -4px;
+}
+
+/* sparkline bar chart */
+.cp-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 32px;
+  margin-top: 4px;
+}
+.cp-bar-item {
   flex: 1;
-  min-width: 0;
-  cursor: pointer;
-  position: relative;
+  border-radius: 3px 3px 0 0;
+  background: #ede9fe;
+  transition: background 0.15s ease;
+  min-height: 4px;
 }
-.cp-trend-pill {
-  display: inline-flex;
+.cp-bar-item.active { background: #7c3aed; }
+.cp-bars:hover .cp-bar-item { background: #ddd6fe; }
+.cp-bars:hover .cp-bar-item.active { background: #6d28d9; }
+
+/* posts card — recent list */
+.cp-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 2px;
+}
+.cp-post-row {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  background: #f5f3ff;
-  border: 1px solid #ede9fe;
-  border-radius: 999px;
-  padding: 3px 10px 3px 7px;
-  max-width: 100%;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f4f4f5;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.12s ease;
+  border-radius: 4px;
 }
-.cp-trend-badge {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #7c3aed;
+.cp-post-row:last-child { border-bottom: none; }
+.cp-post-row:hover { background: #faf5ff; padding-left: 4px; padding-right: 4px; margin: 0 -4px; }
+
+.cp-post-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #7c3aed;
   flex-shrink: 0;
+  opacity: 0.5;
 }
-.cp-trend-text {
+.cp-post-title {
+  flex: 1;
   font-size: 12px;
   font-weight: 500;
-  color: #3f3f46;
+  color: #18181b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: opacity 0.35s ease;
 }
-.cp-trend-text.fade { opacity: 0; }
-
-/* Tooltip */
-.cp-tooltip {
-  display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 18px;
-  background: #ffffff;
-  border: 1px solid #e4e4e7;
-  border-radius: 10px;
-  padding: 12px 14px;
-  width: 256px;
-  z-index: 200;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.05);
-}
-.cp-seg-trend:hover .cp-tooltip { display: block; }
-.cp-tip-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #0a0a0a;
-  margin-bottom: 4px;
-  line-height: 1.4;
-}
-.cp-tip-meta { font-size: 11px; color: #71717a; }
-
-/* ── Top contributor ── */
-.cp-avatar {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #7c3aed, #0ea5e9);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px;
-  font-weight: 700;
-  color: #fff;
+.cp-post-time {
+  font-size: 11px;
+  color: #a1a1aa;
   flex-shrink: 0;
-}
-.cp-contrib-name {
-  font-size: 12px;
-  font-weight: 500;
-  color: #3f3f46;
   white-space: nowrap;
-}
-
-/* ── CTA button ── */
-.cp-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: #7c3aed;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  padding: 7px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  white-space: nowrap;
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.15s ease, transform 0.1s ease;
-  flex-shrink: 0;
-}
-.cp-cta:hover { background: #6d28d9; transform: scale(1.02); }
-/* shimmer sweep */
-.cp-cta::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -80%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-  transform: skewX(-15deg);
-}
-.cp-cta:hover::after {
-  animation: cpShimmer 0.5s ease forwards;
-}
-@keyframes cpShimmer {
-  from { left: -80%; }
-  to   { left: 140%; }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .cp-seg-posts, .cp-seg-contrib, .cp-seg-cta { display: none; }
 }
 </style>
 
-<div class="cp-bar">
+<div class="cp-wrap">
+  <div class="cp-heading"><h2>Community Pulse</h2></div>
+  <div class="cp-grid">
 
-  <!-- Online -->
-  <div class="cp-seg">
-    <span class="cp-dot"></span>
-    <span class="cp-val" id="cpOnline">847</span>
-    <span class="cp-tag">online</span>
-  </div>
-
-  <!-- Posts today -->
-  <div class="cp-seg cp-seg-posts">
-    <span class="cp-val" id="cpPosts">63</span>
-    <span class="cp-tag">new posts today</span>
-  </div>
-
-  <!-- Trending -->
-  <div class="cp-seg cp-seg-trend">
-    <div class="cp-trend-pill">
-      <span class="cp-trend-badge">🔥 Trending</span>
-      <span class="cp-trend-text" id="cpTrend">How to reduce churn in your first 90 days</span>
+    <!-- Active users -->
+    <div class="cp-card">
+      <div class="cp-card-label">
+        <span class="cp-dot"></span>
+        Active members right now
+      </div>
+      <div class="cp-number" id="cpOnline">0</div>
+      <div class="cp-sublabel">people online in the last 15 minutes</div>
+      <!-- sparkline — hourly activity -->
+      <div class="cp-bars" title="Hourly activity today">
+        <div class="cp-bar-item" style="height:35%"></div>
+        <div class="cp-bar-item" style="height:28%"></div>
+        <div class="cp-bar-item" style="height:20%"></div>
+        <div class="cp-bar-item" style="height:45%"></div>
+        <div class="cp-bar-item" style="height:60%"></div>
+        <div class="cp-bar-item" style="height:55%"></div>
+        <div class="cp-bar-item" style="height:70%"></div>
+        <div class="cp-bar-item" style="height:80%"></div>
+        <div class="cp-bar-item" style="height:65%"></div>
+        <div class="cp-bar-item" style="height:72%"></div>
+        <div class="cp-bar-item" style="height:88%"></div>
+        <div class="cp-bar-item active" style="height:100%"></div>
+      </div>
     </div>
-    <div class="cp-tooltip">
-      <div class="cp-tip-title" id="cpTipTitle">How to reduce churn in your first 90 days</div>
-      <div class="cp-tip-meta" id="cpTipMeta">24 replies · Click to read</div>
+
+    <!-- New posts today -->
+    <div class="cp-card">
+      <div class="cp-card-label">New posts today</div>
+      <div class="cp-number" id="cpPosts">0</div>
+      <div class="cp-sublabel">topics started in the last 24 hours</div>
+      <div class="cp-posts-list">
+        <a class="cp-post-row" href="#">
+          <span class="cp-post-dot"></span>
+          <span class="cp-post-title">How to reduce churn in your first 90 days</span>
+          <span class="cp-post-time">2m ago</span>
+        </a>
+        <a class="cp-post-row" href="#">
+          <span class="cp-post-dot"></span>
+          <span class="cp-post-title">Best QBR templates for enterprise accounts</span>
+          <span class="cp-post-time">18m ago</span>
+        </a>
+        <a class="cp-post-row" href="#">
+          <span class="cp-post-dot"></span>
+          <span class="cp-post-title">AI tools your CS team should be using now</span>
+          <span class="cp-post-time">41m ago</span>
+        </a>
+      </div>
     </div>
-  </div>
 
-  <!-- Top contributor -->
-  <div class="cp-seg cp-seg-contrib">
-    <span class="cp-tag">🏆 Top</span>
-    <div class="cp-avatar">SM</div>
-    <span class="cp-contrib-name">Sergi M.</span>
   </div>
-
-  <!-- CTA -->
-  <div class="cp-seg cp-seg-cta">
-    <a class="cp-cta" href="#">+ Create Topic</a>
-  </div>
-
 </div>
 </section>
 
 <script>
 (function(){
-  var topics = [
-    { text: "How to reduce churn in your first 90 days",       replies: 24 },
-    { text: "Best QBR templates for enterprise accounts",       replies: 18 },
-    { text: "AI tools your CS team should be using now",        replies: 31 },
-    { text: "PLG vs sales-led: which motion fits your stage?",  replies: 12 }
-  ];
-  var i = 0;
-  var el = document.getElementById('cpTrend');
-  var tipTitle = document.getElementById('cpTipTitle');
-  var tipMeta  = document.getElementById('cpTipMeta');
-
-  function setTopic(idx) {
-    var t = topics[idx % topics.length];
-    el.classList.add('fade');
-    setTimeout(function(){
-      el.textContent       = t.text;
-      tipTitle.textContent = t.text;
-      tipMeta.textContent  = t.replies + ' replies · Click to read';
-      el.classList.remove('fade');
-    }, 350);
-  }
-
   function countUp(id, target, ms) {
-    var node = document.getElementById(id);
-    if (!node) return;
+    var el = document.getElementById(id);
+    if (!el) return;
     var start = Date.now();
     (function tick(){
-      var p = Math.min((Date.now() - start) / ms, 1);
-      var v = Math.round((1 - Math.pow(2, -8 * p)) * target);
-      node.textContent = v >= 1000 ? (v/1000).toFixed(1) + 'k' : v;
+      var p = Math.min((Date.now()-start)/ms, 1);
+      var v = Math.round((1-Math.pow(2,-8*p))*target);
+      el.textContent = v >= 1000 ? (v/1000).toFixed(1)+'k' : v;
       if (p < 1) requestAnimationFrame(tick);
     })();
   }
-
-  countUp('cpOnline', 847, 800);
-  countUp('cpPosts',   63, 600);
-  setInterval(function(){ i++; setTopic(i); }, 5000);
+  countUp('cpOnline', 847, 900);
+  countUp('cpPosts',   63, 700);
 }());
 </script>
