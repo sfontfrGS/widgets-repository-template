@@ -1,6 +1,6 @@
 {
-  "title": "Community Hero",
-  "description": "A personalized hero widget showing user activity metrics, impact stats, streak, weekly challenge progress and community engagement — designed to encourage participation.",
+  "title": "Home Hero",
+  "description": "A personalized hero widget showing user activity metrics, impact stats, streak, weekly challenge progress and community engagement.",
   "category": "Demo",
   "imageSrc": "thumbnail.png",
   "source": {
@@ -13,7 +13,7 @@
         "name": "title",
         "type": "text",
         "label": "Title",
-        "defaultValue": "Community Hero",
+        "defaultValue": "Home Hero",
         "rules": { "required": true }
       },
       {
@@ -25,7 +25,7 @@
     ]
   },
   "defaultConfig": {
-    "title": "Community Hero",
+    "title": "Home Hero",
     "description": "A personalized hero widget showing user activity metrics."
   }
 }

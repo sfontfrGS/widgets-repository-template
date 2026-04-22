@@ -205,7 +205,7 @@
       "type": "community-topics-bento"
     },
     {
-      "title": "Community Hero",
+      "title": "Home Hero",
       "description": "A personalized hero widget showing user activity metrics, impact stats, streak, weekly challenge progress and community engagement.",
       "category": "Demo",
       "imageSrc": "widgets/community-hero/thumbnail.png",
