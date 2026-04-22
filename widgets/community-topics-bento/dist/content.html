@@ -350,6 +350,37 @@
     });
   }
 
+  /* ── Security helpers ── */
+
+  // Only allow safe https:// or relative URLs — blocks javascript: and data: URIs
+  function safeUrl(url) {
+    if (!url || url === '#') return '#';
+    var s = String(url).trim();
+    if (/^https?:\/\//i.test(s) || /^\//.test(s)) return s;
+    return '#';
+  }
+
+  // Cap string fields to prevent oversized content
+  function cap(str, max) {
+    var s = String(str || '');
+    return s.length > max ? s.slice(0, max) : s;
+  }
+
+  // Sanitize a single post before rendering
+  function sanitizePost(p) {
+    return {
+      title:       cap(p.title, 200),
+      description: cap(p.description, 400),
+      forum:       cap(p.forum, 80),
+      type:        cap(p.type, 20).replace(/[^a-z]/g, ''),
+      views:       p.views,
+      reactions:   p.reactions,
+      replies:     p.replies,
+      url:         safeUrl(p.url),
+      imageUrl:    safeUrl(p.imageUrl)
+    };
+  }
+
   /* ── Try connector, fall back to sample data ── */
   var CONNECTOR_URL = '/widget-service/connectors/community-topics/execute';
 
@@ -359,11 +390,12 @@
       return r.json();
     })
     .then(function (data) {
-      var posts = mapApiPosts(data);
+      var posts = mapApiPosts(data)
+        .slice(0, 10)
+        .map(sanitizePost);
       renderFeed(posts.length ? posts : FALLBACK);
     })
     .catch(function () {
-      // Connector not set up yet — show sample data
       renderFeed(FALLBACK);
     });
 
