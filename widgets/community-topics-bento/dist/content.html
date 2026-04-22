@@ -1,411 +1,371 @@
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap');
 
-  .bento-root {
-    --accent: #6b5cf6;
-    --accent-light: #ede9fe;
-    --accent-mid: #8b7cf8;
-    --bg: #f7f7f8;
-    --card-bg: #ffffff;
-    --border: rgba(0,0,0,0.07);
-    --text-primary: #111118;
-    --text-secondary: #6b6b80;
-    --text-muted: #a0a0b0;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
-    --shadow-hover: 0 8px 32px rgba(107,92,246,0.12), 0 2px 8px rgba(0,0,0,0.06);
-    --radius: 14px;
-    --font-display: 'Syne', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    font-family: var(--font-body);
+  .w {
+    --accent: #5b50e8;
+    --accent-soft: #eeecfb;
+    --text-primary: #0f0f0f;
+    --text-secondary: #555;
+    --text-muted: #999;
+    --border: #e8e8e8;
+    --bg: #fff;
+    --row-hover: #fafafa;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+
+    font-family: var(--sans);
     background: var(--bg);
-    padding: 20px;
-    box-sizing: border-box;
-    min-height: 100%;
+    color: var(--text-primary);
+    padding: 0 4px;
   }
 
-  .bento-header {
+  /* ── Header ── */
+  .w-header {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 16px;
+    padding: 2px 0 14px;
+    border-bottom: 1.5px solid var(--text-primary);
+    margin-bottom: 0;
   }
 
-  .bento-header-title {
-    font-family: var(--font-display);
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+  .w-title {
+    font-family: var(--sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text-primary);
   }
 
-  .bento-header-link {
+  .w-viewall {
     font-size: 0.75rem;
     font-weight: 500;
     color: var(--accent);
     text-decoration: none;
-    opacity: 0.8;
-    transition: opacity 0.2s;
+    letter-spacing: 0;
   }
 
-  .bento-header-link:hover {
-    opacity: 1;
-  }
+  .w-viewall:hover { text-decoration: underline; }
 
-  /* Grid */
-  .bento-grid {
+  /* ── Row (each post) ── */
+  .w-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    gap: 10px;
-  }
-
-  /* Card base */
-  .bento-card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    padding: 18px 18px 14px;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 160px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+    border-radius: 4px;
   }
 
-  .bento-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
-    border-color: rgba(107, 92, 246, 0.18);
-  }
+  .w-row:hover { background: var(--row-hover); padding-left: 6px; padding-right: 6px; margin: 0 -6px; }
+  .w-row:hover .w-post-title { color: var(--accent); }
 
-  /* Size variants */
-  .bento-card--wide {
-    grid-column: span 2;
-  }
+  /* ── Post main content ── */
+  .w-post-main { min-width: 0; }
 
-  .bento-card--tall {
-    grid-row: span 2;
-    min-height: 340px;
-  }
-
-  .bento-card--featured {
-    grid-column: span 2;
-    min-height: 200px;
-    background: linear-gradient(135deg, #faf9ff 0%, #f0edfe 100%);
-    border-color: rgba(107,92,246,0.15);
-  }
-
-  /* Card top label */
-  .card-label {
+  .w-post-meta-top {
     font-size: 0.6875rem;
-    font-weight: 500;
     color: var(--text-muted);
-    letter-spacing: 0.01em;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    flex-shrink: 0;
   }
 
-  .card-label span {
+  .w-post-meta-top strong {
     color: var(--accent);
     font-weight: 600;
   }
 
-  /* Card body — content region */
-  .card-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-
-  /* Title */
-  .card-title {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-primary);
+  .w-post-title {
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    font-weight: 400;
     line-height: 1.35;
-    margin: 0;
+    color: var(--text-primary);
+    transition: color 0.15s;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    transition: color 0.2s ease, transform 0.2s ease;
-    flex-shrink: 0;
+    margin-bottom: 8px;
   }
 
-  .bento-card--wide .card-title,
-  .bento-card--featured .card-title {
-    font-size: 1.125rem;
+  /* First row gets larger serif title */
+  .w-row:first-of-type .w-post-title {
+    font-size: 1.25rem;
     -webkit-line-clamp: 2;
   }
 
-  .bento-card--tall .card-title {
-    font-size: 1.0625rem;
-    -webkit-line-clamp: 3;
-  }
-
-  .bento-card:hover .card-title {
-    color: var(--accent);
-  }
-
-  /* Description — hidden by default, fades in on hover */
-  .card-desc {
+  .w-post-desc {
     font-size: 0.8125rem;
-    font-weight: 300;
     color: var(--text-secondary);
-    line-height: 1.55;
-    margin-top: 8px;
+    line-height: 1.5;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    opacity: 0;
-    max-height: 0;
-    transition: opacity 0.25s ease, max-height 0.3s ease, margin-top 0.2s ease;
+    margin-bottom: 10px;
   }
 
-  .bento-card:hover .card-desc {
-    opacity: 1;
-    max-height: 80px;
-  }
-
-  /* Metadata footer */
-  .card-meta {
+  .w-post-footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 14px;
-    padding-top: 10px;
-    border-top: 1px solid var(--border);
-    flex-shrink: 0;
+    gap: 12px;
   }
 
-  .card-meta-stats {
+  .w-stat {
     display: flex;
     align-items: center;
-    gap: 10px;
-  }
-
-  .card-stat {
-    display: flex;
-    align-items: center;
-    gap: 3px;
+    gap: 4px;
     font-size: 0.6875rem;
-    font-weight: 500;
     color: var(--text-muted);
     white-space: nowrap;
   }
 
-  .card-stat svg {
-    width: 12px;
-    height: 12px;
+  .w-stat svg {
+    width: 11px;
+    height: 11px;
+    opacity: 0.65;
     flex-shrink: 0;
-    opacity: 0.7;
   }
 
-  /* Badge */
-  .card-badge {
+  .w-badge {
     font-size: 0.625rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    padding: 3px 7px;
-    border-radius: 5px;
-    background: var(--accent-light);
-    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid currentColor;
     white-space: nowrap;
+  }
+
+  .w-badge--article  { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .w-badge--discussion { color: #0a7a5f; border-color: #0a7a5f; background: #e8f5f1; }
+  .w-badge--question { color: #b45309; border-color: #b45309; background: #fef3e2; }
+  .w-badge--event    { color: #6d28d9; border-color: #6d28d9; background: #f5f0ff; }
+
+  /* ── Right thumbnail (optional) ── */
+  .w-post-thumb {
+    width: 72px;
+    height: 56px;
+    border-radius: 4px;
+    object-fit: cover;
     flex-shrink: 0;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
   }
 
-  .card-badge--discussion {
-    background: #e6f4f1;
-    color: #0d7a60;
+  .w-post-thumb-placeholder {
+    width: 72px;
+    height: 56px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent-soft), #e0ddf8);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .card-badge--question {
-    background: #fff4e5;
-    color: #b45309;
+  .w-post-thumb-placeholder svg {
+    width: 20px;
+    height: 20px;
+    opacity: 0.3;
   }
 
-  .card-badge--article {
-    background: var(--accent-light);
-    color: var(--accent);
+  /* ── Loading / error ── */
+  .w-loading, .w-empty {
+    padding: 32px 0;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
   }
 
-  /* Accent bar on featured card */
-  .bento-card--featured::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-mid));
-    border-radius: var(--radius) var(--radius) 0 0;
-  }
-
-  /* Subtle dot pattern on tall card */
-  .bento-card--tall::after {
-    content: '';
-    position: absolute;
-    bottom: -10px; right: -10px;
-    width: 80px;
-    height: 80px;
-    background-image: radial-gradient(circle, rgba(107,92,246,0.12) 1.5px, transparent 1.5px);
-    background-size: 10px 10px;
+  .w-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
     border-radius: 50%;
-    pointer-events: none;
+    animation: spin 0.7s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
   }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 
-<div class="bento-root">
-
-  <div class="bento-header">
-    <span class="bento-header-title">Community Topics</span>
-    <a class="bento-header-link" href="#">View all →</a>
+<div class="w">
+  <div class="w-header">
+    <span class="w-title">Community Topics</span>
+    <a class="w-viewall" href="#" id="w-viewall-link">View all →</a>
   </div>
 
-  <div class="bento-grid">
-
-    <!-- Card 1: Wide + Featured -->
-    <div class="bento-card bento-card--wide bento-card--featured">
-      <div class="card-label">Posted in <span>Product Strategy</span></div>
-      <div class="card-body">
-        <p class="card-title">How we redesigned our onboarding flow and doubled activation rates in 60 days</p>
-        <p class="card-desc">A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation. Includes a breakdown of the A/B tests we ran and the surprising results.</p>
-      </div>
-      <div class="card-meta">
-        <div class="card-meta-stats">
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
-            3.2k
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
-            148
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
-            34
-          </span>
-        </div>
-        <span class="card-badge card-badge--article">Article</span>
-      </div>
-    </div>
-
-    <!-- Card 2: Tall -->
-    <div class="bento-card bento-card--tall">
-      <div class="card-label">Posted in <span>Customer Success</span></div>
-      <div class="card-body">
-        <p class="card-title">Building a scalable QBR process for enterprise accounts without burning out your CS team</p>
-        <p class="card-desc">Templates, automation strategies, and the exact Notion setup we use to run QBRs at scale — covering 200+ accounts with a team of four.</p>
-      </div>
-      <div class="card-meta">
-        <div class="card-meta-stats">
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
-            1.8k
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
-            92
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
-            57
-          </span>
-        </div>
-        <span class="card-badge card-badge--discussion">Discussion</span>
-      </div>
-    </div>
-
-    <!-- Card 3: Normal -->
-    <div class="bento-card">
-      <div class="card-label">Posted in <span>Growth</span></div>
-      <div class="card-body">
-        <p class="card-title">Is PLG still the right motion for B2B SaaS in 2025?</p>
-        <p class="card-desc">The landscape has shifted. What does product-led growth actually look like today, and when should you layer in sales?</p>
-      </div>
-      <div class="card-meta">
-        <div class="card-meta-stats">
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
-            940
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
-            61
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
-            28
-          </span>
-        </div>
-        <span class="card-badge card-badge--question">Question</span>
-      </div>
-    </div>
-
-    <!-- Card 4: Normal -->
-    <div class="bento-card">
-      <div class="card-label">Posted in <span>Ops &amp; Tooling</span></div>
-      <div class="card-body">
-        <p class="card-title">Our 2025 CS tech stack — what stayed, what got cut</p>
-        <p class="card-desc">After a full audit of our tooling costs and usage, here's what we kept and why.</p>
-      </div>
-      <div class="card-meta">
-        <div class="card-meta-stats">
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
-            2.1k
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
-            77
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
-            41
-          </span>
-        </div>
-        <span class="card-badge card-badge--article">Article</span>
-      </div>
-    </div>
-
-    <!-- Card 5: Wide -->
-    <div class="bento-card bento-card--wide">
-      <div class="card-label">Posted in <span>Community Announcements</span></div>
-      <div class="card-body">
-        <p class="card-title">Pulse 2025 recap: the 5 themes that will define CS this year</p>
-        <p class="card-desc">From AI-assisted workflows to the return of high-touch, here's what stood out across three days of sessions and conversations.</p>
-      </div>
-      <div class="card-meta">
-        <div class="card-meta-stats">
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>
-            4.7k
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>
-            203
-          </span>
-          <span class="card-stat">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>
-            89
-          </span>
-        </div>
-        <span class="card-badge card-badge--article">Article</span>
-      </div>
-    </div>
-
+  <div id="w-feed">
+    <div class="w-loading"><span class="w-spinner"></span>Loading posts…</div>
   </div>
 </div>
+
+<script>
+(function () {
+
+  /* ── Fallback sample data (shown if connector not configured) ── */
+  var FALLBACK = [
+    {
+      title: "How we redesigned our onboarding flow and doubled activation rates in 60 days",
+      description: "A deep dive into the research, experiments, and design decisions that led to a 2× improvement in user activation.",
+      forum: "Product Strategy",
+      type: "article",
+      views: "3.2k", reactions: "148", replies: "34",
+      url: "#"
+    },
+    {
+      title: "Building a scalable QBR process for enterprise accounts without burning out your CS team",
+      description: "Templates, automation strategies, and the exact setup we use to run QBRs at scale — covering 200+ accounts with a team of four.",
+      forum: "Customer Success",
+      type: "discussion",
+      views: "1.8k", reactions: "92", replies: "57",
+      url: "#"
+    },
+    {
+      title: "Is PLG still the right motion for B2B SaaS in 2025?",
+      description: "The landscape has shifted. What does product-led growth actually look like today, and when should you layer in sales?",
+      forum: "Growth",
+      type: "question",
+      views: "940", reactions: "61", replies: "28",
+      url: "#"
+    },
+    {
+      title: "Our 2025 CS tech stack — what stayed, what got cut",
+      description: "After a full audit of tooling costs and usage, here's what we kept and why.",
+      forum: "Ops & Tooling",
+      type: "article",
+      views: "2.1k", reactions: "77", replies: "41",
+      url: "#"
+    },
+    {
+      title: "Pulse 2025 recap: the 5 themes that will define CS this year",
+      description: "From AI-assisted workflows to the return of high-touch, here's what stood out across three days of sessions.",
+      forum: "Community Announcements",
+      type: "article",
+      views: "4.7k", reactions: "203", replies: "89",
+      url: "#"
+    }
+  ];
+
+  /* ── Icon SVGs ── */
+  var ICONS = {
+    eye:     '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>',
+    star:    '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 10l-3.1 1.4.6-3.5L3 5.5 6.5 5z"/></svg>',
+    comment: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 10a2 2 0 0 1-2 2H4l-3 3V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v6z"/></svg>'
+  };
+
+  function badgeClass(type) {
+    var map = { article: 'w-badge--article', discussion: 'w-badge--discussion', question: 'w-badge--question', event: 'w-badge--event' };
+    return map[type] || 'w-badge--article';
+  }
+
+  function formatNum(n) {
+    if (!n && n !== 0) return '0';
+    if (typeof n === 'string') return n;
+    return n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : String(n);
+  }
+
+  function renderRow(post, isFirst) {
+    var typeLabel = post.type ? post.type.charAt(0).toUpperCase() + post.type.slice(1) : 'Article';
+    var bClass = badgeClass((post.type || 'article').toLowerCase());
+
+    var thumb = '';
+    if (post.imageUrl) {
+      thumb = '<img class="w-post-thumb" src="' + post.imageUrl + '" alt="" onerror="this.style.display=\'none\'">';
+    }
+
+    var desc = post.description
+      ? '<div class="w-post-desc">' + esc(post.description) + '</div>'
+      : '';
+
+    var href = post.url && post.url !== '#' ? post.url : (post.seoCommunityUrl || '#');
+
+    return '<a class="w-row" href="' + esc(href) + '" target="_blank" rel="noopener">'
+      + '<div class="w-post-main">'
+      +   '<div class="w-post-meta-top">Posted in <strong>' + esc(post.forum || post.category || '') + '</strong></div>'
+      +   '<div class="w-post-title">' + esc(post.title || '') + '</div>'
+      +   desc
+      +   '<div class="w-post-footer">'
+      +     '<span class="w-stat">' + ICONS.eye    + esc(formatNum(post.views))     + '</span>'
+      +     '<span class="w-stat">' + ICONS.star   + esc(formatNum(post.reactions)) + '</span>'
+      +     '<span class="w-stat">' + ICONS.comment + esc(formatNum(post.replies))  + '</span>'
+      +     '<span class="w-badge ' + bClass + '">' + esc(typeLabel) + '</span>'
+      +   '</div>'
+      + '</div>'
+      + thumb
+      + '</a>';
+  }
+
+  function esc(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderFeed(posts) {
+    var feed = document.getElementById('w-feed');
+    if (!posts || !posts.length) {
+      feed.innerHTML = '<div class="w-empty">No posts found.</div>';
+      return;
+    }
+    feed.innerHTML = posts.map(function (p, i) { return renderRow(p, i === 0); }).join('');
+  }
+
+  /* ── Map raw Gainsight Community API response → our post shape ── */
+  function mapApiPosts(data) {
+    var items = [];
+    // Handle array or {items:[...]} or {topics:[...]} shapes
+    if (Array.isArray(data)) items = data;
+    else if (data && Array.isArray(data.items)) items = data.items;
+    else if (data && Array.isArray(data.topics)) items = data.topics;
+    else if (data && Array.isArray(data.results)) items = data.results;
+
+    return items.map(function (p) {
+      return {
+        title:       p.title || p.name || '',
+        description: p.description || p.excerpt || p.body_excerpt || '',
+        forum:       (p.forum && p.forum.name) || p.category || p.forumName || '',
+        type:        (p.contentType || p.type || 'article').toLowerCase(),
+        views:       p.viewsCount || p.views || 0,
+        reactions:   p.likesCount || p.reactions || p.likes || 0,
+        replies:     p.answersCount || p.commentsCount || p.replies || 0,
+        url:         p.seoCommunityUrl || p.url || p.link || '#',
+        imageUrl:    p.imageUrl || p.thumbnailUrl || ''
+      };
+    });
+  }
+
+  /* ── Try connector, fall back to sample data ── */
+  var CONNECTOR_URL = '/widget-service/connectors/community-topics/execute';
+
+  fetch(CONNECTOR_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('connector-unavailable');
+      return r.json();
+    })
+    .then(function (data) {
+      var posts = mapApiPosts(data);
+      renderFeed(posts.length ? posts : FALLBACK);
+    })
+    .catch(function () {
+      // Connector not set up yet — show sample data
+      renderFeed(FALLBACK);
+    });
+
+})();
+</script>
