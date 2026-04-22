@@ -245,45 +245,86 @@ a.g, button.g { cursor:pointer; }
 .g-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-
 .mm-body { display:grid; grid-template-columns:1fr 200px; gap:16px; align-items:start; }
-#mmMap { width:100%; border:1px solid #e4e4e7; border-radius:10px; overflow:hidden; background:#f9f9fb; min-height:220px; display:flex; align-items:center; justify-content:center; }
+.mm-map-wrap { border:1px solid #e4e4e7; border-radius:10px; overflow:hidden; background:#f9f9fb; }
 .mm-loc { display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid #f4f4f5; }
 .mm-loc:last-child { border-bottom:none; }
 .mm-bar { width:36px; height:4px; background:#f4f4f5; border-radius:999px; overflow:hidden; flex-shrink:0; }
-.mm-bar-fill { height:100%; background:#7c3aed; border-radius:999px; transition:width .8s ease; }
+.mm-fill { height:100%; background:#7c3aed; border-radius:999px; }
 
+.g-widget-heading { font-size:28px; font-weight:700; letter-spacing:-.025em; color:#111; line-height:1.15; margin:0 0 3px; }
+.g-widget-heading-sub { font-size:13px; color:#71717a; margin:0; }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/svgmap@2.19.2/dist/svg-map.min.css">
 <div class="g-wrap">
   <div class="g-header">
     <span class="g-widget-label">🌍 Member Map</span>
     <span class="g-subtle">2,341 members · 48 countries</span>
   </div>
   <div class="mm-body">
-    <div id="mmMap"></div>
+    <div class="mm-map-wrap">
+      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;background:#f9f9fb">
+  <style>
+    .land { fill:#e4e4e7; stroke:#fff; stroke-width:0.5; transition:fill .2s; cursor:pointer; }
+    .land:hover { fill:#ddd6fe; }
+    .land.hi { fill:#7c3aed; }
+    .land.mid { fill:#a78bfa; }
+    .land.low { fill:#c4b5fd; }
+    .pin { fill:#7c3aed; stroke:#fff; stroke-width:1.5; animation:pinPulse 2s ease-in-out infinite; transform-origin:center; cursor:pointer; }
+    .pin-ring { fill:none; stroke:#7c3aed; stroke-width:1; animation:ringExpand 2s ease-in-out infinite; opacity:0; }
+    @keyframes pinPulse { 0%,100%{r:5} 50%{r:4} }
+    @keyframes ringExpand { 0%{r:5;opacity:.6} 100%{r:12;opacity:0} }
+  </style>
+  <!-- Continents — simplified Natural Earth paths -->
+  <!-- North America -->
+  <path class="land hi" d="M80,60 L90,55 L130,50 L160,45 L185,60 L200,80 L210,100 L215,130 L205,160 L195,185 L175,200 L160,210 L140,220 L125,225 L115,215 L105,200 L95,180 L85,160 L75,140 L70,110 L72,85 Z"/>
+  <!-- Greenland -->
+  <path class="land" d="M185,20 L210,15 L225,25 L220,45 L200,50 L185,40 Z"/>
+  <!-- Central America -->
+  <path class="land" d="M160,210 L175,215 L185,230 L180,245 L165,250 L155,240 L150,225 Z"/>
+  <!-- Caribbean -->
+  <path class="land" d="M195,215 L205,212 L210,220 L200,225 Z"/>
+  <!-- South America -->
+  <path class="land mid" d="M155,255 L175,245 L200,250 L215,260 L225,280 L230,310 L225,340 L215,370 L200,395 L185,410 L170,415 L155,405 L145,385 L140,355 L138,325 L140,295 L145,270 Z"/>
+  <!-- Europe -->
+  <path class="land hi" d="M400,60 L415,55 L435,58 L450,65 L455,80 L448,95 L435,105 L420,110 L408,105 L398,95 L393,80 L396,68 Z"/>
+  <!-- UK -->
+  <path class="land" d="M383,62 L393,58 L396,68 L388,75 L380,70 Z"/>
+  <!-- Scandinavia -->
+  <path class="land" d="M410,35 L425,28 L435,35 L438,50 L430,58 L415,55 L408,45 Z"/>
+  <!-- Africa -->
+  <path class="land mid" d="M390,125 L415,118 L440,120 L460,130 L470,155 L472,185 L468,215 L455,245 L440,270 L420,290 L400,300 L380,295 L362,280 L352,258 L348,230 L350,200 L355,170 L362,148 L375,132 Z"/>
+  <!-- Madagascar -->
+  <path class="land" d="M468,258 L475,252 L480,265 L476,280 L468,275 Z"/>
+  <!-- Middle East -->
+  <path class="land" d="M455,100 L480,95 L500,100 L510,115 L505,130 L490,138 L470,135 L458,122 Z"/>
+  <!-- Russia/Central Asia -->
+  <path class="land" d="M440,30 L500,20 L570,18 L630,22 L670,30 L690,45 L685,65 L660,75 L620,78 L575,72 L530,65 L490,58 L455,55 L442,45 Z"/>
+  <!-- China/East Asia -->
+  <path class="land hi" d="M620,65 L670,60 L710,65 L735,80 L740,100 L730,120 L710,132 L685,135 L658,128 L638,115 L625,98 L618,80 Z"/>
+  <!-- India -->
+  <path class="land mid" d="M510,120 L540,115 L565,122 L575,145 L570,170 L555,190 L535,198 L518,190 L508,168 L505,145 Z"/>
+  <!-- Southeast Asia -->
+  <path class="land" d="M645,150 L670,145 L688,155 L692,170 L680,182 L660,180 L645,168 Z"/>
+  <!-- Japan -->
+  <path class="land" d="M730,85 L742,80 L748,92 L740,100 L730,95 Z"/>
+  <!-- Indonesia -->
+  <path class="land" d="M660,195 L695,190 L715,195 L718,208 L700,215 L665,210 Z"/>
+  <path class="land" d="M720,195 L748,192 L755,202 L745,212 L722,208 Z"/>
+  <!-- Australia -->
+  <path class="land low" d="M680,300 L720,290 L760,292 L790,305 L800,330 L795,358 L778,375 L748,382 L718,375 L698,358 L685,335 L680,312 Z"/>
+  <!-- New Zealand -->
+  <path class="land" d="M810,360 L820,355 L825,368 L818,378 L810,372 Z"/>
+</svg>
+    </div>
     <div>
       <div class="g-widget-label" style="margin-bottom:10px">Top locations</div>
-      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">1</span><span style="font-size:16px;flex-shrink:0">🇺🇸</span><div style="flex:1;min-width:0"><div class="g-body-s">United States</div><div class="g-subtle">312</div></div><div class="mm-bar"><div class="mm-bar-fill" style="width:100%"></div></div></div>
-      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">2</span><span style="font-size:16px;flex-shrink:0">🇬🇧</span><div style="flex:1;min-width:0"><div class="g-body-s">United Kingdom</div><div class="g-subtle">241</div></div><div class="mm-bar"><div class="mm-bar-fill" style="width:77%"></div></div></div>
-      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">3</span><span style="font-size:16px;flex-shrink:0">🇩🇪</span><div style="flex:1;min-width:0"><div class="g-body-s">Germany</div><div class="g-subtle">189</div></div><div class="mm-bar"><div class="mm-bar-fill" style="width:61%"></div></div></div>
-      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">4</span><span style="font-size:16px;flex-shrink:0">🇸🇬</span><div style="flex:1;min-width:0"><div class="g-body-s">Singapore</div><div class="g-subtle">167</div></div><div class="mm-bar"><div class="mm-bar-fill" style="width:54%"></div></div></div>
-      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">5</span><span style="font-size:16px;flex-shrink:0">🇦🇺</span><div style="flex:1;min-width:0"><div class="g-body-s">Australia</div><div class="g-subtle">134</div></div><div class="mm-bar"><div class="mm-bar-fill" style="width:43%"></div></div></div>
-      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">6</span><span style="font-size:16px;flex-shrink:0">🇧🇷</span><div style="flex:1;min-width:0"><div class="g-body-s">Brazil</div><div class="g-subtle">98</div></div><div class="mm-bar"><div class="mm-bar-fill" style="width:31%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">1</span><span style="font-size:16px;flex-shrink:0">🇺🇸</span><div style="flex:1;min-width:0"><div class="g-body-s">United States</div><div class="g-subtle">312</div></div><div class="mm-bar"><div class="mm-fill" style="width:100%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">2</span><span style="font-size:16px;flex-shrink:0">🇬🇧</span><div style="flex:1;min-width:0"><div class="g-body-s">United Kingdom</div><div class="g-subtle">241</div></div><div class="mm-bar"><div class="mm-fill" style="width:77%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">3</span><span style="font-size:16px;flex-shrink:0">🇩🇪</span><div style="flex:1;min-width:0"><div class="g-body-s">Germany</div><div class="g-subtle">189</div></div><div class="mm-bar"><div class="mm-fill" style="width:61%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">4</span><span style="font-size:16px;flex-shrink:0">🇸🇬</span><div style="flex:1;min-width:0"><div class="g-body-s">Singapore</div><div class="g-subtle">167</div></div><div class="mm-bar"><div class="mm-fill" style="width:54%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">5</span><span style="font-size:16px;flex-shrink:0">🇦🇺</span><div style="flex:1;min-width:0"><div class="g-body-s">Australia</div><div class="g-subtle">134</div></div><div class="mm-bar"><div class="mm-fill" style="width:43%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:14px;flex-shrink:0">6</span><span style="font-size:16px;flex-shrink:0">🇧🇷</span><div style="flex:1;min-width:0"><div class="g-body-s">Brazil</div><div class="g-subtle">98</div></div><div class="mm-bar"><div class="mm-fill" style="width:31%"></div></div></div>
     </div>
   </div>
 </div>
 </section>
-<script>
-(function(){var R=document.currentScript?document.currentScript.closest('section'):document;if(!R)R=document;
-
-var vals={US:312,GB:241,DE:189,SG:167,AU:134,BR:98,FR:87,CA:74,NL:61,IN:58};
-try {
-  new svgMap({targetElementID:'mmMap',colorMax:'#7c3aed',colorMin:'#ede9fe',colorNoData:'#f4f4f5',data:{data:{members:{name:'Members',format:'{0}'}},applyData:'members',values:(function(){var v={};Object.keys(vals).forEach(function(k){v[k]={members:vals[k]};});return v;})()}});
-} catch(e) {
-  var el=R.querySelector('#mmMap');
-  if(el) el.innerHTML='<div style="padding:24px;text-align:center"><div style="font-size:36px;margin-bottom:8px">🌍</div><div class="g-muted">Map unavailable</div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px">'+['🇺🇸 312','🇬🇧 241','🇩🇪 189','🇸🇬 167','🇦🇺 134','🇧🇷 98'].map(function(c){return'<span style="background:#f5f3ff;border:1px solid #ede9fe;border-radius:999px;padding:3px 10px;font-size:11px;color:#7c3aed">'+c+'</span>';}).join('')+'</div></div>';
-}
-
-})();
-</script>
