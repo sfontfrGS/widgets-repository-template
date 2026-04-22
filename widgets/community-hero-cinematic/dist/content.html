@@ -1,48 +1,57 @@
 <section id="w-hero-cinematic">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-#w-hero-cinematic, #w-hero-cinematic * { box-sizing: border-box; margin: 0; padding: 0; }
-
-.hc-root {
+.hc {
   position: relative;
   width: 100%;
   min-height: 620px;
   overflow: hidden;
-  background: #ffffff;
+  background: #fafafa;
   font-family: 'Inter', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ── Video: covers full widget ── */
-.hc-video-wrap {
+/* ── Animated mesh background (replaces video — works everywhere) ── */
+.hc-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(196,181,253,.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(147,197,253,.3) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 60% 80%, rgba(249,168,212,.2) 0%, transparent 55%),
+    linear-gradient(160deg, #fefeff 0%, #f5f3ff 30%, #eff6ff 60%, #fdf4ff 100%);
+  animation: meshShift 12s ease-in-out infinite alternate;
 }
-.hc-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  opacity: 0;
-  transition: opacity 0.05s linear;
+@keyframes meshShift {
+  0%   { filter: hue-rotate(0deg) brightness(1); }
+  50%  { filter: hue-rotate(8deg) brightness(1.02); }
+  100% { filter: hue-rotate(-5deg) brightness(.99); }
 }
 
-/* Three-layer gradient: white top → clear middle → white bottom */
-.hc-video-gradient {
+/* Animated orbs */
+.hc-orb {
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom,
-      rgba(255,255,255,1)   0%,
-      rgba(255,255,255,0.5) 25%,
-      rgba(255,255,255,0)   45%,
-      rgba(255,255,255,0)   55%,
-      rgba(255,255,255,0.6) 80%,
-      rgba(255,255,255,1)   100%
-    );
+  border-radius: 50%;
+  filter: blur(80px);
   pointer-events: none;
+  z-index: 1;
+}
+.hc-orb-1 { width:600px;height:600px;background:rgba(167,139,250,.18);top:-200px;right:-150px;animation:hcO1 16s ease-in-out infinite; }
+.hc-orb-2 { width:400px;height:400px;background:rgba(96,165,250,.15);bottom:-100px;left:10%;animation:hcO2 12s ease-in-out infinite; }
+.hc-orb-3 { width:300px;height:300px;background:rgba(244,114,182,.12);top:20%;left:40%;animation:hcO3 10s ease-in-out infinite; }
+@keyframes hcO1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-50px,40px) scale(1.08)} }
+@keyframes hcO2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-30px) scale(1.1)} }
+@keyframes hcO3 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(-20px,20px) rotate(8deg)} }
+
+/* Grain overlay */
+.hc-grain {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
 }
 
 /* ── Nav ── */
@@ -56,71 +65,53 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.75rem 3rem;
+  max-width: 90rem;
+  margin: 0 auto;
 }
 .hc-logo {
   font-family: 'Instrument Serif', Georgia, serif;
   font-size: 1.75rem;
   letter-spacing: -0.02em;
-  color: #000000;
+  color: #000;
   user-select: none;
   line-height: 1;
 }
-.hc-logo sup { font-size: 0.52em; vertical-align: super; }
-.hc-nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-  list-style: none;
-}
-.hc-nav-links a {
-  font-size: 0.875rem;
-  text-decoration: none;
-  font-family: 'Inter', system-ui, sans-serif;
-  transition: opacity 0.2s;
-}
-.hc-nav-links a:hover { opacity: 0.55; }
-.hc-nav-cta {
-  padding: 0.6rem 1.4rem;
-  background: #000;
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  font-size: 0.875rem;
-  font-family: 'Inter', system-ui, sans-serif;
-  cursor: pointer;
-  letter-spacing: -0.01em;
-  transition: transform 0.2s, opacity 0.2s;
-}
-.hc-nav-cta:hover { transform: scale(1.03); }
+.hc-logo sup { font-size: .52em; vertical-align: super; }
+.hc-nav-links { display:flex;align-items:center;gap:2.5rem;list-style:none; }
+.hc-nav-links a { font-size:.875rem;text-decoration:none;font-family:'Inter',system-ui,sans-serif;transition:opacity .2s; }
+.hc-nav-links a:hover { opacity:.55; }
+.hc-nav-cta { padding:.6rem 1.4rem;background:#000;color:#fff;border:none;border-radius:999px;font-size:.875rem;font-family:'Inter',system-ui,sans-serif;cursor:pointer;letter-spacing:-.01em;transition:transform .2s,opacity .2s; }
+.hc-nav-cta:hover { transform:scale(1.03); }
 
 /* ── Hero ── */
 .hc-hero {
   position: relative;
   z-index: 10;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem 2rem 7rem;
+  padding: 2rem 2rem 6rem;
 }
 .hc-headline {
   font-family: 'Instrument Serif', Georgia, serif;
-  font-size: clamp(2.6rem, 6.5vw, 5.5rem);
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
   font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.055em;
-  color: #000000;
+  line-height: .95;
+  letter-spacing: -.055em;
+  color: #000;
   max-width: 80rem;
 }
 .hc-headline em { color: #6F6F6F; font-style: italic; }
 .hc-desc {
-  font-size: clamp(0.875rem, 1.3vw, 1rem);
+  font-size: clamp(.9rem,1.4vw,1.05rem);
   color: #6F6F6F;
   max-width: 36rem;
   margin-top: 1.75rem;
   line-height: 1.75;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter',system-ui,sans-serif;
 }
 .hc-cta {
   margin-top: 2.5rem;
@@ -130,48 +121,27 @@
   border: none;
   border-radius: 999px;
   font-size: 1rem;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter',system-ui,sans-serif;
   cursor: pointer;
-  letter-spacing: -0.01em;
-  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: -.01em;
+  transition: transform .2s, box-shadow .2s;
 }
-.hc-cta:hover { transform: scale(1.03); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+.hc-cta:hover { transform:scale(1.03);box-shadow:0 8px 32px rgba(0,0,0,.15); }
 
-/* ── Static fallback background (always visible) ── */
-.hc-root {
-  background: linear-gradient(160deg,
-    #fafafa 0%,
-    #f0eeff 35%,
-    #e8f4ff 65%,
-    #fafafa 100%
-  ) !important;
-}
-/* ── Video shows on top when it loads ── */
-
-/* ── Animations ── */
-@keyframes hcFadeRise {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.hc-a1 { animation: hcFadeRise 0.9s ease-out 0.1s both; }
-.hc-a2 { animation: hcFadeRise 0.9s ease-out 0.3s both; }
-.hc-a3 { animation: hcFadeRise 0.9s ease-out 0.5s both; }
+/* ── Stagger animations ── */
+@keyframes hcRise { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+.hc-a1 { animation:hcRise .9s ease-out .15s both; }
+.hc-a2 { animation:hcRise .9s ease-out .35s both; }
+.hc-a3 { animation:hcRise .9s ease-out .55s both; }
 </style>
 
-<div class="hc-root">
-
-  <!-- Video background — covers full widget -->
-  <div class="hc-video-wrap">
-    <video
-      id="hcVideo"
-      class="hc-video"
-      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
-      muted
-      playsinline
-      preload="auto"
-    ></video>
-    <div class="hc-video-gradient"></div>
-  </div>
+<div class="hc">
+  <!-- Animated background -->
+  <div class="hc-bg"></div>
+  <div class="hc-orb hc-orb-1"></div>
+  <div class="hc-orb hc-orb-2"></div>
+  <div class="hc-orb hc-orb-3"></div>
+  <div class="hc-grain"></div>
 
   <!-- Nav -->
   <nav class="hc-nav">
@@ -188,7 +158,7 @@
     </div>
   </nav>
 
-  <!-- Hero content -->
+  <!-- Hero -->
   <section class="hc-hero">
     <h1 class="hc-headline hc-a1">
       Beyond <em>silence,</em> we build <em>the eternal.</em>
@@ -199,79 +169,5 @@
     </p>
     <button class="hc-cta hc-a3">Begin Journey</button>
   </section>
-
 </div>
 </section>
-
-<script>
-(function() {
-  function init() {
-    var video = document.getElementById('hcVideo');
-    if (!video) return;
-
-    var FADE = 0.5;
-    var dead = false;
-    var rafId;
-
-    // Fade loop via rAF
-    function tick() {
-      if (!dead && video.duration && !isNaN(video.duration) && video.duration > 0) {
-        var t = video.currentTime;
-        var d = video.duration;
-        var op;
-        if (t < FADE) {
-          op = t / FADE;
-        } else if (d - t < FADE) {
-          op = (d - t) / FADE;
-        } else {
-          op = 1;
-        }
-        video.style.opacity = String(Math.max(0, Math.min(1, op)));
-      }
-      if (!dead) rafId = requestAnimationFrame(tick);
-    }
-
-    // On end: fade out, pause, reset, play again
-    video.addEventListener('ended', function() {
-      video.style.opacity = '0';
-      setTimeout(function() {
-        if (dead) return;
-        video.currentTime = 0;
-        video.play().catch(function() {});
-      }, 120);
-    });
-
-    // Start
-    video.style.opacity = '0';
-    video.addEventListener('error', function(e) {
-      console.warn('[HeroCinematic] Video error:', e, video.error);
-    });
-    video.addEventListener('loadeddata', function() {
-      console.log('[HeroCinematic] Video loaded, duration:', video.duration);
-    });
-    video.addEventListener('canplay', function() {
-      console.log('[HeroCinematic] Video can play');
-      video.play().catch(function(err) {
-        console.warn('[HeroCinematic] Play failed:', err);
-      });
-    });
-    var p = video.play();
-    if (p && p.catch) {
-      p.catch(function(err) {
-        console.warn('[HeroCinematic] Initial play failed:', err);
-        document.addEventListener('click', function onClick() {
-          video.play().catch(function(){});
-          document.removeEventListener('click', onClick);
-        }, {once:true});
-      });
-    }
-    rafId = requestAnimationFrame(tick);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
