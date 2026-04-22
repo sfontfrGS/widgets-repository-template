@@ -1,30 +1,18 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap');
 
-  /* ── shadcn/ui design tokens ── */
   .h {
-    --background:       0 0% 100%;
-    --foreground:       240 10% 3.9%;
-    --muted:            240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --border:           240 5.9% 90%;
-    --primary:          263 70% 58%;   /* purple accent */
-    --primary-dark:     263 70% 44%;
-
-    --col-bg:        hsl(var(--background));
-    --col-fg:        hsl(var(--foreground));
-    --col-muted:     hsl(var(--muted));
-    --col-muted-fg:  hsl(var(--muted-foreground));
-    --col-border:    hsl(var(--border));
-    --col-primary:   hsl(var(--primary));
-    --col-primary-d: hsl(var(--primary-dark));
-
-    --radius:    0.5rem;
-    --radius-lg: calc(var(--radius) + 6px);
-    --radius-xl: calc(var(--radius) + 10px);
-
-    --ease: cubic-bezier(0.4, 0, 0.2, 1);
-    --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --col-bg:       hsl(0 0% 100%);
+    --col-fg:       hsl(240 10% 3.9%);
+    --col-muted:    hsl(240 4.8% 95.9%);
+    --col-muted-fg: hsl(240 3.8% 46.1%);
+    --col-border:   hsl(240 5.9% 90%);
+    --col-primary:  hsl(263 70% 58%);
+    --radius:       0.5rem;
+    --radius-lg:    calc(var(--radius) + 6px);
+    --radius-xl:    calc(var(--radius) + 10px);
+    --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+    --spring:       cubic-bezier(0.34, 1.56, 0.64, 1);
 
     font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
     font-size: 14px;
@@ -35,7 +23,6 @@
   }
   .h *, .h *::before, .h *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── Wrapper ── */
   .h-wrap {
     max-width: 1140px;
     margin: 0 auto;
@@ -55,13 +42,13 @@
     font-weight: 500;
     color: var(--col-fg);
     margin-bottom: 14px;
-    animation: fadeSlideDown 0.4s var(--ease) both;
+    opacity: 0;
+    transform: translateY(-8px);
   }
   .h-streak-dot {
     width: 7px; height: 7px;
     border-radius: 50%;
     background: #f97316;
-    animation: pulse 2s ease-in-out infinite;
   }
 
   /* ── Heading ── */
@@ -72,23 +59,26 @@
     line-height: 1.1;
     color: var(--col-fg);
     margin-bottom: 6px;
-    animation: fadeSlideDown 0.45s var(--ease) 0.05s both;
+    opacity: 0;
+    transform: translateY(-8px);
   }
   .h-subtitle {
     font-size: 14px;
     color: var(--col-muted-fg);
     font-weight: 400;
     margin-bottom: 24px;
-    animation: fadeSlideDown 0.45s var(--ease) 0.1s both;
+    opacity: 0;
+    transform: translateY(-8px);
   }
 
-  /* ── Two-column layout ── */
+  /* ── Two-column layout — equal height ── */
   .h-body {
     display: grid;
     grid-template-columns: 1fr 340px;
     gap: 16px;
-    align-items: start;
-    animation: fadeSlideDown 0.5s var(--ease) 0.15s both;
+    align-items: stretch; /* ← both columns same height */
+    opacity: 0;
+    transform: translateY(10px);
   }
 
   /* ── Impact card (purple) ── */
@@ -99,13 +89,11 @@
     padding: 28px 28px 24px;
     overflow: hidden;
     color: white;
-    min-height: 260px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-
-  /* Decorative orb */
+  /* orb decorations */
   .h-impact::before {
     content: '';
     position: absolute;
@@ -114,6 +102,7 @@
     border-radius: 50%;
     background: hsla(263,70%,70%,0.35);
     pointer-events: none;
+    animation: orbFloat 6s ease-in-out infinite;
   }
   .h-impact::after {
     content: '';
@@ -123,6 +112,7 @@
     border-radius: 50%;
     background: hsla(263,70%,70%,0.18);
     pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite reverse;
   }
 
   .h-impact-label {
@@ -155,7 +145,6 @@
     z-index: 1;
   }
 
-  /* Sub-stats row inside impact card */
   .h-substats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -163,14 +152,15 @@
     position: relative;
     z-index: 1;
   }
-
   .h-substat {
     background: hsla(0,0%,100%,0.15);
     border-radius: var(--radius-lg);
     padding: 12px 10px;
     backdrop-filter: blur(4px);
     position: relative;
+    transition: background 200ms var(--ease);
   }
+  .h-substat:hover { background: hsla(0,0%,100%,0.22); }
   .h-substat-icon {
     position: absolute;
     top: 10px; right: 10px;
@@ -183,32 +173,42 @@
     letter-spacing: -0.02em;
     line-height: 1;
   }
-  .h-substat-label {
-    font-size: 11px;
-    opacity: 0.7;
-    margin-top: 4px;
-  }
+  .h-substat-label { font-size: 11px; opacity: 0.7; margin-top: 4px; }
 
-  /* ── Right column ── */
+  /* ── Right column — same height as impact card ── */
   .h-right {
     display: flex;
     flex-direction: column;
     gap: 0;
+    /* stretch to match left column height */
+    height: 100%;
   }
 
-  /* Stat rows */
+  /* Stat rows fill available space evenly */
+  .h-stat-rows {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
   .h-stat-row {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 4px;
+    padding: 0 4px;
     border-bottom: 1px solid var(--col-border);
-    transition: background 150ms var(--ease);
+    transition: background 150ms var(--ease), padding 150ms var(--ease);
     border-radius: var(--radius);
     cursor: default;
+    flex: 1; /* equal height rows */
   }
   .h-stat-row:first-child { border-top: 1px solid var(--col-border); }
-  .h-stat-row:hover { background: var(--col-muted); padding-left: 10px; padding-right: 10px; margin: 0 -6px; }
+  .h-stat-row:hover {
+    background: var(--col-muted);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0 -6px;
+  }
 
   .h-stat-icon-wrap {
     width: 36px; height: 36px;
@@ -217,31 +217,23 @@
     flex-shrink: 0;
   }
   .h-stat-icon-wrap svg { width: 16px; height: 16px; }
-
-  .h-stat-name {
-    flex: 1;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--col-fg);
-  }
+  .h-stat-name { flex: 1; font-size: 13px; font-weight: 500; color: var(--col-fg); }
   .h-stat-value {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--col-fg);
     letter-spacing: -0.02em;
-    /* count-up animation target */
   }
 
-  /* Weekly challenge card */
+  /* Weekly challenge card — fixed height, sits below stat rows */
   .h-challenge {
     margin-top: 12px;
     background: linear-gradient(135deg, hsl(263 70% 97%), hsl(263 70% 93%));
     border: 1px solid hsl(263 70% 88%);
     border-radius: var(--radius-xl);
     padding: 16px;
-    animation: fadeSlideUp 0.5s var(--ease) 0.3s both;
+    flex-shrink: 0;
   }
-
   .h-challenge-header {
     display: flex;
     align-items: center;
@@ -254,21 +246,11 @@
     background: var(--col-primary);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    animation: iconPop 0.5s var(--spring) 1s both;
   }
   .h-challenge-icon svg { width: 18px; height: 18px; color: white; }
-
-  .h-challenge-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--col-fg);
-  }
-  .h-challenge-subtitle {
-    font-size: 11px;
-    color: var(--col-muted-fg);
-    margin-top: 2px;
-  }
-
-  /* Progress bar */
+  .h-challenge-title { font-size: 13px; font-weight: 600; color: var(--col-fg); }
+  .h-challenge-subtitle { font-size: 11px; color: var(--col-muted-fg); margin-top: 2px; }
   .h-progress-row {
     display: flex;
     align-items: center;
@@ -288,35 +270,38 @@
     background: var(--col-primary);
     border-radius: 999px;
     width: 0%;
-    transition: width 1s cubic-bezier(0.34, 1.1, 0.64, 1) 0.6s;
+    transition: width 1.1s cubic-bezier(0.34, 1.1, 0.64, 1) 0.8s;
   }
 
   /* ── Animations ── */
-  @keyframes fadeSlideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to   { opacity: 1; transform: translateY(0); }
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%       { transform: translate(8px, -12px) scale(1.04); }
+    66%       { transform: translate(-6px, 8px) scale(0.97); }
   }
-  @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes pulse {
+  @keyframes pulseRing {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.6; transform: scale(0.85); }
+    50%       { opacity: 0.55; transform: scale(0.82); }
   }
-  @keyframes countUp {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
+  @keyframes iconPop {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
   }
 </style>
 
-<!-- Icon sprite -->
+<!-- SVG sprite -->
 <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
   <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/>
   </symbol>
   <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/>
+    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
   </symbol>
   <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
@@ -341,20 +326,17 @@
 <div class="h">
   <div class="h-wrap">
 
-    <!-- Streak pill -->
-    <div class="h-streak">
-      <span class="h-streak-dot"></span>
+    <div class="h-streak" id="hStreak">
+      <span class="h-streak-dot" id="hDot"></span>
       12 day streak 🔥
     </div>
 
-    <!-- Heading -->
-    <h1 class="h-title">Welcome back, Sergi Martinez</h1>
-    <p class="h-subtitle">You've made a real impact this week — here's what's happening</p>
+    <h1 class="h-title" id="hTitle">Welcome back, Sergi Martinez</h1>
+    <p class="h-subtitle" id="hSubtitle">You've made a real impact this week — here's what's happening</p>
 
-    <!-- Body: impact card + right column -->
-    <div class="h-body">
+    <div class="h-body" id="hBody">
 
-      <!-- Left: Impact card -->
+      <!-- Impact card -->
       <div class="h-impact">
         <div>
           <div class="h-impact-label">
@@ -383,34 +365,32 @@
         </div>
       </div>
 
-      <!-- Right: stats + challenge -->
+      <!-- Right column -->
       <div class="h-right">
-
-        <div class="h-stat-row">
-          <div class="h-stat-icon-wrap" style="background:hsl(210 100% 94%)">
-            <svg style="color:hsl(210 100% 45%)"><use href="#i-reply"/></svg>
+        <div class="h-stat-rows">
+          <div class="h-stat-row">
+            <div class="h-stat-icon-wrap" style="background:hsl(210 100% 94%)">
+              <svg style="color:hsl(210 100% 42%)"><use href="#i-reply"/></svg>
+            </div>
+            <span class="h-stat-name">New replies</span>
+            <span class="h-stat-value" data-target="12">0</span>
           </div>
-          <span class="h-stat-name">New replies</span>
-          <span class="h-stat-value" data-target="12">0</span>
+          <div class="h-stat-row">
+            <div class="h-stat-icon-wrap" style="background:hsl(0 86% 94%)">
+              <svg style="color:hsl(0 72% 48%)"><use href="#i-at"/></svg>
+            </div>
+            <span class="h-stat-name">Mentions</span>
+            <span class="h-stat-value" data-target="5">0</span>
+          </div>
+          <div class="h-stat-row">
+            <div class="h-stat-icon-wrap" style="background:hsl(38 100% 92%)">
+              <svg style="color:hsl(38 92% 38%)"><use href="#i-thumb"/></svg>
+            </div>
+            <span class="h-stat-name">Reactions</span>
+            <span class="h-stat-value" data-target="34">0</span>
+          </div>
         </div>
 
-        <div class="h-stat-row">
-          <div class="h-stat-icon-wrap" style="background:hsl(0 86% 94%)">
-            <svg style="color:hsl(0 86% 50%)"><use href="#i-at"/></svg>
-          </div>
-          <span class="h-stat-name">Mentions</span>
-          <span class="h-stat-value" data-target="5">0</span>
-        </div>
-
-        <div class="h-stat-row">
-          <div class="h-stat-icon-wrap" style="background:hsl(38 100% 92%)">
-            <svg style="color:hsl(38 100% 42%)"><use href="#i-thumb"/></svg>
-          </div>
-          <span class="h-stat-name">Reactions</span>
-          <span class="h-stat-value" data-target="34">0</span>
-        </div>
-
-        <!-- Weekly Challenge -->
         <div class="h-challenge">
           <div class="h-challenge-header">
             <div class="h-challenge-icon">
@@ -422,64 +402,119 @@
             </div>
           </div>
           <div class="h-progress-row">
-            <span>Progress</span>
-            <span>1 / 3</span>
+            <span>Progress</span><span>1 / 3</span>
           </div>
           <div class="h-progress-track">
             <div class="h-progress-fill" id="progressFill"></div>
           </div>
         </div>
-
       </div>
+
     </div>
   </div>
 </div>
 
 <script>
 (function () {
-  /* ── Count-up animation ── */
-  function countUp(el, target, duration, prefix, suffix) {
-    prefix = prefix || '';
-    suffix = suffix || '';
-    var start = 0;
-    var startTime = null;
+  var ease = 'cubic-bezier(0.4,0,0.2,1)';
+
+  /* ── Count-up ── */
+  function countUp(el, target, duration) {
+    var start = null;
     function step(ts) {
-      if (!startTime) startTime = ts;
-      var progress = Math.min((ts - startTime) / duration, 1);
-      // easeOutExpo
-      var ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      var current = Math.round(ease * target);
-      el.textContent = prefix + current.toLocaleString() + suffix;
-      if (progress < 1) requestAnimationFrame(step);
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var e = 1 - Math.pow(2, -10 * p);
+      el.textContent = Math.round(e * target).toLocaleString();
+      if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
 
-  /* ── Trigger on intersection (when widget enters viewport) ── */
-  function init() {
-    // Big reach number
-    countUp(document.getElementById('reachCount'), 2847, 1400);
-    countUp(document.getElementById('helpCount'), 47, 900);
-
-    // Right column stat values
-    document.querySelectorAll('.h-stat-value[data-target]').forEach(function (el) {
-      countUp(el, parseInt(el.dataset.target, 10), 800);
+  /* ── Animate element in ── */
+  function fadeIn(el, delay, y) {
+    el.style.transition = 'opacity 0.45s '+ease+' '+delay+'s, transform 0.45s '+ease+' '+delay+'s';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      });
     });
-
-    // Progress bar
-    setTimeout(function () {
-      document.getElementById('progressFill').style.width = '33.33%';
-    }, 200);
   }
 
-  // Use IntersectionObserver if available, otherwise run immediately
+  /* ── Pulse dot ── */
+  function startPulse(dot) {
+    dot.style.animation = 'pulseRing 2s ease-in-out infinite';
+  }
+
+  /* ── Staggered stat row entrance ── */
+  function animateRows() {
+    var rows = document.querySelectorAll('.h-stat-row');
+    rows.forEach(function(row, i) {
+      row.style.opacity = '0';
+      row.style.transform = 'translateX(12px)';
+      row.style.transition = 'opacity 0.35s '+ease+' '+(0.55 + i*0.08)+'s, transform 0.35s '+ease+' '+(0.55 + i*0.08)+'s';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          row.style.opacity = '1';
+          row.style.transform = 'translateX(0)';
+        });
+      });
+    });
+  }
+
+  /* ── Substat tiles entrance ── */
+  function animateSubstats() {
+    var tiles = document.querySelectorAll('.h-substat');
+    tiles.forEach(function(tile, i) {
+      tile.style.opacity = '0';
+      tile.style.transform = 'translateY(8px) scale(0.96)';
+      tile.style.transition = 'opacity 0.35s '+ease+' '+(0.6 + i*0.07)+'s, transform 0.35s '+ease+' '+(0.6 + i*0.07)+'s';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          tile.style.opacity = '1';
+          tile.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+    });
+  }
+
+  function init() {
+    /* Staggered heading entrance */
+    fadeIn(document.getElementById('hStreak'),  0.0);
+    fadeIn(document.getElementById('hTitle'),   0.08);
+    fadeIn(document.getElementById('hSubtitle'),0.14);
+    fadeIn(document.getElementById('hBody'),    0.2);
+
+    /* Pulse the streak dot */
+    setTimeout(function() { startPulse(document.getElementById('hDot')); }, 400);
+
+    /* Count-up numbers */
+    setTimeout(function() {
+      countUp(document.getElementById('reachCount'), 2847, 1400);
+      countUp(document.getElementById('helpCount'),  47,   900);
+      document.querySelectorAll('.h-stat-value[data-target]').forEach(function(el) {
+        countUp(el, parseInt(el.dataset.target, 10), 800);
+      });
+    }, 350);
+
+    /* Row + substat animations */
+    animateRows();
+    animateSubstats();
+
+    /* Progress bar */
+    setTimeout(function() {
+      document.getElementById('progressFill').style.width = '33.33%';
+    }, 700);
+  }
+
   if ('IntersectionObserver' in window) {
-    var obs = new IntersectionObserver(function (entries) {
+    var obs = new IntersectionObserver(function(entries) {
       if (entries[0].isIntersecting) { init(); obs.disconnect(); }
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
     obs.observe(document.querySelector('.h'));
   } else {
-    init();
+    setTimeout(init, 100);
   }
 })();
 </script>

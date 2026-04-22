@@ -60,16 +60,23 @@
   }
 
   /* ── Bento grid: 2 rows ── */
+  .sdcn-grid-wrap {
+    border: 1px solid var(--col-border);
+    border-radius: calc(var(--radius) + 4px);
+    overflow: hidden;
+  }
+
   .sdcn-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px; /* hairline gaps between cells */
+    gap: 1px;
+    background: var(--col-border);
   }
 
   /* ── Cell — no card border, flat bg ── */
   .sdcn-cell {
     position: relative;
-    background: var(--col-muted);
+    background: var(--col-bg);
     padding: 20px 20px 16px;
     display: flex;
     flex-direction: column;
@@ -86,7 +93,7 @@
   .sdcn-cell--wide { grid-column: span 2; }
 
   /* Hover: slightly lighter bg */
-  .sdcn-cell:hover { background: hsl(240 4.8% 93%); }
+  .sdcn-cell:hover { background: hsl(263 70% 97%); }
 
   /* ── Cell top area ── */
   .sdcn-cell-top {
@@ -188,7 +195,7 @@
     align-items: center;
     gap: 5px;
     border: none;
-    background: transparent;
+    background: var(--col-bg);
     border-radius: var(--radius-sm);
     padding: 3px 6px;
     font-size: 11px;
@@ -254,7 +261,7 @@
     </div>
 
     <!-- Bento Grid -->
-    <div class="sdcn-grid">
+    <div class="sdcn-grid-wrap"><div class="sdcn-grid">
 
       <!-- Row 1 -->
 
@@ -365,7 +372,7 @@
         </div>
       </a>
 
-    </div>
+    </div></div>
   </div>
 </div>
 
