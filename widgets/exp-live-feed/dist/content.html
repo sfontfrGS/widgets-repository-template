@@ -33,7 +33,16 @@
     <h2>⚡ Live Activity</h2>
     <span class="lf-live"><span class="lf-live-dot"></span>LIVE</span>
   </div>
-  <div class="lf-feed" id="lfFeed"></div>
+  <div class="lf-feed" id="lfFeed">
+  <div class="lf-item"><div class="lf-av" style="background:#f59e0b">AK</div><div class="lf-body"><div class="lf-text"><strong>Anna Kim</strong> replied to <a href="#">How to reduce churn in your first 90 days</a></div><div class="lf-time">just now</div></div><span class="lf-type-icon">💬</span></div>
+  <div class="lf-item"><div class="lf-av" style="background:#6366f1">MR</div><div class="lf-body"><div class="lf-text"><strong>Marcus R.</strong> liked <a href="#">The complete QBR playbook for enterprise CS</a></div><div class="lf-time">1m ago</div></div><span class="lf-type-icon">❤️</span></div>
+  <div class="lf-item"><div class="lf-av" style="background:#0ea5e9">JL</div><div class="lf-body"><div class="lf-text"><strong>Julia L.</strong> posted <a href="#">Using AI to detect early churn signals</a> in <a href="#">#ai-tools</a></div><div class="lf-time">3m ago</div></div><span class="lf-type-icon">✍️</span></div>
+  <div class="lf-item"><div class="lf-av" style="background:#10b981">DP</div><div class="lf-body"><div class="lf-text"><strong>David P.</strong> earned the <strong>Thought Leader</strong> badge</div><div class="lf-time">5m ago</div></div><span class="lf-type-icon">🏆</span></div>
+  <div class="lf-item"><div class="lf-av" style="background:#7c3aed">SM</div><div class="lf-body"><div class="lf-text"><strong>Sergi M.</strong>'s answer was marked as <strong>accepted</strong> in <a href="#">How to set up health score alerts?</a></div><div class="lf-time">7m ago</div></div><span class="lf-type-icon">✅</span></div>
+  <div class="lf-item"><div class="lf-av" style="background:#ec4899">RW</div><div class="lf-body"><div class="lf-text"><strong>Rachel W.</strong> started <a href="#">Benchmarks for enterprise QBR attendance rates</a></div><div class="lf-time">9m ago</div></div><span class="lf-type-icon">🔥</span></div>
+  <div class="lf-item"><div class="lf-av" style="background:#f97316">TK</div><div class="lf-body"><div class="lf-text"><strong>Tom K.</strong> replied to <a href="#">Best CS tools for a 3-person team?</a></div><div class="lf-time">12m ago</div></div><span class="lf-type-icon">💬</span></div>
+  <div class="lf-item"><div class="lf-av" style="background:#f59e0b">AK</div><div class="lf-body"><div class="lf-text"><strong>Anna Kim</strong> reacted to <a href="#">Onboarding checklist for complex SaaS products</a></div><div class="lf-time">14m ago</div></div><span class="lf-type-icon">👍</span></div>
+</div>
 </div>
 </section>
 
@@ -63,8 +72,7 @@
     return el;
   }
 
-  // Initial render
-  EVENTS.forEach(function(e, i) { feed.appendChild(renderItem(e, i * 60)); });
+  // Feed pre-rendered in HTML — JS only handles live updates every 8s
 
   // Simulate live incoming events every 8s
   var newEvents = [

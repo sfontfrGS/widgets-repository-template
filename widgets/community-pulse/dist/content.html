@@ -223,5 +223,9 @@
   }
   countUp('cpOnline', 847, 900);
   countUp('cpPosts',   63, 700);
+  // Also set static values immediately as fallback in case count-up fails
+  var on=document.getElementById('cpOnline'); var ps=document.getElementById('cpPosts');
+  if(on && !on.textContent) on.textContent='847';
+  if(ps && !ps.textContent) ps.textContent='63';
 }());
 </script>

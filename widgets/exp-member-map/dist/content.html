@@ -50,14 +50,14 @@
     <div id="mmMap"></div>
     <div>
       <div class="mm-list-title">Top locations</div>
-      <div class="mm-loc"><span class="mm-loc-rank">1</span><span class="mm-loc-flag">🇺🇸</span><div class="mm-loc-info"><div class="mm-loc-name">United States</div><div class="mm-loc-count">312 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="100"></div></div></div>
-      <div class="mm-loc"><span class="mm-loc-rank">2</span><span class="mm-loc-flag">🇬🇧</span><div class="mm-loc-info"><div class="mm-loc-name">United Kingdom</div><div class="mm-loc-count">241 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="77"></div></div></div>
-      <div class="mm-loc"><span class="mm-loc-rank">3</span><span class="mm-loc-flag">🇩🇪</span><div class="mm-loc-info"><div class="mm-loc-name">Germany</div><div class="mm-loc-count">189 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="61"></div></div></div>
-      <div class="mm-loc"><span class="mm-loc-rank">4</span><span class="mm-loc-flag">🇸🇬</span><div class="mm-loc-info"><div class="mm-loc-name">Singapore</div><div class="mm-loc-count">167 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="54"></div></div></div>
-      <div class="mm-loc"><span class="mm-loc-rank">5</span><span class="mm-loc-flag">🇦🇺</span><div class="mm-loc-info"><div class="mm-loc-name">Australia</div><div class="mm-loc-count">134 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="43"></div></div></div>
-      <div class="mm-loc"><span class="mm-loc-rank">6</span><span class="mm-loc-flag">🇧🇷</span><div class="mm-loc-info"><div class="mm-loc-name">Brazil</div><div class="mm-loc-count">98 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="31"></div></div></div>
-      <div class="mm-loc"><span class="mm-loc-rank">7</span><span class="mm-loc-flag">🇫🇷</span><div class="mm-loc-info"><div class="mm-loc-name">France</div><div class="mm-loc-count">87 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="28"></div></div></div>
-      <div class="mm-loc"><span class="mm-loc-rank">8</span><span class="mm-loc-flag">🇨🇦</span><div class="mm-loc-info"><div class="mm-loc-name">Canada</div><div class="mm-loc-count">74 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="24"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">1</span><span class="mm-loc-flag">🇺🇸</span><div class="mm-loc-info"><div class="mm-loc-name">United States</div><div class="mm-loc-count">312 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="100" style="width:100%"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">2</span><span class="mm-loc-flag">🇬🇧</span><div class="mm-loc-info"><div class="mm-loc-name">United Kingdom</div><div class="mm-loc-count">241 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="77" style="width:77%"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">3</span><span class="mm-loc-flag">🇩🇪</span><div class="mm-loc-info"><div class="mm-loc-name">Germany</div><div class="mm-loc-count">189 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="61" style="width:61%"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">4</span><span class="mm-loc-flag">🇸🇬</span><div class="mm-loc-info"><div class="mm-loc-name">Singapore</div><div class="mm-loc-count">167 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="54" style="width:54%"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">5</span><span class="mm-loc-flag">🇦🇺</span><div class="mm-loc-info"><div class="mm-loc-name">Australia</div><div class="mm-loc-count">134 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="43" style="width:43%"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">6</span><span class="mm-loc-flag">🇧🇷</span><div class="mm-loc-info"><div class="mm-loc-name">Brazil</div><div class="mm-loc-count">98 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="31" style="width:31%"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">7</span><span class="mm-loc-flag">🇫🇷</span><div class="mm-loc-info"><div class="mm-loc-name">France</div><div class="mm-loc-count">87 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="28" style="width:28%"></div></div></div>
+      <div class="mm-loc"><span class="mm-loc-rank">8</span><span class="mm-loc-flag">🇨🇦</span><div class="mm-loc-info"><div class="mm-loc-name">Canada</div><div class="mm-loc-count">74 members</div></div><div class="mm-loc-bar"><div class="mm-loc-fill" data-w="24" style="width:24%"></div></div></div>
     </div>
   </div>
 </div>
@@ -87,5 +87,22 @@
   // Animate sidebar bars
   function go(){ document.querySelectorAll('.mm-loc-fill').forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; }); }
   if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.1}); io.observe(document.querySelector('.mm')); } else { setTimeout(go,400); }
+
+  // Fallback: if svgMap fails to load (CDN blocked), show a styled placeholder
+  setTimeout(function(){
+    var mapEl = document.getElementById('mmMap');
+    if (mapEl && mapEl.children.length === 0) {
+      mapEl.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:220px;flex-direction:column;gap:12px;">'
+        + '<div style="font-size:48px">🌍</div>'
+        + '<div style="font-size:13px;font-weight:600;color:#3f3f46">Global Community</div>'
+        + '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:400px">'
+        + ['🇺🇸 312','🇬🇧 241','🇩🇪 189','🇸🇬 167','🇦🇺 134','🇧🇷 98','🇫🇷 87','🇨🇦 74'].map(function(c){
+            return '<span style="background:#f5f3ff;border:1px solid #ede9fe;border-radius:999px;padding:3px 10px;font-size:12px;color:#7c3aed;font-weight:500">'+c+'</span>';
+          }).join('')
+        + '</div>'
+        + '<div style="font-size:11px;color:#a1a1aa">2,341 members across 48 countries</div>'
+        + '</div>';
+    }
+  }, 2000);
 }());
 </script>

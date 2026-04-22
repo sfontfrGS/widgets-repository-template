@@ -263,7 +263,7 @@
   </div>
 
   <!-- Suggested prompts -->
-  <div class="ask-suggestions" id="askSuggestions">
+  <div class="ask-suggestions" id="askSuggestions" style="display:none">
     <button class="ask-chip" onclick="runSearch('How to reduce churn?')">How to reduce churn?</button>
     <button class="ask-chip" onclick="runSearch('Best onboarding practices')">Best onboarding practices</button>
     <button class="ask-chip" onclick="runSearch('QBR templates')">QBR templates</button>
@@ -271,19 +271,19 @@
   </div>
 
   <!-- Results -->
-  <div class="ask-results" id="askResults">
+  <div class="ask-results visible" id="askResults">
     <div style="margin-top:20px">
       <div class="ask-section-label">Best match</div>
       <div class="ask-answer">
         <div class="ask-answer-meta">
           <span class="ask-answer-badge">Top Answer</span>
         </div>
-        <div class="ask-answer-title" id="askAnswerTitle"></div>
-        <div class="ask-answer-excerpt" id="askAnswerExcerpt"></div>
+        <div class="ask-answer-title" id="askAnswerTitle">Proven strategies to reduce churn in the first 90 days</div>
+        <div class="ask-answer-excerpt" id="askAnswerExcerpt">The first 90 days are critical. Teams that implement structured check-ins and early health scoring see up to 40% lower churn rates. Here's the exact playbook we used at two companies.</div>
         <div class="ask-answer-footer">
           <div class="ask-answer-stats">
-            <span id="askAnswerViews">👁 2.1k views</span>
-            <span id="askAnswerReplies">💬 34 replies</span>
+            <span id="askAnswerViews">👁 3.2k views</span>
+            <span id="askAnswerReplies">💬 47 replies</span>
           </div>
           <a class="ask-answer-link" href="#">Read discussion →</a>
         </div>
@@ -292,7 +292,11 @@
 
     <div style="margin-top:16px">
       <div class="ask-section-label">Related discussions</div>
-      <div class="ask-related" id="askRelated"></div>
+      <div class="ask-related" id="askRelated">
+        <a class="ask-related-card" href="#"><div class="ask-related-tag"># churn-prevention</div><div class="ask-related-title">Early warning signals every CS team should track</div><div class="ask-related-meta">28 replies</div></a>
+        <a class="ask-related-card" href="#"><div class="ask-related-tag"># onboarding</div><div class="ask-related-title">The 30-60-90 day onboarding framework</div><div class="ask-related-meta">19 replies</div></a>
+        <a class="ask-related-card" href="#"><div class="ask-related-tag"># health-scores</div><div class="ask-related-title">Building a customer health score from scratch</div><div class="ask-related-meta">33 replies</div></a>
+      </div>
     </div>
   </div>
 
@@ -385,6 +389,19 @@
     }
   }
 
+  // Show suggestions when input focused and empty
+  document.getElementById('askInput').addEventListener('focus', function(){
+    if (!this.value.trim()) {
+      document.getElementById('askSuggestions').style.display = 'flex';
+    }
+  });
+  document.getElementById('askInput').addEventListener('input', function(){
+    if (!this.value.trim()) {
+      document.getElementById('askResults').classList.remove('visible');
+      document.getElementById('askEmpty').classList.remove('visible');
+      document.getElementById('askSuggestions').style.display = 'flex';
+    }
+  });
   document.getElementById('askBtn').addEventListener('click', function(){
     doSearch(document.getElementById('askInput').value);
   });

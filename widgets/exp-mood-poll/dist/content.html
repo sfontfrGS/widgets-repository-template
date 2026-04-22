@@ -85,7 +85,15 @@
 
     <div class="mp-chart-wrap">
       <div class="mp-chart-label">7-day trend</div>
-      <div class="mp-chart" id="mpChart"></div>
+      <div class="mp-chart" id="mpChart">
+    <div class="mp-bar-col"><div class="mp-bar-seg" style="background:#7c3aed;height:26px"></div><div class="mp-bar-seg" style="background:#0ea5e9;height:12px"></div><div class="mp-bar-seg" style="background:#f59e0b;height:7px"></div><div class="mp-bar-seg" style="background:#e4e4e7;height:3px"></div><div class="mp-bar-day">M</div></div>
+    <div class="mp-bar-col"><div class="mp-bar-seg" style="background:#7c3aed;height:28px"></div><div class="mp-bar-seg" style="background:#0ea5e9;height:12px"></div><div class="mp-bar-seg" style="background:#f59e0b;height:6px"></div><div class="mp-bar-seg" style="background:#e4e4e7;height:3px"></div><div class="mp-bar-day">T</div></div>
+    <div class="mp-bar-col"><div class="mp-bar-seg" style="background:#7c3aed;height:25px"></div><div class="mp-bar-seg" style="background:#0ea5e9;height:13px"></div><div class="mp-bar-seg" style="background:#f59e0b;height:6px"></div><div class="mp-bar-seg" style="background:#e4e4e7;height:3px"></div><div class="mp-bar-day">W</div></div>
+    <div class="mp-bar-col"><div class="mp-bar-seg" style="background:#7c3aed;height:29px"></div><div class="mp-bar-seg" style="background:#0ea5e9;height:11px"></div><div class="mp-bar-seg" style="background:#f59e0b;height:6px"></div><div class="mp-bar-seg" style="background:#e4e4e7;height:3px"></div><div class="mp-bar-day">T</div></div>
+    <div class="mp-bar-col"><div class="mp-bar-seg" style="background:#7c3aed;height:30px"></div><div class="mp-bar-seg" style="background:#0ea5e9;height:10px"></div><div class="mp-bar-seg" style="background:#f59e0b;height:5px"></div><div class="mp-bar-seg" style="background:#e4e4e7;height:3px"></div><div class="mp-bar-day">F</div></div>
+    <div class="mp-bar-col"><div class="mp-bar-seg" style="background:#7c3aed;height:27px"></div><div class="mp-bar-seg" style="background:#0ea5e9;height:13px"></div><div class="mp-bar-seg" style="background:#f59e0b;height:5px"></div><div class="mp-bar-seg" style="background:#e4e4e7;height:3px"></div><div class="mp-bar-day">S</div></div>
+    <div class="mp-bar-col"><div class="mp-bar-seg" style="background:#7c3aed;height:29px"></div><div class="mp-bar-seg" style="background:#0ea5e9;height:11px"></div><div class="mp-bar-seg" style="background:#f59e0b;height:6px"></div><div class="mp-bar-seg" style="background:#e4e4e7;height:3px"></div><div class="mp-bar-day">S</div></div>
+  </div>
       <div class="mp-vibe">
         <span class="mp-vibe-emoji">🚀</span>
         <div><div class="mp-vibe-text">High energy</div><div class="mp-vibe-sub">60% crushing it this week</div></div>
@@ -116,13 +124,6 @@ function mpSubmit() {
 }
 (function(){
   var days=['M','T','W','T','F','S','S'], data=[[55,25,14,6],[58,24,12,6],[52,28,13,7],[60,22,12,6],[63,20,11,6],[57,26,11,6],[60,22,12,6]], colors=['#7c3aed','#0ea5e9','#f59e0b','#e4e4e7'];
-  var chart=document.getElementById('mpChart');
-  days.forEach(function(day,di){
-    var col=document.createElement('div'); col.className='mp-bar-col';
-    data[di].forEach(function(v,si){ var s=document.createElement('div'); s.className='mp-bar-seg'; s.style.background=colors[si]; s.style.height='0px'; s.setAttribute('data-h',Math.round((v/100)*48)+'px'); col.appendChild(s); });
-    var l=document.createElement('div'); l.className='mp-bar-day'; l.textContent=day; col.appendChild(l); chart.appendChild(col);
-  });
-  function go(){ document.querySelectorAll('.mp-bar-seg').forEach(function(s){ s.style.transition='height .7s cubic-bezier(.4,0,.2,1) .1s'; s.style.height=s.getAttribute('data-h'); }); }
-  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){go();io.disconnect();} },{threshold:.2}); io.observe(document.querySelector('.mp')); } else { setTimeout(go,300); }
+  // Chart bars pre-rendered in HTML
 }());
 </script>
