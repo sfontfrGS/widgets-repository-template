@@ -273,272 +273,76 @@ a.g, button.g { cursor:pointer; }
 .mm-bar { width:40px; height:4px; background:#f4f4f5; border-radius:999px; overflow:hidden; flex-shrink:0; }
 .mm-fill { height:100%; background:#7c3aed; border-radius:999px; }
 </style>
-
 <div class="mm-wrap">
   <div class="mm-header">
-    <div>
-      <div class="g-widget-heading">Member Map</div>
-      <div class="g-widget-sub">2,341 members · 48 countries</div>
-    </div>
+    <div><div class="g-widget-heading">Member Map</div><div class="g-widget-sub">2,341 members · 48 countries</div></div>
     <span class="g-subtle">This month</span>
   </div>
   <div class="mm-body">
-    <div class="mm-map-wrap">
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;background:#e8f0fe">
-
-<defs>
-  <style>
-    .land { fill: #ddd6fe; stroke: #a78bfa; stroke-width: 0.6; }
-    .land:hover { fill: #c4b5fd; }
-  </style>
-</defs>
-
-<!-- Grid -->
-<g stroke="#c7d2fe" stroke-width="0.4" opacity="0.8">
-  <line x1="0" y1="83" x2="1000" y2="83"/>
-  <line x1="0" y1="166" x2="1000" y2="166"/>
-  <line x1="0" y1="250" x2="1000" y2="250"/>
-  <line x1="0" y1="333" x2="1000" y2="333"/>
-  <line x1="0" y1="416" x2="1000" y2="416"/>
-  <line x1="167" y1="0" x2="167" y2="500"/>
-  <line x1="333" y1="0" x2="333" y2="500"/>
-  <line x1="500" y1="0" x2="500" y2="500"/>
-  <line x1="667" y1="0" x2="667" y2="500"/>
-  <line x1="833" y1="0" x2="833" y2="500"/>
+    <div class="mm-map-wrap"><svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;background:#e8f0fe">
+<style>.land{fill:#ddd6fe;stroke:#a78bfa;stroke-width:0.8;}</style>
+<g stroke="#c7d2fe" stroke-width="0.4" opacity="0.6">
+<line x1="0" y1="83" x2="1000" y2="83"/><line x1="0" y1="166" x2="1000" y2="166"/>
+<line x1="0" y1="250" x2="1000" y2="250"/><line x1="0" y1="333" x2="1000" y2="333"/>
+<line x1="0" y1="416" x2="1000" y2="416"/>
+<line x1="167" y1="0" x2="167" y2="500"/><line x1="333" y1="0" x2="333" y2="500"/>
+<line x1="500" y1="0" x2="500" y2="500"/><line x1="667" y1="0" x2="667" y2="500"/>
+<line x1="833" y1="0" x2="833" y2="500"/>
 </g>
-
-<!-- NORTH AMERICA - verified simplified -->
-<path class="land" d="
-  M 108,52 L 128,46 L 148,42 L 172,40 L 192,44 L 210,52
-  L 224,66 L 232,82 L 236,100 L 238,120 L 236,142
-  L 228,160 L 216,174 L 200,186 L 182,194 L 164,198
-  L 148,196 L 134,188 L 120,176 L 108,160 L 100,142
-  L 96,122 L 96,102 L 100,82 L 106,64 Z
-"/>
-
-<!-- GREENLAND -->
-<path class="land" d="
-  M 196,20 L 216,14 L 234,16 L 248,24 L 250,36 L 244,46
-  L 230,50 L 214,48 L 202,38 L 196,28 Z
-" opacity="0.8"/>
-
-<!-- ALASKA -->
-<path class="land" d="
-  M 72,60 L 90,54 L 108,52 L 106,64 L 96,72 L 80,72 L 72,64 Z
-" opacity="0.9"/>
-
-<!-- CENTRAL AMERICA -->
-<path class="land" d="
-  M 182,194 L 190,204 L 192,216 L 186,222 L 178,218 L 174,208 L 176,198 Z
-" opacity="0.9"/>
-
-<!-- CUBA / CARIBBEAN -->
-<path class="land" d="M 200,188 L 212,186 L 216,192 L 208,196 L 200,192 Z" opacity="0.8"/>
-
-<!-- SOUTH AMERICA - verified -->
-<path class="land" d="
-  M 188,224 L 208,216 L 232,216 L 252,224 L 264,240
-  L 270,260 L 272,284 L 268,310 L 258,336 L 244,358
-  L 228,374 L 210,382 L 194,380 L 180,370 L 170,354
-  L 164,334 L 162,310 L 164,284 L 170,258 L 180,240 Z
-"/>
-
-<!-- EUROPE - verified simplified -->
-<path class="land" d="
-  M 444,60 L 458,54 L 474,52 L 490,56 L 502,66 L 506,78
-  L 502,90 L 492,100 L 478,106 L 462,108 L 448,104
-  L 438,94 L 436,82 L 440,70 Z
-"/>
-
-<!-- NORWAY/SWEDEN/FINLAND -->
-<path class="land" d="
-  M 462,28 L 474,22 L 488,24 L 498,34 L 498,46 L 490,54
-  L 474,56 L 462,50 L 456,40 Z
-" opacity="0.9"/>
-
-<!-- UK + IRELAND -->
-<path class="land" d="
-  M 426,58 L 438,52 L 444,60 L 440,70 L 430,72 L 422,66 Z
-" opacity="0.9"/>
-
-<!-- IBERIAN PENINSULA -->
-<path class="land" d="
-  M 420,94 L 436,88 L 448,90 L 452,102 L 444,112 L 430,116 L 418,108 L 414,98 Z
-" opacity="0.9"/>
-
-<!-- ITALY -->
-<path class="land" d="
-  M 476,84 L 486,80 L 494,86 L 492,98 L 484,106 L 476,102 L 472,92 Z
-" opacity="0.8"/>
-
-<!-- AFRICA - verified -->
-<path class="land" d="
-  M 448,130 L 470,122 L 494,122 L 514,130 L 526,148 L 530,170
-  L 528,196 L 520,220 L 506,244 L 488,264 L 468,278 L 448,282
-  L 428,276 L 412,258 L 402,234 L 398,208 L 398,182
-  L 404,158 L 416,142 Z
-"/>
-
-<!-- MADAGASCAR -->
-<path class="land" d="
-  M 542,248 L 550,240 L 556,250 L 554,266 L 546,270 L 540,260 Z
-" opacity="0.8"/>
-
-<!-- MIDDLE EAST -->
-<path class="land" d="
-  M 526,120 L 548,114 L 566,118 L 574,132 L 568,148 L 552,154
-  L 534,150 L 522,138 Z
-"/>
-
-<!-- RUSSIA - wide band across top -->
-<path class="land" d="
-  M 496,30 L 560,18 L 640,14 L 720,16 L 780,22 L 810,34
-  L 816,48 L 800,60 L 760,68 L 710,72 L 660,70 L 610,66
-  L 560,62 L 510,58 L 490,48 L 488,36 Z
-"/>
-
-<!-- IRAN/TURKEY -->
-<path class="land" d="
-  M 518,102 L 550,96 L 574,98 L 590,108 L 592,122 L 580,132
-  L 560,136 L 540,132 L 524,122 L 514,110 Z
-"/>
-
-<!-- INDIA -->
-<path class="land" d="
-  M 588,122 L 614,116 L 634,122 L 642,140 L 638,162 L 626,180
-  L 610,190 L 594,184 L 584,168 L 580,148 Z
-"/>
-
-<!-- CHINA / EAST ASIA -->
-<path class="land" d="
-  M 660,58 L 714,54 L 754,60 L 778,74 L 784,92 L 778,112
-  L 760,128 L 736,136 L 708,136 L 684,128 L 666,112
-  L 656,92 L 656,74 Z
-"/>
-
-<!-- KOREA -->
-<path class="land" d="
-  M 778,88 L 790,84 L 796,94 L 790,104 L 780,106 L 774,96 Z
-" opacity="0.9"/>
-
-<!-- JAPAN -->
-<path class="land" d="
-  M 796,82 L 808,76 L 816,84 L 812,96 L 800,100 L 794,92 Z
-" opacity="0.9"/>
-
-<!-- SOUTHEAST ASIA -->
-<path class="land" d="
-  M 706,134 L 734,128 L 756,134 L 762,150 L 752,164 L 732,168
-  L 712,162 L 702,148 Z
-"/>
-
-<!-- INDONESIA WEST -->
-<path class="land" d="
-  M 718,188 L 760,182 L 788,186 L 792,198 L 768,206 L 728,206 L 712,196 Z
-" opacity="0.9"/>
-
-<!-- INDONESIA EAST -->
-<path class="land" d="
-  M 796,184 L 830,180 L 848,188 L 844,200 L 816,206 L 798,198 Z
-" opacity="0.9"/>
-
-<!-- AUSTRALIA - verified -->
-<path class="land" d="
-  M 748,304 L 796,294 L 838,298 L 862,314 L 868,338 L 862,362
-  L 846,380 L 820,390 L 790,390 L 762,380 L 744,362
-  L 738,338 L 740,316 Z
-"/>
-
-<!-- NEW ZEALAND -->
-<path class="land" d="
-  M 880,370 L 892,362 L 898,374 L 892,386 L 880,382 Z
-" opacity="0.8"/>
-
-<!-- PHILIPPINES -->
-<path class="land" d="
-  M 776,158 L 786,152 L 794,158 L 792,170 L 780,174 L 772,166 Z
-" opacity="0.8"/>
-
-
+<path class="land" d="M 33.3,100.0 L 55.6,111.1 L 69.4,122.2 L 75.0,133.3 L 77.8,144.4 L 83.3,155.6 L 94.4,155.6 L 97.2,155.6 L 102.8,166.7 L 116.7,155.6 L 122.2,144.4 L 127.8,133.3 L 133.3,127.8 L 133.3,122.2 L 127.8,116.7 L 133.3,116.7 L 144.4,122.2 L 150.0,127.8 L 152.8,133.3 L 155.6,144.4 L 158.3,155.6 L 163.9,161.1 L 175.0,166.7 L 188.9,172.2 L 205.6,172.2 L 216.7,172.2 L 222.2,161.1 L 219.4,150.0 L 208.3,138.9 L 205.6,127.8 L 200.0,116.7 L 194.4,111.1 L 183.3,100.0 L 166.7,94.4 L 155.6,88.9 L 144.4,83.3 L 130.6,77.8 L 119.4,72.2 L 108.3,77.8 L 97.2,83.3 L 83.3,88.9 L 69.4,88.9 L 58.3,88.9 L 47.2,94.4 Z"/>
+<path class="land" d="M 347.2,33.3 L 421.1,33.3 L 450.0,44.4 L 455.6,55.6 L 450.0,66.7 L 433.3,77.8 L 416.7,77.8 L 400.0,66.7 L 386.1,55.6 Z" opacity="0.85"/>
+<path class="land" d="M 222.2,155.6 L 250.0,155.6 L 272.2,155.6 L 283.3,172.2 L 288.9,183.3 L 300.0,194.4 L 311.1,205.6 L 322.2,222.2 L 322.2,238.9 L 316.7,250.0 L 305.6,261.1 L 294.4,277.8 L 286.1,294.4 L 280.6,316.7 L 272.2,327.8 L 261.1,338.9 L 252.8,344.4 L 238.9,344.4 L 230.6,333.3 L 222.2,316.7 L 216.7,300.0 L 211.1,283.3 L 208.3,261.1 L 211.1,238.9 L 216.7,216.7 L 219.4,200.0 L 222.2,183.3 Z"/>
+<path class="land" d="M 483.3,122.2 L 488.9,116.7 L 488.9,100.0 L 494.4,94.4 L 505.6,88.9 L 516.7,88.9 L 527.8,94.4 L 533.3,100.0 L 538.9,111.1 L 544.4,100.0 L 550.0,88.9 L 555.6,83.3 L 561.1,77.8 L 561.1,66.7 L 555.6,55.6 L 544.4,50.0 L 533.3,50.0 L 522.2,55.6 L 511.1,61.1 L 500.0,66.7 L 494.4,72.2 L 488.9,77.8 L 488.9,88.9 L 483.3,94.4 Z"/>
+<path class="land" d="M 527.8,44.4 L 533.3,33.3 L 544.4,27.8 L 555.6,27.8 L 566.7,33.3 L 566.7,44.4 L 561.1,55.6 L 550.0,55.6 L 538.9,50.0 Z" opacity="0.9"/>
+<path class="land" d="M 477.8,83.3 L 488.9,77.8 L 494.4,88.9 L 488.9,94.4 L 480.6,94.4 Z" opacity="0.9"/>
+<path class="land" d="M 472.2,122.2 L 483.3,116.7 L 494.4,116.7 L 500.0,127.8 L 494.4,138.9 L 483.3,138.9 L 472.2,133.3 Z" opacity="0.9"/>
+<path class="land" d="M 483.3,144.4 L 494.4,138.9 L 516.7,133.3 L 538.9,133.3 L 555.6,138.9 L 566.7,150.0 L 572.2,161.1 L 572.2,172.2 L 566.7,188.9 L 561.1,205.6 L 555.6,222.2 L 544.4,238.9 L 533.3,255.6 L 522.2,266.7 L 511.1,272.2 L 500.0,272.2 L 488.9,266.7 L 477.8,255.6 L 472.2,238.9 L 466.7,222.2 L 466.7,205.6 L 466.7,188.9 L 469.4,172.2 L 472.2,161.1 L 477.8,150.0 Z"/>
+<path class="land" d="M 583.3,238.9 L 588.9,227.8 L 594.4,238.9 L 591.7,255.6 L 583.3,261.1 L 580.6,250.0 Z" opacity="0.8"/>
+<path class="land" d="M 577.8,33.3 L 611.1,27.8 L 666.7,22.2 L 722.2,22.2 L 777.8,27.8 L 816.7,38.9 L 833.3,50.0 L 838.9,61.1 L 833.3,66.7 L 816.7,72.2 L 800.0,77.8 L 777.8,77.8 L 750.0,77.8 L 722.2,72.2 L 694.4,66.7 L 666.7,61.1 L 638.9,55.6 L 611.1,55.6 L 588.9,55.6 L 577.8,50.0 Z"/>
+<path class="land" d="M 538.9,88.9 L 566.7,83.3 L 594.4,83.3 L 611.1,88.9 L 616.7,100.0 L 611.1,111.1 L 594.4,116.7 L 572.2,116.7 L 550.0,111.1 L 538.9,100.0 Z"/>
+<path class="land" d="M 577.8,94.4 L 594.4,88.9 L 611.1,88.9 L 627.8,94.4 L 638.9,105.6 L 638.9,116.7 L 627.8,122.2 L 611.1,127.8 L 594.4,122.2 L 583.3,116.7 L 577.8,105.6 Z"/>
+<path class="land" d="M 688.9,83.3 L 705.6,83.3 L 716.7,94.4 L 727.8,111.1 L 727.8,127.8 L 722.2,144.4 L 711.1,155.6 L 700.0,161.1 L 688.9,155.6 L 680.6,144.4 L 677.8,127.8 L 677.8,111.1 L 683.3,94.4 Z"/>
+<path class="land" d="M 716.7,72.2 L 744.4,66.7 L 777.8,72.2 L 805.6,83.3 L 816.7,100.0 L 816.7,116.7 L 805.6,127.8 L 788.9,133.3 L 766.7,133.3 L 744.4,127.8 L 727.8,116.7 L 722.2,100.0 L 722.2,83.3 Z"/>
+<path class="land" d="M 822.2,100.0 L 833.3,94.4 L 838.9,105.6 L 833.3,116.7 L 822.2,116.7 L 816.7,105.6 Z" opacity="0.9"/>
+<path class="land" d="M 833.3,83.3 L 850.0,83.3 L 855.6,94.4 L 850.0,108.3 L 838.9,111.1 L 833.3,100.0 Z" opacity="0.9"/>
+<path class="land" d="M 750.0,138.9 L 772.2,133.3 L 788.9,144.4 L 788.9,155.6 L 777.8,166.7 L 761.1,166.7 L 750.0,161.1 L 744.4,150.0 Z"/>
+<path class="land" d="M 755.6,183.3 L 788.9,177.8 L 816.7,183.3 L 816.7,194.4 L 800.0,200.0 L 772.2,200.0 L 755.6,194.4 Z" opacity="0.85"/>
+<path class="land" d="M 816.7,255.6 L 844.4,244.4 L 872.2,250.0 L 894.4,261.1 L 905.6,277.8 L 905.6,300.0 L 900.0,322.2 L 888.9,338.9 L 872.2,350.0 L 855.6,355.6 L 838.9,350.0 L 822.2,338.9 L 811.1,322.2 L 808.3,300.0 L 811.1,277.8 Z"/>
+<path class="land" d="M 922.2,344.4 L 933.3,333.3 L 938.9,344.4 L 933.3,361.1 L 922.2,361.1 Z" opacity="0.8"/>
 <!-- Member dots -->
-<circle cx="162" cy="130" r="19" fill="#7c3aed" opacity="0.08"/>
-<circle cx="162" cy="130" r="15" fill="#7c3aed" opacity="0.12"/>
-<circle cx="162" cy="130" r="11" fill="#7c3aed" opacity="0.9"/>
-<text x="162" y="150" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">312</text>
-<circle cx="168" cy="120" r="18" fill="#7c3aed" opacity="0.12"/>
-<circle cx="436" cy="72" r="15" fill="#7c3aed" opacity="0.08"/>
-<circle cx="436" cy="72" r="11" fill="#7c3aed" opacity="0.12"/>
-<circle cx="436" cy="72" r="7" fill="#7c3aed" opacity="0.85"/>
-<text x="436" y="88" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">241</text>
-<circle cx="436" cy="72" r="14" fill="#7c3aed" opacity="0.1"/>
-<circle cx="474" cy="78" r="5" fill="#7c3aed" opacity="0.8"/>
-<text x="474" y="92" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">189</text>
-<circle cx="600" cy="158" r="5" fill="#7c3aed" opacity="0.8"/>
-<text x="600" y="172" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">167</text>
-<circle cx="734" cy="150" r="14" fill="#7c3aed" opacity="0.08"/>
-<circle cx="734" cy="150" r="10" fill="#7c3aed" opacity="0.12"/>
-<circle cx="734" cy="150" r="6" fill="#7c3aed" opacity="0.85"/>
-<text x="734" y="164" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">167</text>
-<circle cx="800" cy="340" r="5" fill="#7c3aed" opacity="0.75"/>
-<text x="800" y="354" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">134</text>
-<circle cx="240" cy="286" r="4" fill="#7c3aed" opacity="0.7"/>
-<text x="240" y="299" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">98</text>
-<circle cx="148" cy="88" r="4" fill="#7c3aed" opacity="0.65"/>
-<circle cx="476" cy="86" r="3" fill="#7c3aed" opacity="0.6"/>
-<circle cx="800" cy="42" r="3" fill="#7c3aed" opacity="0.6"/>
-<circle cx="462" cy="270" r="3" fill="#7c3aed" opacity="0.55"/>
-
+<circle cx="236" cy="194" r="18" fill="#7c3aed" opacity="0.1"/>
+<circle cx="236" cy="194" r="12" fill="#7c3aed" opacity="0.15"/>
+<circle cx="236" cy="194" r="11" fill="#7c3aed" opacity="0.9"/>
+<text x="236" y="216" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">312</text>
+<circle cx="494" cy="83" r="14" fill="#7c3aed" opacity="0.1"/>
+<circle cx="494" cy="83" r="7" fill="#7c3aed" opacity="0.85"/>
+<text x="494" y="100" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">241</text>
+<circle cx="527" cy="100" r="5" fill="#7c3aed" opacity="0.8"/>
+<text x="527" y="115" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">189</text>
+<circle cx="788" cy="247" r="10" fill="#7c3aed" opacity="0.1"/>
+<circle cx="788" cy="247" r="6" fill="#7c3aed" opacity="0.85"/>
+<text x="788" y="263" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">167</text>
+<circle cx="852" cy="319" r="5" fill="#7c3aed" opacity="0.75"/>
+<text x="852" y="334" text-anchor="middle" font-size="9" font-weight="700" fill="#5b21b6" font-family="-apple-system,sans-serif">134</text>
+<circle cx="336" cy="294" r="4" fill="#7c3aed" opacity="0.7"/>
+<circle cx="236" cy="116" r="4" fill="#7c3aed" opacity="0.65"/>
+<circle cx="716" cy="194" r="4" fill="#7c3aed" opacity="0.65"/>
+<circle cx="886" cy="150" r="3" fill="#7c3aed" opacity="0.6"/>
 <!-- Legend -->
-<rect x='768' y='472' width='226' height='22' rx='4' fill='rgba(255,255,255,0.85)'/>
-<circle cx='788' cy='483' r='5' fill='#7c3aed' opacity='0.9'/><text x='797' y='487' font-size='9' fill='#71717a' font-family="-apple-system,sans-serif">High</text>
-<circle cx='830' cy='483' r='4' fill='#7c3aed' opacity='0.65'/><text x='839' y='487' font-size='9' fill='#71717a' font-family="-apple-system,sans-serif">Medium</text>
-<circle cx='886' cy='483' r='3' fill='#7c3aed' opacity='0.4'/><text x='893' y='487' font-size='9' fill='#71717a' font-family="-apple-system,sans-serif">Low</text>
-</svg>
-    </div>
+<rect x="768" y="472" width="226" height="22" rx="4" fill="rgba(255,255,255,0.85)"/>
+<circle cx="788" cy="483" r="5" fill="#7c3aed" opacity="0.9"/><text x="797" y="487" font-size="9" fill="#71717a" font-family="-apple-system,sans-serif">High</text>
+<circle cx="830" cy="483" r="4" fill="#7c3aed" opacity="0.65"/><text x="839" y="487" font-size="9" fill="#71717a" font-family="-apple-system,sans-serif">Medium</text>
+<circle cx="886" cy="483" r="3" fill="#7c3aed" opacity="0.4"/><text x="893" y="487" font-size="9" fill="#71717a" font-family="-apple-system,sans-serif">Low</text>
+</svg></div>
     <div>
       <div class="g-widget-label" style="margin-bottom:12px">Top locations</div>
-      <div class="mm-loc">
-        <span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">1</span>
-        <span style="font-size:18px;flex-shrink:0">🇺🇸</span>
-        <div style="flex:1;min-width:0"><div class="g-body-s">United States</div><div class="g-subtle">312 members</div></div>
-        <div class="mm-bar"><div class="mm-fill" style="width:100%"></div></div>
-      </div>
-      <div class="mm-loc">
-        <span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">2</span>
-        <span style="font-size:18px;flex-shrink:0">🇬🇧</span>
-        <div style="flex:1;min-width:0"><div class="g-body-s">United Kingdom</div><div class="g-subtle">241 members</div></div>
-        <div class="mm-bar"><div class="mm-fill" style="width:77%"></div></div>
-      </div>
-      <div class="mm-loc">
-        <span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">3</span>
-        <span style="font-size:18px;flex-shrink:0">🇩🇪</span>
-        <div style="flex:1;min-width:0"><div class="g-body-s">Germany</div><div class="g-subtle">189 members</div></div>
-        <div class="mm-bar"><div class="mm-fill" style="width:61%"></div></div>
-      </div>
-      <div class="mm-loc">
-        <span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">4</span>
-        <span style="font-size:18px;flex-shrink:0">🇸🇬</span>
-        <div style="flex:1;min-width:0"><div class="g-body-s">Singapore</div><div class="g-subtle">167 members</div></div>
-        <div class="mm-bar"><div class="mm-fill" style="width:54%"></div></div>
-      </div>
-      <div class="mm-loc">
-        <span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">5</span>
-        <span style="font-size:18px;flex-shrink:0">🇦🇺</span>
-        <div style="flex:1;min-width:0"><div class="g-body-s">Australia</div><div class="g-subtle">134 members</div></div>
-        <div class="mm-bar"><div class="mm-fill" style="width:43%"></div></div>
-      </div>
-      <div class="mm-loc">
-        <span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">6</span>
-        <span style="font-size:18px;flex-shrink:0">🇧🇷</span>
-        <div style="flex:1;min-width:0"><div class="g-body-s">Brazil</div><div class="g-subtle">98 members</div></div>
-        <div class="mm-bar"><div class="mm-fill" style="width:31%"></div></div>
-      </div>
-      <div class="mm-loc">
-        <span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">7</span>
-        <span style="font-size:18px;flex-shrink:0">🇳🇱</span>
-        <div style="flex:1;min-width:0"><div class="g-body-s">Netherlands</div><div class="g-subtle">87 members</div></div>
-        <div class="mm-bar"><div class="mm-fill" style="width:28%"></div></div>
-      </div>
+      <div class="mm-loc"><span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">1</span><span style="font-size:18px;flex-shrink:0">🇺🇸</span><div style="flex:1;min-width:0"><div class="g-body-s">United States</div><div class="g-subtle">312 members</div></div><div class="mm-bar"><div class="mm-fill" style="width:100%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">2</span><span style="font-size:18px;flex-shrink:0">🇬🇧</span><div style="flex:1;min-width:0"><div class="g-body-s">United Kingdom</div><div class="g-subtle">241 members</div></div><div class="mm-bar"><div class="mm-fill" style="width:77%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">3</span><span style="font-size:18px;flex-shrink:0">🇩🇪</span><div style="flex:1;min-width:0"><div class="g-body-s">Germany</div><div class="g-subtle">189 members</div></div><div class="mm-bar"><div class="mm-fill" style="width:61%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">4</span><span style="font-size:18px;flex-shrink:0">🇸🇬</span><div style="flex:1;min-width:0"><div class="g-body-s">Singapore</div><div class="g-subtle">167 members</div></div><div class="mm-bar"><div class="mm-fill" style="width:54%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">5</span><span style="font-size:18px;flex-shrink:0">🇦🇺</span><div style="flex:1;min-width:0"><div class="g-body-s">Australia</div><div class="g-subtle">134 members</div></div><div class="mm-bar"><div class="mm-fill" style="width:43%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">6</span><span style="font-size:18px;flex-shrink:0">🇧🇷</span><div style="flex:1;min-width:0"><div class="g-body-s">Brazil</div><div class="g-subtle">98 members</div></div><div class="mm-bar"><div class="mm-fill" style="width:31%"></div></div></div>
+      <div class="mm-loc"><span class="g-subtle" style="width:16px;text-align:center;flex-shrink:0">7</span><span style="font-size:18px;flex-shrink:0">🇳🇱</span><div style="flex:1;min-width:0"><div class="g-body-s">Netherlands</div><div class="g-subtle">87 members</div></div><div class="mm-bar"><div class="mm-fill" style="width:28%"></div></div></div>
     </div>
   </div>
 </div>
