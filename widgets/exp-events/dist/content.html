@@ -245,160 +245,249 @@ a.g, button.g { cursor:pointer; }
 .g-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
+/* Widget page heading (28px bold — like "Community Topics") */
+.g-widget-heading {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0a0a0a;
+  margin: 0 0 3px;
+  line-height: 1.15;
+}
+.g-widget-heading-sub {
+  font-size: 13px;
+  color: #71717a;
+  margin: 0;
+  font-weight: 400;
+}
 
-.ev-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-.ev-card { border:1px solid #e4e4e7; border-radius:10px; overflow:hidden; text-decoration:none; color:inherit; display:block; transition:border-color .15s,box-shadow .15s,transform .15s; cursor:pointer; }
-.ev-card:hover { border-color:#c4b5fd; box-shadow:0 4px 16px rgba(124,58,237,.07); transform:translateY(-1px); }
-.ev-card--featured { grid-column:span 2; }
-.ev-banner { height:90px; position:relative; display:flex; align-items:flex-end; padding:12px 14px; }
-.ev-banner--featured { height:120px; }
-.ev-type-pill { position:absolute; top:10px; right:10px; font-size:10px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; padding:3px 8px; border-radius:999px; background:rgba(255,255,255,.18); color:#fff; border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(4px); }
-.ev-body { padding:12px 14px 14px; }
-.ev-date-row { display:flex; align-items:center; gap:6px; margin-bottom:6px; }
-.ev-dot { width:5px; height:5px; border-radius:50%; background:#7c3aed; flex-shrink:0; }
-.ev-title { font-size:13px; font-weight:600; color:#111; line-height:1.38; margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.ev-card--featured .ev-title { font-size:15px; }
-.ev-footer { display:flex; align-items:center; justify-content:space-between; padding-top:10px; margin-top:8px; border-top:1px solid #f4f4f5; }
-.ev-attendees { display:flex; align-items:center; gap:-4px; }
-.ev-av { width:20px; height:20px; border-radius:50%; border:2px solid #fff; margin-left:-6px; font-size:8px; font-weight:700; color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.g-widget-heading{font-size:28px;font-weight:700;letter-spacing:-.025em;color:#0a0a0a;line-height:1.15;margin:0 0 3px;}
+.g-widget-sub{font-size:13px;color:#71717a;margin:0;}
+
+
+/* ── Events grid — same bento proportions ── */
+.ev-wrap { max-width:1140px; margin:0 auto; padding:24px 20px; }
+.ev-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto;
+  grid-template-areas:"feat feat sm1" "sm2 sm3 sm4";
+  gap:12px;
+}
+
+/* ── Base card — identical to .g-card ── */
+.ev-card {
+  border:1px solid #e4e4e7; border-radius:10px;
+  background:#fff; overflow:hidden;
+  display:flex; flex-direction:column;
+  text-decoration:none; color:inherit;
+  transition:border-color .15s, box-shadow .15s, transform .15s;
+  cursor:pointer;
+}
+.ev-card:hover {
+  border-color:#c4b5fd;
+  box-shadow:0 4px 16px rgba(124,58,237,.07);
+  transform:translateY(-1px);
+}
+
+/* ── Banner ── */
+.ev-banner {
+  position:relative; padding:16px 16px 14px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  min-height:80px;
+}
+.ev-feat .ev-banner { min-height:110px; }
+.ev-type-pill {
+  position:absolute; top:12px; right:12px;
+  font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  padding:4px 10px; border-radius:999px;
+  background:rgba(255,255,255,.18); color:#fff;
+  border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(4px);
+}
+.ev-banner-sub {
+  font-size:11px; color:rgba(255,255,255,.75); font-weight:500;
+}
+
+/* ── Card body ── */
+.ev-body { padding:14px 16px 16px; flex:1; display:flex; flex-direction:column; }
+.ev-date-row {
+  display:flex; align-items:center; gap:6px;
+  font-size:11px; color:#a1a1aa; margin-bottom:8px;
+}
+.ev-date-dot { width:5px; height:5px; border-radius:50%; background:#7c3aed; flex-shrink:0; }
+.ev-title {
+  font-size:14px; font-weight:600; color:#0a0a0a;
+  line-height:1.38; margin-bottom:0; flex:1;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.ev-feat .ev-title { font-size:16px; }
+.ev-card:hover .ev-title { color:#7c3aed; }
+.ev-desc {
+  font-size:12px; color:#71717a; line-height:1.55; margin-top:6px;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+
+/* ── Footer — same as g-footer ── */
+.ev-footer {
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:10px; margin-top:12px; border-top:1px solid #f4f4f5;
+  flex-shrink:0;
+}
+.ev-attendees { display:flex; align-items:center; }
+.ev-av {
+  width:22px; height:22px; border-radius:50%;
+  border:2px solid #fff; margin-left:-6px;
+  font-size:8px; font-weight:700; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
 .ev-av:first-child { margin-left:0; }
-.ev-rsvp { display:inline-flex; align-items:center; border:1px solid #e4e4e7; border-radius:5px; padding:3px 10px; font-size:11px; font-weight:600; color:#52525b; background:#fff; cursor:pointer; transition:background .15s,border-color .15s,color .15s; font-family:inherit; }
+.ev-count { font-size:11px; color:#a1a1aa; margin-left:8px; }
+
+/* ── RSVP button — same as g-btn ── */
+.ev-rsvp {
+  display:inline-flex; align-items:center;
+  border:1px solid #e4e4e7; border-radius:6px;
+  padding:5px 14px; font-size:12px; font-weight:600;
+  color:#52525b; background:#fff; cursor:pointer;
+  font-family:inherit;
+  transition:background .15s, border-color .15s, color .15s;
+}
 .ev-rsvp:hover { border-color:#c4b5fd; background:#f5f3ff; color:#7c3aed; }
 .ev-rsvp.on { background:#7c3aed; border-color:#7c3aed; color:#fff; }
-
-
-.g-widget-heading { font-size:28px; font-weight:700; letter-spacing:-.025em; color:#111; line-height:1.15; margin:0 0 3px; }
-.g-widget-heading-sub { font-size:13px; color:#71717a; margin:0; }
 </style>
-<div class="g-wrap">
-  <div class="g-header">
-    <div><div class="g-widget-heading">Upcoming Events</div><div class="g-widget-sub">Join the community live</div></div>
-    <a href="#" class="g-link">View all →</a>
+
+<div class="ev-wrap">
+  <div class="g-header" style="align-items:flex-start;margin-bottom:16px">
+    <div>
+      <div class="g-widget-heading">Upcoming Events</div>
+      <div class="g-widget-sub">Join the community live</div>
+    </div>
+    <a href="#" class="g-link" style="margin-top:6px">View all →</a>
   </div>
+
   <div class="ev-grid">
 
-    <!-- Featured event -->
-    <a class="ev-card ev-card--featured" href="#">
-      <div class="ev-banner ev-banner--featured" style="background:linear-gradient(135deg,#7c3aed,#0ea5e9)">
+    <!-- Featured -->
+    <div class="ev-card ev-feat" style="grid-area:feat">
+      <div class="ev-banner" style="background:linear-gradient(135deg,#7c3aed,#0ea5e9)">
         <span class="ev-type-pill">Webinar</span>
-        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Gainsight Community · Free</div>
+        <div class="ev-banner-sub">Gainsight Community · Free</div>
       </div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">May 14, 2025 · 2:00 PM EST</span></div>
+        <div class="ev-date-row"><span class="ev-date-dot"></span>May 14, 2025 · 2:00 PM EST</div>
         <div class="ev-title">CS AI Summit 2025: How leading teams are using AI to scale without losing the human touch</div>
-        <div class="g-muted" style="margin-bottom:8px">Join 500+ CS leaders for a deep dive into practical AI workflows, live demos, and real case studies from teams that have done it.</div>
+        <div class="ev-desc">Join 500+ CS leaders for a deep dive into practical AI workflows, live demos, and real case studies.</div>
         <div class="ev-footer">
           <div style="display:flex;align-items:center;gap:8px">
             <div class="ev-attendees">
-              <div class="ev-av" style="background:#7c3aed">AK</div>
+              <div class="ev-av" style="background:#f59e0b">AK</div>
               <div class="ev-av" style="background:#0ea5e9">MR</div>
               <div class="ev-av" style="background:#10b981">JL</div>
-              <div class="ev-av" style="background:#f59e0b">DP</div>
+              <div class="ev-av" style="background:#6366f1">DP</div>
             </div>
-            <span class="g-subtle">342 / 500 attending</span>
+            <span class="ev-count">342 / 500 attending</span>
           </div>
           <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
-    </a>
+    </div>
 
-    <!-- Small event 1 -->
-    <a class="ev-card" href="#">
+    <!-- Small 1 -->
+    <div class="ev-card" style="grid-area:sm1">
       <div class="ev-banner" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4)">
         <span class="ev-type-pill">Workshop</span>
-        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Expert-led · Free</div>
+        <div class="ev-banner-sub">Expert-led · Free</div>
       </div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">May 21 · 11:00 AM EST</span></div>
+        <div class="ev-date-row"><span class="ev-date-dot"></span>May 21 · 11:00 AM EST</div>
         <div class="ev-title">QBR Masterclass: the 12-slide deck framework</div>
         <div class="ev-footer">
           <div class="ev-attendees">
-            <div class="ev-av" style="background:#0ea5e9">SM</div>
+            <div class="ev-av" style="background:#7c3aed">SM</div>
             <div class="ev-av" style="background:#6366f1">TK</div>
             <div class="ev-av" style="background:#f97316">RW</div>
           </div>
           <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
-    </a>
+    </div>
 
-    <!-- Small event 2 -->
-    <a class="ev-card" href="#">
+    <!-- Small 2 -->
+    <div class="ev-card" style="grid-area:sm2">
       <div class="ev-banner" style="background:linear-gradient(135deg,#10b981,#059669)">
         <span class="ev-type-pill">AMA</span>
-        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Open to all</div>
+        <div class="ev-banner-sub">Open to all</div>
       </div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">May 28 · 1:00 PM EST</span></div>
+        <div class="ev-date-row"><span class="ev-date-dot"></span>May 28 · 1:00 PM EST</div>
         <div class="ev-title">Ask Me Anything: scaling CS from 50 to 500 accounts</div>
         <div class="ev-footer">
           <div class="ev-attendees">
-            <div class="ev-av" style="background:#10b981">AK</div>
+            <div class="ev-av" style="background:#f59e0b">AK</div>
             <div class="ev-av" style="background:#7c3aed">MR</div>
           </div>
           <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
-    </a>
+    </div>
 
-    <!-- Small event 3 -->
-    <a class="ev-card" href="#">
+    <!-- Small 3 -->
+    <div class="ev-card" style="grid-area:sm3">
       <div class="ev-banner" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-        <span class="ev-type-pill">Round table</span>
-        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Members only</div>
+        <span class="ev-type-pill">Round Table</span>
+        <div class="ev-banner-sub">Members only</div>
       </div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">Jun 4 · 3:00 PM EST</span></div>
+        <div class="ev-date-row"><span class="ev-date-dot"></span>Jun 4 · 3:00 PM EST</div>
         <div class="ev-title">CS Leaders roundtable: headcount planning for 2026</div>
         <div class="ev-footer">
           <div class="ev-attendees">
-            <div class="ev-av" style="background:#f59e0b">JL</div>
-            <div class="ev-av" style="background:#ec4899">DP</div>
+            <div class="ev-av" style="background:#6366f1">JL</div>
+            <div class="ev-av" style="background:#ec4899">DR</div>
             <div class="ev-av" style="background:#0ea5e9">NB</div>
           </div>
           <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
-    </a>
+    </div>
 
-    <!-- Small event 4 -->
-    <a class="ev-card" href="#">
+    <!-- Small 4 -->
+    <div class="ev-card" style="grid-area:sm4">
       <div class="ev-banner" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
         <span class="ev-type-pill">Demo Day</span>
-        <div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:500">Gainsight · Free</div>
+        <div class="ev-banner-sub">Gainsight · Free</div>
       </div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-dot"></span><span class="g-subtle">Jun 11 · 10:00 AM EST</span></div>
+        <div class="ev-date-row"><span class="ev-date-dot"></span>Jun 11 · 10:00 AM EST</div>
         <div class="ev-title">Community Demo Day: share what you've built this quarter</div>
         <div class="ev-footer">
           <div class="ev-attendees">
-            <div class="ev-av" style="background:#8b5cf6">CL</div>
+            <div class="ev-av" style="background:#14b8a6">CL</div>
             <div class="ev-av" style="background:#f97316">PD</div>
           </div>
           <button class="ev-rsvp" data-rsvp="true">RSVP</button>
         </div>
       </div>
-    </a>
+    </div>
 
   </div>
 </div>
 </section>
+
 <script>
 (function(){
-  var R=document.currentScript?document.currentScript.getRootNode():document;if(!R||R===document){R=document.getElementById('w-events')||document;}
   function init(){
+    var R=document.currentScript?document.currentScript.getRootNode():null;
+    if(!R||R.nodeType!==11)R=document;
     R.querySelectorAll('[data-rsvp]').forEach(function(btn){
-  btn.addEventListener('click',function(e){
-    e.preventDefault(); e.stopPropagation();
-    btn.classList.toggle('on');
-    btn.textContent = btn.classList.contains('on') ? '✓ Going' : 'RSVP';
-  });
-});
+      btn.addEventListener('click',function(e){
+        e.preventDefault();e.stopPropagation();
+        var on=btn.classList.toggle('on');
+        btn.textContent=on?'Going':'RSVP';
+      });
+    });
   }
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',init);
-  } else {
-    init();
-  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
 </script>
