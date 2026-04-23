@@ -275,7 +275,7 @@ a.g, button.g { cursor:pointer; }
 </section>
 <script>
 (function(){
-  var R=document;
+  var R=document.currentScript?document.currentScript.getRootNode():document;if(!R||R===document){R=document.getElementById('w-livefeed')||document;}
   function init(){
     var NEW_EVENTS = [
   {av:'CL',col:'#14b8a6',icon:'✍️',html:'<strong>Chris L.</strong> posted <a href="#" class="g-link">How we halved onboarding time with async video</a>'},

@@ -388,7 +388,7 @@ a.g, button.g { cursor:pointer; }
 </section>
 <script>
 (function(){
-  var R=document;
+  var R=document.currentScript?document.currentScript.getRootNode():document;if(!R||R===document){R=document.getElementById('w-learning')||document;}
   function init(){
     var STATS={cs:[350,'2/5','40%'],product:[450,'3/5','60%'],leadership:[150,'1/5','20%']};
 R.querySelectorAll('[data-track]').forEach(function(btn){

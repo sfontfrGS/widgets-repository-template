@@ -452,6 +452,8 @@ a.g, button.g { cursor:pointer; }
 
 <script>
 (function(){
+  var R=document.currentScript?document.currentScript.getRootNode():document;
+  if(!R||R.nodeType!==11){R=R.querySelector('#w-ask-ai')||document;}
   /* ── Knowledge base ── */
   var KB = [
     {
@@ -561,7 +563,7 @@ a.g, button.g { cursor:pointer; }
   }
 
   function addMessage(role, html, isHtml) {
-    var messages = document.getElementById('askMessages');
+    var messages = R.getElementById('askMessages');
     if (!messages) return;
     var div = document.createElement('div');
     div.className = 'ask-msg ask-msg--' + role;
@@ -573,14 +575,14 @@ a.g, button.g { cursor:pointer; }
   }
 
   function setTyping(on) {
-    var t = document.getElementById('askTyping');
+    var t = R.getElementById('askTyping');
     if (t) t.classList.toggle('on', on);
   }
 
   function handleQuery(q) {
     if (!q.trim()) return;
     addMessage('user', q, false);
-    var input = document.getElementById('askInput');
+    var input = R.getElementById('askInput');
     if (input) { input.value=''; input.style.height='auto'; }
     setTyping(true);
     setTimeout(function() {
@@ -591,8 +593,8 @@ a.g, button.g { cursor:pointer; }
   }
 
   function init() {
-    var input = document.getElementById('askInput');
-    var send = document.getElementById('askSend');
+    var input = R.getElementById('askInput');
+    var send = R.getElementById('askSend');
 
     if (send) send.addEventListener('click', function() {
       var v = input ? input.value.trim() : '';
@@ -613,7 +615,7 @@ a.g, button.g { cursor:pointer; }
       });
     }
 
-    document.querySelectorAll('.ask-suggestion').forEach(function(btn) {
+    R.querySelectorAll('.ask-suggestion').forEach(function(btn) {
       btn.addEventListener('click', function() {
         handleQuery(btn.getAttribute('data-q'));
       });

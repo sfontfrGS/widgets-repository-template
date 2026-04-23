@@ -282,7 +282,7 @@ a.g, button.g { cursor:pointer; }
 </section>
 <script>
 (function(){
-  var R=document;
+  var R=document.currentScript?document.currentScript.getRootNode():document;if(!R||R===document){R=document.getElementById('w-pulse')||document;}
   function init(){
     function cu(id,t,ms){var el=R.querySelector('#'+id);if(!el)return;var s=Date.now();(function r(){var p=Math.min((Date.now()-s)/ms,1),v=Math.round((1-Math.pow(2,-8*p))*t);el.textContent=v>=1000?(v/1000).toFixed(1).replace(/\.0$/,'')+'k':v;if(p<1)requestAnimationFrame(r);})();}cu('cpN1',847,900);cu('cpN2',63,700);
   }

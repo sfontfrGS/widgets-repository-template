@@ -167,18 +167,20 @@
 
 <script>
 (function(){
+  var R=document.currentScript?document.currentScript.getRootNode():document;
+  if(!R||R.nodeType!==11){R=document.querySelector('#w-stats-hero')||document;}
   function init(){
     /* Progress bar */
-    var bar=document.getElementById('shBar');
+    var bar=R.getElementById('shBar');
     if(bar) setTimeout(function(){ bar.style.width='33%'; },300);
 
     /* Progress ring — 67% = stroke-dashoffset: 152*(1-0.67) = 50.16 */
-    var ring=document.getElementById('shRing');
+    var ring=R.getElementById('shRing');
     if(ring) setTimeout(function(){ ring.style.strokeDashoffset='50'; },400);
 
     /* Count-up */
     function cu(id,t,d){
-      var el=document.getElementById(id); if(!el) return;
+      var el=R.getElementById(id); if(!el) return;
       setTimeout(function(){
         var s=Date.now();
         (function tick(){
@@ -192,7 +194,7 @@
     cu('shXp',2847,200); cu('shPosts',47,350); cu('shStreak',12,500);
 
     /* Particles */
-    var c=document.getElementById('shParticles');
+    var c=R.getElementById('shParticles');
     if(c){ for(var i=0;i<14;i++){ (function(i){ setTimeout(function(){
       var p=document.createElement('div'); p.className='sh-p';
       var sz=1.5+Math.random()*2.5,dur=5+Math.random()*7,dx=(Math.random()-.5)*50;

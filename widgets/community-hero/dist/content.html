@@ -111,11 +111,13 @@
 
 <script>
 (function(){
+  var R=document.currentScript?document.currentScript.getRootNode():document;
+  if(!R||R.nodeType!==11){R=document.querySelector('#w-hero')||document;}
   function init(){
-    var bar=document.getElementById('hwBar');
+    var bar=R.getElementById('hwBar');
     if(bar) setTimeout(function(){ bar.style.width='33%'; },300);
     function cu(id,t,d){
-      var el=document.getElementById(id); if(!el) return;
+      var el=R.getElementById(id); if(!el) return;
       setTimeout(function(){
         var s=Date.now();
         (function tick(){
@@ -127,7 +129,7 @@
       },d);
     }
     cu('hwXp',2847,200); cu('hwC',47,350);
-    var c=document.getElementById('hwP');
+    var c=R.getElementById('hwP');
     if(c){ for(var i=0;i<16;i++){ (function(i){ setTimeout(function(){
       var p=document.createElement('div'); p.className='hw-p';
       var sz=1.5+Math.random()*2.5, dur=5+Math.random()*7, dx=(Math.random()-.5)*50;

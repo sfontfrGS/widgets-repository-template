@@ -735,21 +735,23 @@ a.g, button.g { cursor:pointer; }
 
 <script>
 (function(){
+  var R=document.currentScript?document.currentScript.getRootNode():document;
+  if(!R||R.nodeType!==11){R=document.querySelector('#w-topicfeed')||document;}
   function init(){
     /* Tabs */
-    document.querySelectorAll('[data-tab]').forEach(function(btn){
+    R.querySelectorAll('[data-tab]').forEach(function(btn){
       btn.addEventListener('click',function(){
-        document.querySelectorAll('[data-tab]').forEach(function(b){b.classList.remove('on');});
+        R.querySelectorAll('[data-tab]').forEach(function(b){b.classList.remove('on');});
         btn.classList.add('on');
-        document.querySelectorAll('.tf-panel').forEach(function(p){p.style.display='none';});
-        document.getElementById('tf-'+btn.getAttribute('data-tab')).style.display='block';
+        R.querySelectorAll('.tf-panel').forEach(function(p){p.style.display='none';});
+        R.getElementById('tf-'+btn.getAttribute('data-tab')).style.display='block';
       });
     });
 
     /* Load more */
-    var more=document.getElementById('tfMore');
+    var more=R.getElementById('tfMore');
     if(more) more.addEventListener('click',function(){
-      document.querySelectorAll('.tf-hidden').forEach(function(el){
+      R.querySelectorAll('.tf-hidden').forEach(function(el){
         el.style.display='block'; el.classList.remove('tf-hidden');
       });
       more.closest('.tf-load-more').style.display='none';

@@ -612,7 +612,7 @@ a.g, button.g { cursor:pointer; }
 </section>
 <script>
 (function(){
-  var R=document;
+  var R=document.currentScript?document.currentScript.getRootNode():document;if(!R||R===document){R=document.getElementById('w-bento')||document;}
   function init(){
     var cur=0,total=4;
   function render(){
