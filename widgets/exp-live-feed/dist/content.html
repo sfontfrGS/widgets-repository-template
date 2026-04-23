@@ -290,7 +290,13 @@ setInterval(function(){
   var feed=R.querySelector('#lfFeed');
   if(!feed)return;
   var div=document.createElement('div'); div.className='lf-item';
-  div.innerHTML='<div class="g-avatar g-avatar-sm" style="background:'+e.col+'">'+e.av.substring(0,2)+'</div><div style="flex:1;min-width:0"><div class="g-body-s">'+e.html+'</div><div class="g-subtle" style="margin-top:2px">just now</div></div><span class="lf-icon">'+e.icon+'</span>';
+  var lav=document.createElement('div');lav.className='g-avatar g-avatar-sm';lav.style.background=e.col;lav.textContent=e.av.substring(0,2);
+  var ltxt=document.createElement('div');ltxt.style.cssText='flex:1;min-width:0';
+  var lbody=document.createElement('div');lbody.className='g-body-s';lbody.innerHTML=e.html;
+  var ltime=document.createElement('div');ltime.className='g-subtle';ltime.style.marginTop='2px';ltime.textContent='just now';
+  ltxt.appendChild(lbody);ltxt.appendChild(ltime);
+  var lico=document.createElement('span');lico.className='lf-icon';lico.textContent=e.icon;
+  div.appendChild(lav);div.appendChild(ltxt);div.appendChild(lico);
   feed.insertBefore(div,feed.firstChild);
   var items=feed.querySelectorAll('.lf-item');
   items.forEach(function(item,i){var t=item.querySelector('.g-subtle');if(t&&TIMES[i])t.textContent=TIMES[i];});

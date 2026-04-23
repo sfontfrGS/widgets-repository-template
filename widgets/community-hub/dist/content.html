@@ -406,64 +406,64 @@ a.g, button.g { cursor:pointer; }
 
 <script>
 (function(){
-  var R=document.currentScript?document.currentScript.getRootNode():document;
-  if(!R||R.nodeType!==11){R=document.querySelector('#w-community-hub')||document;}
-  function init() {
-    /* Count-up */
-    function cu(id, t, ms) {
-      var el = R.getElementById(id); if (!el) return;
-      var s = Date.now();
-      (function r() {
-        var p = Math.min((Date.now()-s)/ms,1);
-        var v = Math.round((1-Math.pow(1-p,3))*t);
-        el.textContent = v>=1000?(v/1000).toFixed(1).replace(/\.0$/,'')+'k':v;
-        if(p<1) requestAnimationFrame(r);
-      })();
+  var R = document.currentScript ? document.currentScript.getRootNode() : null;
+  if(!R || R.nodeType !== 11) R = document;
+  function fmt(n){if(n<1000)return ''+n;var a=Math.floor(n);var b=Math.floor(a/1000);var c=Math.floor(a-b*1000);var d=Math.floor(c/100);return d?b+'.'+d+'k':b+'k';}
+  function init(){
+    function cu(id,t,d){
+      var el=R.querySelector('#'+id);if(!el)return;
+      setTimeout(function(){
+        var s=Date.now();
+        (function r(){
+          var p=Math.min((Date.now()-s)/1200,1);
+          var ease=1-(1-p)*(1-p)*(1-p);
+          el.textContent=fmt(Math.round(ease*t));
+          if(p<1)requestAnimationFrame(r);
+        })();
+      },d);
     }
-    cu('hubN1',847,900); cu('hubN2',63,700);
-
-    /* Mood poll */
-    var sel = null;
+    cu('hubN1',847,200);cu('hubN2',63,350);
+    var sel=null;
     R.querySelectorAll('.mood-opt').forEach(function(opt){
       opt.addEventListener('click',function(){
-        if(R.querySelector('.mood-opt.done')) return;
+        if(R.querySelector('.mood-opt.done'))return;
         R.querySelectorAll('.mood-opt').forEach(function(o){o.classList.remove('sel');});
-        opt.classList.add('sel'); sel = opt;
-        var btn=R.getElementById('moodBtn'); if(btn) btn.classList.add('ready');
+        opt.classList.add('sel');sel=opt;
+        var btn=R.querySelector('#moodBtn');if(btn)btn.classList.add('ready');
       });
     });
-    var btn=R.getElementById('moodBtn');
-    if(btn) btn.addEventListener('click',function(){
-      if(!sel) return;
+    var btn=R.querySelector('#moodBtn');
+    if(btn)btn.addEventListener('click',function(){
+      if(!sel)return;
       R.querySelectorAll('.mood-opt').forEach(function(o){
         o.classList.add('done');
         o.querySelector('.mood-fill').style.width=o.getAttribute('data-val')+'%';
       });
       btn.style.display='none';
-      var v=R.getElementById('moodVoted'); if(v) v.style.display='block';
+      var v=R.querySelector('#moodVoted');if(v)v.style.display='block';
     });
-
-    /* Live feed */
     var EVENTS=[
       {av:'CL',col:'#14b8a6',icon:'✍️',html:'<strong>Chris L.</strong> posted <a href="#" class="g-link">How we halved onboarding time with async video</a>'},
-      {av:'PD',col:'#8b5cf6',icon:'❤️',html:'<strong>Priya D.</strong> liked <a href="#" class="g-link">Top 5% contributor — my approach to CS</a>'},
+      {av:'PD',col:'#8b5cf6',icon:'❤️',html:'<strong>Priya D.</strong> liked <a href="#" class="g-link">Top 5% contributor approach to CS</a>'},
       {av:'NB',col:'#06b6d4',icon:'💬',html:'<strong>Nick B.</strong> replied to <a href="#" class="g-link">AI tools your CS team should be using now</a>'},
     ];
-    var ni=0, TIMES=['just now','1m ago','2m ago','4m ago','6m ago','8m ago'];
+    var ni=0,TIMES=['just now','1m ago','2m ago','4m ago','6m ago','8m ago'];
     setInterval(function(){
-      if(ni>=EVENTS.length) return;
+      if(ni>=EVENTS.length)return;
       var e=EVENTS[ni++];
-      var feed=R.getElementById('hubFeed'); if(!feed) return;
-      var div=document.createElement('div'); div.className='lf-item';
-      div.innerHTML='<div class="g-avatar g-avatar-sm" style="background:'+e.col+'">'+e.av+'</div>'
-        +'<div style="flex:1;min-width:0"><div class="g-body-s">'+e.html+'</div>'
-        +'<div class="g-subtle" style="margin-top:2px">just now</div></div>'
-        +'<span class="lf-icon">'+e.icon+'</span>';
+      var feed=R.querySelector('#hubFeed');if(!feed)return;
+      var div=document.createElement('div');div.className='lf-item';
+      var av=document.createElement('div');av.className='g-avatar g-avatar-sm';av.style.background=e.col;av.textContent=e.av;
+      var txt=document.createElement('div');txt.style.cssText='flex:1;min-width:0';
+      var body=document.createElement('div');body.className='g-body-s';body.innerHTML=e.html;
+      var time=document.createElement('div');time.className='g-subtle';time.style.marginTop='2px';time.textContent='just now';
+      txt.appendChild(body);txt.appendChild(time);
+      var ico=document.createElement('span');ico.className='lf-icon';ico.textContent=e.icon;
+      div.appendChild(av);div.appendChild(txt);div.appendChild(ico);
       feed.insertBefore(div,feed.firstChild);
-      feed.querySelectorAll('.lf-item').forEach(function(item,i){
-        var t=item.querySelector('.g-subtle'); if(t&&TIMES[i]) t.textContent=TIMES[i];
-      });
-      while(feed.children.length>6) feed.removeChild(feed.lastChild);
+      var items=feed.querySelectorAll('.lf-item');
+      items.forEach(function(item,i){var t=item.querySelector('.g-subtle');if(t&&TIMES[i])t.textContent=TIMES[i];});
+      while(feed.children.length>6)feed.removeChild(feed.lastChild);
     },8000);
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
