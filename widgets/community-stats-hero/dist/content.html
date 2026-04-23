@@ -1,0 +1,205 @@
+<section id="w-stats-hero" class="g-root">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+
+.sh {
+  position:relative; width:100%; overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:linear-gradient(135deg,#4c1d95 0%,#5b21b6 20%,#6d28d9 45%,#4338ca 70%,#312e81 100%);
+  background-size:300% 300%;
+  animation:shGrad 10s ease infinite;
+}
+@keyframes shGrad { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+/* Background layers */
+.sh-bg { position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden; }
+.sh-grid { position:absolute;inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size:48px 48px; }
+.sh-orb { position:absolute;border-radius:50%;filter:blur(60px);opacity:.25;pointer-events:none; }
+.sh-orb-1 { width:500px;height:500px;background:radial-gradient(#a78bfa,#7c3aed);top:-150px;right:-100px;animation:shO1 14s ease-in-out infinite; }
+.sh-orb-2 { width:300px;height:300px;background:radial-gradient(#60a5fa,#2563eb);bottom:-80px;left:25%;animation:shO2 11s ease-in-out infinite; }
+.sh-orb-3 { width:200px;height:200px;background:radial-gradient(#f472b6,#db2777);top:30px;left:42%;animation:shO3 9s ease-in-out infinite;opacity:.15; }
+@keyframes shO1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-40px,30px) scale(1.1)} }
+@keyframes shO2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-30px) scale(1.12)} }
+@keyframes shO3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-15px,15px)} }
+.sh-particles { position:absolute;inset:0;pointer-events:none;overflow:hidden; }
+.sh-p { position:absolute;border-radius:50%;background:rgba(255,255,255,.35);animation:shPRise linear infinite; }
+@keyframes shPRise { 0%{transform:translateY(0) translateX(0);opacity:0} 10%{opacity:.6} 90%{opacity:.3} 100%{transform:translateY(-200px) translateX(var(--dx,15px));opacity:0} }
+
+/* Content */
+.sh-inner {
+  position:relative;z-index:2;
+  max-width:1140px;margin:0 auto;
+  padding:44px 40px 48px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:40px;
+  align-items:center;
+}
+
+/* Stats grid */
+.sh-stats-grid { display:flex; align-items:center; gap:0; margin-bottom:28px; }
+.sh-stat-n { display:block;font-size:clamp(2rem,3vw,2.5rem);font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1; }
+.sh-stat-l { display:block;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:3px; }
+.sh-stat-chg { display:block;font-size:11px;font-weight:600;color:#86efac;margin-top:2px; }
+.sh-divider { width:1px;height:40px;background:rgba(255,255,255,.15);margin:0 24px; }
+
+/* Progress ring */
+.sh-ring-wrap { position:relative;width:56px;height:56px;flex-shrink:0; }
+.sh-ring { transform:rotate(-90deg); }
+.sh-ring-bg { fill:none;stroke:rgba(255,255,255,.15);stroke-width:4; }
+.sh-ring-fill { fill:none;stroke:url(#ringGrad);stroke-width:4;stroke-linecap:round;stroke-dasharray:152;stroke-dashoffset:152;transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1); }
+.sh-ring-pct { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff; }
+
+/* Badges row */
+.sh-badges { display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px; }
+.sh-badge {
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;padding:4px 12px;font-size:11px;font-weight:600;
+  color:rgba(255,255,255,.85);backdrop-filter:blur(8px);
+}
+.sh-badge-dot { width:6px;height:6px;border-radius:50%; }
+
+/* Actions */
+.sh-actions { display:flex;gap:10px; }
+.sh-btn-w { background:#fff;color:#5b21b6;border:none;border-radius:8px;padding:10px 22px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:transform .15s,box-shadow .15s; }
+.sh-btn-w:hover { transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.2); }
+.sh-btn-g { background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:10px 22px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s,transform .15s; }
+.sh-btn-g:hover { background:rgba(255,255,255,.18);transform:translateY(-1px); }
+
+/* Challenge card */
+.sh-card {
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;padding:22px 24px;backdrop-filter:blur(12px);
+  min-width:260px;
+}
+.sh-card-label { font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:10px; }
+.sh-card-title { font-size:15px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:6px; }
+.sh-card-sub { font-size:12px;color:rgba(255,255,255,.5);margin-bottom:16px;line-height:1.5; }
+.sh-prog-track { height:5px;background:rgba(255,255,255,.15);border-radius:999px;overflow:hidden;margin-bottom:8px; }
+.sh-prog-fill { height:100%;background:linear-gradient(90deg,#a78bfa,#60a5fa);border-radius:999px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1); }
+.sh-prog-lbl { font-size:11px;color:rgba(255,255,255,.45);margin-bottom:12px; }
+.sh-xp-badge { display:inline-flex;align-items:center;gap:4px;background:rgba(167,139,250,.25);border:1px solid rgba(167,139,250,.3);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;color:#ddd6fe; }
+</style>
+
+<div class="sh">
+  <div class="sh-bg">
+    <div class="sh-grid"></div>
+    <div class="sh-orb sh-orb-1"></div>
+    <div class="sh-orb sh-orb-2"></div>
+    <div class="sh-orb sh-orb-3"></div>
+    <div class="sh-particles" id="shParticles"></div>
+  </div>
+
+  <div class="sh-inner">
+    <div>
+      <!-- Stats -->
+      <div class="sh-stats-grid">
+        <div>
+          <span class="sh-stat-n" id="shXp">0</span>
+          <span class="sh-stat-l">XP Points</span>
+          <span class="sh-stat-chg">↑ 12% this week</span>
+        </div>
+        <div class="sh-divider"></div>
+        <div>
+          <span class="sh-stat-n" id="shPosts">0</span>
+          <span class="sh-stat-l">Contributions</span>
+          <span class="sh-stat-chg">+8 this month</span>
+        </div>
+        <div class="sh-divider"></div>
+        <div>
+          <span class="sh-stat-n">Top 5%</span>
+          <span class="sh-stat-l">This month</span>
+          <span class="sh-stat-chg">↑ from Top 8%</span>
+        </div>
+        <div class="sh-divider"></div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div>
+            <span class="sh-stat-n" id="shStreak">0</span>
+            <span class="sh-stat-l">Day streak</span>
+            <span class="sh-stat-chg">🔥 Personal best</span>
+          </div>
+          <!-- Progress ring -->
+          <div class="sh-ring-wrap">
+            <svg class="sh-ring" viewBox="0 0 56 56" width="56" height="56">
+              <defs>
+                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#a78bfa"/>
+                  <stop offset="100%" stop-color="#60a5fa"/>
+                </linearGradient>
+              </defs>
+              <circle class="sh-ring-bg" cx="28" cy="28" r="24"/>
+              <circle class="sh-ring-fill" id="shRing" cx="28" cy="28" r="24"/>
+            </svg>
+            <div class="sh-ring-pct" id="shRingPct">67%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="sh-badges">
+        <span class="sh-badge"><span class="sh-badge-dot" style="background:#a78bfa"></span>Level 7 Expert</span>
+        <span class="sh-badge"><span class="sh-badge-dot" style="background:#22c55e"></span>Active 12 days</span>
+        <span class="sh-badge"><span class="sh-badge-dot" style="background:#f59e0b"></span>Top Contributor</span>
+        <span class="sh-badge"><span class="sh-badge-dot" style="background:#60a5fa"></span>847 online now</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="sh-actions">
+        <button class="sh-btn-w">+ New Topic</button>
+        <button class="sh-btn-g">My Profile →</button>
+      </div>
+    </div>
+
+    <!-- Challenge card -->
+    <div class="sh-card">
+      <div class="sh-card-label">🎯 Weekly Challenge</div>
+      <div class="sh-card-title">Answer 3 unanswered questions</div>
+      <div class="sh-card-sub">Help your community — earn XP and reputation points.</div>
+      <div class="sh-prog-track"><div class="sh-prog-fill" id="shBar"></div></div>
+      <div class="sh-prog-lbl">1 of 3 complete</div>
+      <div class="sh-xp-badge">⚡ +150 XP on completion</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<script>
+(function(){
+  function init(){
+    /* Progress bar */
+    var bar=document.getElementById('shBar');
+    if(bar) setTimeout(function(){ bar.style.width='33%'; },300);
+
+    /* Progress ring — 67% = stroke-dashoffset: 152*(1-0.67) = 50.16 */
+    var ring=document.getElementById('shRing');
+    if(ring) setTimeout(function(){ ring.style.strokeDashoffset='50'; },400);
+
+    /* Count-up */
+    function cu(id,t,d){
+      var el=document.getElementById(id); if(!el) return;
+      setTimeout(function(){
+        var s=Date.now();
+        (function tick(){
+          var p=Math.min((Date.now()-s)/1200,1);
+          var v=Math.round((1-Math.pow(1-p,3))*t);
+          el.textContent=v>=1000?(v/1000).toFixed(1).replace(/\.0$/,'')+'k':v;
+          if(p<1) requestAnimationFrame(tick);
+        })();
+      },d);
+    }
+    cu('shXp',2847,200); cu('shPosts',47,350); cu('shStreak',12,500);
+
+    /* Particles */
+    var c=document.getElementById('shParticles');
+    if(c){ for(var i=0;i<14;i++){ (function(i){ setTimeout(function(){
+      var p=document.createElement('div'); p.className='sh-p';
+      var sz=1.5+Math.random()*2.5,dur=5+Math.random()*7,dx=(Math.random()-.5)*50;
+      p.style.cssText='left:'+(5+Math.random()*90)+'%;bottom:'+(Math.random()*30)+'%;width:'+sz+'px;height:'+sz+'px;--dx:'+dx+'px;animation-duration:'+dur+'s;animation-delay:'+(Math.random()*8)+'s;opacity:'+(0.2+Math.random()*0.5);
+      c.appendChild(p);
+    },i*60); })(i); } }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
+})();
+</script>

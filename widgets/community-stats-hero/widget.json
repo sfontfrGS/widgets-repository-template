@@ -1,6 +1,6 @@
 {
-  "title": "Community Ask AI",
-  "description": "AI-powered chatbot that finds community answers through natural conversation.",
+  "title": "Stats Hero",
+  "description": "Personalized statistics hero \u2014 XP, contributions, streak, progress ring and weekly challenge.",
   "category": "Demo",
   "imageSrc": "thumbnail.png",
   "source": {
@@ -13,7 +13,7 @@
         "name": "title",
         "type": "text",
         "label": "Title",
-        "defaultValue": "Community Ask AI",
+        "defaultValue": "Stats Hero",
         "rules": {
           "required": true
         }
@@ -21,6 +21,6 @@
     ]
   },
   "defaultConfig": {
-    "title": "Community Ask AI"
+    "title": "Stats Hero"
   }
 }

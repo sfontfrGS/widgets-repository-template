@@ -1,4 +1,4 @@
-<section id="w-ask" class="g-root">
+<section id="w-ask-ai" class="g-root">
 <style>
 /* ═══════════════════════════════════════════════
    GAINSIGHT COMMUNITY — SHARED DESIGN SYSTEM
@@ -245,98 +245,383 @@ a.g, button.g { cursor:pointer; }
 .g-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .g-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
+/* Widget page heading (28px bold — like "Community Topics") */
+.g-widget-heading {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0a0a0a;
+  margin: 0 0 3px;
+  line-height: 1.15;
+}
+.g-widget-heading-sub {
+  font-size: 13px;
+  color: #71717a;
+  margin: 0;
+  font-weight: 400;
+}
 
-.ask-results { display:none; margin-top:16px; }
-.ask-results.on { display:block; }
-.ask-empty { display:none; text-align:center; padding:24px 0; }
-.ask-empty.on { display:block; }
-.ask-answer { border:1px solid #e4e4e7; border-radius:10px; padding:14px 16px; margin-bottom:12px; position:relative; overflow:hidden; }
-.ask-answer::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:#7c3aed; border-radius:3px 0 0 3px; }
-.ask-related { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px; }
-.ask-rel-card { border:1px solid #e4e4e7; border-radius:8px; padding:10px 12px; text-decoration:none; color:inherit; transition:border-color .15s,background .15s; display:flex; flex-direction:column; gap:3px; }
-.ask-rel-card:hover { border-color:#c4b5fd; background:#faf5ff; }
-.ask-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:0; }
+.g-widget-heading{font-size:28px;font-weight:700;letter-spacing:-.025em;color:#0a0a0a;line-height:1.15;margin:0 0 3px;}
+.g-widget-sub{font-size:13px;color:#71717a;margin:0;}
 
 
-.g-widget-heading { font-size:28px; font-weight:700; letter-spacing:-.025em; color:#111; line-height:1.15; margin:0 0 3px; }
-.g-widget-heading-sub { font-size:13px; color:#71717a; margin:0; }
+/* ── Ask AI layout ── */
+.ask-wrap { max-width:1140px; margin:0 auto; padding:24px 20px; }
+.ask-body { display:grid; grid-template-columns:1fr 300px; gap:16px; align-items:start; }
+
+/* ── Chat window ── */
+.ask-chat {
+  border:1px solid #e4e4e7; border-radius:12px; overflow:hidden;
+  display:flex; flex-direction:column; height:480px;
+}
+.ask-chat-header {
+  padding:14px 16px; border-bottom:1px solid #f4f4f5;
+  display:flex; align-items:center; gap:10px;
+  background: linear-gradient(135deg,#f5f3ff,#eff6ff);
+}
+.ask-ai-avatar {
+  width:32px; height:32px; border-radius:50%;
+  background:linear-gradient(135deg,#7c3aed,#0ea5e9);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; flex-shrink:0;
+}
+.ask-chat-title { font-size:13px; font-weight:600; color:#111; }
+.ask-chat-sub   { font-size:11px; color:#a1a1aa; }
+.ask-status { width:8px; height:8px; border-radius:50%; background:#22c55e; margin-left:auto; flex-shrink:0; animation:askPulse 2s ease-in-out infinite; }
+@keyframes askPulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)} }
+
+/* ── Messages area ── */
+.ask-messages {
+  flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px;
+  scrollbar-width:thin; scrollbar-color:#e4e4e7 transparent;
+}
+.ask-messages::-webkit-scrollbar { width:4px; }
+.ask-messages::-webkit-scrollbar-thumb { background:#e4e4e7; border-radius:999px; }
+
+/* Message bubbles */
+.ask-msg { display:flex; gap:8px; align-items:flex-start; animation:askMsgIn .25s ease both; }
+.ask-msg--user { flex-direction:row-reverse; }
+@keyframes askMsgIn { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+.ask-bubble {
+  max-width:85%; padding:10px 14px; border-radius:14px;
+  font-size:13px; line-height:1.5; color:#111;
+}
+.ask-msg--ai   .ask-bubble { background:#f4f4f5; border-radius:4px 14px 14px 14px; }
+.ask-msg--user .ask-bubble { background:#7c3aed; color:#fff; border-radius:14px 4px 14px 14px; }
+.ask-msg-avatar { width:26px; height:26px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; margin-top:2px; }
+
+/* Typing indicator */
+.ask-typing { display:none; }
+.ask-typing.on { display:flex; }
+.ask-typing .ask-bubble { padding:12px 16px; }
+.ask-dots { display:flex; gap:4px; align-items:center; }
+.ask-dot { width:6px; height:6px; border-radius:50%; background:#a1a1aa; animation:askDot 1.2s ease-in-out infinite; }
+.ask-dot:nth-child(2){animation-delay:.2s} .ask-dot:nth-child(3){animation-delay:.4s}
+@keyframes askDot { 0%,80%,100%{transform:scale(1);opacity:.4}40%{transform:scale(1.2);opacity:1} }
+
+/* Result cards inside chat */
+.ask-result-card {
+  border:1px solid #e4e4e7; border-radius:8px; padding:10px 12px;
+  margin-top:8px; background:#fff; cursor:pointer;
+  transition:border-color .15s,background .15s; text-decoration:none; display:block; color:inherit;
+}
+.ask-result-card:hover { border-color:#c4b5fd; background:#faf5ff; }
+.ask-result-title { font-size:12px; font-weight:600; color:#111; margin-bottom:4px; line-height:1.4; }
+.ask-result-meta  { font-size:11px; color:#a1a1aa; display:flex; gap:8px; }
+
+/* ── Input area ── */
+.ask-input-area {
+  padding:12px 14px; border-top:1px solid #f4f4f5;
+  display:flex; gap:8px; align-items:flex-end;
+  background:#fafafa;
+}
+.ask-input-field {
+  flex:1; border:1px solid #e4e4e7; border-radius:10px;
+  padding:9px 14px; font-size:13px; font-family:inherit;
+  color:#111; background:#fff; outline:none; resize:none;
+  min-height:38px; max-height:120px; line-height:1.45;
+  transition:border-color .15s, box-shadow .15s;
+  overflow-y:auto;
+}
+.ask-input-field:focus { border-color:#7c3aed; box-shadow:0 0 0 3px rgba(124,58,237,.08); }
+.ask-input-field::placeholder { color:#a1a1aa; }
+.ask-send {
+  width:36px; height:36px; border-radius:9px; border:none;
+  background:#7c3aed; color:#fff; cursor:pointer; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s, transform .12s;
+}
+.ask-send:hover { background:#6d28d9; transform:scale(1.05); }
+.ask-send svg { width:16px; height:16px; }
+
+/* ── Suggestions sidebar ── */
+.ask-sidebar { display:flex; flex-direction:column; gap:10px; }
+.ask-sidebar-label { font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#a1a1aa; margin-bottom:2px; }
+.ask-suggestion {
+  border:1px solid #e4e4e7; border-radius:9px; padding:11px 13px;
+  cursor:pointer; transition:border-color .15s, background .15s;
+  font-family:inherit; text-align:left; background:#fff; width:100%;
+}
+.ask-suggestion:hover { border-color:#c4b5fd; background:#faf5ff; }
+.ask-suggestion-q { font-size:12px; font-weight:500; color:#111; margin-bottom:3px; line-height:1.4; }
+.ask-suggestion-tag { font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:#7c3aed; }
 </style>
-<div class="g-wrap">
-  <div class="g-header">
-    <div><div><div class="g-widget-heading">Community Ask</div><div class="g-widget-sub">Find answers or start a discussion</div></div><div class="g-muted" style="margin-top:2px">Find answers or related discussions</div></div>
-  </div>
-  <div style="display:flex;gap:8px;margin-bottom:14px">
-    <div class="g-input-wrap" style="flex:1">
-      <svg class="g-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input class="g-input" id="askInput" type="text" placeholder="Ask a question or search topics…" autocomplete="off">
+
+<div class="ask-wrap">
+  <div class="g-header" style="align-items:flex-start;margin-bottom:16px">
+    <div>
+      <div class="g-widget-heading">Community Ask</div>
+      <div class="g-widget-sub">Ask anything — AI finds the best answers from the community</div>
     </div>
-    <button class="g-btn-primary" id="askBtn">Search</button>
   </div>
-  <div class="ask-chips" id="askChips">
-    <button class="g-chip" data-search="How to reduce churn?">How to reduce churn?</button>
-    <button class="g-chip" data-search="Best onboarding practices">Best onboarding practices</button>
-    <button class="g-chip" data-search="QBR templates">QBR templates</button>
-    <button class="g-chip" data-search="AI in customer success">AI in customer success</button>
-  </div>
-  <div class="ask-results on" id="askResults">
-    <div class="g-widget-label" style="margin-bottom:8px">Best match</div>
-    <div class="ask-answer">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="g-badge g-badge-p">Top Answer</span></div>
-      <div class="g-card-title g-clamp-2" id="askTitle">Proven strategies to reduce churn in the first 90 days</div>
-      <div class="g-muted g-clamp-2" id="askExcerpt" style="margin-top:6px">The first 90 days are critical. Teams that implement structured check-ins and early health scoring see up to 40% lower churn rates.</div>
-      <div class="g-footer">
-        <div class="g-stats"><span class="g-stat" id="askViews">👁 3.2k views</span><span class="g-stat" id="askReplies">💬 47 replies</span></div>
-        <a href="#" class="g-link">Read discussion →</a>
+
+  <div class="ask-body">
+    <!-- Chat -->
+    <div class="ask-chat">
+      <div class="ask-chat-header">
+        <div class="ask-ai-avatar">✦</div>
+        <div>
+          <div class="ask-chat-title">Community AI</div>
+          <div class="ask-chat-sub">Powered by community knowledge</div>
+        </div>
+        <div class="ask-status"></div>
+      </div>
+
+      <div class="ask-messages" id="askMessages">
+        <!-- Initial greeting -->
+        <div class="ask-msg ask-msg--ai">
+          <div class="ask-msg-avatar" style="background:linear-gradient(135deg,#7c3aed,#0ea5e9)">✦</div>
+          <div class="ask-bubble">
+            Hi! I'm your Community AI. Ask me anything about customer success, onboarding, QBRs, churn prevention — I'll find the best answers from thousands of community discussions. 👋
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing indicator -->
+      <div class="ask-typing ask-msg ask-msg--ai" id="askTyping" style="padding:0 16px 12px">
+        <div class="ask-msg-avatar" style="background:linear-gradient(135deg,#7c3aed,#0ea5e9)">✦</div>
+        <div class="ask-bubble">
+          <div class="ask-dots">
+            <div class="ask-dot"></div><div class="ask-dot"></div><div class="ask-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="ask-input-area">
+        <textarea class="ask-input-field" id="askInput" placeholder="Ask the community anything…" rows="1"></textarea>
+        <button class="ask-send" id="askSend">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"/>
+          </svg>
+        </button>
       </div>
     </div>
-    <div class="g-widget-label" style="margin-bottom:8px">Related discussions</div>
-    <div class="ask-related">
-      <a class="ask-rel-card" href="#"><span class="g-accent g-subtle"># churn-prevention</span><span class="g-body-s" id="askR0t">Early warning signals every CS team should track</span><span class="g-subtle" id="askR0m">28 replies</span></a>
-      <a class="ask-rel-card" href="#"><span class="g-accent g-subtle"># onboarding</span><span class="g-body-s" id="askR1t">The 30-60-90 day onboarding framework</span><span class="g-subtle" id="askR1m">19 replies</span></a>
-      <a class="ask-rel-card" href="#"><span class="g-accent g-subtle"># health-scores</span><span class="g-body-s" id="askR2t">Building a customer health score from scratch</span><span class="g-subtle" id="askR2m">33 replies</span></a>
+
+    <!-- Suggestions sidebar -->
+    <div class="ask-sidebar">
+      <div class="ask-sidebar-label">Try asking</div>
+      <button class="ask-suggestion" data-q="How do I reduce churn in the first 90 days?">
+        <div class="ask-suggestion-q">How do I reduce churn in the first 90 days?</div>
+        <div class="ask-suggestion-tag"># churn-prevention</div>
+      </button>
+      <button class="ask-suggestion" data-q="What's the best QBR structure for enterprise accounts?">
+        <div class="ask-suggestion-q">What's the best QBR structure for enterprise accounts?</div>
+        <div class="ask-suggestion-tag"># qbr</div>
+      </button>
+      <button class="ask-suggestion" data-q="How should I measure onboarding success?">
+        <div class="ask-suggestion-q">How should I measure onboarding success?</div>
+        <div class="ask-suggestion-tag"># onboarding</div>
+      </button>
+      <button class="ask-suggestion" data-q="What AI tools are CS teams actually using?">
+        <div class="ask-suggestion-q">What AI tools are CS teams actually using?</div>
+        <div class="ask-suggestion-tag"># ai-tools</div>
+      </button>
+      <button class="ask-suggestion" data-q="How do I build a health score from scratch?">
+        <div class="ask-suggestion-q">How do I build a health score from scratch?</div>
+        <div class="ask-suggestion-tag"># health-scores</div>
+      </button>
+      <button class="ask-suggestion" data-q="What's a good NRR benchmark for Series B?">
+        <div class="ask-suggestion-q">What's a good NRR benchmark for Series B?</div>
+        <div class="ask-suggestion-tag"># benchmarks</div>
+      </button>
     </div>
   </div>
-  <div class="ask-empty" id="askEmpty"><div class="g-muted">No results found.</div><a href="#" class="g-link" style="display:block;margin-top:6px">Start a new discussion →</a></div>
 </div>
 </section>
+
 <script>
 (function(){
-  var R=document;
-  function init(){
-    var DATA={
-  churn:{title:'Proven strategies to reduce churn in the first 90 days',exc:'The first 90 days are critical. Teams that implement structured check-ins and early health scoring see up to 40% lower churn rates.',views:'3.2k',replies:'47',rel:[['churn-prevention','Early warning signals every CS team should track','28 replies'],['onboarding','The 30-60-90 day onboarding framework','19 replies'],['health-scores','Building a customer health score from scratch','33 replies']]},
-  onboarding:{title:'The complete guide to SaaS customer onboarding in 2025',exc:'Onboarding is where retention is won or lost. This post covers the five phases of onboarding, common failure points, and automation strategies.',views:'2.8k',replies:'38',rel:[['onboarding','Video vs written onboarding: what actually works','14 replies'],['cs-ops','Automating onboarding touchpoints with low effort','22 replies'],['product-led','PLG onboarding vs high-touch: when to use each','17 replies']]},
-  qbr:{title:'How to run QBRs that customers actually look forward to',exc:'Most QBRs are a waste of time for both sides. This breaks down what top CS teams do differently: smaller decks, outcome focus, co-created agendas.',views:'1.9k',replies:'29',rel:[['qbr','QBR deck template that works for enterprise','41 replies'],['exec-alignment','Getting executive buy-in for your QBR program','11 replies'],['cs-ops','Running QBRs at scale with a small team','24 replies']]},
-  ai:{title:'AI tools your customer success team should be using right now',exc:'From call summarisation to proactive health scoring, AI is changing what is possible for CS teams. Here's what's actually working in practice.',views:'4.1k',replies:'61',rel:[['ai-tools','Using AI to detect churn signals before they're obvious','37 replies'],['automation','Which CS tasks are actually worth automating?','28 replies'],['ai-tools','Prompt templates CS teams are using with ChatGPT','19 replies']]}
-};
-function match(q){q=q.toLowerCase();if(/churn|retain/.test(q))return DATA.churn;if(/onboard|start|begin/.test(q))return DATA.onboarding;if(/qbr|quarter/.test(q))return DATA.qbr;if(/ai|gpt|ml/.test(q))return DATA.ai;return null;}
-function show(id){R.querySelector('#'+id).classList.add('on');}
-function hide(id){R.querySelector('#'+id).classList.remove('on');}
-function doSearch(q){
-  if(!q.trim())return;
-  hide('askChips'); hide('askEmpty');
-  var d=match(q);
-  if(d){
-    hide('askEmpty');show('askResults');
-    R.querySelector('#askTitle').textContent=d.title;
-    R.querySelector('#askExcerpt').textContent=d.exc;
-    R.querySelector('#askViews').textContent='👁 '+d.views+' views';
-    R.querySelector('#askReplies').textContent='💬 '+d.replies+' replies';
-    d.rel.forEach(function(r,i){R.querySelector('#askR'+i+'t').textContent=r[1];R.querySelector('#askR'+i+'m').textContent=r[2];R.querySelector('[id="askR'+i+'t"]').previousElementSibling.textContent='# '+r[0];});
-  } else {
-    hide('askResults'); show('askEmpty');
+  /* ── Knowledge base ── */
+  var KB = [
+    {
+      keys:['churn','retain','lose','losing'],
+      answer:"Great question! The community has strong insights on this. Here are the top discussions:",
+      results:[
+        {title:"How we reduced churn by 40% using proactive health scoring",tag:"# churn-prevention",stats:"3.2k views · 47 replies"},
+        {title:"The 5 early warning signs your customer is about to churn",tag:"# churn-prevention",stats:"6.7k views · 98 replies"},
+        {title:"Scripts for difficult renewal conversations — share yours",tag:"# churn-prevention",stats:"2.1k views · 44 replies"},
+      ],
+      followup:"Would you like tips on building a health score to catch churn early, or strategies for renewal conversations?"
+    },
+    {
+      keys:['qbr','quarterly','review','executive'],
+      answer:"QBRs are a hot topic here! The community has debated structure, length, async formats and more:",
+      results:[
+        {title:"QBR deck template that enterprise customers actually look forward to",tag:"# qbr",stats:"5.1k views · 93 replies"},
+        {title:"How to run QBRs that customers actually look forward to",tag:"# qbr",stats:"1.9k views · 29 replies"},
+        {title:"Running QBRs async — does it actually work?",tag:"# qbr",stats:"1.4k views · 22 replies"},
+      ],
+      followup:"Want to know more about async QBRs, or how to handle it when an exec cancels last minute?"
+    },
+    {
+      keys:['onboard','activation','first','90 day','time-to-value','ttv'],
+      answer:"Onboarding is where retention is won or lost — the community has a lot to say:",
+      results:[
+        {title:"The 30-60-90 day onboarding framework that actually works",tag:"# onboarding",stats:"2.8k views · 38 replies"},
+        {title:"Async video vs live sessions: what the data says after 6 months",tag:"# onboarding",stats:"1.8k views · 38 replies"},
+        {title:"How do you measure onboarding success beyond time-to-first-value?",tag:"# onboarding",stats:"412 views · 0 replies"},
+      ],
+      followup:"Interested in specific onboarding metrics, or how to handle accounts that go dark during onboarding?"
+    },
+    {
+      keys:['ai','gpt','chatgpt','artificial','machine learning','automation','tool'],
+      answer:"AI in CS is the fastest growing topic right now — here's what the community is actually using:",
+      results:[
+        {title:"The CS AI toolkit: 12 tools we actually use every day in 2025",tag:"# ai-tools",stats:"4.1k views · 61 replies"},
+        {title:"Using AI to detect early churn signals before they're obvious",tag:"# ai-tools",stats:"2.3k views · 37 replies"},
+        {title:"Prompt templates CS teams are actually using with ChatGPT",tag:"# ai-tools",stats:"1.8k views · 19 replies"},
+      ],
+      followup:"Want to know about specific AI use cases like call summarisation, health scoring, or email writing?"
+    },
+    {
+      keys:['health score','health model','scoring','signal'],
+      answer:"Building a health score is one of the most discussed topics. Here's the community's experience:",
+      results:[
+        {title:"How we reduced churn by 40% using proactive health scoring",tag:"# health-scores",stats:"3.2k views · 47 replies"},
+        {title:"How we built a churn prediction model with no ML background",tag:"# churn-prevention",stats:"1.7k views · 23 replies"},
+        {title:"Anyone using Gainsight for health score automation?",tag:"# product-feedback",stats:"189 views · 0 replies"},
+      ],
+      followup:"Would you like to know more about which signals to include, or how to weight different factors?"
+    },
+    {
+      keys:['nrr','arr','benchmark','metric','kpi','revenue'],
+      answer:"The community has done a lot of benchmark sharing — here are the key discussions:",
+      results:[
+        {title:"2025 SaaS CS Benchmarks Report — community edition",tag:"# benchmarks",stats:"11.2k views · 287 replies"},
+        {title:"Beyond NRR: the 7 CS metrics boards actually care about in 2025",tag:"# metrics",stats:"9.4k views · 201 replies"},
+        {title:"Our renewal playbook: how we hit 118% NRR two years running",tag:"# renewals",stats:"4.3k views · 76 replies"},
+      ],
+      followup:"Interested in specific benchmarks by company stage, or how to present these metrics to your board?"
+    },
+    {
+      keys:['plg','product-led','self-serve','sales-led'],
+      answer:"The PLG vs sales-led debate is very active here. The community has real-world experience:",
+      results:[
+        {title:"Is PLG still the right motion for B2B SaaS in 2025?",tag:"# growth",stats:"940 views · 28 replies"},
+        {title:"What's the best way to structure a PLG motion alongside an enterprise sales team?",tag:"# product-strategy",stats:"612 views · 0 replies"},
+        {title:"Our 2025 CS tech stack — what stayed, what got cut",tag:"# cs-ops",stats:"2.1k views · 41 replies"},
+      ],
+      followup:"Want to explore how other teams are handling the PLG to enterprise handoff specifically?"
+    },
+  ];
+
+  var DEFAULT = {
+    answer:"I searched the community knowledge base for you. Here are some related discussions that might help:",
+    results:[
+      {title:"State of Customer Success 2025: what 1,200 practitioners told us",tag:"# community",stats:"14.3k views · 312 replies"},
+      {title:"Building a CS org from scratch: lessons from my first 18 months as VP",tag:"# leadership",stats:"5.4k views · 89 replies"},
+      {title:"The 10 questions every CSM should ask in their first customer call",tag:"# customer-success",stats:"9.1k views · 211 replies"},
+    ],
+    followup:"Can you tell me more about what you're specifically looking for? I can search deeper."
+  };
+
+  function findAnswer(q) {
+    var ql = q.toLowerCase();
+    for (var i=0; i<KB.length; i++) {
+      for (var j=0; j<KB[i].keys.length; j++) {
+        if (ql.indexOf(KB[i].keys[j]) !== -1) return KB[i];
+      }
+    }
+    return DEFAULT;
   }
-}
-R.querySelectorAll('[data-search]').forEach(function(btn){btn.addEventListener('click',function(){R.querySelector('#askInput').value=btn.getAttribute('data-search');doSearch(btn.getAttribute('data-search'));});});
-R.querySelector('#askBtn').addEventListener('click',function(){doSearch(R.querySelector('#askInput').value);});
-R.querySelector('#askInput').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch(this.value);});
-R.querySelector('#askInput').addEventListener('focus',function(){if(!this.value.trim())show('askChips');});
-R.querySelector('#askInput').addEventListener('input',function(){if(!this.value.trim()){hide('askResults');hide('askEmpty');show('askChips');}});
+
+  function makeResultsHTML(data) {
+    var html = '<div style="font-size:13px;line-height:1.5;margin-bottom:8px">'+data.answer+'</div>';
+    data.results.forEach(function(r) {
+      html += '<a class="ask-result-card" href="#">'
+        + '<div class="ask-result-title">'+r.title+'</div>'
+        + '<div class="ask-result-meta"><span style="color:#7c3aed;font-weight:600">'+r.tag+'</span><span>'+r.stats+'</span></div>'
+        + '</a>';
+    });
+    if (data.followup) {
+      html += '<div style="font-size:12px;color:#71717a;margin-top:10px;padding-top:8px;border-top:1px solid #f4f4f5">'+data.followup+'</div>';
+    }
+    return html;
   }
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',init);
-  } else {
-    init();
+
+  function addMessage(role, html, isHtml) {
+    var messages = document.getElementById('askMessages');
+    if (!messages) return;
+    var div = document.createElement('div');
+    div.className = 'ask-msg ask-msg--' + role;
+    var avatar = '<div class="ask-msg-avatar" style="background:'+(role==='ai'?'linear-gradient(135deg,#7c3aed,#0ea5e9)':'#e4e4e7;color:#52525b')+';">'+(role==='ai'?'✦':'You')+'</div>';
+    var bubble = '<div class="ask-bubble">'+(isHtml?html:html)+'</div>';
+    div.innerHTML = role === 'ai' ? avatar+bubble : bubble+avatar;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
   }
+
+  function setTyping(on) {
+    var t = document.getElementById('askTyping');
+    if (t) t.classList.toggle('on', on);
+  }
+
+  function handleQuery(q) {
+    if (!q.trim()) return;
+    addMessage('user', q, false);
+    var input = document.getElementById('askInput');
+    if (input) { input.value=''; input.style.height='auto'; }
+    setTyping(true);
+    setTimeout(function() {
+      setTyping(false);
+      var data = findAnswer(q);
+      addMessage('ai', makeResultsHTML(data), true);
+    }, 900 + Math.random()*600);
+  }
+
+  function init() {
+    var input = document.getElementById('askInput');
+    var send = document.getElementById('askSend');
+
+    if (send) send.addEventListener('click', function() {
+      var v = input ? input.value.trim() : '';
+      if (v) handleQuery(v);
+    });
+
+    if (input) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          var v = input.value.trim();
+          if (v) handleQuery(v);
+        }
+      });
+      input.addEventListener('input', function() {
+        input.style.height = 'auto';
+        input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+      });
+    }
+
+    document.querySelectorAll('.ask-suggestion').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        handleQuery(btn.getAttribute('data-q'));
+      });
+    });
+  }
+
+  if (document.readyState==='loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
 })();
 </script>

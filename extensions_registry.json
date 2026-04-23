@@ -307,40 +307,6 @@
       "type": "community-tag-cloud"
     },
     {
-      "title": "Community Ask",
-      "description": "Search widget that helps users find answers and related discussions with smart topic matching and suggested prompts.",
-      "category": "Demo",
-      "imageSrc": "widgets/community-ask/thumbnail.png",
-      "source": {
-        "path": "widgets/community-ask/dist",
-        "entry": "content.html"
-      },
-      "configuration": {
-        "properties": [
-          {
-            "name": "title",
-            "type": "text",
-            "label": "Title",
-            "defaultValue": "Community Ask",
-            "rules": {
-              "required": true
-            }
-          },
-          {
-            "name": "description",
-            "type": "text",
-            "label": "Description",
-            "defaultValue": "Find answers and related discussions."
-          }
-        ]
-      },
-      "defaultConfig": {
-        "title": "Community Ask",
-        "description": "Find answers and related discussions."
-      },
-      "type": "community-ask"
-    },
-    {
       "title": "Global Member Map",
       "description": "Interactive world map showing where community members are located, with animated live dots and top countries leaderboard.",
       "category": "Exploration",
@@ -665,6 +631,60 @@
         "title": "Community Hub"
       },
       "type": "community-hub"
+    },
+    {
+      "type": "community-ask",
+      "title": "Community Ask AI",
+      "description": "AI-powered chatbot",
+      "category": "Demo",
+      "imageSrc": "widgets/community-ask/thumbnail.png",
+      "source": {
+        "path": "widgets/community-ask/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Community Ask AI",
+            "rules": {
+              "required": true
+            }
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Community Ask AI"
+      }
+    },
+    {
+      "type": "community-stats-hero",
+      "title": "Stats Hero",
+      "description": "Personalized stats hero",
+      "category": "Demo",
+      "imageSrc": "widgets/community-stats-hero/thumbnail.png",
+      "source": {
+        "path": "widgets/community-stats-hero/dist",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Stats Hero",
+            "rules": {
+              "required": true
+            }
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Stats Hero"
+      }
     }
   ],
   "stylesheets": [
