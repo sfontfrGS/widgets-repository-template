@@ -261,57 +261,145 @@ a.g, button.g { cursor:pointer; }
   font-weight: 400;
 }
 
-.g-widget-heading { font-size:28px; font-weight:700; letter-spacing:-.025em; color:#0a0a0a; line-height:1.15; margin:0 0 3px; }
-.g-widget-sub { font-size:13px; color:#71717a; margin:0; }
+.g-widget-heading{font-size:28px;font-weight:700;letter-spacing:-.025em;color:#0a0a0a;line-height:1.15;margin:0 0 3px;}
+.g-widget-sub{font-size:13px;color:#71717a;margin:0;}
 
 
-/* Topic feed specific */
-.tf-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: border-color .15s, box-shadow .15s, transform .15s;
+/* ── Feed layout ── */
+.tf-wrap { max-width:1140px; margin:0 auto; padding:24px 20px; }
+
+/* ── Item ── */
+.tf-item {
+  border-bottom: 1px solid #f4f4f5;
+  padding: 28px 0;
+  animation: tfIn .3s ease both;
 }
-.tf-card:hover { transform: translateY(-2px); }
-.tf-card:hover .tf-title { color: #7c3aed; }
-.tf-title { transition: color .15s; }
-.tf-excerpt { margin-top: 5px; }
+.tf-item:first-child { padding-top: 0; }
+.tf-item:last-child { border-bottom: none; padding-bottom: 0; }
+@keyframes tfIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-/* 3-col grid matching bento visual weight */
-.tf-grid {
+.tf-item-inner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: 1fr 260px;
+  gap: 32px;
+  align-items: start;
 }
 
-/* Panels */
-.tf-panel { display: none; }
-.tf-panel.on { display: block; }
-
-/* Expert banner */
-.tf-expert-banner {
-  display: flex; align-items: center; gap: 8px;
-  padding: 10px 14px; margin-bottom: 12px;
-  background: linear-gradient(90deg, #fffbeb, #fff);
-  border: 1px solid #fde68a; border-radius: 10px;
-  font-size: 12px; color: #92400e; font-weight: 500;
+/* ── Author row ── */
+.tf-author-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.tf-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.tf-author-name { font-size: 13px; font-weight: 600; color: #111; }
+.tf-dot { color: #d4d4d8; font-size: 11px; }
+.tf-badge {
+  font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: 999px;
+}
+.tf-time { font-size: 12px; color: #a1a1aa; }
+.tf-type-icon {
+  margin-left: auto;
+  width: 30px; height: 30px;
+  background: #f4f4f5; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  color: #71717a; flex-shrink: 0;
 }
 
-/* Load more */
+/* ── Title ── */
+.tf-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: color .15s;
+}
+.tf-item:hover .tf-title { color: #7c3aed; }
+
+/* ── Excerpt ── */
+.tf-excerpt {
+  font-size: 14px;
+  color: #71717a;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Stats row ── */
+.tf-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.tf-reactions {
+  font-size: 13px;
+  color: #52525b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tf-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #71717a;
+}
+.tf-posted-in {
+  font-size: 13px;
+  color: #a1a1aa;
+  margin-left: auto;
+}
+
+/* ── Thumbnail ── */
+.tf-thumb-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f4f4f5;
+  aspect-ratio: 4/3;
+  display: block;
+  flex-shrink: 0;
+  transition: transform .2s, box-shadow .2s;
+}
+.tf-thumb-wrap:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+.tf-thumb {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .3s;
+}
+
+/* ── Tabs ── */
+.tf-tabs-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+/* ── Load more ── */
 .tf-load-more {
-  margin-top: 16px;
   text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid #f4f4f5;
+  margin-top: 4px;
 }
-
-.g-clamp-2 { display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
-.g-widget-heading { font-size:28px;font-weight:700;letter-spacing:-.025em;color:#0a0a0a;line-height:1.15;margin:0 0 3px; }
-.g-widget-sub { font-size:13px;color:#71717a;margin:0; }
 </style>
 
-<div class="g-wrap">
+<div class="tf-wrap">
   <div class="g-header" style="align-items:flex-start;margin-bottom:20px">
     <div>
       <div class="g-widget-heading">Latest Topics</div>
@@ -324,489 +412,349 @@ a.g, button.g { cursor:pointer; }
     </div>
   </div>
 
-  <!-- ALL -->
+  <!-- ALL TOPICS -->
   <div class="tf-panel on" id="tf-all">
-    <div class="tf-grid">
-      <a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Customer Success</span>
-          <span class="g-badge g-badge-a" style="font-size:9px">🔥 Hot</span>
+    <article class="tf-item" >
+  <div class="tf-item-inner">
+    <div class="tf-left">
+      <!-- Author row -->
+      <div class="tf-author-row">
+        <div class="tf-avatar" style="background:#f59e0b">AK</div>
+        <span class="tf-author-name">Anna Kim</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-badge" style="color:#7c3aed;background:#f5f3ff">Top Contributor</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-time">12 mins ago</span>
+        <div class="tf-type-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">How we reduced churn by 40% using proactive health scoring</div>
-        <div class="g-muted tf-excerpt g-clamp-2">We implemented a 3-tier health score system six months ago and the results have been remarkable. Here's the exact setup we used.</div>
       </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.2k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>47</span>
-        </div>
-        <button class="g-like" data-base="203">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>203</span>
-        </button>
+
+      <!-- Title -->
+      <h3 class="tf-title">How we reduced churn by 40% using proactive health scoring</h3>
+
+      <!-- Excerpt -->
+      <p class="tf-excerpt">We implemented a 3-tier health score system six months ago and the results have been remarkable. Here's the exact setup, the signals we track, and how we action them...</p>
+
+      <!-- Stats row -->
+      <div class="tf-stats-row">
+        <span class="tf-reactions">🙌💡🔥 203</span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          47
+        </span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          3.5K
+        </span>
+        <span class="tf-posted-in">Posted in <a href="#" class="g-link">Customer Success</a></span>
       </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Product Strategy</span>
-          <span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">What's the best way to structure a PLG motion alongside an enterprise sales team?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">We're transitioning from pure sales-led to a hybrid PLG model. Our enterprise reps are worried...</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>612</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="31">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>31</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">AI Tools</span>
-          
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">The CS AI toolkit: 12 tools we actually use every day in 2025</div>
-        <div class="g-muted tf-excerpt g-clamp-2">After testing over 30 tools, here are the 12 that made it into our daily workflow — with honest pros and cons.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.1k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>61</span>
-        </div>
-        <button class="g-like" data-base="289">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>289</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Onboarding</span>
-          
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Async video onboarding vs live sessions — what the data says after 6 months</div>
-        <div class="g-muted tf-excerpt g-clamp-2">We ran a controlled experiment with 200 accounts split across async Loom walkthroughs and live Zoom sessions.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>1.8k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>38</span>
-        </div>
-        <button class="g-like" data-base="97">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>97</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">QBR</span>
-          <span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">How do you handle a QBR when the executive sponsor suddenly cancels?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">This has happened to us twice this quarter. By the time we reschedule the momentum is completely gone.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>340</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="18">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>18</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">CS Ops</span>
-          
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Our complete tech stack review: what we kept, dropped and added in 2025</div>
-        <div class="g-muted tf-excerpt g-clamp-2">After a full audit of 19 tools, we consolidated down to 11. Here's what drove each decision.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.1k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>41</span>
-        </div>
-        <button class="g-like" data-base="77">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>77</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Leadership</span>
-          
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Building a CS org from scratch: lessons from my first 18 months as VP of CS</div>
-        <div class="g-muted tf-excerpt g-clamp-2">When I joined, there were 2 CSMs and no process. Here's how we built a 15-person org with clear career tracks.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>5.4k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
-        </div>
-        <button class="g-like" data-base="341">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>341</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Product Feedback</span>
-          <span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Anyone using Gainsight for health score automation? What triggers are you using?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">Looking for inspiration on what signals people are feeding into their health scores beyond basic usage data.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>189</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="24">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>24</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Community</span>
-          
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Pulse 2025 was incredible — key takeaways from all 3 days</div>
-        <div class="g-muted tf-excerpt g-clamp-2">Attended every session I could. Here are the themes that kept coming up across all tracks.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>4.7k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>89</span>
-        </div>
-        <button class="g-like" data-base="203">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>203</span>
-        </button>
-      </div>
-    </a>
-      <a class="g-card tf-hidden" style="display:none" g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Customer Success</span>
-          
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">How to build a CS team culture that retains top talent</div>
-        <div class="g-muted tf-excerpt g-clamp-2">The practices that keep our team engagement scores above 85% for three consecutive years running.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>2.3k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>44</span>
-        </div>
-        <button class="g-like" data-base="118">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>118</span>
-        </button>
-      </div>
-    </a><a class="g-card tf-hidden" style="display:none" g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Metrics</span>
-          <span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">What NRR benchmark should a Series B SaaS company be targeting?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">Our board keeps asking about industry benchmarks and I want to give a confident answer backed by data.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>512</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="16">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>16</span>
-        </button>
-      </div>
-    </a><a class="g-card tf-hidden" style="display:none" g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">AI Tools</span>
-          
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">We gave our CS team access to AI for 90 days — here's what changed</div>
-        <div class="g-muted tf-excerpt g-clamp-2">A before-and-after look at productivity, quality of customer interactions, and the surprises we didn't expect.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>3.8k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>67</span>
-        </div>
-        <button class="g-like" data-base="201">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>201</span>
-        </button>
-      </div>
-    </a>
     </div>
+
+    <!-- Thumbnail -->
+    <a href="#" class="tf-thumb-wrap">
+      <img class="tf-thumb" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80" alt="How we reduced churn by 40% using proactive health scoring" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/>
+    </a>
+  </div>
+</article>
+<article class="tf-item" >
+  <div class="tf-item-inner">
+    <div class="tf-left">
+      <!-- Author row -->
+      <div class="tf-author-row">
+        <div class="tf-avatar" style="background:#7c3aed">SM</div>
+        <span class="tf-author-name">Sergi Martinez</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-badge" style="color:#71717a;background:#f4f4f5">Community Member</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-time">2 days ago</span>
+        <div class="tf-type-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h3 class="tf-title">Designing scalable CS playbooks for B2B SaaS at Series B</h3>
+
+      <!-- Excerpt -->
+      <p class="tf-excerpt">After building CS playbooks for multiple enterprise products, I've learned that scalability isn't just about templates — it's about the systems underneath them...</p>
+
+      <!-- Stats row -->
+      <div class="tf-stats-row">
+        <span class="tf-reactions">💡🚀✨ 938</span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          18
+        </span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          4.2K
+        </span>
+        <span class="tf-posted-in">Posted in <a href="#" class="g-link">CS Ops</a></span>
+      </div>
+    </div>
+
+    <!-- Thumbnail -->
+    <a href="#" class="tf-thumb-wrap">
+      <img class="tf-thumb" src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&q=80" alt="Designing scalable CS playbooks for B2B SaaS at Series B" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/>
+    </a>
+  </div>
+</article>
+<article class="tf-item" >
+  <div class="tf-item-inner">
+    <div class="tf-left">
+      <!-- Author row -->
+      <div class="tf-author-row">
+        <div class="tf-avatar" style="background:#0ea5e9">JL</div>
+        <span class="tf-author-name">Julia L.</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-badge" style="color:#b45309;background:#fffbeb">Expert</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-time">3 days ago</span>
+        <div class="tf-type-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h3 class="tf-title">The CS AI toolkit: 12 tools we actually use every day in 2025</h3>
+
+      <!-- Excerpt -->
+      <p class="tf-excerpt">After testing over 30 AI tools with my CS team, here are the 12 that survived — with honest pros, cons, and the exact workflows we built around each one...</p>
+
+      <!-- Stats row -->
+      <div class="tf-stats-row">
+        <span class="tf-reactions">🔥🤖💡 289</span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          61
+        </span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          4.1K
+        </span>
+        <span class="tf-posted-in">Posted in <a href="#" class="g-link">AI Tools</a></span>
+      </div>
+    </div>
+
+    <!-- Thumbnail -->
+    <a href="#" class="tf-thumb-wrap">
+      <img class="tf-thumb" src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=400&q=80" alt="The CS AI toolkit: 12 tools we actually use every day in 2025" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/>
+    </a>
+  </div>
+</article>
+<article class="tf-item tf-hidden" style="display:none">
+  <div class="tf-item-inner">
+    <div class="tf-left">
+      <!-- Author row -->
+      <div class="tf-author-row">
+        <div class="tf-avatar" style="background:#6366f1">MR</div>
+        <span class="tf-author-name">Marcus R.</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-badge" style="color:#7c3aed;background:#f5f3ff">Top Contributor</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-time">5 days ago</span>
+        <div class="tf-type-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h3 class="tf-title">QBR deck template that enterprise customers actually look forward to</h3>
+
+      <!-- Excerpt -->
+      <p class="tf-excerpt">We replaced a 40-slide deck with a 12-slide narrative and NPS went up 18 points. Here's the exact structure, what we removed, and why less is more...</p>
+
+      <!-- Stats row -->
+      <div class="tf-stats-row">
+        <span class="tf-reactions">👏🎯💡 371</span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          93
+        </span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          5.1K
+        </span>
+        <span class="tf-posted-in">Posted in <a href="#" class="g-link">QBR</a></span>
+      </div>
+    </div>
+
+    <!-- Thumbnail -->
+    <a href="#" class="tf-thumb-wrap">
+      <img class="tf-thumb" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" alt="QBR deck template that enterprise customers actually look forward to" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/>
+    </a>
+  </div>
+</article>
+<article class="tf-item tf-hidden" style="display:none">
+  <div class="tf-item-inner">
+    <div class="tf-left">
+      <!-- Author row -->
+      <div class="tf-author-row">
+        <div class="tf-avatar" style="background:#10b981">DP</div>
+        <span class="tf-author-name">David P.</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-badge" style="color:#b45309;background:#fffbeb">Expert</span>
+        <span class="tf-dot">·</span>
+        <span class="tf-time">1 week ago</span>
+        <div class="tf-type-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h3 class="tf-title">Building a CS org from scratch: lessons from my first 18 months as VP</h3>
+
+      <!-- Excerpt -->
+      <p class="tf-excerpt">When I joined, there were 2 CSMs and no process. Here's how we built a 15-person org with clear career tracks, playbooks, and 118% NRR in 18 months...</p>
+
+      <!-- Stats row -->
+      <div class="tf-stats-row">
+        <span class="tf-reactions">🙌🚀🔥 341</span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          89
+        </span>
+        <span class="tf-stat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          5.4K
+        </span>
+        <span class="tf-posted-in">Posted in <a href="#" class="g-link">Leadership</a></span>
+      </div>
+    </div>
+
+    <!-- Thumbnail -->
+    <a href="#" class="tf-thumb-wrap">
+      <img class="tf-thumb" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&q=80" alt="Building a CS org from scratch: lessons from my first 18 months as VP" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/>
+    </a>
+  </div>
+</article>
     <div class="tf-load-more">
       <button class="g-btn-primary" id="tfMore" style="margin:0 auto">Load more topics ↓</button>
     </div>
   </div>
 
   <!-- FOR YOU -->
-  <div class="tf-panel" id="tf-expert">
-    <div class="tf-expert-banner">
-      <span>⭐</span>
-      <span>Topics matching your expertise in <strong>Customer Success</strong> and <strong>Onboarding</strong> — your answer could help here</span>
-    </div>
-    <div class="tf-grid">
-      <a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Customer Success</span>
-          <span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise · Unanswered</span>
+  <div class="tf-panel" id="tf-expert" style="display:none">
+    <article class="tf-item">
+      <div class="tf-item-inner">
+        <div class="tf-left">
+          <div class="tf-author-row">
+            <div class="tf-avatar" style="background:#f59e0b">AK</div>
+            <span class="tf-author-name">Anna Kim</span><span class="tf-dot">·</span>
+            <span class="tf-badge" style="color:#b45309;background:#fffbeb">⭐ Matches your expertise</span><span class="tf-dot">·</span>
+            <span class="tf-time">15 mins ago</span>
+            <div class="tf-type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          </div>
+          <h3 class="tf-title">What's the right cadence for check-ins with a newly onboarded enterprise account?</h3>
+          <p class="tf-excerpt">We just closed a 500-seat deal and the sponsor is very hands-off. Wondering how often to reach out without being annoying — and what format works best for large accounts...</p>
+          <div class="tf-stats-row">
+            <span class="tf-reactions">❓🎯 19</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>284</span>
+            <span class="tf-posted-in">Posted in <a href="#" class="g-link">Customer Success</a></span>
+          </div>
         </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">What's the right cadence for check-ins with a newly onboarded enterprise account?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">We just closed a 500-seat deal and the sponsor is very hands-off. Wondering how often to reach out...</div>
+        <a href="#" class="tf-thumb-wrap"><img class="tf-thumb" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80" alt="" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/></a>
       </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>284</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+    </article>
+    <article class="tf-item">
+      <div class="tf-item-inner">
+        <div class="tf-left">
+          <div class="tf-author-row">
+            <div class="tf-avatar" style="background:#6366f1">MR</div>
+            <span class="tf-author-name">Marcus R.</span><span class="tf-dot">·</span>
+            <span class="tf-badge" style="color:#b45309;background:#fffbeb">⭐ Matches your expertise</span><span class="tf-dot">·</span>
+            <span class="tf-time">1 hour ago</span>
+            <div class="tf-type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          </div>
+          <h3 class="tf-title">How do you measure onboarding success beyond time-to-first-value?</h3>
+          <p class="tf-excerpt">We have time-to-activate nailed down but leadership wants more signals for how sticky the onboarding experience actually is. What metrics are you tracking at 30/60/90 days?</p>
+          <div class="tf-stats-row">
+            <span class="tf-reactions">💡🎯 27</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>412</span>
+            <span class="tf-posted-in">Posted in <a href="#" class="g-link">Onboarding</a></span>
+          </div>
         </div>
-        <button class="g-like" data-base="19">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>19</span>
-        </button>
+        <a href="#" class="tf-thumb-wrap"><img class="tf-thumb" src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&q=80" alt="" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/></a>
       </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Onboarding</span>
-          <span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise · Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">How do you measure onboarding success beyond time-to-first-value?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">We have time-to-activate nailed down but leadership wants more signals for how sticky the onboarding experience is.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>412</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="27">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>27</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Customer Success</span>
-          <span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Best practices for handling a customer who keeps missing their onboarding milestones?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">3 weeks in and they've completed 20% of setup. Executive is unresponsive and the champion keeps promising things will pick up.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>538</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>12</span>
-        </div>
-        <button class="g-like" data-base="44">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>44</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">QBR</span>
-          <span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise · Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">How do you quantify ROI for a customer who uses your product qualitatively?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">Our biggest account uses us mostly for internal comms and collaboration. Hard to show hard numbers in the QBR.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>231</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="16">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>16</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">CS Ops</span>
-          <span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Sharing our full CS playbook — what we built over 3 years at Series B</div>
-        <div class="g-muted tf-excerpt g-clamp-2">We're open-sourcing our entire CS playbook. 47 pages covering onboarding, QBRs, renewals, escalations...</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>6.1k</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>124</span>
-        </div>
-        <button class="g-like" data-base="412">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>412</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Onboarding</span>
-          <span class="g-badge g-badge-a" style="font-size:9px">⭐ Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Is there a standard for onboarding completion rate benchmarks by industry?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">We're sitting at 68% onboarding completion at 30 days. No idea if that's good or bad for B2B SaaS.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>317</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="22">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>22</span>
-        </button>
-      </div>
-    </a>
-    </div>
+    </article>
   </div>
 
   <!-- UNANSWERED -->
-  <div class="tf-panel" id="tf-unans">
-    <div class="tf-grid">
-      <a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Product Strategy</span>
-          <span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
+  <div class="tf-panel" id="tf-unans" style="display:none">
+    <article class="tf-item">
+      <div class="tf-item-inner">
+        <div class="tf-left">
+          <div class="tf-author-row">
+            <div class="tf-avatar" style="background:#ec4899">RW</div>
+            <span class="tf-author-name">Rachel W.</span><span class="tf-dot">·</span>
+            <span class="tf-badge" style="color:#dc2626;background:#fef2f2">Unanswered</span><span class="tf-dot">·</span>
+            <span class="tf-time">8 mins ago</span>
+            <div class="tf-type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          </div>
+          <h3 class="tf-title">What's the best way to structure a PLG motion alongside an enterprise sales team?</h3>
+          <p class="tf-excerpt">We're transitioning from pure sales-led to a hybrid PLG model. Our enterprise reps are worried about self-serve cannibalizing their deals. How have others handled this tension?</p>
+          <div class="tf-stats-row">
+            <span class="tf-reactions">❓💭 31</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>612</span>
+            <span class="tf-posted-in">Posted in <a href="#" class="g-link">Product Strategy</a></span>
+          </div>
         </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">What's the best way to structure a PLG motion alongside an enterprise sales team?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">We're transitioning from pure sales-led to hybrid PLG. Enterprise reps are worried about self-serve cannibalizing deals.</div>
+        <a href="#" class="tf-thumb-wrap"><img class="tf-thumb" src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&q=80" alt="" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/></a>
       </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>612</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+    </article>
+    <article class="tf-item">
+      <div class="tf-item-inner">
+        <div class="tf-left">
+          <div class="tf-author-row">
+            <div class="tf-avatar" style="background:#0ea5e9">JL</div>
+            <span class="tf-author-name">Julia L.</span><span class="tf-dot">·</span>
+            <span class="tf-badge" style="color:#dc2626;background:#fef2f2">Unanswered</span><span class="tf-dot">·</span>
+            <span class="tf-time">2 hours ago</span>
+            <div class="tf-type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          </div>
+          <h3 class="tf-title">How do you handle a QBR when the executive sponsor suddenly cancels?</h3>
+          <p class="tf-excerpt">This has happened to us twice this quarter. By the time we reschedule the momentum is completely gone and the champion loses faith. Looking for concrete strategies...</p>
+          <div class="tf-stats-row">
+            <span class="tf-reactions">😤🎯 18</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
+            <span class="tf-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>340</span>
+            <span class="tf-posted-in">Posted in <a href="#" class="g-link">QBR</a></span>
+          </div>
         </div>
-        <button class="g-like" data-base="31">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>31</span>
-        </button>
+        <a href="#" class="tf-thumb-wrap"><img class="tf-thumb" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&q=80" alt="" loading="lazy" onerror="this.closest('.tf-thumb-wrap').style.background='#f4f4f5';this.style.display='none'"/></a>
       </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">QBR</span>
-          <span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">How do you handle a QBR when the executive sponsor suddenly cancels?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">This has happened twice this quarter. By the time we reschedule the momentum is completely gone.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>340</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="18">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>18</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Product Feedback</span>
-          <span class="g-badge g-badge-r" style="font-size:9px">Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">Anyone using Gainsight for health score automation? What triggers are you using?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">Looking for inspiration beyond basic product usage data for health score inputs.</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>189</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="24">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>24</span>
-        </button>
-      </div>
-    </a><a class="g-card g-card-p tf-card" href="#">
-      <div>
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
-          <span style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#7c3aed">Customer Success</span>
-          <span class="g-badge g-badge-a" style="font-size:9px">⭐ Your expertise · Unanswered</span>
-        </div>
-        <div class="g-card-title tf-title g-clamp-2" style="margin-bottom:5px">What's the right cadence for check-ins with a newly onboarded enterprise account?</div>
-        <div class="g-muted tf-excerpt g-clamp-2">Just closed a 500-seat deal, sponsor is hands-off. How often should I reach out without being annoying?</div>
-      </div>
-      <div class="g-footer">
-        <div class="g-stats">
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>284</span>
-          <span class="g-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>0</span>
-        </div>
-        <button class="g-like" data-base="19">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span>19</span>
-        </button>
-      </div>
-    </a>
-    </div>
+    </article>
   </div>
+
 </div>
 </section>
 
 <script>
 (function(){
   function init(){
-    // Tabs
+    /* Tabs */
     document.querySelectorAll('[data-tab]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('[data-tab]').forEach(function(b){ b.classList.remove('on'); });
+      btn.addEventListener('click',function(){
+        document.querySelectorAll('[data-tab]').forEach(function(b){b.classList.remove('on');});
         btn.classList.add('on');
-        document.querySelectorAll('.tf-panel').forEach(function(p){ p.classList.remove('on'); });
-        document.getElementById('tf-' + btn.getAttribute('data-tab')).classList.add('on');
-        window.scrollTo({top: document.getElementById('w-topicfeed').offsetTop - 20, behavior: 'smooth'});
+        document.querySelectorAll('.tf-panel').forEach(function(p){p.style.display='none';});
+        document.getElementById('tf-'+btn.getAttribute('data-tab')).style.display='block';
       });
     });
 
-    // Load more
-    var more = document.getElementById('tfMore');
-    if(more) more.addEventListener('click', function(){
-      document.querySelectorAll('.tf-hidden').forEach(function(el){ el.style.display = 'flex'; el.classList.remove('tf-hidden'); });
-      more.closest('.tf-load-more').style.display = 'none';
-    });
-
-    // Like buttons
-    document.querySelectorAll('.g-like').forEach(function(btn){
-      btn.addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        var b = parseInt(btn.getAttribute('data-base'));
-        var on = btn.classList.toggle('on');
-        var n = on ? b+1 : b;
-        btn.querySelector('span').textContent = n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'')+'k' : n;
+    /* Load more */
+    var more=document.getElementById('tfMore');
+    if(more) more.addEventListener('click',function(){
+      document.querySelectorAll('.tf-hidden').forEach(function(el){
+        el.style.display='block'; el.classList.remove('tf-hidden');
       });
+      more.closest('.tf-load-more').style.display='none';
     });
   }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else { init(); }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
 })();
 </script>
