@@ -265,8 +265,9 @@ a.g, button.g { cursor:pointer; }
 .g-widget-sub{font-size:13px;color:#71717a;margin:0;}
 
 
-/* ── Events grid — same bento proportions ── */
 .ev-wrap { max-width:1140px; margin:0 auto; padding:24px 20px; }
+
+/* Same grid as bento */
 .ev-grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -275,12 +276,11 @@ a.g, button.g { cursor:pointer; }
   gap:12px;
 }
 
-/* ── Base card — identical to .g-card ── */
+/* Cards — identical to .g-card */
 .ev-card {
   border:1px solid #e4e4e7; border-radius:10px;
   background:#fff; overflow:hidden;
   display:flex; flex-direction:column;
-  text-decoration:none; color:inherit;
   transition:border-color .15s, box-shadow .15s, transform .15s;
   cursor:pointer;
 }
@@ -290,67 +290,66 @@ a.g, button.g { cursor:pointer; }
   transform:translateY(-1px);
 }
 
-/* ── Banner ── */
-.ev-banner {
-  position:relative; padding:16px 16px 14px;
-  display:flex; flex-direction:column; justify-content:flex-end;
-  min-height:80px;
-}
-.ev-feat .ev-banner { min-height:110px; }
-.ev-type-pill {
-  position:absolute; top:12px; right:12px;
-  font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
-  padding:4px 10px; border-radius:999px;
-  background:rgba(255,255,255,.18); color:#fff;
-  border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(4px);
-}
-.ev-banner-sub {
-  font-size:11px; color:rgba(255,255,255,.75); font-weight:500;
-}
+/* Thin color accent bar at top — replaces heavy gradient banner */
+.ev-accent { height:4px; width:100%; flex-shrink:0; }
 
-/* ── Card body ── */
-.ev-body { padding:14px 16px 16px; flex:1; display:flex; flex-direction:column; }
-.ev-date-row {
+/* Card body */
+.ev-body { padding:16px 18px 14px; flex:1; display:flex; flex-direction:column; }
+.ev-feat .ev-body { padding-bottom:16px; }
+
+/* Type + meta row */
+.ev-top {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:10px;
+}
+.ev-type {
+  font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  padding:3px 8px; border-radius:4px;
+}
+.ev-access { font-size:11px; color:#a1a1aa; }
+
+/* Date row */
+.ev-date {
   display:flex; align-items:center; gap:6px;
   font-size:11px; color:#a1a1aa; margin-bottom:8px;
 }
-.ev-date-dot { width:5px; height:5px; border-radius:50%; background:#7c3aed; flex-shrink:0; }
+.ev-date-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+
+/* Title */
 .ev-title {
   font-size:14px; font-weight:600; color:#0a0a0a;
-  line-height:1.38; margin-bottom:0; flex:1;
+  line-height:1.38; flex:1;
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  transition:color .15s;
 }
 .ev-feat .ev-title { font-size:16px; }
 .ev-card:hover .ev-title { color:#7c3aed; }
+
+/* Description — featured only */
 .ev-desc {
   font-size:12px; color:#71717a; line-height:1.55; margin-top:6px;
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
 }
 
-/* ── Footer — same as g-footer ── */
+/* Footer — same as g-footer */
 .ev-footer {
   display:flex; align-items:center; justify-content:space-between;
-  padding-top:10px; margin-top:12px; border-top:1px solid #f4f4f5;
-  flex-shrink:0;
+  padding-top:10px; margin-top:12px; border-top:1px solid #f4f4f5; flex-shrink:0;
 }
 .ev-attendees { display:flex; align-items:center; }
 .ev-av {
   width:22px; height:22px; border-radius:50%;
   border:2px solid #fff; margin-left:-6px;
   font-size:8px; font-weight:700; color:#fff;
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
 }
 .ev-av:first-child { margin-left:0; }
 .ev-count { font-size:11px; color:#a1a1aa; margin-left:8px; }
-
-/* ── RSVP button — same as g-btn ── */
 .ev-rsvp {
   display:inline-flex; align-items:center;
   border:1px solid #e4e4e7; border-radius:6px;
   padding:5px 14px; font-size:12px; font-weight:600;
-  color:#52525b; background:#fff; cursor:pointer;
-  font-family:inherit;
+  color:#52525b; background:#fff; cursor:pointer; font-family:inherit;
   transition:background .15s, border-color .15s, color .15s;
 }
 .ev-rsvp:hover { border-color:#c4b5fd; background:#f5f3ff; color:#7c3aed; }
@@ -370,14 +369,18 @@ a.g, button.g { cursor:pointer; }
 
     <!-- Featured -->
     <div class="ev-card ev-feat" style="grid-area:feat">
-      <div class="ev-banner" style="background:linear-gradient(135deg,#7c3aed,#0ea5e9)">
-        <span class="ev-type-pill">Webinar</span>
-        <div class="ev-banner-sub">Gainsight Community · Free</div>
-      </div>
+      <div class="ev-accent" style="background:#7c3aed"></div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-date-dot"></span>May 14, 2025 · 2:00 PM EST</div>
+        <div class="ev-top">
+          <span class="ev-type" style="background:#f5f3ff;color:#7c3aed">Webinar</span>
+          <span class="ev-access">Gainsight Community · Free</span>
+        </div>
+        <div class="ev-date">
+          <span class="ev-date-dot" style="background:#7c3aed"></span>
+          May 14, 2025 · 2:00 PM EST
+        </div>
         <div class="ev-title">CS AI Summit 2025: How leading teams are using AI to scale without losing the human touch</div>
-        <div class="ev-desc">Join 500+ CS leaders for a deep dive into practical AI workflows, live demos, and real case studies.</div>
+        <div class="ev-desc">Join 500+ CS leaders for a deep dive into practical AI workflows, live demos, and real case studies from teams that have done it.</div>
         <div class="ev-footer">
           <div style="display:flex;align-items:center;gap:8px">
             <div class="ev-attendees">
@@ -393,14 +396,18 @@ a.g, button.g { cursor:pointer; }
       </div>
     </div>
 
-    <!-- Small 1 -->
+    <!-- Workshop -->
     <div class="ev-card" style="grid-area:sm1">
-      <div class="ev-banner" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4)">
-        <span class="ev-type-pill">Workshop</span>
-        <div class="ev-banner-sub">Expert-led · Free</div>
-      </div>
+      <div class="ev-accent" style="background:#0ea5e9"></div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-date-dot"></span>May 21 · 11:00 AM EST</div>
+        <div class="ev-top">
+          <span class="ev-type" style="background:#f0f9ff;color:#0369a1">Workshop</span>
+          <span class="ev-access">Expert-led · Free</span>
+        </div>
+        <div class="ev-date">
+          <span class="ev-date-dot" style="background:#0ea5e9"></span>
+          May 21 · 11:00 AM EST
+        </div>
         <div class="ev-title">QBR Masterclass: the 12-slide deck framework</div>
         <div class="ev-footer">
           <div class="ev-attendees">
@@ -413,14 +420,18 @@ a.g, button.g { cursor:pointer; }
       </div>
     </div>
 
-    <!-- Small 2 -->
+    <!-- AMA -->
     <div class="ev-card" style="grid-area:sm2">
-      <div class="ev-banner" style="background:linear-gradient(135deg,#10b981,#059669)">
-        <span class="ev-type-pill">AMA</span>
-        <div class="ev-banner-sub">Open to all</div>
-      </div>
+      <div class="ev-accent" style="background:#10b981"></div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-date-dot"></span>May 28 · 1:00 PM EST</div>
+        <div class="ev-top">
+          <span class="ev-type" style="background:#f0fdf4;color:#15803d">AMA</span>
+          <span class="ev-access">Open to all</span>
+        </div>
+        <div class="ev-date">
+          <span class="ev-date-dot" style="background:#10b981"></span>
+          May 28 · 1:00 PM EST
+        </div>
         <div class="ev-title">Ask Me Anything: scaling CS from 50 to 500 accounts</div>
         <div class="ev-footer">
           <div class="ev-attendees">
@@ -432,14 +443,18 @@ a.g, button.g { cursor:pointer; }
       </div>
     </div>
 
-    <!-- Small 3 -->
+    <!-- Round Table -->
     <div class="ev-card" style="grid-area:sm3">
-      <div class="ev-banner" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-        <span class="ev-type-pill">Round Table</span>
-        <div class="ev-banner-sub">Members only</div>
-      </div>
+      <div class="ev-accent" style="background:#f59e0b"></div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-date-dot"></span>Jun 4 · 3:00 PM EST</div>
+        <div class="ev-top">
+          <span class="ev-type" style="background:#fffbeb;color:#b45309">Round Table</span>
+          <span class="ev-access">Members only</span>
+        </div>
+        <div class="ev-date">
+          <span class="ev-date-dot" style="background:#f59e0b"></span>
+          Jun 4 · 3:00 PM EST
+        </div>
         <div class="ev-title">CS Leaders roundtable: headcount planning for 2026</div>
         <div class="ev-footer">
           <div class="ev-attendees">
@@ -452,14 +467,18 @@ a.g, button.g { cursor:pointer; }
       </div>
     </div>
 
-    <!-- Small 4 -->
+    <!-- Demo Day -->
     <div class="ev-card" style="grid-area:sm4">
-      <div class="ev-banner" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
-        <span class="ev-type-pill">Demo Day</span>
-        <div class="ev-banner-sub">Gainsight · Free</div>
-      </div>
+      <div class="ev-accent" style="background:#8b5cf6"></div>
       <div class="ev-body">
-        <div class="ev-date-row"><span class="ev-date-dot"></span>Jun 11 · 10:00 AM EST</div>
+        <div class="ev-top">
+          <span class="ev-type" style="background:#f5f3ff;color:#6d28d9">Demo Day</span>
+          <span class="ev-access">Gainsight · Free</span>
+        </div>
+        <div class="ev-date">
+          <span class="ev-date-dot" style="background:#8b5cf6"></span>
+          Jun 11 · 10:00 AM EST
+        </div>
         <div class="ev-title">Community Demo Day: share what you've built this quarter</div>
         <div class="ev-footer">
           <div class="ev-attendees">
