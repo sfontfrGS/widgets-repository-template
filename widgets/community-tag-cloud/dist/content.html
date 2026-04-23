@@ -1,4 +1,4 @@
-<section class="g-root">
+<section id="w-trending" class="g-root">
 <style>
 /* ═══════════════════════════════════════════════
    GAINSIGHT COMMUNITY — SHARED DESIGN SYSTEM
@@ -261,59 +261,275 @@ a.g, button.g { cursor:pointer; }
   font-weight: 400;
 }
 
+.g-widget-heading{font-size:28px;font-weight:700;letter-spacing:-.025em;color:#0a0a0a;line-height:1.15;margin:0 0 3px;}
+.g-widget-sub{font-size:13px;color:#71717a;margin:0;}
 
-.tc-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
-.tc-card { position:relative; padding:12px 14px 10px; border-radius:10px; background:#fff; border:1px solid #e4e4e7; text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:4px; transition:border-color .15s,background .15s,transform .15s; overflow:hidden; cursor:pointer; }
-.tc-card:hover { border-color:#c4b5fd; background:#faf5ff; transform:translateY(-1px); }
-.tc-card::before { content:''; position:absolute; left:0; top:15%; bottom:15%; width:3px; border-radius:0 2px 2px 0; background:var(--c,#7c3aed); }
-.tc-card--wide { grid-column:span 2; }
-.tc-bar-track { height:3px; background:#f4f4f5; border-radius:999px; overflow:hidden; margin-top:4px; }
-.tc-bar-fill  { height:100%; border-radius:999px; background:var(--c,#7c3aed); transition:width .9s ease var(--d,.1s); }
-.tc-trend-up  { color:#16a34a; } .tc-trend-dn { color:#dc2626; } .tc-trend-hot { color:#f59e0b; }
 
+/* ── Trending Topics — compact minimal ── */
+.tc-wrap { max-width:1140px; margin:0 auto; padding:24px 20px; }
+
+/* Header */
+.tc-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+
+/* Two-col layout: ranked list left, spotlight right */
+.tc-layout { display:grid; grid-template-columns:1fr 320px; gap:24px; align-items:start; }
+
+/* ── Left: compact ranked list ── */
+.tc-list { display:flex; flex-direction:column; }
+
+.tc-row {
+  display:flex; align-items:center; gap:12px;
+  padding:11px 12px; border-radius:8px;
+  text-decoration:none; color:inherit; cursor:pointer;
+  transition:background .12s; border:1px solid transparent;
+}
+.tc-row:hover { background:#faf5ff; border-color:#ede9fe; }
+.tc-row.active { background:#f5f3ff; border-color:#c4b5fd; }
+
+/* Rank number */
+.tc-rank { font-size:12px; font-weight:700; color:#d4d4d8; width:16px; flex-shrink:0; text-align:center; }
+.tc-rank.hi { color:#7c3aed; }
+
+/* Color accent bar */
+.tc-accent { width:3px; height:28px; border-radius:2px; flex-shrink:0; }
+
+/* Topic name */
+.tc-name { font-size:13px; font-weight:600; color:#111; flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* Sparkline mini bars */
+.tc-spark { display:flex; align-items:flex-end; gap:2px; height:16px; flex-shrink:0; }
+.tc-spark-bar { width:3px; border-radius:1px 1px 0 0; background:#ede9fe; min-height:2px; flex-shrink:0; }
+.tc-spark-bar.hi { background:var(--c,#7c3aed); }
+
+/* Count */
+.tc-count { font-size:15px; font-weight:800; letter-spacing:-.02em; color:#111; flex-shrink:0; min-width:32px; text-align:right; }
+
+/* Trend */
+.tc-trend { font-size:11px; font-weight:600; flex-shrink:0; min-width:52px; text-align:right; }
+.tc-up  { color:#16a34a; }
+.tc-dn  { color:#dc2626; }
+.tc-hot { color:#f59e0b; }
+
+/* ── Right: spotlight panel ── */
+.tc-spot {
+  border:1px solid #e4e4e7; border-radius:12px; overflow:hidden;
+}
+.tc-spot-hdr {
+  padding:14px 16px;
+  border-bottom:1px solid #f4f4f5;
+  transition:background .3s;
+}
+.tc-spot-tag { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin-bottom:4px; }
+.tc-spot-title { font-size:14px; font-weight:700; color:#111; line-height:1.35; }
+.tc-spot-body { padding:0; }
+.tc-post { display:flex; align-items:flex-start; gap:8px; padding:10px 16px; border-bottom:1px solid #f4f4f5; text-decoration:none; color:inherit; transition:background .12s; cursor:pointer; }
+.tc-post:last-child { border-bottom:none; }
+.tc-post:hover { background:#faf5ff; }
+.tc-post:hover .tc-post-title { color:#7c3aed; }
+.tc-post-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; margin-top:6px; }
+.tc-post-title { flex:1; font-size:12px; font-weight:500; color:#111; line-height:1.45; }
+.tc-post-replies { font-size:11px; color:#a1a1aa; flex-shrink:0; white-space:nowrap; margin-top:1px; }
+.tc-spot-footer { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-top:1px solid #f4f4f5; }
+.tc-spot-dots { display:flex; gap:4px; }
+.tc-live-pill { display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#a1a1aa; }
 </style>
-<div class="g-wrap">
-  <div class="g-header">
-    <span class="g-widget-label">🔥 Trending Topics</span>
-    <span class="g-subtle">This week</span>
+
+<div class="tc-wrap">
+  <div class="tc-header">
+    <div>
+      <div class="g-widget-heading">Trending Topics</div>
+      <div class="g-widget-sub">Most active this week</div>
+    </div>
+    <div class="tc-live-pill">
+      <span class="g-live-dot"></span>Updated live
+    </div>
   </div>
-  <div class="tc-grid">
-    <a class="tc-card tc-card--wide" href="#" style="--c:#7c3aed">
-      <span class="g-widget-label" style="padding-left:8px"># customer-success</span>
-      <span class="g-num-lg" style="padding-left:8px">284</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:100%;--d:.05s"></div></div>
-      <span class="g-subtle tc-trend-up" style="padding-left:8px">↑ 34% this week</span>
-    </a>
-    <a class="tc-card" href="#" style="--c:#0ea5e9">
-      <span class="g-widget-label" style="padding-left:8px"># onboarding</span>
-      <span class="g-num-lg" style="padding-left:8px">161</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:57%;--d:.1s"></div></div>
-      <span class="g-subtle tc-trend-up" style="padding-left:8px">↑ 18%</span>
-    </a>
-    <a class="tc-card" href="#" style="--c:#10b981">
-      <span class="g-widget-label" style="padding-left:8px"># ai-tools</span>
-      <span class="g-num-lg" style="padding-left:8px">119</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:42%;--d:.15s"></div></div>
-      <span class="g-subtle tc-trend-hot" style="padding-left:8px">🔥 +61%</span>
-    </a>
-    <a class="tc-card" href="#" style="--c:#f59e0b">
-      <span class="g-widget-label" style="padding-left:8px"># product-feedback</span>
-      <span class="g-num-lg" style="padding-left:8px">138</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:49%;--d:.2s"></div></div>
-      <span class="g-subtle tc-trend-dn" style="padding-left:8px">↓ 5%</span>
-    </a>
-    <a class="tc-card" href="#" style="--c:#8b5cf6">
-      <span class="g-widget-label" style="padding-left:8px"># qbr</span>
-      <span class="g-num-lg" style="padding-left:8px">97</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:34%;--d:.25s"></div></div>
-      <span class="g-subtle tc-trend-up" style="padding-left:8px">↑ 12%</span>
-    </a>
-    <a class="tc-card" href="#" style="--c:#ec4899">
-      <span class="g-widget-label" style="padding-left:8px"># churn</span>
-      <span class="g-num-lg" style="padding-left:8px">84</span>
-      <div class="tc-bar-track"><div class="tc-bar-fill" style="width:30%;--d:.3s"></div></div>
-      <span class="g-subtle tc-trend-dn" style="padding-left:8px">↓ 3%</span>
-    </a>
+
+  <div class="tc-layout">
+    <!-- Compact ranked list -->
+    <div class="tc-list" id="tcList">
+
+      <div class="tc-row active" data-topic="cs">
+        <span class="tc-rank hi">1</span>
+        <div class="tc-accent" style="background:#7c3aed"></div>
+        <span class="tc-name"># customer-success</span>
+        <div class="tc-spark">
+          <div class="tc-spark-bar hi" style="--c:#7c3aed;height:40%"></div>
+          <div class="tc-spark-bar hi" style="--c:#7c3aed;height:55%"></div>
+          <div class="tc-spark-bar hi" style="--c:#7c3aed;height:48%"></div>
+          <div class="tc-spark-bar hi" style="--c:#7c3aed;height:65%"></div>
+          <div class="tc-spark-bar hi" style="--c:#7c3aed;height:80%"></div>
+          <div class="tc-spark-bar hi" style="--c:#7c3aed;height:90%"></div>
+          <div class="tc-spark-bar hi" style="--c:#7c3aed;height:100%"></div>
+        </div>
+        <span class="tc-count">284</span>
+        <span class="tc-trend tc-up">↑ 34%</span>
+      </div>
+
+      <div class="tc-row" data-topic="ai">
+        <span class="tc-rank hi">2</span>
+        <div class="tc-accent" style="background:#10b981"></div>
+        <span class="tc-name"># ai-tools</span>
+        <div class="tc-spark">
+          <div class="tc-spark-bar hi" style="--c:#10b981;height:20%"></div>
+          <div class="tc-spark-bar hi" style="--c:#10b981;height:35%"></div>
+          <div class="tc-spark-bar hi" style="--c:#10b981;height:52%"></div>
+          <div class="tc-spark-bar hi" style="--c:#10b981;height:70%"></div>
+          <div class="tc-spark-bar hi" style="--c:#10b981;height:85%"></div>
+          <div class="tc-spark-bar hi" style="--c:#10b981;height:94%"></div>
+          <div class="tc-spark-bar hi" style="--c:#10b981;height:100%"></div>
+        </div>
+        <span class="tc-count">119</span>
+        <span class="tc-trend tc-hot">🔥 +61%</span>
+      </div>
+
+      <div class="tc-row" data-topic="onboarding">
+        <span class="tc-rank hi">3</span>
+        <div class="tc-accent" style="background:#0ea5e9"></div>
+        <span class="tc-name"># onboarding</span>
+        <div class="tc-spark">
+          <div class="tc-spark-bar hi" style="--c:#0ea5e9;height:62%"></div>
+          <div class="tc-spark-bar hi" style="--c:#0ea5e9;height:58%"></div>
+          <div class="tc-spark-bar hi" style="--c:#0ea5e9;height:70%"></div>
+          <div class="tc-spark-bar hi" style="--c:#0ea5e9;height:65%"></div>
+          <div class="tc-spark-bar hi" style="--c:#0ea5e9;height:75%"></div>
+          <div class="tc-spark-bar hi" style="--c:#0ea5e9;height:88%"></div>
+          <div class="tc-spark-bar hi" style="--c:#0ea5e9;height:100%"></div>
+        </div>
+        <span class="tc-count">161</span>
+        <span class="tc-trend tc-up">↑ 18%</span>
+      </div>
+
+      <div class="tc-row" data-topic="feedback">
+        <span class="tc-rank">4</span>
+        <div class="tc-accent" style="background:#f59e0b"></div>
+        <span class="tc-name"># product-feedback</span>
+        <div class="tc-spark">
+          <div class="tc-spark-bar hi" style="--c:#f59e0b;height:78%"></div>
+          <div class="tc-spark-bar hi" style="--c:#f59e0b;height:72%"></div>
+          <div class="tc-spark-bar hi" style="--c:#f59e0b;height:68%"></div>
+          <div class="tc-spark-bar hi" style="--c:#f59e0b;height:64%"></div>
+          <div class="tc-spark-bar hi" style="--c:#f59e0b;height:70%"></div>
+          <div class="tc-spark-bar hi" style="--c:#f59e0b;height:75%"></div>
+          <div class="tc-spark-bar hi" style="--c:#f59e0b;height:100%"></div>
+        </div>
+        <span class="tc-count">138</span>
+        <span class="tc-trend tc-dn">↓ 5%</span>
+      </div>
+
+      <div class="tc-row" data-topic="qbr">
+        <span class="tc-rank">5</span>
+        <div class="tc-accent" style="background:#8b5cf6"></div>
+        <span class="tc-name"># qbr</span>
+        <div class="tc-spark">
+          <div class="tc-spark-bar hi" style="--c:#8b5cf6;height:48%"></div>
+          <div class="tc-spark-bar hi" style="--c:#8b5cf6;height:56%"></div>
+          <div class="tc-spark-bar hi" style="--c:#8b5cf6;height:65%"></div>
+          <div class="tc-spark-bar hi" style="--c:#8b5cf6;height:74%"></div>
+          <div class="tc-spark-bar hi" style="--c:#8b5cf6;height:82%"></div>
+          <div class="tc-spark-bar hi" style="--c:#8b5cf6;height:91%"></div>
+          <div class="tc-spark-bar hi" style="--c:#8b5cf6;height:100%"></div>
+        </div>
+        <span class="tc-count">97</span>
+        <span class="tc-trend tc-up">↑ 12%</span>
+      </div>
+
+      <div class="tc-row" data-topic="churn">
+        <span class="tc-rank">6</span>
+        <div class="tc-accent" style="background:#ec4899"></div>
+        <span class="tc-name"># churn-prevention</span>
+        <div class="tc-spark">
+          <div class="tc-spark-bar hi" style="--c:#ec4899;height:90%"></div>
+          <div class="tc-spark-bar hi" style="--c:#ec4899;height:85%"></div>
+          <div class="tc-spark-bar hi" style="--c:#ec4899;height:80%"></div>
+          <div class="tc-spark-bar hi" style="--c:#ec4899;height:76%"></div>
+          <div class="tc-spark-bar hi" style="--c:#ec4899;height:79%"></div>
+          <div class="tc-spark-bar hi" style="--c:#ec4899;height:84%"></div>
+          <div class="tc-spark-bar hi" style="--c:#ec4899;height:100%"></div>
+        </div>
+        <span class="tc-count">84</span>
+        <span class="tc-trend tc-dn">↓ 3%</span>
+      </div>
+
+    </div>
+
+    <!-- Spotlight panel -->
+    <div class="tc-spot">
+      <div class="tc-spot-hdr" id="tcSpotHdr" style="background:#f5f3ff">
+        <div class="tc-spot-tag" id="tcSpotTag" style="color:#7c3aed"># customer-success · 284 posts</div>
+        <div class="tc-spot-title" id="tcSpotTitle">Top posts this week</div>
+      </div>
+      <div class="tc-spot-body" id="tcSpotPosts">
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">How we reduced churn by 40% using proactive health scoring</span><span class="tc-post-replies">47 replies</span></a>
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">What cadence works best for enterprise check-ins?</span><span class="tc-post-replies">28 replies</span></a>
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">CS team of one — how do you prioritise accounts?</span><span class="tc-post-replies">19 replies</span></a>
+        <a class="tc-post" href="#"><span class="tc-post-dot" style="background:#7c3aed"></span><span class="tc-post-title">When should a CSM escalate to their manager?</span><span class="tc-post-replies">11 replies</span></a>
+      </div>
+      <div class="tc-spot-footer">
+        <div class="tc-spot-dots">
+          <div class="g-dot on" data-i="0"></div>
+          <div class="g-dot" data-i="1"></div>
+          <div class="g-dot" data-i="2"></div>
+        </div>
+        <a href="#" class="g-link">View all →</a>
+      </div>
+    </div>
   </div>
 </div>
 </section>
+
+<script>
+(function(){
+  var R = document.currentScript ? document.currentScript.getRootNode() : document;
+  if (!R || R.nodeType !== 11) { R = document.querySelector('#w-trending') || document; }
+
+  var SPOTS = {
+    cs:{bg:'#f5f3ff',col:'#7c3aed',tag:'# customer-success · 284 posts',posts:[['How we reduced churn by 40% using proactive health scoring','47 replies'],['What cadence works best for enterprise check-ins?','28 replies'],['CS team of one — how do you prioritise accounts?','19 replies'],['When should a CSM escalate to their manager?','11 replies']]},
+    ai:{bg:'#f0fdf4',col:'#10b981',tag:'# ai-tools · 119 posts 🔥',posts:[['The CS AI toolkit: 12 tools we actually use every day','61 replies'],['Using AI to detect early churn signals','37 replies'],['Prompt templates CS teams are actually using with ChatGPT','19 replies'],['Is AI replacing CSMs? An honest look at the data','24 replies']]},
+    onboarding:{bg:'#f0f9ff',col:'#0ea5e9',tag:'# onboarding · 161 posts',posts:[['Async video vs live sessions: what the data says','38 replies'],['The 30-60-90 day onboarding framework that works','22 replies'],['Measuring success beyond time-to-first-value','14 replies'],['How to onboard 5 stakeholders at once','18 replies']]},
+    feedback:{bg:'#fffbeb',col:'#f59e0b',tag:'# product-feedback · 138 posts',posts:[['Better bulk actions in the admin dashboard','29 replies'],['Why doesn't the API support webhook retries?','17 replies'],['The 10 Gainsight features we wish existed','41 replies'],['CSV export broken for >10k rows — workarounds?','12 replies']]},
+    qbr:{bg:'#f5f3ff',col:'#8b5cf6',tag:'# qbr · 97 posts',posts:[['QBR deck template customers actually look forward to','41 replies'],['Handling a QBR when the exec cancels last minute','18 replies'],['Running QBRs async — does it actually work?','22 replies'],['The 12-slide QBR framework for 80 accounts','31 replies']]},
+    churn:{bg:'#fdf2f8',col:'#ec4899',tag:'# churn-prevention · 84 posts',posts:[['The 5 early warning signs your customer will churn','47 replies'],['How we built a churn prediction model without ML','23 replies'],['Scripts for difficult renewal conversations','19 replies'],['What's your win-back rate? Benchmarks from 50 teams','14 replies']]},
+  };
+
+  function setSpot(key) {
+    var s = SPOTS[key]; if (!s) return;
+    var hdr = R.querySelector('#tcSpotHdr');
+    var tag = R.querySelector('#tcSpotTag');
+    var posts = R.querySelectorAll('.tc-post');
+    if (hdr) hdr.style.background = s.bg;
+    if (tag) { tag.style.color = s.col; tag.textContent = s.tag; }
+    s.posts.forEach(function(p, i) {
+      if (posts[i]) {
+        posts[i].querySelector('.tc-post-dot').style.background = s.col;
+        posts[i].querySelector('.tc-post-title').textContent = p[0];
+        posts[i].querySelector('.tc-post-replies').textContent = p[1];
+      }
+    });
+    R.querySelectorAll('.tc-row').forEach(function(r) { r.classList.toggle('active', r.getAttribute('data-topic') === key); });
+  }
+
+  R.querySelectorAll('.tc-row').forEach(function(row) {
+    row.addEventListener('click', function() {
+      clearInterval(timer);
+      setSpot(row.getAttribute('data-topic'));
+    });
+  });
+
+  var AUTO = ['cs','ai','onboarding'], ai = 0;
+  var timer = setInterval(function() {
+    ai = (ai + 1) % AUTO.length;
+    setSpot(AUTO[ai]);
+    R.querySelectorAll('[data-i]').forEach(function(d) { d.classList.toggle('on', parseInt(d.getAttribute('data-i')) === ai); });
+  }, 4500);
+
+  R.querySelectorAll('[data-i]').forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      clearInterval(timer);
+      ai = parseInt(dot.getAttribute('data-i'));
+      setSpot(AUTO[ai]);
+      R.querySelectorAll('[data-i]').forEach(function(d) { d.classList.toggle('on', parseInt(d.getAttribute('data-i')) === ai); });
+    });
+  });
+})();
+</script>
